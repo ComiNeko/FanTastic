@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Service.PostWriteService;
+
 
 
 @WebServlet("/post/*")
@@ -39,6 +41,11 @@ public class PostController extends HttpServlet {
 		case "":
 			page = "/posts/write.jsp";
 			break;
+		case "/ptwritepro.do":
+			new PostWriteService().doCommand(request, response);
+			response.sendRedirect("/posts/List.do");
+			return; //여기서 리턴을 만나면 밑에 페이지를 실행하지 않는다. 	
+			
 		}
 		
 		if(page != null) {

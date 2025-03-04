@@ -12,13 +12,13 @@
 			<form name="my" id="my" method="post">
 				<div class="login-flex-container">
 					<div class="login-fields">
-						<input type="text" name="user_id" id="user_id" placeholder="아이디" required>
+						<input type="text" name="userid" id="userid" placeholder="아이디" required>
 						<input type="password" name="password" id="password" placeholder="비밀번호" required>
 					</div>
 					<button type="button" class="login-button" id="login-button">로그인</button>
 				</div>
 				<p id="errmsg" class="error"></p>
-
+	
 				<div class="remember-me-container">
 					<input type="checkbox" class="checkbox" name="rememberU" id="rememberU">
 					<label for="rememberU" class="checkbox-label">로그인 유지</label>
@@ -29,16 +29,16 @@
 				<a href="/member/findidpw.do" class="login-sub-button">아이디/비밀번호 찾기</a>
 			</div>
 		</div>
-	</div>
-</div>
-
+			<p id="errmsg" class="error"></p>
+		</div>
+</div> 
 <script>
 	$(function() {
 		$("#login-button").on("click", function() {
-			var user_id = $("#user_id").val();
+			var userid = $("#userid").val();
 			var password = $("#password").val();
 
-			if (user_id === "" || password === "" || /\s/.test(user_id)) {
+			if (userid === "" || password === "" || /\s/.test(user_id)) {
 				$("#errmsg").text("아이디와 비밀번호를 모두 입력해 주세요.");
 				return;
 			}
@@ -47,7 +47,7 @@
 				type : "post",
 				url : "/member/loginpro.do",
 				data : {
-					user_id : user_id,
+					userid : userid,
 					password : password
 				},
 				success : function(response) {

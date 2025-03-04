@@ -2,78 +2,106 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/fragments/header.jsp" %>
 <link rel="stylesheet" href="/css/loginsignup.css">
-  
+
 <div class="signup-page">
-	<div class="signup-container">
-		<div class="signup-sign">
-			<h2 class="signup-high-T">Sign-Up</h2>
-		</div>
-		<div class="signup-part">
-			<form id="signupForm" action="/member/signuppro.do" method="post">
-		        <div class="signup-form-group">
-		            <label for="name">이름</label>
-	            	<input type="text" id="name" name="name" placeholder="이름(실명)을 입력하세요." required>
-		        </div>
-		        <div class="signup-form-group">
-		            <label for="username">닉네임</label>
-		            <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력하세요." required>
-		        </div>
-		        <div class="signup-form-group">
-		            <label for="username">아이디</label>
-		            <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력하세요." required>
-		        </div>
-		        <div class="signup-form-group">
-		            <label for="password">비밀번호</label>
-		            <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요." maxlength="25" required>
-		        </div>
-		        <div class="signup-form-group">
-		            <label for="passwordConfirm">비밀번호 확인</label>
-		            <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 확인해주세요." maxlength="25" required>
-		        </div>
-		        <p id="OneSignUpMsg"></p>
-		        <div class="signup-form-group">
-		            <label for="phone">전화번호</label>
-		            <input type="text" id="phone" name="phone" placeholder="전화번호를 입력해주세요." required>
-		        </div>
-		        <div class="signup-form-group">
-		            <label for="phone">주소</label>
-		            <input type="text" id="address" name="address" placeholder="주소를 입력해주세요." required>
-		        </div>
-		        <div class="signup-form-group">
-		            <label for="email">이메일</label>
-		            <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요." required>
-		        </div>
-		        <p id="TwoSignUpMsg"></p>
-		        <div class="checkbox-container">
-		            <!-- 이용약관 동의 -->
-			        <div class="signup-checkbox-group">
-			            <input type="checkbox" id="terms" name="terms" required>
-			            <label for="terms">이용약관에 동의합니다.</label>
-			            <button type="button" class="details-btn" onclick="toggleDetails('termsDetails')">내용보기 ▼</button>
-			        </div>
-			        <div id="termsDetails" class="details">이용약관의 상세 내용이 여기에 표시됩니다.</div>
-			        
-			        <!-- 개인정보 수집 및 이용 동의 -->
-			        <div class="signup-checkbox-group">
-			            <input type="checkbox" id="privacy" name="privacy" required>
-			            <label for="privacy">개인정보 수집, 이용에 동의합니다.</label>
-			            <button type="button" class="details-btn" onclick="toggleDetails('privacyDetails')">내용보기 ▼</button>
-			        </div>
-			        <div id="privacyDetails" class="details">개인정보 수집 및 이용에 대한 상세 내용이 여기에 표시됩니다.</div>
-			        
-			        <!-- 미성년자 이용 동의 -->
-		            <div class="signup-checkbox-group">
-		                <input type="checkbox" id="minor" name="minor">
-		                <label for="minor">미성년자는 법정대리인의 동의를 받은 후 이용이 가능합니다.</label>
-		            </div>
-		        </div>
-		        <button type="submit" class="signup-btn">회원가입</button>
-		    </form>
-	    </div>
-	</div>
+    <div class="signup-container">
+        <div class="signup-sign">
+            <h2 class="signup-high-T">Sign-Up</h2>
+        </div>
+        <div class="signup-part">
+            <form id="signupForm" action="/member/signuppro.do" method="post" novalidate>
+                <div class="signup-form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" placeholder="이름(실명)을 입력하세요." required>
+                    <span class="error-message" id="err-name"></span>
+                </div>
+                
+                <div class="signup-form-group">
+                    <label for="userid">아이디</label>
+                    <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요." maxlength="20" required>
+                    <span class="error-message" id="err-id"></span>
+                </div>
+                <div class="signup-form-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요." maxlength="25" required>
+                    <span class="error-message" id="err-pwd"></span>
+                </div>
+                <div class="signup-form-group">
+                    <label for="passwordConfirm">비밀번호 확인</label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 확인해주세요." maxlength="25" required>
+                    <span class="error-message" id="err-pwdc"></span>
+                </div>
+                <div class="signup-form-group">
+                    <label for="phone">전화번호</label>
+                    <input type="text" id="phone" name="phone" placeholder="전화번호를 입력해주세요." required>
+                    <span class="error-message" id="err-phone"></span>
+                </div>
+                
+
+				<div class="signup-form-group">
+                    <label for="email">이메일</label>
+                    <div class="email-container">
+                        <input type="text" id="emailPrefix" name="emailPrefix" placeholder="이메일 아이디" required>
+                        <span>@</span>
+                        <select id="emailDomain" name="emailDomain">
+                            <option value="" selected>선택해주세요</option>
+                            <option value="naver.com">naver.com</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="daum.net">daum.net</option>
+                            <option value="icloud.com">icloud.com</option>
+                            <option value="custom">직접입력</option>
+                        </select>
+                        <input type="text" id="customEmailDomain" name="customEmailDomain" placeholder="도메인 입력" style="display: none;">
+                    </div>
+                    <button type="button" id="sendEmailBtn">이메일 인증</button>
+                    <span class="error-message" id="err-email"></span>
+                </div>
+                
+                <div class="signup-form-group">
+                    <label for="emailCode">인증 코드</label>
+                    <input type="text" id="emailCode" name="emailCode" placeholder="인증 코드를 입력하세요." required>
+                    <button type="button" id="verifyCodeBtn">인증 확인</button>
+                    <span class="error-message" id="err-code"></span>
+                </div>
+
+                
+                <!-- 약관 동의 -->
+                <div class="checkbox-container">
+                    <div class="signup-checkbox-group">
+                        <input type="checkbox" id="terms" name="terms">
+                        <label for="terms">이용약관에 동의합니다.</label>
+                        <button type="button" class="details-btn" onclick="toggleDetails('termsDetails')">내용보기 ▼</button>
+                    </div>
+                    <div id="termsDetails" class="details" style="display:none;">
+                        이용약관의 상세 내용이 여기에 표시됩니다.
+                    </div>
+
+                    <div class="signup-checkbox-group">
+                        <input type="checkbox" id="privacy" name="privacy">
+                        <label for="privacy">개인정보 수집, 이용에 동의합니다.</label>
+                        <button type="button" class="details-btn" onclick="toggleDetails('privacyDetails')">내용보기 ▼</button>
+                    </div>
+                    <div id="privacyDetails" class="details" style="display:none;">
+                        개인정보 수집 및 이용에 대한 상세 내용이 여기에 표시됩니다.
+                    </div>
+                  
+                    <div class="signup-checkbox-group">
+                        <input type="checkbox" id="minor" name="minor">
+                        <label for="minor">미성년자는 법정대리인의 동의를 받은 후 이용이 가능합니다.</label>
+                    </div>
+                    
+                    <!-- 체크박스 오류 메시지 -->
+                    <div class="error-message" id="err-checkbox"></div>
+                </div>
+                
+                <button type="submit" class="signup-btn">회원가입</button>
+            </form>
+        </div>
+    </div>
 </div>
+
 <script>
-	// 약관 내용 토글 함수
+    // 약관 내용 토글 함수
     function toggleDetails(id) {
         var details = document.getElementById(id);
         if (details.style.display === "none" || details.style.display === "") {
@@ -83,104 +111,213 @@
         }
     }
 
+ // 이메일 도메인 선택 시 직접 입력 필드 보이기
+    document.getElementById("emailDomain").addEventListener("change", function() {
+        var customInput = document.getElementById("customEmailDomain");
+        if (this.value === "custom") {
+            customInput.style.display = "inline-block";
+            customInput.required = true;
+            customInput.disabled = false;
+        } else {
+            customInput.style.display = "none";
+            customInput.required = false;
+            customInput.disabled = true;
+            customInput.value = "";
+        }
+    });
 
-    // 그룹1 유효성 즉시 검사 함수 
-    function updateGroup1() {
-        var errors = "";
-
-        if (!$("#name").val().trim()) {
-            errors += "<span class='error'> 이름: 필수 정보입니다.<br></span>";
+    // 이메일 인증 요청
+    $("#sendEmailBtn").click(function () {
+        // 이메일 구성: 아이디 + "@" + 도메인 (직접 입력 선택 시 customEmailDomain 사용)
+        var emailPrefix = $("#emailPrefix").val().trim();
+        var emailDomain = $("#emailDomain").val();
+        var customEmailDomain = $("#customEmailDomain").val().trim();
+        var email = "";
+        if (!emailPrefix) {
+            $("#err-email").html("<span class='error'>이메일 아이디를 입력해주세요.</span>");
+            return;
         }
-        // 아이디 선택자 수정: $("#user_id") 사용
-        if (!$("#user_id").val().trim()) {
-            errors += "<span class='error'> 아이디: 필수 정보입니다.<br></span>";
-        }
-
-        if (!$("#password").val().trim()) {
-            errors += "<span class='error'>비밀번호: 필수 정보입니다<br></span>";
-        }
-
-        if ($("#password").val().length > 25) {
-            errors += "<span class='error'>비밀번호: 최대 25자까지 입력할 수 있습니다.<br></span>";
-        }
-        
-        if (!$("#passwordConfirm").val().trim()) {
-            errors += "<span class='error'>비밀번호 확인: 필수 입력사항입니다.<br></span>";
-        } else if ($("#password").val().trim() && $("#passwordConfirm").val().trim() &&
-                   $("#password").val() !== $("#passwordConfirm").val()) {
-            errors += "<span class='error'>비밀번호가 일치하지 않습니다.<br></span>";
-        }
-
-        $("#OneSignUpMsg").html(errors);
-    } // updateGroup1()
-
-	// 그룹2의 즉각 피드백 업데이트 함수
-    function updateGroup2() {
-        var errors = "";
-        
-        if(!$("#phone").val().trim()){
-            errors += "<span class='error'>전화번호: 필수 정보입니다.<br></span>";
-        }
-        if(!$("#address").val().trim()){
-            errors += "<span class='error'>주소: 필수 정보입니다.<br></span>";
-        }
-        if(!$("#email").val().trim()){
-            errors += "<span class='error'>이메일: 필수 정보입니다.<br></span>";
-        }
-        
-        $("#TwoSignUpMsg").html(errors);
-    }
-
-    $(document).ready(function(){
-        // 그룹1 필드: name, password, passwordConfirm
-        $("#name, #password, #passwordConfirm").on("blur keyup", function(){
-            updateGroup1();
-        });
-        
-        $("#user_id").on("blur", function(){
-            if (!$("#user_id").val().trim()) {
-                updateGroup1();
-                $("#user_id").focus();
+        if (emailDomain === "custom") {
+            if (!customEmailDomain) {
+                $("#err-email").html("<span class='error'>이메일 도메인을 입력해주세요.</span>");
                 return;
             }
-            $.ajax({
-                type: 'post',
-                url: "/member/useridcheck.do",
-                data: { user_id: $("#user_id").val().trim() },  // 공백 제거
-                success: function(response) {
-                    var result = parseInt(response.trim());
-                    var msg = "";
-                    if (result === -1) { // 사용 가능
-                        msg = "<span class='success'>아이디: 사용가능한 아이디입니다.<br></span>";
-                    } else { // 이미 존재
-                        msg = "<span class='error'>아이디: 사용할 수 없는 아이디입니다.<br></span>";
-                        $("#user_id").val("");
-                        $("#user_id").focus();
-                    }
-                    $("#OneSignUpMsg").html(msg);
-                },
-                error: function() {
-                    alert("통신 에러");
-                }
-            });
-        });
+            email = emailPrefix + "@" + customEmailDomain;
+        } else {
+            if (!emailDomain) {
+                $("#err-email").html("<span class='error'>이메일 도메인을 선택해주세요.</span>");
+                return;
+            }
+            email = emailPrefix + "@" + emailDomain;
+        }
+        $("#err-email").html("");
 
-        
-        // 그룹2 필드: phone, address, email
-        $("#phone, #address, #email").on("blur keyup", function(){
-            updateGroup2();
+        $.ajax({
+            type: "POST",
+            url: "/member/sendEmail.do",
+            data: { email: email },
+            success: function (response) {
+                if (response.trim() === "이메일 전송 완료") {
+                    alert("인증 코드가 이메일로 전송되었습니다.");
+                } else {
+                    alert("이메일 전송에 실패했습니다.");
+                }
+            },
+            error: function () {
+                alert("서버와 통신 중 오류가 발생했습니다.");
+            }
         });
-        
-        // 폼 제출 시 최종 체크 (두 그룹 모두 에러가 없을 때만 제출)
-        $("#signupForm").submit(function(e){
-            updateGroup1();
-            updateGroup2();
-         // 에러 메시지가 있을 경우 제출 취소
-            if($("#OneSignUpMsg").html() !== "" || $("#TwoSignUpMsg").html() !== ""){
+    });
+
+    // 인증 코드 확인
+    $("#verifyCodeBtn").click(function () {
+        var inputCode = $("#emailCode").val().trim();
+        if (!inputCode) {
+            $("#err-code").html("<span class='error'>인증 코드를 입력해주세요.</span>");
+            return;
+        }
+        $("#err-code").html("");
+
+        $.ajax({
+            type: "POST",
+            url: "/member/verifyEmailCode.do",
+            data: { emailCode: inputCode },
+            success: function (response) {
+                if (response.trim() === "인증 성공") {
+                    alert("이메일 인증이 완료되었습니다!");
+                } else {
+                    alert("인증 코드가 일치하지 않습니다.");
+                }
+            },
+            error: function () {
+                alert("서버와 통신 중 오류가 발생했습니다.");
+            }
+        });
+    });
+
+    
+    //회원가입 필드 검사
+    function chkName() {
+        var name = $("#name").val().trim();
+        if (!name) {
+            $("#err-name").html("<span class='error'>이름은 필수 정보입니다.</span>");
+            return false;
+        } else {
+            $("#err-name").html("");
+            return true;
+        }
+    }
+
+    function chkId() {
+        var userId = $("#userid").val().trim();
+        if (!userId) {
+            $("#err-id").html("<span class='error'>아이디는 필수 정보입니다.</span>");
+            return false;
+        }
+        $.ajax({
+            type: 'post',
+            url: "/member/useridcheck.do",
+            data: { userid: userId },
+            async: false,
+            success: function(response) {
+                var result = parseInt(response.trim());
+                if (result === -1) {
+                    $("#err-id").html("<span class='success'>사용 가능한 아이디입니다.</span>");
+                } else {
+                    $("#err-id").html("<span class='error'>사용할 수 없는 아이디입니다.</span>");
+                    $("#userid").val("");
+                }
+            },
+            error: function() {
+                alert("통신 에러");
+            }
+        });
+        return ($("#err-id").text().indexOf("사용 가능한") !== -1);
+    }
+
+    function chkPwd() {
+        var pwd = $("#password").val().trim();
+        if (!pwd) {
+        	$("#err-pwd").html("<span class='error'>비밀번호는 필수 정보입니다.</span>");
+            return false;
+        } else {
+            $("#err-pwd").html("");
+            return true;
+        }
+    }
+
+    function chkPwdC() {
+        var pwd = $("#password").val().trim();
+        var pwdC = $("#passwordConfirm").val().trim();
+        if (!pwdC) {
+            $("#err-pwdc").html("<span class='error'>비밀번호 확인은 필수 정보입니다.</span>");
+            return false;
+        } else if (pwd !== pwdC) {
+            $("#err-pwdc").html("<span class='error'>비밀번호가 일치하지 않습니다.</span>");
+            return false;
+        } else {
+            $("#err-pwdc").html("");
+            return true;
+        }
+    }
+
+    function chkPhone() {
+        var phone = $("#phone").val().trim();
+        if (!phone) {
+            $("#err-phone").html("<span class='error'>전화번호는 필수 정보입니다.</span>");
+            return false;
+        } else {
+            $("#err-phone").html("");
+            return true;
+        }
+    }
+
+    function chkAddr() {
+        var addr = $("#address").val().trim();
+        if (!addr) {
+            $("#err-addr").html("<span class='error'>주소는 필수 정보입니다.</span>");
+            return false;
+        } else {
+            $("#err-addr").html("");
+            return true;
+        }
+    }
+    
+    function chkCheckboxes() {
+        if (!$("#terms").prop("checked") || !$("#privacy").prop("checked") || !$("#minor").prop("checked")) {
+            $("#err-checkbox").html("<span class='error'>모든 약관에 동의해야 합니다.</span>");
+            return false;
+        } else {
+            $("#err-checkbox").html("");
+            return true;
+        }
+    }
+
+    $(document).ready(function() {
+        $("#name").on("blur keyup", chkName);
+        $("#userid").on("blur", chkId);
+        $("#password").on("blur keyup", chkPwd);
+        $("#passwordConfirm").on("blur keyup", chkPwdC);
+        $("#phone").on("blur keyup", chkPhone);
+        $("#address").on("blur keyup", chkAddr);
+        $("#email").on("blur keyup", chkEmail);
+
+        $("#signupForm").submit(function(e) {
+            var valid = true;
+            if (!chkName()) valid = false;
+            if (!chkId()) valid = false;
+            if (!chkPwd()) valid = false;
+            if (!chkPwdC()) valid = false;
+            if (!chkPhone()) valid = false;
+            if (!chkAddr()) valid = false;
+            if (!chkEmail()) valid = false;
+            if (!chkCheckboxes()) valid = false;  
+
+            if (!valid) {
                 e.preventDefault();
-            }	    	
-        })
-    })
+            }
+        });
+    });
 </script>
 
     
