@@ -45,7 +45,7 @@ public class MemberController extends HttpServlet {
 		String action = request.getPathInfo();
 		System.out.println("member_action = " + action);
 		String page = null;
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 
 		switch (action) {
 		case "/signup.do":
