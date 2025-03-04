@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import Service.MainService;
 
-/**
- * Servlet implementation class MainController
- */
 @WebServlet("/")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
