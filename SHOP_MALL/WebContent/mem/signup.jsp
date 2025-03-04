@@ -111,45 +111,46 @@
         }
     }
 
- // 이메일 도메인 선택 시 직접 입력 필드 보이기
-    document.getElementById("emailDomain").addEventListener("change", function() {
-        var customInput = document.getElementById("customEmailDomain");
-        if (this.value === "custom") {
-            customInput.style.display = "inline-block";
-            customInput.required = true;
-            customInput.disabled = false;
+    function getFullEmail() {
+        var emailPrefix = $("#emailPrefix").val().trim();
+        var emailDomain = $("#emailDomain").val();
+        var customEmailDomain = $("#customEmailDomain").val().trim();
+
+        if (!emailPrefix) {
+            $("#err-email").html("<span class='error'>이메일 아이디를 입력해주세요.</span>");
+            return null;
+        }
+
+        if (emailDomain === "custom") {
+            if (!customEmailDomain) {
+                $("#err-email").html("<span class='error'>이메일 도메인을 입력해주세요.</span>");
+                return null;
+            }
+            return emailPrefix + "@" + customEmailDomain;
         } else {
-            customInput.style.display = "none";
-            customInput.required = false;
-            customInput.disabled = true;
-            customInput.value = "";
+            if (!emailDomain) {
+                $("#err-email").html("<span class='error'>이메일 도메인을 선택해주세요.</span>");
+                return null;
+            }
+            return emailPrefix + "@" + emailDomain;
+        }
+    }
+
+    // 이메일 도메인 선택 시 직접 입력 필드 보이기/숨기기
+    $("#emailDomain").change(function() {
+        var customInput = $("#customEmailDomain");
+        if ($(this).val() === "custom") {
+            customInput.show().prop("required", true).prop("disabled", false);
+        } else {
+            customInput.hide().prop("required", false).prop("disabled", true).val("");
         }
     });
 
     // 이메일 인증 요청
     $("#sendEmailBtn").click(function () {
-        // 이메일 구성: 아이디 + "@" + 도메인 (직접 입력 선택 시 customEmailDomain 사용)
-        var emailPrefix = $("#emailPrefix").val().trim();
-        var emailDomain = $("#emailDomain").val();
-        var customEmailDomain = $("#customEmailDomain").val().trim();
-        var email = "";
-        if (!emailPrefix) {
-            $("#err-email").html("<span class='error'>이메일 아이디를 입력해주세요.</span>");
-            return;
-        }
-        if (emailDomain === "custom") {
-            if (!customEmailDomain) {
-                $("#err-email").html("<span class='error'>이메일 도메인을 입력해주세요.</span>");
-                return;
-            }
-            email = emailPrefix + "@" + customEmailDomain;
-        } else {
-            if (!emailDomain) {
-                $("#err-email").html("<span class='error'>이메일 도메인을 선택해주세요.</span>");
-                return;
-            }
-            email = emailPrefix + "@" + emailDomain;
-        }
+        var email = getFullEmail();
+        if (!email) return;
+
         $("#err-email").html("");
 
         $.ajax({
@@ -194,6 +195,14 @@
             }
         });
     });
+
+    // 회원가입 시 이메일 입력 확인
+    function chkEmail() {
+        var email = getFullEmail();
+        if (!email) return false;
+        $("#err-email").html("");
+        return true;
+    }
 
     
     //회원가입 필드 검사
