@@ -17,7 +17,7 @@
         </div>
 
         <!-- 작품 등록 폼 -->
-        <form name="productForm" method="post" enctype="multipart/form-data" action="<%= request.getContextPath() %>/post/ptwritepro.do">
+        <form name="productForm" method="post" enctype="multipart/form-data" action="/post/ptwritepro.do">
             <!-- 상품 기본 정보 -->
             <div class="form-group">
                 <label>카테고리</label>
