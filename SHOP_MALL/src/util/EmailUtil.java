@@ -8,7 +8,7 @@ import javax.mail.Session;
 public class EmailUtil {
     public static Session getMailSession() {
         final String senderEmail = "dptmf3290@gmail.com";  // 구글 이메일
-        final String appPassword = "fods oxco awhy rybh";  // 앱 비밀번호 사용
+        final String appPassword = "fodsoxcoawhyrybh";  // 앱 비밀번호 사용
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -23,3 +23,4 @@ public class EmailUtil {
         });
     }
 }
+
