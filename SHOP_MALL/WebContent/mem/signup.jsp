@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/fragments/header.jsp" %>
+<%@ include file="../fragments/header.jsp" %>
 <link rel="stylesheet" href="/css/loginsignup.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <div class="signup-page">
     <div class="signup-container">
@@ -32,11 +33,21 @@
                     <span class="error-message" id="err-pwdc"></span>
                 </div>
                 <div class="signup-form-group">
-                    <label for="phone">전화번호</label>
-                    <input type="text" id="phone" name="phone" placeholder="전화번호를 입력해주세요." required>
-                    <span class="error-message" id="err-phone"></span>
+                    <label for="phonenumber">전화번호</label>
+                    <input type="text" id="phonenumber" name="phonenumber" placeholder="전화번호를 입력해주세요." required>
+                    <span class="error-message" id="err-phonenumber"></span>
                 </div>
                 
+                <label for="address">주소</label>
+	                <div class="signup-form-group">
+	                    <input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
+	                    <button type="button" id="findAddressBtn">주소 찾기</button>
+	                    <span class="error-message" id="err-address"></span>
+	                </div>
+			                <div class="signup-form-group">
+			    				<input type="text" id="detailAddress" name="detailAddress" placeholder="상세 주소(동/호 등)를 입력하세요.">
+			   	 				<span class="error-message" id="err-detailAddress"></span>
+							</div>
 
 				<div class="signup-form-group">
                     <label for="email">이메일</label>
@@ -57,12 +68,13 @@
                     <span class="error-message" id="err-email"></span>
                 </div>
                 
-                <div class="signup-form-group">
-                    <label for="emailCode">인증 코드</label>
-                    <input type="text" id="emailCode" name="emailCode" placeholder="인증 코드를 입력하세요." required>
-                    <button type="button" id="verifyCodeBtn">인증 확인</button>
-                    <span class="error-message" id="err-code"></span>
-                </div>
+               <div class="signup-form-group">
+				    <label for="authCode">인증 코드</label>
+				    <!-- 여기서 id와 name을 "authCode"로 통일 -->
+				    <input type="text" id="authCode" name="authCode" placeholder="인증 코드를 입력하세요." required>
+				    <button type="button" id="verifyCodeBtn">인증 확인</button>
+				    <span class="error-message" id="err-code"></span>
+				</div>
 
                 
                 <!-- 약관 동의 -->
@@ -110,46 +122,56 @@
             details.style.display = "none";
         }
     }
+	
+    // 주소 찾기 버튼 클릭 시 동작
+    document.getElementById("findAddressBtn").addEventListener("click", function() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                document.getElementById("address").value = data.address; // 주소 입력
+            }
+        }).open();
+    });
+    
+    function getFullEmail() {
+        var emailPrefix = $("#emailPrefix").val().trim();
+        var emailDomain = $("#emailDomain").val();
+        var customEmailDomain = $("#customEmailDomain").val().trim();
 
- // 이메일 도메인 선택 시 직접 입력 필드 보이기
-    document.getElementById("emailDomain").addEventListener("change", function() {
-        var customInput = document.getElementById("customEmailDomain");
-        if (this.value === "custom") {
-            customInput.style.display = "inline-block";
-            customInput.required = true;
-            customInput.disabled = false;
+        if (!emailPrefix) {
+            $("#err-email").html("<span class='error'>이메일 아이디를 입력해주세요.</span>");
+            return null;
+        }
+
+        if (emailDomain === "custom") {
+            if (!customEmailDomain) {
+                $("#err-email").html("<span class='error'>이메일 도메인을 입력해주세요.</span>");
+                return null;
+            }
+            return emailPrefix + "@" + customEmailDomain;
         } else {
-            customInput.style.display = "none";
-            customInput.required = false;
-            customInput.disabled = true;
-            customInput.value = "";
+            if (!emailDomain) {
+                $("#err-email").html("<span class='error'>이메일 도메인을 선택해주세요.</span>");
+                return null;
+            }
+            return emailPrefix + "@" + emailDomain;
+        }
+    }
+
+    // 이메일 도메인 선택 시 직접 입력 필드 보이기/숨기기
+    $("#emailDomain").change(function() {
+        var customInput = $("#customEmailDomain");
+        if ($(this).val() === "custom") {
+            customInput.show().prop("required", true).prop("disabled", false);
+        } else {
+            customInput.hide().prop("required", false).prop("disabled", true).val("");
         }
     });
 
     // 이메일 인증 요청
-    $("#sendEmailBtn").click(function () {
-        // 이메일 구성: 아이디 + "@" + 도메인 (직접 입력 선택 시 customEmailDomain 사용)
-        var emailPrefix = $("#emailPrefix").val().trim();
-        var emailDomain = $("#emailDomain").val();
-        var customEmailDomain = $("#customEmailDomain").val().trim();
-        var email = "";
-        if (!emailPrefix) {
-            $("#err-email").html("<span class='error'>이메일 아이디를 입력해주세요.</span>");
-            return;
-        }
-        if (emailDomain === "custom") {
-            if (!customEmailDomain) {
-                $("#err-email").html("<span class='error'>이메일 도메인을 입력해주세요.</span>");
-                return;
-            }
-            email = emailPrefix + "@" + customEmailDomain;
-        } else {
-            if (!emailDomain) {
-                $("#err-email").html("<span class='error'>이메일 도메인을 선택해주세요.</span>");
-                return;
-            }
-            email = emailPrefix + "@" + emailDomain;
-        }
+     $("#sendEmailBtn").click(function () {
+        var email = getFullEmail();
+        if (!email) return;
+
         $("#err-email").html("");
 
         $.ajax({
@@ -157,7 +179,8 @@
             url: "/member/sendEmail.do",
             data: { email: email },
             success: function (response) {
-                if (response.trim() === "이메일 전송 완료") {
+                if (response.trim() !== "이메일 전송 실패") {
+                    receivedAuthCode = response.trim(); // 서버에서 받은 인증 코드 저장
                     alert("인증 코드가 이메일로 전송되었습니다.");
                 } else {
                     alert("이메일 전송에 실패했습니다.");
@@ -169,31 +192,29 @@
         });
     });
 
-    // 인증 코드 확인
+    // 인증 코드 확인 (서버 검증 없이 클라이언트에서만 체크)
     $("#verifyCodeBtn").click(function () {
-        var inputCode = $("#emailCode").val().trim();
+        var inputCode = $("#authCode").val().trim();
         if (!inputCode) {
             $("#err-code").html("<span class='error'>인증 코드를 입력해주세요.</span>");
             return;
         }
-        $("#err-code").html("");
 
-        $.ajax({
-            type: "POST",
-            url: "/member/verifyEmailCode.do",
-            data: { emailCode: inputCode },
-            success: function (response) {
-                if (response.trim() === "인증 성공") {
-                    alert("이메일 인증이 완료되었습니다!");
-                } else {
-                    alert("인증 코드가 일치하지 않습니다.");
-                }
-            },
-            error: function () {
-                alert("서버와 통신 중 오류가 발생했습니다.");
-            }
-        });
+        if (inputCode === receivedAuthCode) {
+            alert("이메일 인증이 완료되었습니다!");
+            $("#authCode").prop("disabled", true); // 인증 성공 시 입력 필드 비활성화
+        } else {
+            alert("인증 코드가 일치하지 않습니다.");
+        }
     });
+
+    // 회원가입 시 이메일 입력 확인
+    function chkEmail() {
+        var email = getFullEmail();
+        if (!email) return false;
+        $("#err-email").html("");
+        return true;
+    }
 
     
     //회원가입 필드 검사
@@ -262,12 +283,12 @@
     }
 
     function chkPhone() {
-        var phone = $("#phone").val().trim();
-        if (!phone) {
-            $("#err-phone").html("<span class='error'>전화번호는 필수 정보입니다.</span>");
+        var phonenumber = $("#phonenumber").val().trim();
+        if (!phonenumber) {
+            $("#err-phonenumber").html("<span class='error'>전화번호는 필수 정보입니다.</span>");
             return false;
         } else {
-            $("#err-phone").html("");
+            $("#err-phonenumber").html("");
             return true;
         }
     }
@@ -298,7 +319,7 @@
         $("#userid").on("blur", chkId);
         $("#password").on("blur keyup", chkPwd);
         $("#passwordConfirm").on("blur keyup", chkPwdC);
-        $("#phone").on("blur keyup", chkPhone);
+        $("#phonenumber").on("blur keyup", chkPhone);
         $("#address").on("blur keyup", chkAddr);
         $("#email").on("blur keyup", chkEmail);
 

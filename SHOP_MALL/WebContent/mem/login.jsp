@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/fragments/header.jsp"%>
-<link rel="stylesheet" href="/css/loginsignup.css">
+<%@ include file="../fragments/header.jsp"%>
+<link rel="stylesheet" href="../css/loginsignup.css">
 
 <div class="login-page">
 	<div class="login-container">
@@ -38,7 +38,7 @@
 			var userid = $("#userid").val();
 			var password = $("#password").val();
 
-			if (userid === "" || password === "" || /\s/.test(user_id)) {
+			if (userid === "" || password === "" || /\s/.test(userid)) {
 				$("#errmsg").text("아이디와 비밀번호를 모두 입력해 주세요.");
 				return;
 			}
