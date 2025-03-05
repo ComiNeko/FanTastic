@@ -6,7 +6,7 @@ public class MemberVo {
 		private String name; //사용자 이름
 		private String userid; //사용자 ID
 		private String password; //비밀번호  
-	    private String phone; // 전화번호
+	    private String phonenumber; // 전화번호
 		private String email;  //이메일 (고유)
 		  
 		  
@@ -33,11 +33,11 @@ public class MemberVo {
 		public void setPassword(String password) {
 			this.password = password;
 		}
-		public String getPhone() {
-			return phone;
+		public String getPhonenumber() {
+			return phonenumber;
 		}
-		public void setPhone(String phone) {
-			this.phone = phone;
+		public void setPhonenumber(String phonenumber) {
+			this.phonenumber = phonenumber;
 		}
 		public String getEmail() {
 			return email;

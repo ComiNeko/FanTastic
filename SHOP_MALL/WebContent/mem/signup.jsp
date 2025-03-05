@@ -33,9 +33,9 @@
                     <span class="error-message" id="err-pwdc"></span>
                 </div>
                 <div class="signup-form-group">
-                    <label for="phone">전화번호</label>
-                    <input type="text" id="phone" name="phone" placeholder="전화번호를 입력해주세요." required>
-                    <span class="error-message" id="err-phone"></span>
+                    <label for="phonenumber">전화번호</label>
+                    <input type="text" id="phonenumber" name="phonenumber" placeholder="전화번호를 입력해주세요." required>
+                    <span class="error-message" id="err-phonenumber"></span>
                 </div>
                 
                 <label for="address">주소</label>
@@ -283,12 +283,12 @@
     }
 
     function chkPhone() {
-        var phone = $("#phone").val().trim();
-        if (!phone) {
-            $("#err-phone").html("<span class='error'>전화번호는 필수 정보입니다.</span>");
+        var phonenumber = $("#phonenumber").val().trim();
+        if (!phonenumber) {
+            $("#err-phonenumber").html("<span class='error'>전화번호는 필수 정보입니다.</span>");
             return false;
         } else {
-            $("#err-phone").html("");
+            $("#err-phonenumber").html("");
             return true;
         }
     }
@@ -319,7 +319,7 @@
         $("#userid").on("blur", chkId);
         $("#password").on("blur keyup", chkPwd);
         $("#passwordConfirm").on("blur keyup", chkPwdC);
-        $("#phone").on("blur keyup", chkPhone);
+        $("#phonenumber").on("blur keyup", chkPhone);
         $("#address").on("blur keyup", chkAddr);
         $("#email").on("blur keyup", chkEmail);
 

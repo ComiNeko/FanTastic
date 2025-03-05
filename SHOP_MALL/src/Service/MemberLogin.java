@@ -25,7 +25,7 @@ public class MemberLogin implements Command {
         String password = request.getParameter("password");
         
         MemberDao dao = new MemberDao();
-        MemberVo vo = dao.getCreatorId(userid);
+        MemberVo vo = dao.getMemberById(userid);
         
 
 //        if (vo != null && PasswordUtil.checkPassword(password, vo.getPassword())) {
