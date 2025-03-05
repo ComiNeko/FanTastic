@@ -23,7 +23,7 @@
                 <label>카테고리</label>
                 <select name="categoryid" class="inputH" required>
                     <option value="">선택하세요</option>
-                    <option value="1">캐릭터 일러스트</option>
+                    <option value="1">크리에이터</option>
                     <option value="2">일러스트</option>
                     <option value="3">라이브2D</option>
                     <option value="4">버추얼 3D</option>

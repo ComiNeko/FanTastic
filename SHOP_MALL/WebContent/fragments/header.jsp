@@ -60,18 +60,18 @@
 							id="navbarDropdown" role="button" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false"> 전체 카테고리 </a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">캐릭터 일러스트</a>
-								<a class="dropdown-item" href="#">일러스트</a>
-								<a class="dropdown-item" href="#">라이브2D</a>
-								<a class="dropdown-item" href="#">버추얼3D</a>
+								<a class="dropdown-item" href="../posts/postsellinglist.jsp">캐릭터 일러스트</a>
+								<a class="dropdown-item" href="../posts/postsellingillustration.jsp">일러스트</a>
+								<a class="dropdown-item" href="../posts/postselling2D.jsp">라이브2D</a>
+								<a class="dropdown-item" href="../posts/postselling3D.jsp">버추얼3D</a>
 							</div>
 						</li>
 					</ul>
 					<ul class="nav-links-popular">
-						<li><a href="#">크리에이터</a></li>
-						<li><a href="#">일러스트</a></li>
-						<li><a href="#">라이브2D</a></li>
-						<li><a href="#">버추얼3D</a></li>
+						<li><a href="../posts/postsellinglist.jsp">크리에이터</a></li>
+						<li><a href="../posts/postsellingillustration.jsp">일러스트</a></li>
+						<li><a href="../posts/postselling2D.jsp">라이브2D</a></li>
+						<li><a href="../posts/postselling3D.jsp">버추얼3D</a></li>
 					</ul>
 				</div>
 				<div class="nav-right">
