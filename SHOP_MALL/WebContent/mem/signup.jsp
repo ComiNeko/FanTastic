@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../fragments/header.jsp" %>
 <link rel="stylesheet" href="/css/loginsignup.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <div class="signup-page">
     <div class="signup-container">
@@ -37,12 +38,16 @@
                     <span class="error-message" id="err-phone"></span>
                 </div>
                 
-                <div class="signup-form-group">
-                    <label for="address">주소</label>
-                    <input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
-                    <button type="button" id="findAddressBtn">주소 찾기</button>
-                    <span class="error-message" id="err-address"></span>
-                </div>
+                <label for="address">주소</label>
+	                <div class="signup-form-group">
+	                    <input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
+	                    <button type="button" id="findAddressBtn">주소 찾기</button>
+	                    <span class="error-message" id="err-address"></span>
+	                </div>
+			                <div class="signup-form-group">
+			    				<input type="text" id="detailAddress" name="detailAddress" placeholder="상세 주소(동/호 등)를 입력하세요.">
+			   	 				<span class="error-message" id="err-detailAddress"></span>
+							</div>
 
 				<div class="signup-form-group">
                     <label for="email">이메일</label>
@@ -117,7 +122,16 @@
             details.style.display = "none";
         }
     }
-
+	
+    // 주소 찾기 버튼 클릭 시 동작
+    document.getElementById("findAddressBtn").addEventListener("click", function() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                document.getElementById("address").value = data.address; // 주소 입력
+            }
+        }).open();
+    });
+    
     function getFullEmail() {
         var emailPrefix = $("#emailPrefix").val().trim();
         var emailDomain = $("#emailDomain").val();
