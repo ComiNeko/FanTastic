@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/fragments/header.jsp"%>
-<link rel="stylesheet" href="/css/loginsignup.css">
+<%@ include file="../fragments/header.jsp"%>
+<link rel="stylesheet" href="../css/loginsignup.css">
 
 <div class="login-page">
 	<div class="login-container">
