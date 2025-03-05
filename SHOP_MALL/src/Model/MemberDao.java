@@ -12,7 +12,7 @@ public class MemberDao {
 		    Connection conn = null;
 		    PreparedStatement pstmt = null;
 		    ResultSet rs = null;
-		    // 테이블 및 칼럼명이 변경되었습니다.
+		    
 		    String sql = "SELECT userid FROM NEW_USERS WHERE userid=?";
 		    int result = 0;
 		    
@@ -54,7 +54,7 @@ public class MemberDao {
 		        pstmt.setString(1, vo.getUserid());
 		        pstmt.setString(2, vo.getPassword());
 		        pstmt.setString(3, vo.getName());
-		        pstmt.setString(4, vo.getPhone());    
+		        pstmt.setString(4, vo.getPhonenumber());    
 		        pstmt.setString(5, vo.getEmail());
 		        pstmt.executeUpdate();
 		        pstmt.close(); // 다음 쿼리를 위해 pstmt를 재사용
@@ -74,27 +74,28 @@ public class MemberDao {
 		
 		
 		//로그인: user_id로 회원 정보 가져오기
-		public MemberVo getCreatorId(String user_id) {
-			Connection conn = null;
-		    PreparedStatement pstmt = null;
-		    ResultSet rs = null;
-		    	
-		    String sql = "SELECT * FROM NEW_USERS WHERE userid = ?";
-		    
-		    MemberVo vo = null;
-		    try {
+		public MemberVo getMemberById(String userid) {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        String sql = "SELECT u.userid, u.name, u.password, u.phonenumber, u.email, a.address "
+	                   + "FROM NEW_USERS u JOIN NEW_ADDRESSES a ON u.userid = a.userid "
+	                   + "WHERE u.userid = ?";
+	        
+	        MemberVo vo = null;
+	        try {
 	            conn = DBManager.getInstance().getConnection();
 	            pstmt = conn.prepareStatement(sql);
-	            pstmt.setString(1, user_id);
+	            pstmt.setString(1, userid);
 	            rs = pstmt.executeQuery();
 	            if (rs.next()) {
 	                vo = new MemberVo();
 	                vo.setUserid(rs.getString("userid"));
 	                vo.setName(rs.getString("name"));
-	                vo.setPassword(rs.getString("password"));  
-	                vo.setPhone(rs.getString("phone"));
-	                vo.setAddress(rs.getString("address"));
+	                vo.setPassword(rs.getString("password"));
+	                vo.setPhonenumber(rs.getString("phonenumber"));
 	                vo.setEmail(rs.getString("email"));
+	                vo.setAddress(rs.getString("address"));
 	            }
 	        } catch(Exception e) {
 	            e.printStackTrace();
@@ -102,5 +103,55 @@ public class MemberDao {
 	            DBManager.getInstance().close(rs, pstmt, conn);
 	        }
 	        return vo;
+	    }
+		
+		
+		//________________________________________________________________________________//
+		
+		
+		public int updateMember(MemberVo vo) {
+		    Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    int result = 0; 
+
+		    // NEW_USERS 테이블 업데이트 쿼리
+		    String sqlUser = "UPDATE NEW_USERS SET "
+		                   + "password = NVL(?, password), "
+		                   + "phonenumber = ?, "
+		                   + "email = ? "
+		                   + "WHERE userid = ?";
+
+		    // NEW_ADDRESSES 테이블 업데이트 쿼리
+		    String sqlAddress = "UPDATE NEW_ADDRESSES SET address = ? WHERE userid = ?";
+
+		    try {
+		        conn = DBManager.getInstance().getConnection();
+		        conn.setAutoCommit(false);  // 트랜잭션 시작
+
+		        // 첫 번째 쿼리: NEW_USERS 테이블 업데이트
+		        pstmt = conn.prepareStatement(sqlUser);
+		        pstmt.setString(1, (vo.getPassword() == null || vo.getPassword().isEmpty()) ? null : vo.getPassword());
+		        pstmt.setString(2, vo.getPhonenumber());
+		        pstmt.setString(3, vo.getEmail());
+		        pstmt.setString(4, vo.getUserid());
+		        result = pstmt.executeUpdate();
+		        pstmt.close();  // 첫 번째 PreparedStatement 닫기
+
+		        // 두 번째 쿼리: NEW_ADDRESSES 테이블 업데이트
+		        pstmt = conn.prepareStatement(sqlAddress);
+		        pstmt.setString(1, vo.getAddress());
+		        pstmt.setString(2, vo.getUserid());
+		        pstmt.executeUpdate();
+
+		        conn.commit();
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		    	DBManager.getInstance().close(pstmt, conn);
+		    }
+		    return result;
 		}
+	    
+	    
+		
 }

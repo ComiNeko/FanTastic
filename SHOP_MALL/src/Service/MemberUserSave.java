@@ -23,7 +23,7 @@ public class MemberUserSave implements Command {
         String userid = request.getParameter("userid");
         String password = request.getParameter("password");
         String passwordConfirm = request.getParameter("passwordConfirm"); //얘는 왜?
-        String phone = request.getParameter("phone");
+        String phonenumber = request.getParameter("phonenumber");
         
         String address = request.getParameter("address"); 
         String detailAddress = request.getParameter("detailAddress");
@@ -50,7 +50,7 @@ public class MemberUserSave implements Command {
         vo.setName(name); 
         vo.setUserid(userid);
         vo.setPassword(hashedPassword);
-        vo.setPhone(phone);
+        vo.setPhonenumber(phonenumber);
         vo.setEmail(email);
         vo.setAddress(address + " " + detailAddress);
         

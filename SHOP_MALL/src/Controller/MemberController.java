@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +16,10 @@ import Service.MemberLogin;
 import Service.MemberLogout;
 import Service.MemberUserIdCheck;
 import Service.MemberUserSave;
+import Service.MemberUserUpdate;
 
 @WebServlet("/member/*")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-		maxFileSize = 1024 * 1024 * 10, // 10MB
-		maxRequestSize = 1024 * 1024 * 50 // 50MB
-)
+
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,7 +44,7 @@ public class MemberController extends HttpServlet {
 		String action = request.getPathInfo();
 		System.out.println("member_action = " + action);
 		String page = null;
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 
 		switch (action) {
 		case "/signup.do":
@@ -89,7 +88,25 @@ public class MemberController extends HttpServlet {
 			new MemberLogout().doCommand(request, response);
 			response.sendRedirect("/");
 			return;	
-            
+			
+	//_________________________________________________________________________________________________//	
+										
+											
+
+			// 정보수정
+			case "/updateMyInfo.do":
+	        if(session == null || session.getAttribute("user") == null) {
+	            response.sendRedirect(request.getContextPath() + "/member/login.do");
+	            return;
+	        }
+	        page = "/mem/UpdateMyInfo.jsp";
+	        break;
+	        
+			case "/updateMyInfopro.do":
+			    new MemberUserUpdate().doCommand(request, response);
+			    response.sendRedirect(request.getContextPath() + "/member/mypage.do");
+			    return;
+	            
 	} //switch
 			
 		
