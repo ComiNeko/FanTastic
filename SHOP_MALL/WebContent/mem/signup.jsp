@@ -37,6 +37,12 @@
                     <span class="error-message" id="err-phone"></span>
                 </div>
                 
+                <div class="signup-form-group">
+                    <label for="address">주소</label>
+                    <input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
+                    <button type="button" id="findAddressBtn">주소 찾기</button>
+                    <span class="error-message" id="err-address"></span>
+                </div>
 
 				<div class="signup-form-group">
                     <label for="email">이메일</label>
@@ -57,12 +63,13 @@
                     <span class="error-message" id="err-email"></span>
                 </div>
                 
-                <div class="signup-form-group">
-                    <label for="emailCode">인증 코드</label>
-                    <input type="text" id="emailCode" name="emailCode" placeholder="인증 코드를 입력하세요." required>
-                    <button type="button" id="verifyCodeBtn">인증 확인</button>
-                    <span class="error-message" id="err-code"></span>
-                </div>
+               <div class="signup-form-group">
+				    <label for="authCode">인증 코드</label>
+				    <!-- 여기서 id와 name을 "authCode"로 통일 -->
+				    <input type="text" id="authCode" name="authCode" placeholder="인증 코드를 입력하세요." required>
+				    <button type="button" id="verifyCodeBtn">인증 확인</button>
+				    <span class="error-message" id="err-code"></span>
+				</div>
 
                 
                 <!-- 약관 동의 -->
@@ -147,7 +154,7 @@
     });
 
     // 이메일 인증 요청
-    $("#sendEmailBtn").click(function () {
+     $("#sendEmailBtn").click(function () {
         var email = getFullEmail();
         if (!email) return;
 
@@ -158,7 +165,8 @@
             url: "/member/sendEmail.do",
             data: { email: email },
             success: function (response) {
-                if (response.trim() === "이메일 전송 완료") {
+                if (response.trim() !== "이메일 전송 실패") {
+                    receivedAuthCode = response.trim(); // 서버에서 받은 인증 코드 저장
                     alert("인증 코드가 이메일로 전송되었습니다.");
                 } else {
                     alert("이메일 전송에 실패했습니다.");
@@ -170,30 +178,20 @@
         });
     });
 
-    // 인증 코드 확인
+    // 인증 코드 확인 (서버 검증 없이 클라이언트에서만 체크)
     $("#verifyCodeBtn").click(function () {
-        var inputCode = $("#emailCode").val().trim();
+        var inputCode = $("#authCode").val().trim();
         if (!inputCode) {
             $("#err-code").html("<span class='error'>인증 코드를 입력해주세요.</span>");
             return;
         }
-        $("#err-code").html("");
 
-        $.ajax({
-            type: "POST",
-            url: "/member/verifyEmailCode.do",
-            data: { emailCode: inputCode },
-            success: function (response) {
-                if (response.trim() === "인증 성공") {
-                    alert("이메일 인증이 완료되었습니다!");
-                } else {
-                    alert("인증 코드가 일치하지 않습니다.");
-                }
-            },
-            error: function () {
-                alert("서버와 통신 중 오류가 발생했습니다.");
-            }
-        });
+        if (inputCode === receivedAuthCode) {
+            alert("이메일 인증이 완료되었습니다!");
+            $("#authCode").prop("disabled", true); // 인증 성공 시 입력 필드 비활성화
+        } else {
+            alert("인증 코드가 일치하지 않습니다.");
+        }
     });
 
     // 회원가입 시 이메일 입력 확인
