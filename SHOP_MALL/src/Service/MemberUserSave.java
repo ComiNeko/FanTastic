@@ -24,8 +24,16 @@ public class MemberUserSave implements Command {
         String password = request.getParameter("password");
         String passwordConfirm = request.getParameter("passwordConfirm"); //얘는 왜?
         String phone = request.getParameter("phone");
-        String address = request.getParameter("address");  
-        String email = request.getParameter("email");
+        
+        String address = request.getParameter("address"); 
+        String detailAddress = request.getParameter("detailAddress");
+        
+        String emailPrefix = request.getParameter("emailPrefix");
+        String emailDomain = request.getParameter("emailDomain");
+        if ("custom".equals(emailDomain)) {
+            emailDomain = request.getParameter("customEmailDomain");
+        }
+        String email = emailPrefix + "@" + emailDomain;
 	        
 	        // 비밀번호 일치 검사
 	        if (!password.equals(passwordConfirm)) {
@@ -44,7 +52,7 @@ public class MemberUserSave implements Command {
         vo.setPassword(hashedPassword);
         vo.setPhone(phone);
         vo.setEmail(email);
-        vo.setAddress(address);
+        vo.setAddress(address + " " + detailAddress);
         
         //DB에 저장
         new MemberDao().saveUser(vo);
