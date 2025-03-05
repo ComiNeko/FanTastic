@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/fragments/header.jsp" %>
 <link rel="stylesheet" href="/css/loginsignup.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <div class="signup-page">
     <div class="signup-container">
@@ -117,7 +118,16 @@
             details.style.display = "none";
         }
     }
-
+	
+    // 주소 찾기 버튼 클릭 시 동작
+    document.getElementById("findAddressBtn").addEventListener("click", function() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                document.getElementById("address").value = data.address; // 주소 입력
+            }
+        }).open();
+    });
+    
     function getFullEmail() {
         var emailPrefix = $("#emailPrefix").val().trim();
         var emailDomain = $("#emailDomain").val();
