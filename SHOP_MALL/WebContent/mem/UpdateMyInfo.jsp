@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../fragments/header.jsp" %>
 <link rel="stylesheet" href="../css/MyP.css">
-
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <head>
     <meta charset="UTF-8">
@@ -26,13 +26,19 @@
             <li><a href="/member/cart.do">장바구니</a></li>
             <li><a href="/member/points.do">최근 본 상품</a></li>
             <li><a href="/member/reviews.do">レビュー</a></li>
+        </ul>
+    </div>
+    <div id="mypage-sidebar">
+        <ul>
             <li><a href="/member/updateMyInfo.do">계정 설정</a></li>
+            <li><a href="/member/updateMyPw.do">비밀번호 변경</a></li>
         </ul>
     </div>
     
     <!-- 우측 메인 컨텐츠 -->
     <div id="mypage-content">
         
+        <form action="/member/updateMyInfopro.do" method="post">
         <!-- 상단 타이틀 -->
         <div id="mypage-title-area">
             <h2>정보수정</h2>
@@ -51,11 +57,11 @@
         <div class="form-row">
             <label>아이디</label>
             <span class="read-only-text">
-                ${sessionScope.user.user_id}
+                ${sessionScope.user.userid}
             </span>
         </div>
         
-        <!-- 이메일 (수정 후 재인증 필요) -->
+        <!-- 이메일 ('수정불가'로 합시다! ) -->
         <div class="form-row">
             <label for="email">이메일</label>
             <span class="read-only-text">
@@ -63,21 +69,13 @@
             </span>
         </div>
         
-        <!-- 비밀번호 변경 (입력하지 않으면 업데이트 안 함) -->
+        <!-- 비밀번호 변경 창으로 이동 -->
         <div class="form-row">
-            <label for="newPassword">새 비밀번호</label>
-            <input type="password"
-                   id="newPassword"
-                   name="newPassword"
-                   placeholder="변경 시 새 비밀번호 입력">
-        </div>
-        <div class="form-row">
-            <label for="confirmNewPassword">비밀번호 확인</label>
-            <input type="password"
-                   id="confirmNewPassword"
-                   name="confirmNewPassword"
-                   placeholder="새 비밀번호 확인">
-        </div>
+		        <label for="newPassword">비밀번호</label>
+		        <button type="button" onclick="location.href='${pageContext.request.contextPath}/member/updateMyPw.do';">
+		    비밀번호 수정
+				</button>
+		 </div>
         
         <!-- 전화번호 수정 -->
         <div class="form-row">
@@ -89,14 +87,17 @@
         </div>
         
         <!-- 주소 수정 (주소찾기 버튼 포함) -->
-        <div class="form-row">
-            <label for="address">주소</label>
-            <input type="text"
-                   id="address"
-                   name="address"
-                   value="${sessionScope.user.address}">
-            <button type="button" id="findAddressBtn">주소 찾기</button>
-        </div>
+       <div class="form-row">
+		    <label for="address">주소</label>
+		    <input type="text" id="address" name="address" value="${address}">
+		    <button type="button" id="findAddressBtn">주소 찾기</button>
+		</div>
+	
+		<!-- 상세 주소 수정 -->
+		<div class="form-row">
+		    <label for="detailAddress">상세 주소</label>
+		    <input type="text" id="detailAddress" name="detailAddress" value="${detailAddress}">
+		</div>
         
         <!-- 버튼 그룹 -->
         <div id="mypage-submit-btns">
@@ -106,25 +107,19 @@
                 취소
             </button>
         </div>
+        </form>
     </div>
 </div>
 </body>
 <script>
-    
-    // 비밀번호 확인 로직 (폼 제출 전에 확인)
-    document.getElementById("mypage-submit-btn").addEventListener("click", function(e) {
-        var newPwd = document.getElementById("newPassword").value.trim();
-        var confirmPwd = document.getElementById("confirmNewPassword").value.trim();
-        
-        if(newPwd || confirmPwd) { // 둘 중 하나라도 입력된 경우
-            if(newPwd !== confirmPwd) {
-                e.preventDefault();
-                alert("새 비밀번호와 확인이 일치하지 않습니다.");
-                return false;
-            }
-        } 
-      
-      
+		document.getElementById("findAddressBtn").addEventListener("click", function(){
+		    new daum.Postcode({
+		        oncomplete: function(data) {
+		            document.getElementById("address").value = data.address;
+		        }
+		    }).open();
+		});   
+   
 </script>
 
 <%@ include file="../fragments/footer.jsp" %>

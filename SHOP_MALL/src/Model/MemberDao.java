@@ -108,36 +108,30 @@ public class MemberDao {
 		
 		//________________________________________________________________________________//
 		
-		
+		//회원정보 수정
 		public int updateMember(MemberVo vo) {
 		    Connection conn = null;
 		    PreparedStatement pstmt = null;
 		    int result = 0; 
 
-		    // NEW_USERS 테이블 업데이트 쿼리
-		    String sqlUser = "UPDATE NEW_USERS SET "
-		                   + "password = NVL(?, password), "
-		                   + "phonenumber = ?, "
-		                   + "email = ? "
-		                   + "WHERE userid = ?";
-
-		    // NEW_ADDRESSES 테이블 업데이트 쿼리
+		    // NEW_USERS 테이블에서는 휴대폰번호만 수정
+		    String sqlUser = "UPDATE NEW_USERS SET phonenumber = ? WHERE userid = ?";
+		    
+		    // NEW_ADDRESSES 테이블에서는 하나의 칼럼인 address에 전체 주소(주소 + 상세주소)를 업데이트
 		    String sqlAddress = "UPDATE NEW_ADDRESSES SET address = ? WHERE userid = ?";
 
 		    try {
 		        conn = DBManager.getInstance().getConnection();
 		        conn.setAutoCommit(false);  // 트랜잭션 시작
 
-		        // 첫 번째 쿼리: NEW_USERS 테이블 업데이트
+		        // 휴대폰번호 업데이트
 		        pstmt = conn.prepareStatement(sqlUser);
-		        pstmt.setString(1, (vo.getPassword() == null || vo.getPassword().isEmpty()) ? null : vo.getPassword());
-		        pstmt.setString(2, vo.getPhonenumber());
-		        pstmt.setString(3, vo.getEmail());
-		        pstmt.setString(4, vo.getUserid());
+		        pstmt.setString(1, vo.getPhonenumber());
+		        pstmt.setString(2, vo.getUserid());
 		        result = pstmt.executeUpdate();
-		        pstmt.close();  // 첫 번째 PreparedStatement 닫기
+		        pstmt.close();  // PreparedStatement 재사용
 
-		        // 두 번째 쿼리: NEW_ADDRESSES 테이블 업데이트
+		        // 주소 업데이트
 		        pstmt = conn.prepareStatement(sqlAddress);
 		        pstmt.setString(1, vo.getAddress());
 		        pstmt.setString(2, vo.getUserid());
@@ -147,11 +141,31 @@ public class MemberDao {
 		    } catch(Exception e) {
 		        e.printStackTrace();
 		    } finally {
-		    	DBManager.getInstance().close(pstmt, conn);
+		        DBManager.getInstance().close(pstmt, conn);
 		    }
 		    return result;
 		}
-	    
+		
+		//회원정보 수정: 비밀번호
+		 public int updatePassword(String userid, String newPassword) {
+		        Connection conn = null;
+		        PreparedStatement pstmt = null;
+		        int result = 0;
+		        String sql = "UPDATE NEW_USERS SET password = ? WHERE userid = ?";
+
+		        try {
+		            conn = DBManager.getInstance().getConnection();
+		            pstmt = conn.prepareStatement(sql);
+		            pstmt.setString(1, newPassword);
+		            pstmt.setString(2, userid);
+		            result = pstmt.executeUpdate();
+		        } catch(Exception e) {
+		            e.printStackTrace();
+		        } finally {
+		            DBManager.getInstance().close(pstmt, conn);
+		        }
+		        return result;
+		    }
 	    
 		
 }

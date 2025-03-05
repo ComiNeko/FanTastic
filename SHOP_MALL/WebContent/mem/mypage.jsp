@@ -22,10 +22,15 @@
         <ul>
             <li><a href="/member/orders.do">구매내역</a></li>
             <li><a href="/member/wishlist.do">좋아요</a></li>
-            <li><a href="/member/cart.do">장바구니</a></li>
+            <li><a href="/member/cart.do">장s바구니</a></li>
             <li><a href="/member/points.do">최근 본 상품</a></li>
             <li><a href="/member/reviews.do">レビュー</a></li>
+        </ul>
+    </div>
+    <div id="mypage-sidebar">
+        <ul>
             <li><a href="/member/updateMyInfo.do">계정 설정</a></li>
+            <li><a href="/member/updateMyPw.do">비밀번호 변경</a></li>
         </ul>
     </div>
 
@@ -36,8 +41,8 @@
         <div id="mypage-summary-container">
             <div id="mypage-summary-box">
                 <div id="mypage-profile-section">
-                    <h3>개인정보 변경</h3>
-                    <p><strong>${sessionScope.user.nickname}님, 반가워요 👋</strong></p>
+                    
+                    <p><strong>${sessionScope.user.name}님, 반가워요 👋</strong></p>
                 </div>
                 <div id="mypage-summary">
                     <div class="summary-box">
@@ -63,24 +68,7 @@
         <!-- 주문 내역 섹션 -->
         <div id="mypage-orders">
             <h3>주문 내역</h3>
-            <table>
-                <tr>
-                    <th>주문번호</th>
-                    <th>상품명</th>
-                    <th>주문일</th>
-                    <th>배송상태</th>
-                    <th>상세보기</th>
-                </tr>
-                <c:forEach var="order" items="${sessionScope.user.orders}">
-                    <tr>
-                        <td>${order.orderId}</td>
-                        <td>${order.productName}</td>
-                        <td>${order.orderDate}</td>
-                        <td>${order.status}</td>
-                        <td><a href="/order/detail.do?orderId=${order.orderId}">보기</a></td>
-                    </tr>
-                </c:forEach>
-            </table>
+        
         </div>
     </div>
 </div>

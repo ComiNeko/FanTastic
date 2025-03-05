@@ -15,6 +15,7 @@ import Service.MainService;
 import Service.MemberLogin;
 import Service.MemberLogout;
 import Service.MemberUserIdCheck;
+import Service.MemberUserPw;
 import Service.MemberUserSave;
 import Service.MemberUserUpdate;
 
@@ -90,22 +91,44 @@ public class MemberController extends HttpServlet {
 			return;	
 			
 	//_________________________________________________________________________________________________//	
-										
+			
+		case "/mypage.do":
+			if(session == null || session.getAttribute("user") == null) {
+                 response.sendRedirect(request.getContextPath() + "/member/login.do");
+                 return;
+             }
+             page = "/mem/mypage.jsp";
+        break;
 											
 
-			// 정보수정
+			// 회원정보 수정 페이지 요청: 수정 폼을 보여줌
 			case "/updateMyInfo.do":
-	        if(session == null || session.getAttribute("user") == null) {
-	            response.sendRedirect(request.getContextPath() + "/member/login.do");
-	            return;
-	        }
-	        page = "/mem/UpdateMyInfo.jsp";
+				 if(session == null || session.getAttribute("user") == null) {
+	                    response.sendRedirect(request.getContextPath() + "/member/login.do");
+	                    return;
+	             }
+	             page = "/mem/UpdateMyInfo.jsp";
 	        break;
 	        
 			case "/updateMyInfopro.do":
 			    new MemberUserUpdate().doCommand(request, response);
-			    response.sendRedirect(request.getContextPath() + "/member/mypage.do");
-			    return;
+			    page = "/mem/UpdateMyInfo.jsp";
+			break;
+			
+			// 비밀번호 수정 페이지 요청: UpdateMyPw.jsp로 이동
+            case "/updateMyPw.do":
+                if(session == null || session.getAttribute("user") == null) {
+                    response.sendRedirect(request.getContextPath() + "/member/login.do");
+                    return;
+                }
+                page = "/mem/UpdateMyPw.jsp";
+                break;
+                
+            case "/updateMyPwPro.do":
+                new MemberUserPw().doCommand(request, response);
+                page = "/mem/UpdateMyPw.jsp";
+                break;    
+        
 	            
 	} //switch
 			
