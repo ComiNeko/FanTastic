@@ -1,0 +1,84 @@
+@charset "UTF-8";
+	
+	/* 슬라이드 관련 */
+	/* Swiper 전체 컨테이너 스타일 */
+	.swiper-container {
+	    width: 100%;
+	    height: 600px; /* 슬라이더 높이 고정 */
+	    position: relative;
+	    overflow: hidden;
+	}
+	
+	/* 개별 슬라이드 스타일 */
+	.swiper-slide {
+	    position: relative; /* 텍스트(.swiper-caption)를 배치하기 위해 설정 */
+	    width: 100%;
+	    height: 100%;
+	}
+	
+	/* 슬라이드 이미지 */
+	.main-banner-img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: cover; /* 이미지를 확대하여 꽉 차게 표시 */
+	    display: block;
+	}
+	
+	/* 텍스트 박스 기본 스타일 */
+	.swiper-caption {
+	    position: absolute;
+	    bottom: 50%; /* 텍스트 위치 조정 */
+	    left: 12%; /* 왼쪽 정렬 */
+	    transform: translateY(20px); /* 초기 위치 (약간 아래) */
+	    text-align: left;
+	    color: white;
+	    background: rgba(0, 0, 0, 0.2);
+	    padding: 20px;
+	    border-radius: 10px;
+	    width: 40%;
+	    max-width: 500px;
+	    z-index: 10;
+	    opacity: 0; /* 기본적으로 안 보이게 설정 */
+	    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+	}
+	
+	/* 활성화된 슬라이드에서 텍스트 애니메이션 */
+	.swiper-slide-active .swiper-caption {
+	    opacity: 1; /* 나타나기 */
+	    transform: translateY(0px); /* 원래 위치 */
+	}
+	
+	/* h3 타이틀 스타일 */
+	.swiper-caption h3 {
+	    font-size: 36px;
+	    font-weight: bold;
+	    margin-bottom: 8px;
+	}
+	
+	/* p 텍스트 스타일 */
+	.swiper-caption p {
+	    font-size: 20px;
+	    line-height: 1.4;
+	}
+	
+	
+	/* Swiper 네비게이션 버튼 (이전/다음) */
+	.swiper-button-prev, .swiper-button-next {
+	    color: white; /* 버튼 색상 */
+	    z-index: 15; /* 버튼이 이미지 위에 보이도록 설정 */
+	}
+	
+	/* Swiper 페이지네이션 (하단 점) */
+	.swiper-pagination {
+	    bottom: 20px;
+	}
+	
+	.swiper-pagination-bullet {
+	    background: white !important; /* 페이지네이션 점 색상 */
+	    opacity: 0.7;
+	}
+	
+	.swiper-pagination-bullet-active {
+	    background: #ff6f61 !important; /* 활성화된 점 색상 */
+	    opacity: 1;
+	}
