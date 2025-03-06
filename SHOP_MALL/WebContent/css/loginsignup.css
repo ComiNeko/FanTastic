@@ -31,30 +31,31 @@
 		align-items: center;
 	}
 	
-	.signup-page .signup-form-group label {
+	.signup-page label {
 		padding: 0;
 		margin: 0;
-		width: 220px;
+		width: 120px;
 		font-size: 16px;
 		font-family: 'Zen Maru Gothic', sans-serif;
 		font-weight: 700;
 		color: #333;
 	}
 	
-	.signup-page .signup-form-group input {
+	.signup-page input {
 		padding: 0; /* 다른 css서 먹혀있어서 */
 		text-indent: 0; /* 둘다 일단 0으로 초기화 */
 		text-indent: 5px;
-		width: 640px;
+		width: 80%;
 		height: 40px;
 		font-size: 14px;
 		font-family: 'Zen Maru Gothic', sans-serif;
 		font-weight: 700;
 		border: 1px solid #ccc;
+		vertical-align: middle;
 		border-radius: 4px;
 	}
 	
-	.signup-page .signup-form-group input::placeholder {
+	.signup-page input::placeholder {
 		text-indent: 0;
 		color: #ccc;
 		font-size: 16px;
@@ -63,6 +64,116 @@
 	    text-align: left;
 	    padding-left: 5px;
 	    line-height: 40px;
+	}
+	
+	.signup-page button {
+		background-color: #8FD8F4;
+		border: none;
+		height: 40px;
+		color: white;
+		padding: 8px 15px;
+		font-size: 14px;
+		font-weight: bold;
+		border-radius: 5px;
+		cursor: pointer;
+		vertical-align: middle;
+		transition: background-color 0.3s;
+	}
+	
+	.signup-page button:hover {
+		background-color: #6eb5ff;
+	}
+	
+	.signup-page .signup-form-group-address .signup-address label {
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address .signup-address input {
+		width: 350px;
+		height: 40px;
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address .signup-detailAddress input {
+		width: 100%;
+		height: 40px;
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address input {
+		width: 200px;
+		height: 40px;
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address button {
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-email {
+		display: column;
+	}
+	
+	.signup-page .signup-form-group-email input {
+		width: 200px;
+		height; 40px;
+		margin-bottom: 10px;
+	}
+	
+	/* select 박스 스타일 */
+	.signup-page .signup-form-group-email #emailDomain {
+	    padding: 0;
+	    margin: 0;
+	    margin-bottom: 10px;
+	    text-indent: 5px;
+	    width: 150px;
+	    height: 40px;
+	    color: #333;
+	    font-size: 14px;
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    font-weight: 700;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    background-color: #fff;
+	    vertical-align: middle;
+	    cursor: pointer;
+	    background: url('dropdown-arrow.png') no-repeat right 10px center;
+   	    background-size: 16px;
+	}
+	
+	.signup-page .signup-form-group-email button {
+		margin-bottom: 10px;
+	}
+	
+	/* option 스타일 */
+	.signup-page .signup-form-group-email #emailDomain option {
+	    text-indent: 0;
+	    font-size: 16px;
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    font-weight: 700;
+	    text-align: left;
+	    padding-left: 5px;
+	    line-height: 40px;
+	}
+	
+	.signup-page .signup-form-group-auth {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.signup-page .signup-form-group-auth .signup-auth-left {
+		align-items: center;
+	}
+	
+	.signup-page .signup-form-group-auth .signup-auth-right {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		gap: 5px;
+	}
+	
+	.signup-page .signup-form-group-auth button {
+		width: 100px;
 	}
 	
 	/* 체크박스 컨테이너 */
@@ -104,7 +215,7 @@
 	    content: "✔";
 	    position: absolute;
 	    top: 50%;
-	    left: 50%;
+	    left: 35%;
 	    transform: translate(-50%, -50%);
 	    font-size: 14px;
 	    color: white;
@@ -139,22 +250,6 @@
 	    display: block;
 	}
 	
-	.signup-page .details-btn {
-		background-color: #8FD8F4;
-		border: none;
-		color: white;
-		padding: 8px 15px;
-		font-size: 14px;
-		font-weight: bold;
-		border-radius: 5px;
-		cursor: pointer;
-		transition: background-color 0.3s;
-	}
-	
-	.signup-page .details-btn:hover {
-		background-color: #6eb5ff;
-	}
-	
 	.signup-page .details {
 		display: none;
 		margin-top: 5px;
@@ -184,6 +279,13 @@
 	.signup-page .signup-btn:hover {
 		background-color: #6eb5ff;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	/* 로그인 페이지 */
 	.login-page .login-container {
