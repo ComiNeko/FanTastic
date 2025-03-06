@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/fragments/header.jsp"%>
 <link rel="stylesheet" href="/css/index.css">
+<script src="js/jquery-3.7.1.min.js"></script>
 
 <!-- Swiper 슬라이더 -->
 <div class="swiper-container">
