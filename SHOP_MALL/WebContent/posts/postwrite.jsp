@@ -1,13 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, java.util.*, java.text.*" %>
+<%@ page import="Model.MemberVo" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+
+<%
+    // 세션에서 로그인 정보 가져오기
+    HttpSession sessionObj = request.getSession();
+    MemberVo user = (MemberVo) sessionObj.getAttribute("user");
+
+    // 로그인하지 않은 경우, 로그인 페이지로 이동
+    if (user == null) {
+        response.sendRedirect("/member/login.do");
+        return;
+    }
+%>
+
 <%@ include file="../fragments/header.jsp" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>판매페이지</title>
-<link rel="stylesheet" href="/css/postwrite.css">
+<link rel="stylesheet" href="../css/postwrite.css">
 </head>
 <body>
 <div class="wrapBody">
@@ -16,9 +32,8 @@
             <p class="s_title">작품 등록</p>
         </div>
 
-        <!-- 작품 등록 폼 -->
         <form name="productForm" method="post" enctype="multipart/form-data" action="/post/ptwritepro.do">
-            <!-- 상품 기본 정보 -->
+            
             <div class="form-group">
                 <label>카테고리</label>
                 <select name="categoryid" class="inputH" required>
@@ -46,12 +61,11 @@
                 <input type="number" name="productStock" class="inputH" min="0" required>
             </div>
 
-            <!-- 대표 이미지 업로드 -->
             <div class="form-group">
                 <label>대표 이미지</label>
                 <input type="file" name="productImage" accept="image/*" required>
                 <p class="explain">권장 사이즈: <b>4:3</b> (732px x 549px) / 최대 용량 <b>12MB</b><br>
-                <font class="orange">jpg, png, gif</font> 파일만 가능.</p>
+                <span class="orange">jpg, png, gif</span> 파일만 가능.</p>
             </div>
 
             <div class="form-group">
@@ -59,13 +73,14 @@
                 <textarea name="productInfo" required></textarea>
             </div>
             
-            <!-- 등록 버튼 -->
             <div class="form-group">
                 <input type="submit" value="등록하기" class="submit-btn">
             </div>
+
         </form>
     </div>
-</div>
+</div><!-- wrapBody 끝나는 곳 -->
+
 </body>
 </html>
 
