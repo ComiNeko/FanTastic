@@ -77,7 +77,7 @@
 						<button class="category-btn dropdown-toggle" type="button"
 							data-toggle="dropdown">전체 카테고리</button>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">키링</a> <a class="dropdown-item"
+							<a class="dropdown-item" href="../posts/postsellinglist.jsp">키링</a> <a class="dropdown-item"
 								href="#">아크릴</a> <a class="dropdown-item" href="#">포토카드</a> <a
 								class="dropdown-item" href="#">틴케이스</a> <a class="dropdown-item"
 								href="#">키캡</a> <a class="dropdown-item" href="#">거울/핀버튼</a> <a
