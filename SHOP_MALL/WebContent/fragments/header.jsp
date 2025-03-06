@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>FanTastic</title>
 
-<script src="js/jquery-3.7.1.min.js"></script>
+	<script src="js/jquery-3.7.1.min.js"></script>
 
 <script
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
