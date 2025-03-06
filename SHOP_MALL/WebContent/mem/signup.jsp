@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/fragments/header.jsp" %>
+<%@ include file="../fragments/header.jsp" %>
 <link rel="stylesheet" href="/css/loginsignup.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="../js/jquery-3.7.1.min.js"></script>
 
 <div class="signup-page">
     <div class="signup-container">
@@ -32,17 +34,21 @@
                     <span class="error-message" id="err-pwdc"></span>
                 </div>
                 <div class="signup-form-group">
-                    <label for="phone">전화번호</label>
-                    <input type="text" id="phone" name="phone" placeholder="전화번호를 입력해주세요." required>
-                    <span class="error-message" id="err-phone"></span>
+                    <label for="phonenumber">전화번호</label>
+                    <input type="text" id="phonenumber" name="phonenumber" placeholder="전화번호를 입력해주세요." required>
+                    <span class="error-message" id="err-phonenumber"></span>
                 </div>
                 
-                <div class="signup-form-group">
-                    <label for="address">주소</label>
-                    <input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
-                    <button type="button" id="findAddressBtn">주소 찾기</button>
-                    <span class="error-message" id="err-address"></span>
-                </div>
+                <label for="address">주소</label>
+	                <div class="signup-form-group">
+	                    <input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
+	                    <button type="button" id="findAddressBtn">주소 찾기</button>
+	                    <span class="error-message" id="err-address"></span>
+	                </div>
+			                <div class="signup-form-group">
+			    				<input type="text" id="detailAddress" name="detailAddress" placeholder="상세 주소(동/호 등)를 입력하세요.">
+			   	 				<span class="error-message" id="err-detailAddress"></span>
+							</div>
 
 				<div class="signup-form-group">
                     <label for="email">이메일</label>
@@ -117,7 +123,16 @@
             details.style.display = "none";
         }
     }
-
+	
+    // 주소 찾기 버튼 클릭 시 동작
+    document.getElementById("findAddressBtn").addEventListener("click", function() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                document.getElementById("address").value = data.address; // 주소 입력
+            }
+        }).open();
+    });
+    
     function getFullEmail() {
         var emailPrefix = $("#emailPrefix").val().trim();
         var emailDomain = $("#emailDomain").val();
@@ -269,12 +284,12 @@
     }
 
     function chkPhone() {
-        var phone = $("#phone").val().trim();
-        if (!phone) {
-            $("#err-phone").html("<span class='error'>전화번호는 필수 정보입니다.</span>");
+        var phonenumber = $("#phonenumber").val().trim();
+        if (!phonenumber) {
+            $("#err-phonenumber").html("<span class='error'>전화번호는 필수 정보입니다.</span>");
             return false;
         } else {
-            $("#err-phone").html("");
+            $("#err-phonenumber").html("");
             return true;
         }
     }
@@ -305,7 +320,7 @@
         $("#userid").on("blur", chkId);
         $("#password").on("blur keyup", chkPwd);
         $("#passwordConfirm").on("blur keyup", chkPwdC);
-        $("#phone").on("blur keyup", chkPhone);
+        $("#phonenumber").on("blur keyup", chkPhone);
         $("#address").on("blur keyup", chkAddr);
         $("#email").on("blur keyup", chkEmail);
 
