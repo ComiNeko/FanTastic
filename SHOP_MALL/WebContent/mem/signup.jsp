@@ -3,6 +3,7 @@
 <%@ include file="../fragments/header.jsp" %>
 <link rel="stylesheet" href="/css/loginsignup.css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="../js/jquery-3.7.1.min.js"></script>
 
 <div class="signup-page">
     <div class="signup-container">

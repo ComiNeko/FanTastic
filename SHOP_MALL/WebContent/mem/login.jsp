@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../fragments/header.jsp"%>
 <link rel="stylesheet" href="../css/loginsignup.css">
+<script src="../js/jquery-3.7.1.min.js"></script>
 
 <div class="login-page">
 	<div class="login-container">
