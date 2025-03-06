@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="java.sql.*, java.util.*, java.text.*" %>
 <%@ page import="Model.MemberVo" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
@@ -17,7 +17,6 @@
 
 <%@ include file="../fragments/header.jsp" %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,15 +32,21 @@
         </div>
 
         <form name="productForm" method="post" enctype="multipart/form-data" action="/post/ptwritepro.do">
-            
+
+            <!-- 로그인한 사용자 ID를 숨겨진 필드로 추가 -->
+            <input type="hidden" name="authorid" value="<%= user.getUserid() %>">
+
             <div class="form-group">
                 <label>카테고리</label>
                 <select name="categoryid" class="inputH" required>
-                    <option value="">선택하세요</option>
-                    <option value="1">캐릭터 일러스트</option>
-                    <option value="2">일러스트</option>
-                    <option value="3">라이브2D</option>
-                    <option value="4">버추얼 3D</option>
+                    <option value="">선택하세요</option>  <!-- 빈 값으로 설정해서 선택을 강제 -->
+                    <option value="1">키링</option>
+                    <option value="2">아크릴</option>
+                    <option value="3">포토카드</option>
+                    <option value="4">틴케이스</option>
+                    <option value="5">키캡</option>
+                    <option value="6">거울/핀버튼</option>
+                    <option value="7">커버/클리너</option>
                 </select>
             </div>
 
@@ -78,6 +83,7 @@
             </div>
 
         </form>
+
     </div>
 </div><!-- wrapBody 끝나는 곳 -->
 
