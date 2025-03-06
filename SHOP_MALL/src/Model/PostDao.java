@@ -33,4 +33,10 @@ public class PostDao {
 		}
 	}// insert
 
+	
+	
+	
+	
+	
+	
 }// dao

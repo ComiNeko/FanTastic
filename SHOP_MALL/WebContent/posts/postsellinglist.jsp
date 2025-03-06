@@ -1,303 +1,188 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="../fragments/header.jsp" %>
-<link rel="stylesheet" href="../css/postsellinglist.css">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
+<%@ include file="../fragments/header.jsp"%>
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑몰 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #ddd;
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        .sidebar li:hover {
+            background-color: #bbb;
+        }
+
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .product {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .product-item {
+            width: 150px;
+            height: auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #f9f9f9;
+        }
+
+        .product-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .product-item p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .product-item strong {
+            font-size: 16px;
+            color: #000;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .product-item .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 5px;
+        }
+
+        .product-item .description {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
 <body>
-	<div class="wrapBody"><!-- list페이지 처음부터 끝까지 -->
-	
-	<div class="sub_menu_back">
-	<div class="siteWidth left_ul">
-		<ul class="head_title" style="padding-top:63px">
-			<span>작품 리스트</span>
-			<span class="head_title_s">커미션은 상업적인 용도로 사용할 수 없습니다</span>
-		</ul>
 
-		<ul id="sub_menu">
-    <li class="on" style="width:140px"><a href="postsellinglist.jsp" onclick="loading('1');">캐릭터 일러스트</a></li>
-    <li style="width:112px"><a href="postsellingillustration.jsp" onclick="loading('1');">일러스트</a></li>
-    <li style="width:112px"><a href="postselling2D.jsp" onclick="loading('1');">라이브2D</a></li>
-    <li style="width:112px"><a href="postselling3D.jsp" onclick="loading('1');">버추얼 3D</a></li>
-</ul>
+    <div class="sidebar">
+        <ul>
+            <li onclick="showProducts('키링')">키링</li>
+            <li onclick="showProducts('아크릴굿즈')">아크릴굿즈</li>
+            <li onclick="showProducts('포토카드')">포토카드</li>
+            <li onclick="showProducts('틴케이스')">틴케이스</li>
+            <li onclick="showProducts('키캡')">키캡</li>
+            <li onclick="showProducts('거울/핀버튼')">거울/핀버튼</li>
+            <li onclick="showProducts('커버/클리너')">커버/클리너</li>
+        </ul>
+    </div>
 
-	</div>	
-</div>
+    <div class="content">
+        <h2>상품 목록</h2>
+        <div class="product" id="product-list"></div>
+    </div>
 
-	
-	<div class="subContent">
-	<!-- MAIN CENTER START -->
-	<div id="list_banner">
-		
-	</div>
-	
-	<div class="clear" style="height:55px;">&nbsp;</div>
-	
-	
-	<div class="list_top" class="cf">
-		<!--    @SEARCH BOX START -->
-		<ul class="left" style="padding-top:10px; width:930px; ">
-			<form name="searchForm2" method="get" action="index.php">				
-			<input type="hidden" name="channel" value="list">
-			<input type="hidden" name="cate" value="100000000000">
-			<input type="hidden" name="order" value="mod">
-			<input type="hidden" name="limit" value="30">
-			<input type="hidden" name="field" value="">
-			<!-- <input type="hidden" name="field2" value="" />
-			<input type="hidden" name="search2" value="" /> -->
+    <script>
+        // 카테고리별 상품 목록
+        const allProducts = {
+            "키링": [
+                { name: "귀여운 고양이 키링", price: "5,000원", description: "귀여운 고양이 모양의 키링", image: "https://via.placeholder.com/150x100.png?text=고양이+키링" },
+                { name: "패션 캐릭터 키링", price: "7,000원", description: "유명 캐릭터 디자인의 키링", image: "https://via.placeholder.com/150x100.png?text=패션+캐릭터+키링" },
+                { name: "한정판 디즈니 키링", price: "10,000원", description: "디즈니 한정판 키링", image: "https://via.placeholder.com/150x100.png?text=디즈니+키링" },
+                { name: "반짝이 키링", price: "6,500원", description: "반짝이는 디자인의 키링", image: "https://via.placeholder.com/150x100.png?text=반짝이+키링" },
+                { name: "캐주얼 스타일 키링", price: "4,500원", description: "심플한 캐주얼 스타일 키링", image: "https://via.placeholder.com/150x100.png?text=캐주얼+스타일+키링" },
+                { name: "심플한 키링", price: "3,000원", description: "간결하고 심플한 디자인", image: "https://via.placeholder.com/150x100.png?text=심플한+키링" },
+                { name: "핸드메이드 키링", price: "8,000원", description: "수제 손으로 만든 키링", image: "https://via.placeholder.com/150x100.png?text=핸드메이드+키링" },
+                { name: "고급스러운 키링", price: "12,000원", description: "고급스러운 소재의 키링", image: "https://via.placeholder.com/150x100.png?text=고급스러운+키링" },
+                { name: "귀여운 동물 키링", price: "4,800원", description: "귀여운 동물 모양의 키링", image: "https://via.placeholder.com/150x100.png?text=동물+키링" },
+                { name: "일러스트 키링", price: "6,000원", description: "일러스트 디자인 키링", image: "https://via.placeholder.com/150x100.png?text=일러스트+키링" },
+                { name: "나만의 키링", price: "5,500원", description: "나만의 특별한 키링", image: "https://via.placeholder.com/150x100.png?text=나만의+키링" },
+                { name: "레트로 키링", price: "7,500원", description: "레트로 느낌의 키링", image: "https://via.placeholder.com/150x100.png?text=레트로+키링" },
+                { name: "꽃무늬 키링", price: "3,500원", description: "꽃무늬 디자인의 키링", image: "https://via.placeholder.com/150x100.png?text=꽃무늬+키링" },
+                { name: "애니메이션 캐릭터 키링", price: "9,000원", description: "애니메이션 캐릭터 키링", image: "https://via.placeholder.com/150x100.png?text=애니+캐릭터+키링" },
+                { name: "테디베어 키링", price: "5,200원", description: "귀여운 테디베어 키링", image: "https://via.placeholder.com/150x100.png?text=테디베어+키링" },
+                { name: "미니멀 키링", price: "4,000원", description: "미니멀한 스타일의 키링", image: "https://via.placeholder.com/150x100.png?text=미니멀+키링" },
+                { name: "트렌디 키링", price: "6,000원", description: "트렌디한 디자인 키링", image: "https://via.placeholder.com/150x100.png?text=트렌디+키링" },
+                { name: "디즈니 캐릭터 키링", price: "8,500원", description: "디즈니 캐릭터 디자인 키링", image: "https://via.placeholder.com/150x100.png?text=디즈니+캐릭터+키링" },
+                { name: "감성 키링", price: "7,200원", description: "감성적인 디자인의 키링", image: "https://via.placeholder.com/150x100.png?text=감성+키링" },
+                { name: "실버 키링", price: "10,000원", description: "실버 재질의 고급 키링", image: "https://via.placeholder.com/150x100.png?text=실버+키링" }
+            ]
+        };
 
-			<div id="search_Box"><input type="text" name="search" value="" onkeydown="ckEnter(document.searchForm2);"></div>
-			<div class="searchBtn">
-				<a onclick="subSearchOk();return false;">검색</a>
-			</div>
-			<div class="left checks etrans" style="margin:9px 10px 0px 18px"><input type="checkbox" name="detail" id="detail" value=""> <label for="detail">결과 내 검색</label></div>
-			</form>
-			<!--    @SEARCH BOX END-->
-			<li class="left" style="margin-left: 8px">
-				<select name="order" style="padding-left: 6px; font-size: 13px; width:80px" onchange="return getLists.cgOrder(this.value,1);">
-					<option value="mod">최신순</option>
-					<option value="best">인기순</option>
-				</select>
-			</li>
-			<li class="left" style="margin-left: 8px">
-				<select name="commers" style="padding-left: 6px; font-size: 13px; " onchange="return getLists.cgCommers(this.value,1);">
-					<option value="">상업용 / 비상업용</option>
-					<option value="Y">방송 · 상업용(외주)</option>
-					<option value="N">비상업용</option>
-				</select>
-			</li>
-			<li class="left" style="margin-left: 8px">
-				<select name="filter" style="padding-left: 6px; font-size: 13px; " onchange="return getLists.cgFilter(this.value,1);">
-					<option value="">기타 선택</option>
-					<option value="1">빠른마감</option>
-					<option value="2">당일마감</option>
-					<option value="3">벡터이미지</option>
-				</select>
-			</li>
-			<li class="left" style="margin-left: 8px">
-				<div class="lgBtn" onclick="location.href='index.php?channel=today'">최근 본 작가</div>
-			</li>
-		</ul>
-		<ul class="right">
-				<div class="sBtn1" style="height:42px;line-height: 42px;" onclick="location.href='postwrite.jsp'">작품 등록 / 수정</div>
-		</ul>
-		
-		</ul>
+        // 카테고리 선택 시 상품을 보여주는 함수
+        function showProducts(category) {
+            let productContainer = document.getElementById("product-list");
+            productContainer.innerHTML = ""; // 기존 내용 초기화
 
-	</div>	
-	
-	<div class="tagList">
-		<ul class="tag_box cf">
-		
-		<ol><a onclick="tagSearchOk('SD'); loading('3');" class="">#SD</a></ol>
-		
-		<ol><a onclick="tagSearchOk('방송용'); loading('3');" class="">#방송용</a></ol>
-		
-		<ol><a onclick="tagSearchOk('LD'); loading('3');" class="">#LD</a></ol>
-		
-		<ol><a onclick="tagSearchOk('방송화면'); loading('3');" class="">#방송화면</a></ol>
-		
-		<ol><a onclick="tagSearchOk('썸네일'); loading('3');" class="">#썸네일</a></ol>
-		
-		<ol><a onclick="tagSearchOk('구독티콘'); loading('3');" class="">#구독티콘</a></ol>
-		
-		<ol><a onclick="tagSearchOk('캐릭터디자인'); loading('3');" class="">#캐릭터디자인</a></ol>
-		
-		<ol><a onclick="tagSearchOk('빠른마감'); loading('3');" class="">#빠른마감</a></ol>
-		
-		<ol><a onclick="tagSearchOk('남캐'); loading('3');" class="">#남캐</a></ol>
-		
-		<ol><a onclick="tagSearchOk('짚톡'); loading('3');" class="">#짚톡</a></ol>
-		
-		<ol><a onclick="tagSearchOk('유튜브'); loading('3');" class="">#유튜브</a></ol>
-		
-		<ol><a onclick="tagSearchOk('자캐'); loading('3');" class="">#자캐</a></ol>
-		
-		<ol><a onclick="tagSearchOk('대기화면'); loading('3');" class="">#대기화면</a></ol>
-		
-		<ol><a onclick="tagSearchOk('귀여운'); loading('3');" class="">#귀여운</a></ol>
-		
-		<ol><a onclick="tagSearchOk('치지직'); loading('3');" class="">#치지직</a></ol>
-		
-		<ol><a onclick="tagSearchOk('버츄얼'); loading('3');" class="">#버츄얼</a></ol>
-		
-		<ol><a onclick="tagSearchOk('방송'); loading('3');" class="">#방송</a></ol>
-		
-		<ol><a onclick="tagSearchOk('R18'); loading('3');" class="">#R18</a></ol>
-		
-		<ol><a onclick="tagSearchOk('움짤'); loading('3');" class="">#움짤</a></ol>
-		
-		<ol><a onclick="tagSearchOk('고정틀'); loading('3');" class="">#고정틀</a></ol>
-		
-		<ol><a onclick="tagSearchOk('배너'); loading('3');" class="">#배너</a></ol>
-		
-		<ol><a onclick="tagSearchOk('구독뱃지'); loading('3');" class="">#구독뱃지</a></ol>
-		
-		<ol><a onclick="tagSearchOk('커버곡'); loading('3');" class="">#커버곡</a></ol>
-		
-		<ol><a onclick="tagSearchOk('미소녀'); loading('3');" class="">#미소녀</a></ol>
-		
-		<ol><a onclick="tagSearchOk('19'); loading('3');" class="">#19</a></ol>
-		
-		<ol><a onclick="tagSearchOk('이모티콘'); loading('3');" class="">#이모티콘</a></ol>
-		
-		<ol><a onclick="tagSearchOk('외주'); loading('3');" class="">#외주</a></ol>
-		
-		<ol><a onclick="tagSearchOk('여캐'); loading('3');" class="">#여캐</a></ol>
-		
-		<ol><a onclick="tagSearchOk('미소년'); loading('3');" class="">#미소년</a></ol>
-		
-		<ol><a onclick="tagSearchOk('웹소설'); loading('3');" class="">#웹소설</a></ol>
-		
-		<ol><a onclick="tagSearchOk('수위'); loading('3');" class="">#수위</a></ol>
-		
-		<ol><a onclick="tagSearchOk('반실사'); loading('3');" class="">#반실사</a></ol>
-		
-		<ol><a onclick="tagSearchOk('낙서'); loading('3');" class="">#낙서</a></ol>
-		
-		<ol><a onclick="tagSearchOk('배경화면'); loading('3');" class="">#배경화면</a></ol>
-		
-		<ol><a onclick="tagSearchOk('채널아트'); loading('3');" class="">#채널아트</a></ol>
-		
-		<ol><a onclick="tagSearchOk('동물'); loading('3');" class="">#동물</a></ol>
-		
-		<ol><a onclick="tagSearchOk('시트'); loading('3');" class="">#시트</a></ol>
-		
-		<ol><a onclick="tagSearchOk('설정표'); loading('3');" class="">#설정표</a></ol>
-		
-		<ol><a onclick="tagSearchOk('애니메이션'); loading('3');" class="">#애니메이션</a></ol>
-		
-		<ol><a onclick="tagSearchOk('메이플'); loading('3');" class="">#메이플</a></ol>
-		
-		<ol><a onclick="tagSearchOk('삼면도'); loading('3');" class="">#삼면도</a></ol>
-		
-		<ol><a onclick="tagSearchOk('마인크래프트'); loading('3');" class="">#마인크래프트</a></ol>
-		
-		</ul>
+            // 선택한 카테고리의 상품 가져오기
+            let selectedProducts = allProducts[category] || [];
 
-	</div>
-	
-	<div class="clear" style="height:30px;">&nbsp;</div>
-
-	<form name="listForm" method="post" action="">
-	<div id="list_list">
-		<table cellspacing="0" cellpadding="0" border="0" width="100%">			
-		<tbody id="list_table"></tbody>
-		<!-- id:listTable 에 리스트가 나옵니다. -->
-		</table>
-	</div>
-
-	<!-- 여기서부터 본문, 작가와 가격,판매물건 등이 보여지는 부분 -->
-	<!-- <c:forEach var="item" items="${list}"> -->
-	<!-- 본문 왼쪽 박스 시작 -->
-	<div id="list_img"><div class="list_img_box both left"><ul>	
-	<ol style="height: 145px;"><a href="../posts/postselling.jsp" target="_blank">		
-	<dl class="thumb3" style="margin-left:0; background: url(image/goods_img2/4/43813.jpg?ver=1739568356) no-repeat center 15%"></dl>		
-	<dl class="thumb3" style="background: url(image/goods_img2/4/43813B.jpg?ver=1739568356) no-repeat center 15%"></dl>		
-	<dl class="thumb3" style="background: url(image/goods_img2/4/43813C.jpg?ver=1739568356) no-repeat center 15%"></dl>	</a></ol>	
-	<ol style="height: 28px;">	
-	<dl class="left ellip" style="padding-left:6px; width:360px;">YSJIN4 작가&nbsp;&nbsp;/&nbsp;&nbsp;SD(2~3등신) / 방송용, 비상업용, 상업용</dl>		
-	<dl class="right" style="margin-top:-6px;"><a onclick="wishListAdd('43813')">
-	<img src="../listimages/heart.png" id="wish43813" title="관심 작가"></a></dl></ol>	
-	<ol><dl class="starBg_list">
-	<div style="width:101%;overflow:hidden">
-	<img src="../listimages/star.png"></div></dl>		
-	<dl class="commercial">방송 · 상업용 / 비상업용</dl>		
-	<dl class="price">40,000~</dl>	
-	</ol></ul><div class="clear" style="height:10px;">&nbsp;</div></div>
-	<!-- 여기까지가 본문 왼쪽 부분, 지금은 하드코딩했는데,작가이름이나 가격에다 속성부여해서 반복문 돌리면 될듯-->
-	<!-- 앞으로 할 것 -->
-	<!-- 하트버튼 눌렀을 때, 로그인 안했으면 로그인하라는 문구 출력할 것 -->
-	
-	
-	<!-- 오른쪽 본문 부분 -->
-	<div class="list_img_box right"><ul>	<ol style="height: 145px;"><a href="index.php?channel=view&amp;uid=40204" target="_blank">		<dl class="thumb3" style="margin-left:0; background: url(image/goods_img2/4/40204.jpg?ver=1713327907) no-repeat center 15%"></dl>		<dl class="thumb3" style="background: url(image/goods_img2/4/40204B.jpg?ver=1713327907) no-repeat center 15%"></dl>		<dl class="thumb3" style="background: url(image/goods_img2/4/40204C.jpg?ver=1713327907) no-repeat center 15%"></dl>	</a></ol>	<ol style="height: 28px;">		<dl class="left ellip" style="padding-left:6px; width:360px;">에크 작가&nbsp;&nbsp;/&nbsp;&nbsp;동물잠옷</dl>		<dl class="right" style="margin-top:-6px;"><a onclick="wishListAdd('40204')"><img src="skin/default/img/common/icon_list_wish.png" id="wish40204" title="관심 작가"></a></dl>	</ol>	<ol>		<dl class="starBg_list">			<div style="width:101%;overflow:hidden"><img src="skin/default/img/shop/icon_star.gif"></div>		</dl>		<dl class="commercial">방송 · 상업용 / 비상업용</dl>		<dl class="price">5,000~</dl>	</ol></ul><div class="clear" style="height:10px;">&nbsp;</div></div>
-	<!-- 오른쪽 본문 부분 끝, 여기도 반복문 돌리면 되지 않을까 생각중. 안되면 하드코딩해야할 듯-->
-	
-	<div class="helpBox clear" id="noGoods" style="display:none">
-		<font class="gdHelp">해당되는 게시물이 없습니다.</font>
-		<div class="gdSmall gray" style="padding-top:10px;"></div>
-	</div>	
-	</form>
-	<!--</c:forEach><!-- 본문 끝 -->  -->
-	
-	<div class="clear" style="height:64px">&nbsp;</div>	
-	<div class="cate_banner_title">
-		<ul>프리미엄 작가</ul>
-		<ul><a href="?channel=board&amp;code=premium">등록하기</a> <i class="fa fa-angle-right" aria-hidden="true" style=""></i></ul>
-	</div>
-	
-	<div id="cate_banner" class="clear">
-		
-		<ul><a href="../posts/postselling.jsp" target="_blank"><img src="../listimages/premium1.jpg"></a></ul>
-		
-		<ul><a href="../posts/postselling.jsp" target="_blank"><img src="../listimages/premium2.jpg"></a></ul>
-		
-		<ul><a href="../posts/postselling.jsp" target="_blank"><img src="../listimages/premium3.jpg"></a></ul>
-		
-	</div>
-	
-
-	<div class="clear" style="height:50px">&nbsp;</div>	
-
-</div>
-<!-- @MAIN CENTER END -->
-	
-</div><!-- wrapBody -->
-<script> // 태그 클릭시 검색창에 태그 입력되고 해당 페이지로 전환
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".tag_box a").forEach(tag => {
-        tag.addEventListener("click", function(event) {
-            event.preventDefault(); // 기본 이동 방지
-            
-            let searchBox = document.querySelector("input[name='search']");
-            let searchForm = document.forms["searchForm2"];
-
-            if (searchBox) {
-                let currentValue = searchBox.value.trim();
-                let newTag = this.textContent.trim();
-
-                // 중복 태그 방지
-                if (!currentValue.includes(newTag)) {
-                    searchBox.value = currentValue ? `${currentValue} ${newTag}` : newTag;
-                }
+            // 20개 미만의 제품이 있으면 기본 상품으로 채우기
+            while (selectedProducts.length < 20) {
+                selectedProducts.push({ name: "기본 상품", price: "1,000원", description: "기본 상품입니다", image: "https://via.placeholder.com/150x100.png?text=기본+상품" });
             }
 
-            // 태그 색상 변경
-            this.style.color = "#FF4500"; // 오렌지색
+            // 선택한 카테고리의 제품을 화면에 표시
+            selectedProducts.slice(0, 20).forEach(item => {
+                let div = document.createElement("div");
+                div.className = "product-item";
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <strong>${item.name}</strong>
+                    <p class="description">${item.description}</p>
+                    <p class="price">${item.price}</p>
+                `;
+                productContainer.appendChild(div);
+            });
+        }
 
-            if (searchForm) {
-                searchForm.submit(); // 검색 폼 제출 (페이지 이동)
-            }
-        });
-    });
-});
+        // 페이지 로딩 시 "키링" 카테고리 제품을 기본으로 표시
+        window.onload = function () {
+            showProducts("키링");
+        };
+    </script>
 
-//로그인 상태여부 검사
-$(".sBtn1").on("click", function(){
-	var userid = "${sessionScope.user.getUserid()}";
-	var art_no = $(this).data('art_no'); //data 속성의 값을 불러온다
-
-	if(userid==""){
-		alert("작가회원만 작품등록이 가능합니다. 일반회원은 회원정보에서 작가회원으로 변경하실 수 있습니다")
-		return false;
-	}
-	
-	$.ajax({
-		type:'post',
-		data:{userid:userid, art_no:art_no},
-		url:"/posts/postwriteguide.do",
-		success: function(response){
-			alert("완료");
-		},error:function(){
-			alert("오류발생");
-		}
-	})
-})
-	
-
-
-</script>
-
+<%@ include file="/fragments/footer.jsp"%>
 </body>
-
-<%@ include file="/fragments/footer.jsp" %>
+</html>
