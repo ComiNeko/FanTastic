@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -14,13 +15,12 @@ import Service.MainService;
 import Service.MemberLogin;
 import Service.MemberLogout;
 import Service.MemberUserIdCheck;
+import Service.MemberUserPw;
 import Service.MemberUserSave;
+import Service.MemberUserUpdate;
 
 @WebServlet("/member/*")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-		maxFileSize = 1024 * 1024 * 10, // 10MB
-		maxRequestSize = 1024 * 1024 * 50 // 50MB
-)
+
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -53,30 +53,18 @@ public class MemberController extends HttpServlet {
 			page = "/mem/signup.jsp";
 			break;
 		
-		case "/sendEmail.do":
-            String email = request.getParameter("email");
-            EmailService emailService = new EmailService();
-            String code = emailService.sendEmail(email);
+		 case "/sendEmail.do":
+			 String email = request.getParameter("email");
 
-            if (code != null) {
-                // 인증 코드를 세션에 저장 (나중에 인증 확인 시 비교)
-                session.setAttribute("emailAuthCode", code);
-                response.getWriter().println("이메일 전송 완료");
-            } else {
-                response.getWriter().println("이메일 전송 실패");
-            }
-            return; // 페이지 이동 없이 AJAX 응답
-            
-        case "/verifyEmailCode.do":
-            String inputCode = request.getParameter("emailCode");
-            String sessionCode = (String) session.getAttribute("emailAuthCode");
+			    EmailService emailService = new EmailService();
+			    String authCode = emailService.sendEmail(email);
 
-            if (sessionCode != null && sessionCode.equals(inputCode)) {
-                response.getWriter().println("인증 성공");
-            } else {
-                response.getWriter().println("인증 실패");
-            }
-            return;
+			    if (authCode != null) {
+			        response.getWriter().println(authCode); // 인증 코드 반환 (세션 저장 X)
+			    } else {
+			        response.getWriter().println("이메일 전송 실패");
+			    }
+			    return;
 			
         case "/useridcheck.do":
             // 아이디 중복 체크 (AJAX 요청)
@@ -101,7 +89,47 @@ public class MemberController extends HttpServlet {
 			new MemberLogout().doCommand(request, response);
 			response.sendRedirect("/");
 			return;	
-            
+			
+	//_________________________________________________________________________________________________//	
+			
+		case "/mypage.do":
+			if(session == null || session.getAttribute("user") == null) {
+                 response.sendRedirect(request.getContextPath() + "/member/login.do");
+                 return;
+             }
+             page = "/mem/mypage.jsp";
+        break;
+											
+
+			// 회원정보 수정 페이지 요청: 수정 폼을 보여줌
+			case "/updateMyInfo.do":
+				 if(session == null || session.getAttribute("user") == null) {
+	                    response.sendRedirect(request.getContextPath() + "/member/login.do");
+	                    return;
+	             }
+	             page = "/mem/UpdateMyInfo.jsp";
+	        break;
+	        
+			case "/updateMyInfopro.do":
+			    new MemberUserUpdate().doCommand(request, response);
+			    page = "/mem/UpdateMyInfo.jsp";
+			break;
+			
+			// 비밀번호 수정 페이지 요청: UpdateMyPw.jsp로 이동
+            case "/updateMyPw.do":
+                if(session == null || session.getAttribute("user") == null) {
+                    response.sendRedirect(request.getContextPath() + "/member/login.do");
+                    return;
+                }
+                page = "/mem/UpdateMyPw.jsp";
+                break;
+                
+            case "/updateMyPwPro.do":
+                new MemberUserPw().doCommand(request, response);
+                page = "/mem/UpdateMyPw.jsp";
+                break;    
+        
+	            
 	} //switch
 			
 		

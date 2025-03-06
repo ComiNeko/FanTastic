@@ -17,378 +17,178 @@
 	}
 	
 	/* header 관련*/
+	/* 헤더 전체 스타일 */
+	header {
+		background-color: #000; /* 검은색 배경 */
+	}
 	
 	.home-bar {
-		background-color: white;
-	}
-	
-	.home-bar .home-left-part a {
-		color: #000;
-		font-family: 'Zen Maru Gothic', sans-serif;
-    	font-weight: 900;
-	}
-	
-	.home-bar .home-right-part a {
-		color: #000;
-		font-family: 'Zen Maru Gothic', sans-serif;
-    	font-weight: 400;
-    	padding: 0 20px;
-	}
-	
-	.home-right-part .logged-user-id {
-		color: #000 !important;
-		font-family: 'Zen Maru Gothic', sans-serif !important;
-		font-weight: 700 !important;
-		font-size: 16px !important;
-	}
-	
-	.home-right-part .logged-user-welcome {
-		color: #000 !important;
-		font-family: 'Zen Maru Gothic', sans-serif !important;
-		font-weight: 400 !important;
-		font-size: 12px !important;
-	}
-	
-	.home-bar .container {
-		display: flex;
-		justify-content: space-between;
-	}
-	
-	.home-left-part {
-		display: flex;
-	    place-items: center; /* 가로 & 세로 중앙 정렬 */
-    }
-	
-	.home-bar .home-logo {
-		width: 100px;
-		height: 70px;
-		margin-left: 12px;
-	}
-	
-	.home-name {
-		padding: 0;
-		margin: 0;
-		color: #000;
-    	font-family: 'Zen Maru Gothic', sans-serif;
-    	font-weight: 900;
-    	padding: 5px 0;
-    	padding-bottom: 12px;
-	}
-	
-	.home-search-part {
-		/*padding: 15px;
-    	margin-top: 6px;*/
-    	display: flex;
+	    padding: 5px 0;
+	    display: flex;
 	    align-items: center;
-	    width: 400px;
-	    height: 39px;
-	    border: 1px solid #ccc;
-	    border-radius: 5px;
-	    padding: 10px;
-	    background-color: white;
-	    margin-left: 25px;
-	    text-align: center;
+	    justify-content: space-between;
+	    color: #fff;
 	}
 	
-	.home-search-part .home-search-box {
-		flex: 1; /* 버튼을 제외한 영역을 최대한 차지 */
+	.home-bar .home-left-part {
+		display: flex;
+	    align-items: center;
+	    justify-content: flex-start;
+	}
+	
+	/* 로고 스타일 */
+	.home-name a {
+	    font-size: 28px;
+	    font-weight: bold;
+	    color: #fff;
+	    text-decoration: none;
+	    padding-right: 35px;
+	}
+	
+	.home-name a:hover {
+	    color: #8FD8F4;
+	}
+	
+	/* 카테고리 드롭다운 버튼 */
+	.category-btn {
+	    background: #333;
+	    color: #fff;
+	    border: none;
+	    padding: 8px 15px;
+	    border-radius: 5px;
+	    font-size: 14px;
+	    cursor: pointer;
+	}
+	
+	.category-btn:hover {
+	    background: #555;
+	}
+	
+	/* 검색창 스타일 */
+	.home-search {
+	    display: flex;
+	    align-items: center;
+	    border: 2px solid #555;
+	    border-radius: 25px;
+	    padding: 5px 10px;
+	    width: 450px;
+	    background-color: #222;
+	}
+	
+	.home-search-box {
 	    border: none;
 	    outline: none;
-	    font-size: 12px;
-	    font-family: 'Zen Maru Gothic', sans-serif;
-	    font-weight: 400;
-	    padding: 5px 5px;
+	    flex: 1;
+	    font-size: 14px;
+	    padding: 5px;
+	    background: transparent;
+	    color: #fff;
 	}
 	
 	.home-search-box::placeholder {
-		color: #ccc;
-		font-family: 'Zen Maru Gothic', sans-serif;
-    	font-weight: 400;
-    	font-size: 16px;
+	    color: #aaa;
 	}
 	
 	.home-search-button {
 	    background: none;
 	    border: none;
 	    cursor: pointer;
-	    padding: 0 5px;
-	    color: #999;
-	    font-size: 20px;
-	}
-	
-	.home-search-button i {
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
+	    color: #8FD8F4;
+	    font-size: 18px;
 	}
 	
 	.home-search-button:hover {
-	    color: #666;
+	    color: #fff;
 	}
 	
+	/* 로그인/회원가입 스타일 */
 	.home-right-part {
-		display: flex;
-	    place-items: center; /* 가로 & 세로 중앙 정렬 */
-    }
+		padding: 0;
+		margin: 0;
+	    display: flex;
+	    align-items: center;
+	    list-style: none;
+	}
 	
-	/* nav 관련 */
+	.home-right-part li {
+	    margin-left: 15px;
+	}
+	
+	.home-right-part a {
+	    text-decoration: none;
+	    color: #fff;
+	    font-weight: 600;
+	    padding: 8px 15px;
+	    border-radius: 20px;
+	    transition: all 0.3s ease-in-out;
+	}
+	
+	.home-right-part a:hover {
+	    background: #8FD8F4;
+	    color: #000;
+	}
+	
+	/* 네비게이션 바 */
+	nav {
+		background: #222;
+	}
 	
 	.home-nav {
-		background: #8FD8F4;
-	}
-	
-	.home-nav a {
-		color: #fff;
-		font-family: 'Zen Maru Gothic', sans-serif;
-    	font-weight: 700;
-    	padding: 0 10px;
-	}
-	
-	.home-nav .container {
 		display: flex;
-		justify-content: space-between;
+		align-items: center;
+	    justify-content: space-between;
+	    padding: 5px 0;
 	}
 	
-	.home-nav .container .nav-left {
-		display: flex;
-		justify-content: space-between;
-	}
-	
-	.home-nav .container .nav-left ul {
-		padding: 0;
+	.home-nav-menu {
 		margin: 0;
-		list-style: none;
-		display: flex;
-		justify-content: center;
-		padding: 12px 15px;
-	}
-	
-	.nav-links-drop {
-	    position: relative;
-	    padding-right: 15px; /* 오른쪽 여백 추가 */
-	}
-	
-	.nav-links-drop::after {
-		position: absolute;
-	    content: "";
-	    right: 0;
-	    top: 50%;
-	    height: 30px; /* border 길이 조절 */
-	    width: 1px;
-	    background-color: #fff;
-	    transform: translateY(-50%); /* 세로 중앙 정렬 */
-	}
-	
-	.nav-right-items {
-	    position: relative;
-	    padding: 0 15px; /* 좌우 여백 추가 */
-	}
-	
-	.nav-right-items:first-child::before {
-	    content: "";
-	    position: absolute;
-	    left: -10px; /* 위치 조정 */
-	    top: 50%;
-	    height: 30px; /* border 길이 */
-	    width: 1px;
-	    background-color: #fff;
-	    transform: translateY(-50%); /* 세로 중앙 정렬 */
-	}
-	
-	.home-nav .container .nav-left .nav-links-drop .dropdown .dropdown-menu .dropdown-item {
-		color: #000;
-		font-family: 'Zen Maru Gothic', sans-serif;
-    	font-weight: 600;
-    	text-align: center;
-    	padding: 5px 0;
-	}
-	
-	.home-nav .container .nav-left .nav-links-popular {
-		padding: 0;
-		margin: 0;
-	}
-	
-	.home-nav .container .nav-left .nav-links-popular {
-		padding: 12px 12px;
-	}
-	
-	.home-nav .container .nav-right ul {
-		padding: 0;
-		margin: 0;
-		list-style: none;
-		display: flex;
-		justify-content: center;
-		padding: 12px;
-	}
-	
-	/* 메인 콘텐츠 스타일 */
-	main {
-		height: 550px;
-		border-bottom: 1px solid #ccc;
-		background: #ccc;
-		
-		/* Flexbox를 사용하여 수직 중앙 정렬 */
+		paddign: 0;
 	    display: flex;
-	    flex-direction: column;
-	    justify-content: center; /* 세로 중앙 정렬 */
+	    align-items: center;
+	    justify-content: center;
+	    list-style: none;
 	}
 	
-	.main-content {
-		margin-left: auto;
-		margin-right: auto;
-		width: 80%; /* 너비를 80%로 설정하여 중앙 정렬 */
+	.home-nav-menu li {
+	    margin: 0 15px;
 	}
 	
-	.main-title, .sub-title {
-		position: relative; /* 텍스트가 배경 이미지 위에 위치 */
-		z-index: 1; /* 텍스트가 배경 이미지 위에 표시되도록 설정 */
+	.home-nav-menu a {
+	    color: #fff;
+	    text-decoration: none;
+	    font-size: 14px;
+	    transition: all 0.3s ease-in-out;
 	}
 	
-	.main-title {
-		color: #000;
-		font-size: 48px;
-		font-weight: bold;
-		margin-bottom: 12px;
+	.home-nav-menu a:hover {
+	    color: #8FD8F4;
+	    text-decoration: underline;
 	}
 	
-	.main-title .home-logo {
-		color: #000;
-		font-size: 72px;
-		font-family: 'Zen Maru Gothic', sans-serif;
-    	font-weight: 700;
-	}
 	
-	.sub-title {
-		color: #757575;
-		font-size: 24px;
-		margin-top: 5px; /* h1과의 간격을 5px 추가 */
-		margin-bottom: 12px;
-		position: relative; /* 텍스트가 배경 이미지 위에 위치 */
-	}
-	
-	.main-search-div {
-		display: flex;
-		justify-content: flex-start;
-	}
-	
-	.main-search-box {
-		margin-right: 10px; /* 버튼과의 간격 */
-		width: 500px;
-	}
-	
-	.main-search-box::placeholder {
-		color: #000;
-	}
-	
-	.main-search-btn {
-		color: #fff;
-		background: #000;
-		border: none;
-		padding: 0 12px;
-		border-radius: 3px;
-		font-size: 12px;
-	}
-	
-	.main-search-btn:hover {
-		background: #555;
-		transition: background-color 0.3s ease-in-out;
-	}
-	
-	/* 이미지 컨테이너 스타일 */
-	.image-container {
-		position: relative !important; /* 자식 요소에 절대 위치를 적용하기 위해 */
-		z-index: 1000 !important;
-		opacity: 1 !important;
-		display: block !important;
-		border-radius: 5px; /* 경계선 둥글게 설정 (선택 사항) */
-		overflow: hidden; /* 경계선을 깔끔하게 유지하기 위해 */
-		width: 400px; /* 가로 너비 고정 */
-		margin: 10px; /* 여백 추가 (위, 아래, 왼쪽, 오른쪽) */
-		transition: opacity 0.3s ease-in-out;
-	}
-	
-	.image-container img {
-		width: 100%; /* 이미지의 너비를 100%로 설정 */
-		transition: transform 0.3s; /* 부드러운 확대 효과 */
-	}
-	
-	.image-container:hover img {
-		transform: scale(1.25); /* 125% 확대 */
-	}
-	
-	/* 플렉스 박스 설정 */
-	.container-fluid {
-		display: flex; /* Flexbox로 설정 */
-		flex-wrap: wrap; /* 줄 바꿈 허용 */
-		justify-content: center; /* 중앙 정렬 */
-		padding-left: 15px; /* 왼쪽 여백 */
-		padding-right: 15px; /* 오른쪽 여백 */
-	}
-	
-	/* footer 관련 */
-	
+	/* footer 관련*/
 	footer {
-		background: #e5e5e5;
+		background-color: #222;
+		color: #fff;
+		padding: 20px 0;
+		font-family: 'Poppins', sans-serif;
 	}
 	
-	.footer-tab {
-		padding: 50px 0;
-		display: flex;
-		justify-content: flex-start;
+	footer .footer-tab {
+		margin-bottom: 15px;
+	}
+	
+	footer a {
+		color: #fff;
+		text-decoration: none;
+		margin: 0 10px;
+	}
+	
+	footer .footer-desc {
+		font-size: 14px;
+	}
+	
+	footer .copyright-container p {
 		font-size: 13px;
+		color: #bbb;
 	}
-	
-	.footer-tab a {
-		margin: 0 16px;
-	}
-	
-	.footer-desc p {
-		padding: 0;
-		margin: 0;
-		color: #666;
-		font-size: 12px;
-		margin-bottom: 5px;
-	}
-	
-	.copyright-container {
-		color: #666;
-		font-size: 12px;
-		text-align: center;
-		margin-top: 35px;
-		padding-bottom: 10px;
-	}
-	
-	
-	/* 줄 바꿈 시 애니메이션 */
-	@keyframes fadeIn {
-    from {
-        opacity: 0; /* 초기 투명도 */
-        transform: translateY(20px); /* 아래에서 위로 이동 */
-    }
-    to {
-        opacity: 1; /* 최종 투명도 */
-        transform: translateY(0); /* 원래 위치로 이동 */
-    }
-}
-	
-	to {
-		opacity: 1; /* 최종 투명도 */
-		transform: translateY(0); /* 원래 위치 */
-	}
-	
-	.msgmsg-box-wpcp {
-		transition: opacity 0.5s ease, transform 0.5s ease; /* 부드러운 전환 효과 */
-		opacity: 0; /* 초기 상태에서 투명하게 설정 */
-		transform: translateY(-20px); /* 위로 이동 */
-	}
-	
-	.msgmsg-box-wpcp.showme {
-		opacity: 1; /* 불투명하게 설정 */
-		transform: translateY(0); /* 원래 위치로 이동 */
-	}
-	
-	.msgmsg-box-wpcp.hideme {
-		opacity: 0; /* 다시 투명하게 설정 */
-		transform: translateY(-20px); /* 위로 이동 */
-	}
-	
