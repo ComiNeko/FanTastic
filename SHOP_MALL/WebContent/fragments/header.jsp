@@ -26,7 +26,6 @@
 <body>
 	<header class="header-container">
 		<div class="container">
-
 		    <div class="home-bar">
 		        <!-- 로고 -->
 		        <div class="home-left-part">
@@ -59,7 +58,6 @@
 		        </ul>
 		    </div>
 	    </div>
-
 	</header>
 	
 	<!-- 네비게이션 바 -->
