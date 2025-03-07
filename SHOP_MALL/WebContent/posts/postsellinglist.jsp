@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="java.util.*"%>
-<%@ page import="java.text.*"%>
+<%@ page import="java.util.List" %>
+<%@ page import="Model.PostVo" %>
 <%@ include file="../fragments/header.jsp"%>
 
 <!DOCTYPE html>
@@ -14,25 +13,25 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column; /* 기존 flex를 column으로 변경해서 header와 content가 겹치지 않도록 수정 */
+            flex-direction: column;
             margin: 0;
             padding: 0;
         }
 
         .container {
             display: flex;
-            flex-direction: row; /* 사이드바와 컨텐츠 나열 */
-            margin-top: 70px; /* 헤더와 겹치지 않도록 수정 */
+            flex-direction: row;
+            margin-top: 70px;
         }
 
         .sidebar {
             width: 200px;
             background-color: #f5f5f5;
             padding: 20px;
-            height: calc(100vh - 70px); /* 헤더 높이 제외한 화면 높이 */
+            height: calc(100vh - 70px);
             position: fixed;
             left: 0;
-            top: 70px; /* 헤더와 겹치지 않도록 수정 */
+            top: 70px;
         }
 
         .sidebar ul {
@@ -130,7 +129,6 @@
         .write-button:hover {
             background-color: #2980b9;
         }
-
     </style>
 </head>
 <body>
@@ -138,64 +136,49 @@
     <div class="container">
         <div class="sidebar">
             <ul>
-                <li onclick="showProducts('키링')">키링</li>
-                <li onclick="showProducts('아크릴굿즈')">아크릴굿즈</li>
-                <li onclick="showProducts('포토카드')">포토카드</li>
-                <li onclick="showProducts('틴케이스')">틴케이스</li>
-                <li onclick="showProducts('키캡')">키캡</li>
-                <li onclick="showProducts('거울/핀버튼')">거울/핀버튼</li>
-                <li onclick="showProducts('커버/클리너')">커버/클리너</li>
+                <li onclick="location.href='/post/postsellinglist.do?category=1'">키링</li>
+                <li onclick="location.href='/post/postsellinglist.do?category=2'">아크릴굿즈</li>
+                <li onclick="location.href='/post/postsellinglist.do?category=3'">포토카드</li>
+                <li onclick="location.href='/post/postsellinglist.do?category=4'">틴케이스</li>
+                <li onclick="location.href='/post/postsellinglist.do?category=5'">키캡</li>
+                <li onclick="location.href='/post/postsellinglist.do?category=6'">거울/핀버튼</li>
+                <li onclick="location.href='/post/postsellinglist.do?category=7'">커버/클리너</li>
             </ul>
         </div>
 
         <div class="content">
             <h2>상품 목록</h2>
 
-            <!-- 🔹 글쓰기 버튼 추가 -->
+            <!-- 글쓰기 버튼 추가 -->
             <div class="write-button-container">
                 <form action="postwrite.jsp" method="get">
                     <button type="submit" class="write-button">글쓰기</button>
                 </form>
             </div>
 
-            <div class="product" id="product-list"></div>
+            <div class="product">
+                <%
+                    List<PostVo> productList = (List<PostVo>) request.getAttribute("productList");
+                    if (productList != null && !productList.isEmpty()) {
+                        for (PostVo post : productList) {
+                %>
+                            <div class="product-item">
+                                <img src="uploads/<%= post.getProductImage() %>" alt="<%= post.getProductName() %>">
+                                <strong><%= post.getProductName() %></strong>
+                                <p class="description"><%= post.getProductInfo() %></p>
+                                <p class="price"><%= post.getProductPrice() %>원</p>
+                            </div>
+                <%
+                        }
+                    } else {
+                %>
+                        <p>게시글이 없습니다.</p>
+                <%
+                    }
+                %>
+            </div>
         </div>
     </div>
-
-    <script>
-        // 카테고리별 상품 목록
-        const allProducts = {
-            "키링": [
-                { name: "귀여운 고양이 키링", price: "5,000원", description: "귀여운 고양이 모양의 키링", image: "https://via.placeholder.com/150x100.png?text=고양이+키링" },
-                { name: "패션 캐릭터 키링", price: "7,000원", description: "유명 캐릭터 디자인의 키링", image: "https://via.placeholder.com/150x100.png?text=패션+캐릭터+키링" }
-            ]
-        };
-
-        // 카테고리 선택 시 상품을 보여주는 함수
-        function showProducts(category) {
-            let productContainer = document.getElementById("product-list");
-            productContainer.innerHTML = ""; // 기존 내용 초기화
-
-            let selectedProducts = allProducts[category] || [];
-
-            selectedProducts.forEach(item => {
-                let div = document.createElement("div");
-                div.className = "product-item";
-                div.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
-                    <strong>${item.name}</strong>
-                    <p class="description">${item.description}</p>
-                    <p class="price">${item.price}</p>
-                `;
-                productContainer.appendChild(div);
-            });
-        }
-
-        // 기본 카테고리 표시
-        window.onload = function () {
-            showProducts("키링");
-        };
-    </script>
 
 <%@ include file="/fragments/footer.jsp"%>
 </body>

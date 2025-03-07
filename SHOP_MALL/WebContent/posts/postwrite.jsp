@@ -20,11 +20,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>판매페이지</title>
-<link rel="stylesheet" href="../css/postwrite.css">
+    <meta charset="UTF-8">
+    <title>판매페이지</title>
+    <link rel="stylesheet" href="../css/postwrite.css">
+    <style>
+        /*  전체 스타일 개선 */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .wrapBody {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        .subContent {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #subTitle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .s_title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 폼 스타일 */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .inputH,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            background: #fff;
+            transition: 0.3s ease-in-out;
+        }
+
+        .inputH:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* 버튼 스타일 */
+        .submit-btn {
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* 파일 업로드 스타일 */
+        input[type="file"] {
+            border: none;
+            background: #fff;
+            padding: 5px;
+        }
+
+        .explain {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .orange {
+            color: #e67e22;
+        }
+    </style>
 </head>
 <body>
+
 <div class="wrapBody">
     <div class="subContent" id="gwrite">
         <div id="subTitle">
@@ -39,7 +148,7 @@
             <div class="form-group">
                 <label>카테고리</label>
                 <select name="categoryid" class="inputH" required>
-                    <option value="">선택하세요</option>  <!-- 빈 값으로 설정해서 선택을 강제 -->
+                    <option value="">선택하세요</option>
                     <option value="1">키링</option>
                     <option value="2">아크릴</option>
                     <option value="3">포토카드</option>
