@@ -78,7 +78,7 @@ public class MemberDao {
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
 	        ResultSet rs = null;
-	        String sql = "SELECT u.userid, u.name, u.password, u.phonenumber, u.email, a.address "
+	        String sql = "SELECT u.userid, u.name, u.password, u.phonenumber, u.email, u.role, a.address "
 	                   + "FROM NEW_USERS u JOIN NEW_ADDRESSES a ON u.userid = a.userid "
 	                   + "WHERE u.userid = ?";
 	        
@@ -95,6 +95,7 @@ public class MemberDao {
 	                vo.setPassword(rs.getString("password"));
 	                vo.setPhonenumber(rs.getString("phonenumber"));
 	                vo.setEmail(rs.getString("email"));
+	                vo.setRole(rs.getString("role"));
 	                vo.setAddress(rs.getString("address"));
 	            }
 	        } catch(Exception e) {
