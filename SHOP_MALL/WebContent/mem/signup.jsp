@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../fragments/header.jsp" %>
-<link rel="stylesheet" href="/css/loginsignup.css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="../js/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="../css/loginsignup.css">
 
 <div class="signup-page">
     <div class="signup-container">
@@ -38,23 +38,25 @@
                     <input type="text" id="phonenumber" name="phonenumber" placeholder="전화번호를 입력해주세요." required>
                     <span class="error-message" id="err-phonenumber"></span>
                 </div>
-                
-                <label for="address">주소</label>
-	                <div class="signup-form-group">
-	                    <input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
-	                    <button type="button" id="findAddressBtn">주소 찾기</button>
-	                    <span class="error-message" id="err-address"></span>
-	                </div>
-			                <div class="signup-form-group">
-			    				<input type="text" id="detailAddress" name="detailAddress" placeholder="상세 주소(동/호 등)를 입력하세요.">
-			   	 				<span class="error-message" id="err-detailAddress"></span>
-							</div>
-
-				<div class="signup-form-group">
-                    <label for="email">이메일</label>
-                    <div class="email-container">
+				
+				<div class="signup-form-group-address">
+					<label for="address">주소</label>
+					<div class="signup-address">
+						<input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
+						<button type="button" id="findAddressBtn">주소 찾기</button>
+						<span class="error-message" id="err-address"></span>
+					</div>
+					<div class="signup-detailAddress">
+						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세 주소(동/호 등)를 입력하세요.">
+						<span class="error-message" id="err-detailAddress"></span>
+					</div>
+				</div>
+				
+				<label for="email">이메일</label>
+				<div class="signup-form-group-email">
+                    <div class="email-container-left">
                         <input type="text" id="emailPrefix" name="emailPrefix" placeholder="이메일 아이디" required>
-                        <span>@</span>
+                        <span class="at">@</span>
                         <select id="emailDomain" name="emailDomain">
                             <option value="" selected>선택해주세요</option>
                             <option value="naver.com">naver.com</option>
@@ -65,15 +67,20 @@
                         </select>
                         <input type="text" id="customEmailDomain" name="customEmailDomain" placeholder="도메인 입력" style="display: none;">
                     </div>
-                    <button type="button" id="sendEmailBtn">이메일 인증</button>
+                    <div class="email-container-right">
+                    	<button type="button" id="sendEmailBtn">이메일 인증</button>
+                    </div>
                     <span class="error-message" id="err-email"></span>
                 </div>
                 
-               <div class="signup-form-group">
-				    <label for="authCode">인증 코드</label>
-				    <!-- 여기서 id와 name을 "authCode"로 통일 -->
-				    <input type="text" id="authCode" name="authCode" placeholder="인증 코드를 입력하세요." required>
-				    <button type="button" id="verifyCodeBtn">인증 확인</button>
+               <div class="signup-form-group-auth">
+               		<div class="signup-auth-left">
+				    	<label class="authCode" for="authCode">인증 코드</label>
+				    </div>
+				    <div class="signup-auth-right">
+					    <input type="text" id="authCode" name="authCode" placeholder="인증 코드를 입력하세요." required>
+					    <button type="button" id="verifyCodeBtn">인증 확인</button>
+				    </div>
 				    <span class="error-message" id="err-code"></span>
 				</div>
 
@@ -83,19 +90,19 @@
                     <div class="signup-checkbox-group">
                         <input type="checkbox" id="terms" name="terms">
                         <label for="terms">이용약관에 동의합니다.</label>
-                        <button type="button" class="details-btn" onclick="toggleDetails('termsDetails')">내용보기 ▼</button>
+                        <button type="button" onclick="toggleDetails('termsDetails')">내용보기 ▼</button>
                     </div>
                     <div id="termsDetails" class="details" style="display:none;">
-                        이용약관의 상세 내용이 여기에 표시됩니다.
+                        	이용약관의 상세 내용이 여기에 표시됩니다.
                     </div>
 
                     <div class="signup-checkbox-group">
                         <input type="checkbox" id="privacy" name="privacy">
                         <label for="privacy">개인정보 수집, 이용에 동의합니다.</label>
-                        <button type="button" class="details-btn" onclick="toggleDetails('privacyDetails')">내용보기 ▼</button>
+                        <button type="button" onclick="toggleDetails('privacyDetails')">내용보기 ▼</button>
                     </div>
                     <div id="privacyDetails" class="details" style="display:none;">
-                        개인정보 수집 및 이용에 대한 상세 내용이 여기에 표시됩니다.
+                       	        개인정보 수집 및 이용에 대한 상세 내용이 여기에 표시됩니다.
                     </div>
                   
                     <div class="signup-checkbox-group">

@@ -14,6 +14,8 @@
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" 
+	href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap">
 <link rel="stylesheet"

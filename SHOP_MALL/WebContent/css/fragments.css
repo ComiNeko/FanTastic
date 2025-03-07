@@ -38,11 +38,20 @@
 	
 	/* 로고 스타일 */
 	.home-name a {
-	    font-size: 28px;
+	    /* font-size: 28px;
 	    font-weight: bold;
 	    color: #fff;
 	    text-decoration: none;
 	    padding-right: 35px;
+	     */
+	    font-family: 'Sacramento', cursive;
+	    font-size: 32px;
+	    color: #fff;
+	    font-weight: 700;
+	    letter-spacing: 1px;
+	    text-decoration: none;
+	    padding-right: 35px;
+	    
 	}
 	
 	.home-name a:hover {
