@@ -52,30 +52,29 @@ public class MemberController extends HttpServlet {
 			page = "/mem/signup.jsp";
 			break;
 		
-		 case "/sendEmail.do":
-			 String email = request.getParameter("email");
+		case "/sendEmail.do":
+			String email = request.getParameter("email");
 
-			    EmailService emailService = new EmailService();
-			    String authCode = emailService.sendEmail(email);
+		    EmailService emailService = new EmailService();
+		    String authCode = emailService.sendEmail(email);
 
-			    if (authCode != null) {
-			        response.getWriter().println(authCode); // 인증 코드 반환 (세션 저장 X)
-			    } else {
-			        response.getWriter().println("이메일 전송 실패");
-			    }
-			    return;
+		    if (authCode != null) {
+		        response.getWriter().println(authCode); // 인증 코드 반환 (세션 저장 X)
+		    } else {
+		        response.getWriter().println("이메일 전송 실패");
+		    }
+		    return;
 			
         case "/useridcheck.do":
             // 아이디 중복 체크 (AJAX 요청)
             new MemberUserIdCheck().doCommand(request, response);
-            page=null;
+            page = null;
 			break;
 			
         case "/signuppro.do":
             new MemberUserSave().doCommand(request, response);
             response.sendRedirect("/");  // 성공페이지를 만들 것인가, response.sendRedirect("/mem/signupSuccess.jsp");
             return;	//NOPE 안 만들 거임!
-			
 			
 		case "/login.do":
 			page = "/mem/login.jsp";
@@ -84,6 +83,7 @@ public class MemberController extends HttpServlet {
 		case "/loginpro.do":
 			new MemberLogin().doCommand(request, response);
 			return;
+			
 		case "/logout.do":
 			new MemberLogout().doCommand(request, response);
 			response.sendRedirect("/");
