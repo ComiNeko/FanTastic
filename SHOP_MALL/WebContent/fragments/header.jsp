@@ -8,12 +8,15 @@
 <meta charset="UTF-8">
 <title>FanTastic</title>
 
-<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="js/jquery-3.7.1.min.js"></script>
+
 
 <script
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" 
+	href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap">
 <link rel="stylesheet"
@@ -77,7 +80,7 @@
 						<button class="category-btn dropdown-toggle" type="button"
 							data-toggle="dropdown">전체 카테고리</button>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">키링</a> <a class="dropdown-item"
+							<a class="dropdown-item" href="../posts/postsellinglist.jsp">키링</a> <a class="dropdown-item"
 								href="#">아크릴</a> <a class="dropdown-item" href="#">포토카드</a> <a
 								class="dropdown-item" href="#">틴케이스</a> <a class="dropdown-item"
 								href="#">키캡</a> <a class="dropdown-item" href="#">거울/핀버튼</a> <a

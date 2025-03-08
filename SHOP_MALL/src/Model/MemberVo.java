@@ -13,6 +13,7 @@ public class MemberVo {
 		private String addressid; //주소 ID (기본 키)
 		private String address; //주소 
 		
+		private String role;
 		
 		
 		public String getName() {
@@ -57,5 +58,12 @@ public class MemberVo {
 		public void setAddress(String address) {
 			this.address = address;
 		}
+		public String getRole() {
+			return role;
+		}
+		public void setRole(String role) {
+			this.role = role;
+		}
+		
 	
 }
