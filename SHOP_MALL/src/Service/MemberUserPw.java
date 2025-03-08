@@ -28,7 +28,7 @@ public class MemberUserPw implements Command {
 	        
 	        // 폼에서 새 비밀번호와 확인 비밀번호 값 가져오기
 	        String newPwd = request.getParameter("newPassword").trim();
-	        String confirmPwd = request.getParameter("confirmNewPassword").trim();
+	        String confirmPwd = request.getParameter("passwordConfirm").trim();
 	        
 	        // 서버측 유효성 검사: 새 비밀번호가 입력되어 있어야 하고, 두 값이 일치해야 함.
 	        if(newPwd == null || newPwd.isEmpty()) {

@@ -11,12 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import Service.EmailService;
 import Service.MainService;
+import Service.MemberFindId;
 import Service.MemberLogin;
 import Service.MemberLogout;
 import Service.MemberUserIdCheck;
 import Service.MemberUserPw;
 import Service.MemberUserSave;
 import Service.MemberUserUpdate;
+import Service.MemberVerifyFindId;
 
 @WebServlet("/member/*")
 
@@ -51,8 +53,14 @@ public class MemberController extends HttpServlet {
 			new MainService().doCommand(request, response);
 			page = "/mem/signup.jsp";
 			break;
-		
-		 case "/sendEmail.do":
+			
+		case "/findidpw.do":
+		 	new MainService().doCommand(request, response);
+            page = "/mem/FindIDPW.jsp";
+            break;
+            
+		 	      
+       case "/sendEmail.do":
 			 String email = request.getParameter("email");
 
 			    EmailService emailService = new EmailService();
@@ -64,6 +72,8 @@ public class MemberController extends HttpServlet {
 			        response.getWriter().println("이메일 전송 실패");
 			    }
 			    return;
+			    
+		  
 			
         case "/useridcheck.do":
             // 아이디 중복 체크 (AJAX 요청)
@@ -90,7 +100,31 @@ public class MemberController extends HttpServlet {
 			return;	
 			
 	//_________________________________________________________________________________________________//	
-			
+		
+		case "/findId.do":
+			new MainService().doCommand(request, response);
+			page = "/mem/findid.jsp"; 
+		    break;
+		
+		case "/findIdProcess.do":
+			 new MemberFindId().doCommand(request, response);
+		    return;
+		
+		case "/verifyEmail.do":
+			new MemberVerifyFindId().doCommand(request, response);
+			return;
+    
+				
+//				case "/findPw.do":
+//				    new MemberFindPw().doCommand(request, response);
+//				    return;
+//				case "/resetPw.do":
+//				    new MemberResetPw().doCommand(request, response);
+//				    return;
+		
+		
+	//_________________________________________________________________________________________________//		
+		
 		case "/mypage.do":
 			if(session == null || session.getAttribute("user") == null) {
                  response.sendRedirect(request.getContextPath() + "/member/login.do");
