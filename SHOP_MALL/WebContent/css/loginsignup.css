@@ -84,19 +84,28 @@
 		background-color: #6eb5ff;
 	}
 	
+	.signup-page .signup-form-group-address .signup-address {
+		display: flex;
+		justify-content: space-between;
+	}
+	
 	.signup-page .signup-form-group-address .signup-address label {
 		margin-bottom: 10px;
 	}
 	
 	.signup-page .signup-form-group-address .signup-address input {
-		width: 350px;
-		height: 40px;
+		width: 370px;
+    	height: 40px;
 		margin-bottom: 10px;
 	}
 	
 	.signup-page .signup-form-group-address .signup-detailAddress input {
 		width: 100%;
 		height: 40px;
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address label {
 		margin-bottom: 10px;
 	}
 	
@@ -114,8 +123,21 @@
 		display: column;
 	}
 	
+	.signup-page .signup-form-group-email .email-container {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.signup-page .signup-form-group-email .email-container-left {
+		width: 70%;
+	}
+	
+	.signup-page .signup-form-group-email label {
+		margin-bottom: 10px;
+	}
+	
 	.signup-page .signup-form-group-email input {
-		width: 200px;
+		width: 193px;
 		height; 40px;
 		margin-bottom: 10px;
 	}
@@ -159,10 +181,12 @@
 	.signup-page .signup-form-group-auth {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10px;
 	}
 	
-	.signup-page .signup-form-group-auth .signup-auth-left {
-		align-items: center;
+	.signup-page .signup-form-group-auth label {
+		margin: 0;
 	}
 	
 	.signup-page .signup-form-group-auth .signup-auth-right {
@@ -179,14 +203,20 @@
 	/* 체크박스 컨테이너 */
 	.signup-page .checkbox-container {
 	    display: flex;
-	    flex-direction: column;
+	    justify-content: space-between;
 	    gap: 15px; /* 각 체크박스 그룹 사이 간격 */
 	    margin-top: 20px;
 	}
 	
+	.signup-page .checkbox-container label {
+		width: 100% !important;
+	}
+	
+	
 	/* 체크박스 그룹 스타일 */
 	.signup-page .signup-checkbox-group {
 	    display: flex;
+	    width: 400px;
 	    align-items: center;
 	    gap: 10px; /* 체크박스와 텍스트 사이 간격 */
 	    font-family: 'Zen Maru Gothic', sans-serif;
@@ -250,19 +280,9 @@
 	    display: block;
 	}
 	
-	.signup-page .details {
-		display: none;
-		margin-top: 5px;
-		font-size: 14px;
-		color: #666;
-		padding: 10px;
-		background: #f1f1f1;
-		border-radius: 5px;
-	}
-	
 	.signup-page .signup-btn {
+		display: block;
 		width: 65%;
-		padding: 15px;
 		background-color: #8FD8F4;
 		color: white;
 		border: none;
@@ -272,7 +292,6 @@
 		cursor: pointer;
 		transition: background-color 0.3s;
 		margin: 15px auto; /* 위쪽 여백 15px, 좌우 자동 정렬 */
-		display: block; /* 블록 요소로 변경하여 margin: auto 적용 */
 		margin-top: 35px;
 	}
 	
@@ -440,10 +459,35 @@
 	}
 	
 	/* 스크립트 ERROR 스타일 */
-	.error {
-		color: #f00;
+	.signup-page .error {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #f00f00;
+	    font-size: 14px;
+	    margin-bottom: 5px;
+	    margin-left: 122px;
 	}
 	
-	.success {
-		color: #147814;
+	.signup-page .success {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #147814;
+	    font-size: 14px;
+	    margin-bottom: 5px;
+	    margin-left: 122px;
+	}
+	
+	.signup-page .error-email, .error-code, .error-checkbox {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #f00f00;
+	    font-size: 14px;
+	    margin-bottom: 5px;
+	}
+	
+	.signup-page .error-checkbox {
+		margin-top: 10px;
 	}

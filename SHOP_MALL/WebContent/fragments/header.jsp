@@ -37,12 +37,28 @@
 	<header class="header-container">
 		<div class="container">
 			<div class="home-bar">
-				<!-- 로고 -->
 				<div class="home-left-part">
+					<!-- 로고 -->
 					<h1 class="home-name">
 						<a href="/">FanTastic</a>
 					</h1>
-
+					
+					<!-- 드랍다운 카테고리 -->
+					<div class="home-category">
+						<div class="dropdown">
+							<button class="category-btn dropdown-toggle" type="button" data-toggle="dropdown">Shop</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">키링</a>
+								<a class="dropdown-item" href="#">아크릴</a>
+								<a class="dropdown-item" href="#">포토카드</a>
+								<a class="dropdown-item" href="#">틴케이스</a>
+								<a class="dropdown-item" href="#">키캡</a>
+								<a class="dropdown-item" href="#">거울/핀버튼</a>
+								<a class="dropdown-item" href="#">커버/클리너</a>
+							</div>
+						</div>
+					</div>
+				
 					<!-- 검색창 -->
 					<div class="home-search">
 						<input type="text" class="home-search-box" placeholder="검색">
@@ -60,7 +76,7 @@
 							<li><a href="/member/signup.do">회원가입</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><span class="logged-user-id">${sessionScope.user.name}</span>
+							<li class="logged-user"><span class="logged-user-id">${sessionScope.user.name}</span>
 								님 환영합니다!</li>
 							<li><a href="/member/mypage.do">마이페이지</a></li>
 							<li><a href="/member/logout.do">로그아웃</a></li>
@@ -70,36 +86,7 @@
 			</div>
 		</div>
 	</header>
-
-	<!-- 네비게이션 바 -->
-	<nav>
-		<div class="container">
-			<div class="home-nav">
-				<div class="home-nav-category">
-					<div class="dropdown">
-						<button class="category-btn dropdown-toggle" type="button"
-							data-toggle="dropdown">전체 카테고리</button>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="../posts/postsellinglist.jsp">키링</a> <a class="dropdown-item"
-								href="#">아크릴</a> <a class="dropdown-item" href="#">포토카드</a> <a
-								class="dropdown-item" href="#">틴케이스</a> <a class="dropdown-item"
-								href="#">키캡</a> <a class="dropdown-item" href="#">거울/핀버튼</a> <a
-								class="dropdown-item" href="#">커버/클리너</a>
-						</div>
-					</div>
-				</div>
-				<ul class="home-nav-menu">
-					<li><a href="#">키링</a></li>
-					<li><a href="#">아크릴</a></li>
-					<li><a href="#">포토카드</a></li>
-					<li><a href="#">틴케이스</a></li>
-					<li><a href="#">키캡</a></li>
-					<li><a href="#">고객센터</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
+  
 	<script>
 		$(document).ready(function() {
 			// 드롭다운 메뉴에 마우스 오버 시 열기
