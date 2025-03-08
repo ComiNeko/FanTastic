@@ -13,6 +13,12 @@ public class MemberVo {
 		private String addressid; //주소 ID (기본 키)
 		private String address; //주소 
 		
+		private String token;
+		//private String userid;
+		private long expiryTime;
+		//밀리초 단위로 경과 시간을 반환하는데, 값이 매우 크기 때문에 int가 아닌 long으로 설정!
+		
+		
 		
 		
 		public String getName() {
@@ -57,5 +63,19 @@ public class MemberVo {
 		public void setAddress(String address) {
 			this.address = address;
 		}
+		public String getToken() {
+			return token;
+		}
+		public void setToken(String token) {
+			this.token = token;
+		}
+		public long getExpiryTime() {
+			return expiryTime;
+		}
+		public void setExpiryTime(long expiryTime) {
+			this.expiryTime = expiryTime;
+		}
+		
 	
+		
 }

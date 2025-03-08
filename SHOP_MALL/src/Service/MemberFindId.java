@@ -76,7 +76,7 @@ public class MemberFindId implements Command {
 	            message.setSubject("[FanTastic] 아이디 찾기 인증 코드");
 	            
 	            String emailContent = 
-	                    "안녕하세요.FanTastic 운영팀입니다.\n\n" +
+	                    "안녕하세요. FanTastic 운영팀입니다.\n\n" +
 	                    "아이디 찾기를 위한 인증 코드를 보내드립니다.\n\n" +
 	                    "인증 코드: " + authCode + "\n\n" +
 	                    "인증 코드는 2분 후 만료됩니다. 빠른 확인 부탁드립니다.\n\n" +
