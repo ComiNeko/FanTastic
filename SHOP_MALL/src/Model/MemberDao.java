@@ -73,12 +73,12 @@ public class MemberDao {
 	//________________________________________________________________________________//
 		
 		
-		//로그인: user_id로 회원 정보 가져오기
+		//로그인: userid로 회원 정보 가져오기
 		public MemberVo getMemberById(String userid) {
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
 	        ResultSet rs = null;
-	        String sql = "SELECT u.userid, u.name, u.password, u.phonenumber, u.email, a.address "
+	        String sql = "SELECT u.userid, u.name, u.password, u.phonenumber, u.email, u.role, a.address "
 	                   + "FROM NEW_USERS u JOIN NEW_ADDRESSES a ON u.userid = a.userid "
 	                   + "WHERE u.userid = ?";
 	        
@@ -95,6 +95,7 @@ public class MemberDao {
 	                vo.setPassword(rs.getString("password"));
 	                vo.setPhonenumber(rs.getString("phonenumber"));
 	                vo.setEmail(rs.getString("email"));
+	                vo.setRole(rs.getString("role"));
 	                vo.setAddress(rs.getString("address"));
 	            }
 	        } catch(Exception e) {
@@ -105,6 +106,30 @@ public class MemberDao {
 	        return vo;
 	    }
 		
+		//아이디 찾기: 이메일로 아이디 찾기
+		public String findUserId(String email) {
+		    Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    String sql = "SELECT userid FROM NEW_USERS WHERE email = ?";
+
+		    try {
+		        conn = DBManager.getInstance().getConnection();
+		        pstmt = conn.prepareStatement(sql);
+		        pstmt.setString(1, email);
+		        rs = pstmt.executeQuery();
+
+		        if (rs.next()) {
+		            return rs.getString("userid");
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        DBManager.getInstance().close(rs, pstmt, conn);
+		    }
+		    return null;
+		}
+
 		
 		//________________________________________________________________________________//
 		
