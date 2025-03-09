@@ -66,14 +66,14 @@ public class MemberFindId implements Command {
 	        return String.valueOf(code);
 	    }
 	    
-	    // 이메일 전송 메서드 (UTF-8 문자셋 지정)
+	    // 이메일 전송 메서드
 	    private boolean sendEmail(String toEmail, String authCode) {
 	        try {
 	            Session mailSession = EmailUtil.getMailSession();
 	            Message message = new MimeMessage(mailSession);
 	            message.setFrom(new InternetAddress("dptmf3290@gmail.com"));
 	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-	            message.setSubject("[FanTastic] 아이디 찾기 인증 코드");
+	            message.setSubject("[FanTastic] 아이디 찾기 이메일 인증");
 	            
 	            String emailContent = 
 	                    "안녕하세요. FanTastic 운영팀입니다.\n\n" +

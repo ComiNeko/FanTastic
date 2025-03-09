@@ -1,3 +1,5 @@
+//비밀번호 찾기 위한 서비스
+//이메일 확인 및 인증 코드 발송
 package Service;
 
 import java.io.IOException;
@@ -10,7 +12,7 @@ import Model.MemberDao;
 import Model.MemberVo;
 import util.EmailUtil;
 
-public class MemberVerifyFindPw implements Command {
+public class MemberFindPwEmail implements Command {
 
 	@Override
 	public void doCommand(HttpServletRequest request, HttpServletResponse response)
@@ -58,27 +60,34 @@ public class MemberVerifyFindPw implements Command {
         response.getWriter().println("success");
    }
 
-   private String generateAuthCode(){
-        Random random = new Random();
-        int code = random.nextInt(900000) + 100000;
-        return String.valueOf(code);
-   }
+		   private String generateAuthCode(){
+		        Random random = new Random();
+		        int code = random.nextInt(900000) + 100000;
+		        return String.valueOf(code);
+		   }
 
-   private boolean sendEmail(String toEmail, String authCode){
-        try{
-             Session mailSession = EmailUtil.getMailSession();
-             Message message = new MimeMessage(mailSession);
-             message.setFrom(new InternetAddress("dptmf3290@gmail.com"));
-             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-             message.setSubject("[사이트이름] 비밀번호 재설정 이메일 인증 코드");
-             String content = "인증 코드: " + authCode + "\n\n이 코드는 2분간 유효합니다.";
-             message.setText(content);
-             Transport.send(message);
-             return true;
-        } catch(MessagingException e){
-             e.printStackTrace();
-             return false;
-        }
+	   private boolean sendEmail(String toEmail, String authCode){
+	        try{
+	             Session mailSession = EmailUtil.getMailSession();
+	             Message message = new MimeMessage(mailSession);
+	             message.setFrom(new InternetAddress("dptmf3290@gmail.com"));
+	             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+	             message.setSubject("[FanTastic] 비밀번호 재설정 이메일 인증");
+	             
+	             String content = "안녕하세요. FanTastic 운영팀입니다.\n\n" +
+		                    "비밀번호 재설정을 위해 인증 코드를 보내드립니다.\n\n" +
+		                    "인증 코드: " + authCode + "\n\n" +
+		                    "인증 코드는 2분 후 만료됩니다. 빠른 확인 부탁드립니다.\n\n" +
+		                    "감사합니다.\n\n" +
+		                    "[FanTastic] 드림";
+	             
+	             message.setText(content);
+	             Transport.send(message);
+	             return true;
+	        } catch(MessagingException e){
+	             e.printStackTrace();
+	             return false;
+	        }
 		
 
 	}

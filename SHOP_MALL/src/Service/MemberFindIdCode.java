@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class MemberVerifyFindId implements Command {
+public class MemberFindIdCode implements Command {
 
 	@Override
 	public void doCommand(HttpServletRequest request, HttpServletResponse response)
