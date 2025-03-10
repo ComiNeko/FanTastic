@@ -42,6 +42,7 @@ public class PostWriteService implements Command {
 		int productPrice = Integer.parseInt(request.getParameter("productPrice"));
 		int productStock = Integer.parseInt(request.getParameter("productStock"));
 		String productInfo = request.getParameter("productInfo");
+		int authorid = 1;
 
 		// 첨부파일 처리
 		javax.servlet.http.Part imgfile = request.getPart("productImage");
@@ -66,7 +67,7 @@ public class PostWriteService implements Command {
 		// PostVo 객체 생성 후 값 설정
 		PostVo vo = new PostVo();
 		vo.setCategoryid(categoryid);
-		vo.setAuthorid(Integer.parseInt(user.getUserid())); // user id를 int로 변환
+		vo.setAuthorid(authorid); // user id를 int로 변환
 		vo.setProductName(productName);
 		vo.setProductPrice(productPrice);
 		vo.setProductStock(productStock);
