@@ -39,6 +39,12 @@
     <div id="id-result" style="display: none;">
         <h3>아이디:</h3>
         <p id="maskedUserId"></p>
+        	<button type="button" onclick="location.href='/member/findPw.do'">
+	            비밀번호 찾기
+	        </button>
+	        <button type="button" onclick="location.href='/member/login.do'">
+	            로그인
+	        </button>
     </div>
 </div>
 

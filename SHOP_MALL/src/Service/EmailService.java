@@ -15,6 +15,9 @@ public class EmailService implements Command {
     @Override
     public void doCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	request.setCharacterEncoding("utf-8");
+    	
         // doCommand 내부에서 sendEmail을 호출할 수 있도록 변경
         String toEmail = request.getParameter("email"); // 요청에서 이메일 주소 가져오기
         String code = sendEmail(toEmail); // 인증 코드 전송

@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +13,18 @@ import javax.servlet.http.HttpSession;
 import Service.EmailService;
 import Service.MainService;
 import Service.MemberFindId;
+import Service.MemberFindIdCode;
+import Service.MemberFindPwCode;
+import Service.MemberFindPwEmail;
+import Service.MemberFindPwId;
+import Service.MemberFindPwToken;
 import Service.MemberLogin;
 import Service.MemberLogout;
+import Service.MemberResetPw;
 import Service.MemberUserIdCheck;
 import Service.MemberUserPw;
 import Service.MemberUserSave;
 import Service.MemberUserUpdate;
-import Service.MemberVerifyFindId;
 
 @WebServlet("/member/*")
 
@@ -94,6 +100,11 @@ public class MemberController extends HttpServlet {
 			
 	//_________________________________________________________________________________________________//	
 		
+		case "/findidpw.do":
+			page = "/mem/FindIDPW.jsp";
+			break;
+		
+		
 		case "/findId.do":
 			new MainService().doCommand(request, response);
 			page = "/mem/findid.jsp"; 
@@ -104,16 +115,31 @@ public class MemberController extends HttpServlet {
 		    return;
 		
 		case "/verifyEmail.do":
-			new MemberVerifyFindId().doCommand(request, response);
+			new MemberFindIdCode().doCommand(request, response);
 			return;
     
-				
-//				case "/findPw.do":
-//				    new MemberFindPw().doCommand(request, response);
-//				    return;
-//				case "/resetPw.do":
-//				    new MemberResetPw().doCommand(request, response);
-//				    return;
+		
+		case "/findPw.do":
+			page = "/mem/findpw.jsp"; 
+		    break;
+		    
+		 case "/findPwId.do":
+             new MemberFindPwId().doCommand(request, response);
+             return;
+         case "/findPwEmail.do":
+             new MemberFindPwEmail().doCommand(request, response);
+             return;
+         case "/findPwCode.do":
+             new MemberFindPwCode().doCommand(request, response);
+             return;
+         case "/findPwToken.do":
+             new MemberFindPwToken().doCommand(request, response);
+             return;
+         case "/resetPw.do":
+             new MemberResetPw().doCommand(request, response);
+             return;
+         default:
+             break;
 		
 		
 	//_________________________________________________________________________________________________//		
