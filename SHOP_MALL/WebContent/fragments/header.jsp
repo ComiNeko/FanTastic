@@ -15,7 +15,7 @@
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" 
+<link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap">
@@ -42,23 +42,24 @@
 					<h1 class="home-name">
 						<a href="/">FanTastic</a>
 					</h1>
-					
+
 					<!-- 드랍다운 카테고리 -->
 					<div class="home-category">
 						<div class="dropdown">
-							<button class="category-btn dropdown-toggle" type="button" data-toggle="dropdown">Shop</button>
+							<button class="category-btn dropdown-toggle" type="button"
+								data-toggle="dropdown">Shop</button>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">키링</a>
-								<a class="dropdown-item" href="#">아크릴</a>
-								<a class="dropdown-item" href="#">포토카드</a>
-								<a class="dropdown-item" href="#">틴케이스</a>
-								<a class="dropdown-item" href="#">키캡</a>
-								<a class="dropdown-item" href="#">거울/핀버튼</a>
-								<a class="dropdown-item" href="#">커버/클리너</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=1">키링</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=2">아크릴굿즈</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=3">포토카드</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=4">틴케이스</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=5">키캡</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=6">거울/핀버튼</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=7">커버/클리너</a>
 							</div>
 						</div>
 					</div>
-				
+
 					<!-- 검색창 -->
 					<div class="home-search">
 						<input type="text" class="home-search-box" placeholder="검색">
@@ -86,7 +87,7 @@
 			</div>
 		</div>
 	</header>
-  
+
 	<script>
 		$(document).ready(function() {
 			// 드롭다운 메뉴에 마우스 오버 시 열기
