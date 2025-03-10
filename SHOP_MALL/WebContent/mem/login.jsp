@@ -20,10 +20,12 @@
 				</div>
 				<p id="errmsg" class="error"></p>
 	
-				<div class="remember-me-container">
+				<%-- <div class="remember-me-container">
 					<input type="checkbox" class="checkbox" name="rememberU" id="rememberU">
 					<label for="rememberU" class="checkbox-label">로그인 유지</label>
 				</div>
+				--%>
+				
 			</form>
 			<div class="login-bottom-buttons">
 				<a href="/member/signup.do" class="login-sub-button">회원가입</a> 
