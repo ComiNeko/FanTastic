@@ -16,7 +16,7 @@ public class PostDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
-		String sql = "INSERT INTO NEW_PRODUCTS(productid, categoryid, authorid, productName, productPrice, productStock, productInfo, productImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO NEW_PRODUCTS(productid, categoryid, authorid, productName, productPrice, productStock, productInfo, productImage) VALUES (NEW_PRODUCT_SEQ.nextval, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			conn = DBManager.getInstance().getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -27,6 +27,7 @@ public class PostDao {
 			pstmt.setInt(5, vo.getProductPrice());
 			pstmt.setInt(6, vo.getProductStock());
 			pstmt.setString(7, vo.getProductInfo());
+			System.out.println("이미지: " + vo.getProductImage());
 			pstmt.setString(8, vo.getProductImage()); 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {

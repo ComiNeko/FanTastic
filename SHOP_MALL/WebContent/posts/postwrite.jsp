@@ -161,13 +161,13 @@
 
             <div class="form-group">
                 <label>제목</label>
-                <input type="text" name="productName" class="inputH" maxlength="28" required>
+                <input type="text" name="productName" id = "productName" class="inputH" maxlength="28" required>
                 <p class="warning-text">* 특수문자로 제목을 강조하면 삭제될 수 있습니다.</p>
             </div>
 
             <div class="form-group">
                 <label>가격 (₩)</label>
-                <input type="number" name="productPrice" class="inputH" min="0" required>
+                <input type="number" name="productPrice" id = "productName" class="inputH" min="0" required>
             </div>
 
             <div class="form-group">
