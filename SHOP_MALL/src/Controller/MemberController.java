@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +12,15 @@ import javax.servlet.http.HttpSession;
 
 import Service.EmailService;
 import Service.MainService;
+import Service.MemberFindId;
+import Service.MemberFindIdCode;
+import Service.MemberFindPwCode;
+import Service.MemberFindPwEmail;
+import Service.MemberFindPwId;
+import Service.MemberFindPwToken;
 import Service.MemberLogin;
 import Service.MemberLogout;
+import Service.MemberResetPw;
 import Service.MemberUserIdCheck;
 import Service.MemberUserPw;
 import Service.MemberUserSave;
@@ -52,30 +60,30 @@ public class MemberController extends HttpServlet {
 			page = "/mem/signup.jsp";
 			break;
 		
-		 case "/sendEmail.do":
-			 String email = request.getParameter("email");
+		case "/sendEmail.do":
+			String email = request.getParameter("email");
 
-			    EmailService emailService = new EmailService();
-			    String authCode = emailService.sendEmail(email);
+		    EmailService emailService = new EmailService();
+		    String authCode = emailService.sendEmail(email);
 
-			    if (authCode != null) {
-			        response.getWriter().println(authCode); // 인증 코드 반환 (세션 저장 X)
-			    } else {
-			        response.getWriter().println("이메일 전송 실패");
-			    }
-			    return;
+		    if (authCode != null) {
+		        response.getWriter().println(authCode); // 인증 코드 반환 (세션 저장 X)
+		    } else {
+		        response.getWriter().println("이메일 전송 실패");
+		    }
+		    return;
+
 			
         case "/useridcheck.do":
             // 아이디 중복 체크 (AJAX 요청)
             new MemberUserIdCheck().doCommand(request, response);
-            page=null;
+            page = null;
 			break;
 			
         case "/signuppro.do":
             new MemberUserSave().doCommand(request, response);
             response.sendRedirect("/");  // 성공페이지를 만들 것인가, response.sendRedirect("/mem/signupSuccess.jsp");
             return;	//NOPE 안 만들 거임!
-			
 			
 		case "/login.do":
 			page = "/mem/login.jsp";
@@ -84,13 +92,58 @@ public class MemberController extends HttpServlet {
 		case "/loginpro.do":
 			new MemberLogin().doCommand(request, response);
 			return;
+			
 		case "/logout.do":
 			new MemberLogout().doCommand(request, response);
 			response.sendRedirect("/");
 			return;	
 			
 	//_________________________________________________________________________________________________//	
-			
+		
+		case "/findidpw.do":
+			page = "/mem/FindIDPW.jsp";
+			break;
+		
+		
+		case "/findId.do":
+			new MainService().doCommand(request, response);
+			page = "/mem/findid.jsp"; 
+		    break;
+		
+		case "/findIdProcess.do":
+			 new MemberFindId().doCommand(request, response);
+		    return;
+		
+		case "/verifyEmail.do":
+			new MemberFindIdCode().doCommand(request, response);
+			return;
+    
+		
+		case "/findPw.do":
+			page = "/mem/findpw.jsp"; 
+		    break;
+		    
+		 case "/findPwId.do":
+             new MemberFindPwId().doCommand(request, response);
+             return;
+         case "/findPwEmail.do":
+             new MemberFindPwEmail().doCommand(request, response);
+             return;
+         case "/findPwCode.do":
+             new MemberFindPwCode().doCommand(request, response);
+             return;
+         case "/findPwToken.do":
+             new MemberFindPwToken().doCommand(request, response);
+             return;
+         case "/resetPw.do":
+             new MemberResetPw().doCommand(request, response);
+             return;
+         default:
+             break;
+		
+		
+	//_________________________________________________________________________________________________//		
+		
 		case "/mypage.do":
 			if(session == null || session.getAttribute("user") == null) {
                  response.sendRedirect(request.getContextPath() + "/member/login.do");

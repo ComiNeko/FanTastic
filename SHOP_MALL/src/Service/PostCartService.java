@@ -1,57 +1,57 @@
 package Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import Model.PostDao;
 import Model.PostVo;
 
 public class PostCartService implements Command {
 
-	@Override
-	public void doCommand(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Override
+    public void doCommand(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		
-		HttpSession session = request.getSession();
-		
-        List<PostVo> cart = (List<PostVo>) session.getAttribute("cart");
+        HttpSession session = request.getSession();
+        String userId = (session.getAttribute("user") != null) ? (String) session.getAttribute("user") : null;
 
-        if (cart == null) {
-            cart = new ArrayList<>();
+        // 사용자가 로그인하지 않았을 경우 로그인 페이지로 이동
+        if (userId == null) {
+            response.sendRedirect("/member/login.do");
+            return;
         }
 
-        // 상품 정보 받기
-        int productid = Integer.parseInt(request.getParameter("productid"));
-        String productName = request.getParameter("productName");
-        int price = Integer.parseInt(request.getParameter("price"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        PostDao dao = new PostDao();
+        String action = request.getParameter("action");
 
-        // 장바구니에 같은 상품이 있으면 수량 증가
-        boolean exists = false;
-        for (PostVo item : cart) {
-            if (item.getProductid() == productid) {
-                item.setQuantity(item.getQuantity() + quantity);
-                exists = true;
-                break;
+        if (action == null || action.equals("list")) {
+            // 장바구니 목록 조회
+            List<PostVo> cartList = dao.getCartList(userId);
+            request.setAttribute("cartList", cartList);
+            request.getRequestDispatcher("/posts/postcart.jsp").forward(request, response);
+
+        } else if (action.equals("add")) {
+            // 장바구니에 상품 추가
+            String productId = request.getParameter("productid");
+            if (productId != null) {
+                dao.addToCart(userId, Integer.parseInt(productId), 1); // 기본 수량 1
+                response.sendRedirect("/postcart.do"); // 장바구니 페이지로 이동
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+
+        } else if (action.equals("remove")) {
+            // 장바구니에서 상품 삭제
+            String cartId = request.getParameter("cartid");
+            if (cartId != null) {
+                dao.removeFromCart(Integer.parseInt(cartId));
+                response.sendRedirect("/postcart.do"); // 삭제 후 장바구니 페이지로 이동
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
         }
-
-//        // 새 상품 추가
-//        if (!exists) {
-//            cart.add(new PostVo(productid, productName, price, quantity));
-//        }
-
-        session.setAttribute("cart", cart);
-
-        response.sendRedirect("postcart.jsp");
-		
-		
-	}
-
+    }
 }

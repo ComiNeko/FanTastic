@@ -73,7 +73,7 @@ public class MemberDao {
 	//________________________________________________________________________________//
 		
 		
-		//로그인: user_id로 회원 정보 가져오기
+		//로그인: userid로 회원 정보 가져오기
 		public MemberVo getMemberById(String userid) {
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
@@ -106,9 +106,124 @@ public class MemberDao {
 	        return vo;
 	    }
 		
+		//아이디 찾기: 이메일로 아이디 찾기
+		public String findUserId(String email) {
+		    Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    String sql = "SELECT userid FROM NEW_USERS WHERE email = ?";
+
+		    try {
+		        conn = DBManager.getInstance().getConnection();
+		        pstmt = conn.prepareStatement(sql);
+		        pstmt.setString(1, email);
+		        rs = pstmt.executeQuery();
+
+		        if (rs.next()) {
+		            return rs.getString("userid");
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        DBManager.getInstance().close(rs, pstmt, conn);
+		    }
+		    return null;
+		}
+
 		
 		//________________________________________________________________________________//
 		
+		 //비밀번호 찾기: 토큰 저장
+		public int createResetToken(String userid, String token, long expiryTime) {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        String sql = "INSERT INTO PASSWORD_TOKENS (token, userid, expiryTime) VALUES (?, ?, ?)";
+	        int result = 0;
+	        try {
+	            conn = DBManager.getInstance().getConnection();
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setString(1, token);
+	            pstmt.setString(2, userid);
+	            pstmt.setLong(3, expiryTime);
+	            result = pstmt.executeUpdate();
+	        } catch(Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            DBManager.getInstance().close(pstmt, conn);
+	        }
+	        return result;
+	    }
+
+	    //비밀번호 찾기: 토큰으로 userid 조회 (토큰이 유효한 경우)
+	    public String getUserIdByToken(String token) {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        String sql = "SELECT userid FROM PASSWORD_TOKENS WHERE token = ? AND expiryTime >= ?";
+	        String userid = null;
+	        try {
+	            conn = DBManager.getInstance().getConnection();
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setString(1, token);
+	            pstmt.setLong(2, System.currentTimeMillis());
+	            rs = pstmt.executeQuery();
+	            if(rs.next()){
+	                userid = rs.getString("userid");
+	            }
+	        } catch(Exception e){
+	            e.printStackTrace();
+	        } finally {
+	            DBManager.getInstance().close(rs, pstmt, conn);
+	        }
+	        return userid;
+	    }
+	    
+	 // 비밀번호 찾기: 사용자 아이디로 유효한 토큰 조회
+	    public String getTokenByUserId(String userid) {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        String sql = "SELECT token FROM PASSWORD_TOKENS WHERE userid = ? AND expiryTime >= ?";
+	        String token = null;
+	        try {
+	            conn = DBManager.getInstance().getConnection();
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setString(1, userid);
+	            pstmt.setLong(2, System.currentTimeMillis());
+	            rs = pstmt.executeQuery();
+	            if(rs.next()){
+	                token = rs.getString("token");
+	            }
+	        } catch(Exception e){
+	            e.printStackTrace();
+	        } finally {
+	            DBManager.getInstance().close(rs, pstmt, conn);
+	        }
+	        return token;
+	    }
+
+	    //비밀번호 찾기: 토큰 삭제
+	    public int deleteToken(String token) {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        String sql = "DELETE FROM PASSWORD_TOKENS WHERE token = ?";
+	        int result = 0;
+	        try {
+	            conn = DBManager.getInstance().getConnection();
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setString(1, token);
+	            result = pstmt.executeUpdate();
+	        } catch(Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            DBManager.getInstance().close(pstmt, conn);
+	        }
+	        return result;
+	    }
+		
+	  //________________________________________________________________________________//
+	  //________________________________________________________________________________//  
+	    
 		//회원정보 수정
 		public int updateMember(MemberVo vo) {
 		    Connection conn = null;

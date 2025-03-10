@@ -1,67 +1,63 @@
-<%@page import="Model.PostVo"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import = "java.sql.*" %>
-<%@ page import = "java.util.*" %>
-<%@ page import = "java.text.*" %>
-<%@ page session="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="Model.PostVo" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
 <%@ include file="../fragments/header.jsp"%>
-<link rel="stylesheet" href="../css/postlist.css">
+
+<link rel="stylesheet" href="/css/postcart.css">
 
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<title>장바구니</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니</title>
 </head>
 <body>
-	<h2>장바구니</h2>
 
-	<table border="1">
-		<tr>
-			<th>상품명</th>
-			<th>가격</th>
-			<th>수량</th>
-			<th>합계</th>
-			<th>삭제</th>
-		</tr>
+<%
+    HttpSession sessionObj = request.getSession(false);
+    boolean isLoggedIn = (sessionObj != null && sessionObj.getAttribute("user") != null);
+    List<PostVo> cartList = (List<PostVo>) request.getAttribute("cartList");
+%>
 
-		<%
-			List<PostVo> cart = (List<PostVo>) session.getAttribute("cart");
-		if (cart == null || cart.isEmpty()) {
-			out.println("<tr><td colspan='5'>장바구니가 비어 있습니다.</td></tr>");
-		} else {
-			int total = 0;
-			for (PostVo item : cart) {
-				int itemTotal = item.getPrice() * item.getQuantity();
-				total += itemTotal;
-		%>
-		<tr>
-			<td><%=item.getProductName()%></td>
-			<td><%=item.getPrice()%> 원</td>
-			<td><%=item.getQuantity()%></td>
-			<td><%=itemTotal%> 원</td>
-			<td>
-				<form action="CartRemoveServlet" method="post">
-					<input type="hidden" name="productId"
-						value="<%=item.getProductid()%>"> <input type="submit"
-						value="삭제">
-				</form>
-			</td>
-		</tr>
-		<%
-			}
-		%>
-		<tr>
-			<td colspan="3">총 합계</td>
-			<td colspan="2"><%=total%> 원</td>
-		</tr>
-		<%
-			}
-		%>
-	</table>
+<div class="cart-container">
+    <h2 class="cart-title">장바구니</h2>
 
-	<a href="postsellinglist.jsp">계속 쇼핑하기</a>
-</body>
-</html>
+    <%
+        if (cartList == null || cartList.isEmpty()) {
+    %>
+        <!-- 장바구니가 비었을 때 -->
+        <div class="empty-cart">
+            <img src="${pageContext.request.contextPath}/img/cart.png" alt="장바구니 비었음">
+            <p>장바구니가 비어있어요!</p>
+            <p>다양한 상품을 구경하고<br> 나에게 맞는 상품을 담아보세요!</p>
+            <a href="postsellinglist.jsp" class="browse-products-btn">상품 구경하러 가기</a>
+        </div>
+    <%
+        } else {
+    %>
+        <!-- 장바구니에 상품이 있을 때 -->
+        <ul class="cart-items">
+            <c:forEach var="item" items="${cartList}">
+                <li class="cart-item">
+                    <img src="${pageContext.request.contextPath}/uploads/${item.productImage}" alt="${item.productName}">
+                    <div class="cart-item-info">
+                        <h3>${item.productName}</h3>
+                        <p>가격: <span class="cart-item-price">${item.productPrice}원</span></p>
+                    </div>
+                    <form action="postcart.do?action=remove" method="post">
+                        <input type="hidden" name="cartid" value="${item.productid}">
+                        <button type="submit" class="remove-cart-btn">삭제</button>
+                    </form>
+                </li>
+            </c:forEach>
+        </ul>
+    <%
+        }
+    %>
+</div>
 
 <%@ include file="/fragments/footer.jsp"%>
+</body>
+</html>

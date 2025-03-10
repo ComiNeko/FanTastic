@@ -15,6 +15,26 @@ public class PostVo {
 
 	private int price;
 	private int quantity;
+	
+	//장바구니
+	private int cartid; // NUMBER PRIMARY KEY, -- 장바구니 ID (기본 키)
+	private String userid; // VARCHAR2(20) NOT NULL, -- 사용자 ID (외래 키, NOT NULL)
+
+	public int getCartid() {
+		return cartid;
+	}
+
+	public void setCartid(int cartid) {
+		this.cartid = cartid;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 
 	public int getPrice() {
 		return price;

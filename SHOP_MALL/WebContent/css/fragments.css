@@ -18,73 +18,66 @@
 	
 	/* header 관련*/
 	/* 헤더 전체 스타일 */
-	header {
+	.header-container {
 		background-color: #000; /* 검은색 배경 */
 	}
 	
-	.home-bar {
-	    padding: 5px 0;
+	.header-container .home-bar {
 	    display: flex;
 	    align-items: center;
 	    justify-content: space-between;
 	    color: #fff;
 	}
 	
-	.home-bar .home-left-part {
+	.header-container .home-bar .home-left-part {
 		display: flex;
 	    align-items: center;
 	    justify-content: flex-start;
 	}
 	
 	/* 로고 스타일 */
-	.home-name a {
-	    /* font-size: 28px;
-	    font-weight: bold;
-	    color: #fff;
-	    text-decoration: none;
-	    padding-right: 35px;
-	     */
+	.header-container .home-name a {
 	    font-family: 'Sacramento', cursive;
 	    font-size: 32px;
 	    color: #fff;
 	    font-weight: 700;
 	    letter-spacing: 1px;
 	    text-decoration: none;
-	    padding-right: 35px;
-	    
+	    padding-right: 20px;
 	}
 	
-	.home-name a:hover {
+	.header-container .home-name a:hover {
 	    color: #8FD8F4;
 	}
 	
 	/* 카테고리 드롭다운 버튼 */
-	.category-btn {
-	    background: #333;
-	    color: #fff;
+	.header-container .category-btn {
+	    background: none;
 	    border: none;
+	    color: #fff;
 	    padding: 8px 15px;
-	    border-radius: 5px;
 	    font-size: 14px;
 	    cursor: pointer;
+	    style: none;
+	    padding-right: 20px;
 	}
 	
-	.category-btn:hover {
-	    background: #555;
+	.header-container .category-btn:hover {
+	    color: #8FD8F4; 
 	}
 	
 	/* 검색창 스타일 */
-	.home-search {
+	.header-container .home-search {
 	    display: flex;
 	    align-items: center;
 	    border: 2px solid #555;
 	    border-radius: 25px;
 	    padding: 5px 10px;
-	    width: 450px;
 	    background-color: #222;
+	    width: 300px;
 	}
 	
-	.home-search-box {
+	.header-container .home-search-box {
 	    border: none;
 	    outline: none;
 	    flex: 1;
@@ -94,11 +87,11 @@
 	    color: #fff;
 	}
 	
-	.home-search-box::placeholder {
+	.header-container .home-search-box::placeholder {
 	    color: #aaa;
 	}
 	
-	.home-search-button {
+	.header-container .home-search-button {
 	    background: none;
 	    border: none;
 	    cursor: pointer;
@@ -106,12 +99,12 @@
 	    font-size: 18px;
 	}
 	
-	.home-search-button:hover {
+	.header-container .home-search-button:hover {
 	    color: #fff;
 	}
 	
 	/* 로그인/회원가입 스타일 */
-	.home-right-part {
+	.header-container .home-right-part {
 		padding: 0;
 		margin: 0;
 	    display: flex;
@@ -119,11 +112,21 @@
 	    list-style: none;
 	}
 	
-	.home-right-part li {
-	    margin-left: 15px;
+	.header-container .home-right-part li {
+	    margin-left: 8px;
 	}
 	
-	.home-right-part a {
+	.header-container .logged-user-id {
+		font-size: 16px;
+		font-weight: 700;
+	}
+	
+	.header-container .logged-user {
+		font-size: 12px;
+		font-weight: 400;
+	}
+	
+	.header-container .home-right-part a {
 	    text-decoration: none;
 	    color: #fff;
 	    font-weight: 600;
@@ -132,48 +135,10 @@
 	    transition: all 0.3s ease-in-out;
 	}
 	
-	.home-right-part a:hover {
+	.header-container .home-right-part a:hover {
 	    background: #8FD8F4;
 	    color: #000;
 	}
-	
-	/* 네비게이션 바 */
-	nav {
-		background: #222;
-	}
-	
-	.home-nav {
-		display: flex;
-		align-items: center;
-	    justify-content: space-between;
-	    padding: 5px 0;
-	}
-	
-	.home-nav-menu {
-		margin: 0;
-		paddign: 0;
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
-	    list-style: none;
-	}
-	
-	.home-nav-menu li {
-	    margin: 0 15px;
-	}
-	
-	.home-nav-menu a {
-	    color: #fff;
-	    text-decoration: none;
-	    font-size: 14px;
-	    transition: all 0.3s ease-in-out;
-	}
-	
-	.home-nav-menu a:hover {
-	    color: #8FD8F4;
-	    text-decoration: underline;
-	}
-	
 	
 	/* footer 관련*/
 	footer {

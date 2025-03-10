@@ -15,6 +15,9 @@ public class EmailService implements Command {
     @Override
     public void doCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	request.setCharacterEncoding("utf-8");
+    	
         // doCommand 내부에서 sendEmail을 호출할 수 있도록 변경
         String toEmail = request.getParameter("email"); // 요청에서 이메일 주소 가져오기
         String code = sendEmail(toEmail); // 인증 코드 전송
@@ -34,18 +37,18 @@ public class EmailService implements Command {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("dptmf3290@gmail.com")); // 보내는 사람
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail)); // 받는 사람
-            message.setSubject("[사이트이름] 인증 코드"); // 이메일 제목
+            message.setSubject("[FanTastic] 인증 코드"); // 이메일 제목
 
             // 이메일 본문 작성
             String emailContent = 
                     "안녕하세요.\n\n" +
                     "회원가입을 위한 이메일 인증 코드를 보내드립니다.\n\n" +
                     "귀하의 이메일 주소를 통해 인증 요청이 접수되었습니다.\n\n" +
-                    "[사이트이름]의 인증 코드는 다음과 같습니다.\n\n" +
+                    "[FanTastic]의 인증 코드는 다음과 같습니다.\n\n" +
                     "🔑 인증 코드: " + authCode + "\n\n" +
                     "인증 코드는 일정 시간 후 만료될 수 있으니 빠른 입력을 권장드립니다.\n\n" +
                     "감사합니다.\n\n" +
-                    "[사이트이름] 드림";
+                    "[FanTastic] 드림";
 
             message.setText(emailContent); // 본문 설정
 
