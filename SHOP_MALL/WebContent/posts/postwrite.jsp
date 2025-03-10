@@ -2,7 +2,6 @@
 <%@ page import="java.sql.*, java.util.*, java.text.*" %>
 <%@ page import="Model.MemberVo" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
-<link rel="stylesheet" href="/css/postwrite.css">
 <%
     // 세션에서 로그인 정보 가져오기
     HttpSession sessionObj = request.getSession();

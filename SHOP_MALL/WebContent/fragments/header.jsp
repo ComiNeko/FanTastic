@@ -79,10 +79,6 @@
 								님 환영합니다!</li>
 							<li><a href="/member/mypage.do">마이페이지</a></li>
 							<li><a href="/member/logout.do">로그아웃</a></li>
-							<c:if test="${sessionScope.user.role == 'Admin'}">
-							    <%-- role 값이 Admin인 경우에만 관리자 페이지 링크를 표시 --%>
-								<li><a href="/admin/adminpage.do">관리자 페이지</a></li>
-							</c:if>
 						</c:otherwise>
 					</c:choose>
 				</ul>
