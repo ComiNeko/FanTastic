@@ -1,67 +1,104 @@
 @charset "UTF-8";
 
-li{
-	list-style-type:none;
+/*  전체 스타일 개선 */
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f8f9fa;
 }
 
-
-ol{
-	list-style: none;
-    vertical-align: middle;
-    line-height: 1;
-    margin: 0;
-    padding: 0;
+.wrapBody {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 30px;
 }
 
-label{ /*폼 글자*/
-	width: 144px;
-    line-height: 38px;
+.subContent {
+	width: 100%;
+	max-width: 600px;
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type='text']{
-	width:400px;
-    height: 32px;
-    letter-spacing: 0px;
-    border: 1px solid #dadada;
-    outline: none;
-    text-indent: 6px;
-    padding: 0;
+#subTitle {
+	text-align: center;
+	margin-bottom: 20px;
 }
 
-.warning-text { /*제목 밑에 조그만 경고 글씨*/
-    font-size: 13px;
-    color: #ff5200;
+.s_title {
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
 }
 
-.cf:after {
-    content: "";
-    display: block;
-    clear: both;
-    visibility: hidden;
-    width: 0;
-    height: 0;
-    font-size: 0;
+/* 폼 스타일 */
+.form-group {
+	margin-bottom: 15px;
 }
 
-.explain{ /*권장사이즈*/
-	color: #9b9b9b;
-    letter-spacing: 0;
-    font-size: 12px;
+label {
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 5px;
 }
 
-.orange {
-    color: #ff5200;
+.inputH, textarea, select {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 14px;
+	background: #fff;
+	transition: 0.3s ease-in-out;
 }
 
+.inputH:focus, textarea:focus, select:focus {
+	border-color: #3498db;
+	outline: none;
+	box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+textarea {
+	height: 120px;
+	resize: vertical;
+}
+
+/* 버튼 스타일 */
 .submit-btn {
-    background-color: #ff6600;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+	width: 100%;
+	background-color: #3498db;
+	color: white;
+	padding: 12px;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s ease-in-out;
 }
 
 .submit-btn:hover {
-    background-color: #e65c00;
+	background-color: #2980b9;
+}
+
+/* 파일 업로드 스타일 */
+input[type="file"] {
+	border: none;
+	background: #fff;
+	padding: 5px;
+}
+
+.explain {
+	font-size: 12px;
+	color: #666;
+}
+
+.orange {
+	color: #e67e22;
 }
