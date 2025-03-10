@@ -2,7 +2,6 @@
 <%@ page import="java.sql.*, java.util.*, java.text.*" %>
 <%@ page import="Model.MemberVo" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
-<link rel="stylesheet" href="/css/postwrite.css">
 <%
     // 세션에서 로그인 정보 가져오기
     HttpSession sessionObj = request.getSession();
@@ -54,13 +53,13 @@
 
             <div class="form-group">
                 <label>제목</label>
-                <input type="text" name="productName" class="inputH" maxlength="28" required>
+                <input type="text" name="productName" id = "productName" class="inputH" maxlength="28" required>
                 <p class="warning-text">* 특수문자로 제목을 강조하면 삭제될 수 있습니다.</p>
             </div>
 
             <div class="form-group">
                 <label>가격 (₩)</label>
-                <input type="number" name="productPrice" class="inputH" min="0" required>
+                <input type="number" name="productPrice" id = "productName" class="inputH" min="0" required>
             </div>
 
             <div class="form-group">
