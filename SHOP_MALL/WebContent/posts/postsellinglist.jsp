@@ -70,6 +70,11 @@
     <img src="${pageContext.request.contextPath}/img/cart.png" alt="장바구니" class="cart-icon">
 </button>
 
+								<!-- 찜하기 버튼 (FontAwesome 아이콘 사용) -->
+								<button class="favorite-floating-btn" data-productid="${product.productid}">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+
 							</div>
 						</c:forEach>
 					</c:when>
@@ -109,6 +114,33 @@
 	        });
 	    });
 	});
+	
+	
+	
+	  // 찜하기 버튼 클릭 이벤트
+    $(".favorite-floating-btn").on("click", function() {
+        var productId = $(this).data("productid");
+        var isLoggedIn = "${isLoggedIn}" === "true";
+        if (!isLoggedIn) {
+            alert("로그인 후 이용해주세요.");
+            window.location.href = "/member/login.do";
+            return;
+        }
+        $.ajax({
+            type: "GET",
+            url: "/post/favorite/add.do",
+            data: { productid: productId, action: 'add', folderId: 0 },
+            success: function(response) {
+                alert("상품이 찜 목록에 추가되었습니다!");
+            },
+            error: function(xhr, status, error) {
+                console.log("에러 상태: " + status);
+                console.log("에러 내용: " + error);
+                alert("찜 목록 추가에 실패했습니다.");
+            }
+        });
+    });
+});
     </script>
 
 	<%@ include file="/fragments/footer.jsp"%>
