@@ -23,7 +23,7 @@
                 <img src="${pageContext.request.contextPath}/img/cart.png" alt="장바구니 비었음">
                 <p>장바구니가 비어있어요!</p>
                 <p>다양한 상품을 구경하고<br> 나에게 맞는 상품을 담아보세요!</p>
-                <a href="postsellinglist.jsp" class="browse-products-btn">상품 구경하러 가기</a>
+                <a href="/post/postsellinglist.do?category=1" class="browse-products-btn">상품 구경하러 가기</a>
             </div>
         </c:when>
         <c:otherwise>
@@ -37,7 +37,7 @@
                             <p>가격: <span class="cart-item-price">${item.productPrice}원</span></p>
                         </div>
                         <form action="postcart.do?action=remove" method="post">
-                            <!-- ✅ cartid로 넘기기 -->
+                            <!-- cartid로 넘기기 -->
                             <input type="hidden" name="cartid" value="${item.cartid}">
                             <button type="submit" class="remove-cart-btn">삭제</button>
                         </form>

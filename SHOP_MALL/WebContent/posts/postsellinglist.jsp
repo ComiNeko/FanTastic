@@ -53,7 +53,7 @@
 				<c:if test="${sessionScope.user.role == 'Admin'}">
 					<%-- role 값이 Admin인 경우에만 관리자 페이지 링크를 표시 --%>
 					<button type="button" class="write-button"
-						onclick="handleWriteButton()">글쓰기</button>
+    onclick="location.href='/post/ptwrite.do'">글쓰기</button>
 				</c:if>
 			</div>
 
