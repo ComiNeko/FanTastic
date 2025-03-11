@@ -53,7 +53,7 @@
 				<c:if test="${sessionScope.user.role == 'Admin'}">
 					<%-- role 값이 Admin인 경우에만 관리자 페이지 링크를 표시 --%>
 					<button type="button" class="write-button"
-						onclick="handleWriteButton()">글쓰기</button>
+    onclick="location.href='/post/ptwrite.do'">글쓰기</button>
 				</c:if>
 			</div>
 
@@ -62,7 +62,7 @@
 					<c:when test="${not empty productList}">
 						<c:forEach var="product" items="${productList}">
 							<div class="product-item">
-								<img src="${pageContext.request.contextPath}/uploads/${product.productImage}" alt="${product.productName}" class="product-img">
+								<img src="${pageContext.request.contextPath}${product.productImage}" alt="${product.productName}" class="product-img">
 								<div class="name">${product.productName}</div>
 								<div class="price">${product.productPrice}원</div>
 								<div class="productInfo">${product.productInfo}</div>
