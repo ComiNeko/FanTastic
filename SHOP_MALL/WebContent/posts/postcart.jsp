@@ -31,10 +31,11 @@
             <ul class="cart-items">
                 <c:forEach var="item" items="${cartList}">
                     <li class="cart-item">
-                        <img src="${pageContext.request.contextPath}/uploads/${item.productImage}" alt="${item.productName}">
+                        <img src="${pageContext.request.contextPath}${item.productImage}" alt="${item.productName}">
                         <div class="cart-item-info">
                             <h3>${item.productName}</h3>
                             <p>가격: <span class="cart-item-price">${item.productPrice}원</span></p>
+                        	<p>수량: <span class="cart-item-quantity">${item.quantity}개</span></p>
                         </div>
                         <form action="postcart.do?action=remove" method="post">
                             <!-- cartid로 넘기기 -->
