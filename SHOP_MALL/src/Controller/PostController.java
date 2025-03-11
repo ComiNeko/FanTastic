@@ -64,9 +64,9 @@ public class PostController extends HttpServlet {
 				return;
 
 			case "/postcart.do": // 장바구니 페이지 이동
-				new PostCartService().doCommand(request, response);
-				page = "/posts/postcart.jsp"; // 장바구니 페이지 이동
-				break;
+			    new PostCartService().doCommand(request, response);
+			    return; // 여기까지만 하면 끝
+
 
 			case "/ptwritepro.do": // 글쓰기 처리
 				new PostWriteService().doCommand(request, response);
