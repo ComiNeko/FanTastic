@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Service.CreatorDetailService;
+import Service.CreatorService;
 import Service.PostCartService;
 import Service.PostSellingService;
 import Service.PostWriteService;
@@ -77,6 +79,14 @@ public class PostController extends HttpServlet {
 				new PostSellingService().doCommand(request, response);
 				page = "/posts/postsellinglist.jsp";
 				break;
+				
+			case "/creatorlist.do": // 작가 리스트 페이지
+			    new CreatorService().doCommand(request, response); 
+			    return;
+			    
+			case "/creatordetail.do": // 작가 상세 페이지
+			    new CreatorDetailService().doCommand(request, response);
+			    return;
 		}
 
 		// 페이지 이동 처리

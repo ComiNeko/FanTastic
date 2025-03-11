@@ -83,12 +83,13 @@ public class PostDao {
 
 	// 카테고리
 	public List<PostVo> getPostsByCategory(int categoryid) {
-		List<PostVo> list = new ArrayList<>();
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM NEW_PRODUCTS WHERE categoryid = ? ORDER BY productid DESC";
-
+		
+		List<PostVo> list = new ArrayList<PostVo>();
 		try {
 			conn = DBManager.getInstance().getConnection();
 			pstmt = conn.prepareStatement(sql);

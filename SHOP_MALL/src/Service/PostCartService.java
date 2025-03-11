@@ -41,7 +41,7 @@ public class PostCartService implements Command {
             // 장바구니에 상품 추가
             String productId = request.getParameter("productid");
             
-            // ✅ 여기 두 줄 추가 (디버깅용)
+            // (디버깅용)
             System.out.println("현재 로그인된 사용자 ID: " + userId); 
             System.out.println("장바구니 추가 요청 들어옴. productId = " + productId); // ✅ 디버깅용 로그
 
