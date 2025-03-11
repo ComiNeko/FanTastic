@@ -1,0 +1,493 @@
+@charset "UTF-8";
+
+	/* 회원가입 페이지 */
+	.signup-page .signup-container {
+		border: 2px solid #BDE3F2;
+		width: 750px;
+		margin: 100px auto;
+		background-color: #fff;
+	}
+	
+	.signup-page .signup-sign .signup-high-T {
+		padding: 0 40px;
+		padding-top: 5px;
+		text-align: left;
+		margin-bottom: 40px;
+		color: rgba(118, 118, 118, 0.5);
+		font-size: 32px;
+		font-family: 'Noto Sans Rounded', sans-serif;
+		font-weight: 700;
+	}
+	
+	.signup-page .signup-part {
+		padding: 0 110px;
+		padding-bottom: 35px;
+	}
+	
+	.signup-page .signup-form-group {
+		margin-bottom: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.signup-page label {
+		padding: 0;
+		margin: 0;
+		width: 120px;
+		font-size: 16px;
+		font-family: 'Zen Maru Gothic', sans-serif;
+		font-weight: 700;
+		color: #333;
+	}
+	
+	.signup-page input {
+		padding: 0; /* 다른 css서 먹혀있어서 */
+		text-indent: 0; /* 둘다 일단 0으로 초기화 */
+		text-indent: 5px;
+		width: 80%;
+		height: 40px;
+		font-size: 14px;
+		font-family: 'Zen Maru Gothic', sans-serif;
+		font-weight: 700;
+		border: 1px solid #ccc;
+		vertical-align: middle;
+		border-radius: 4px;
+	}
+	
+	.signup-page input::placeholder {
+		text-indent: 0;
+		color: #ccc;
+		font-size: 16px;
+		font-family: 'Zen Maru Gothic', sans-serif;
+		font-weight: 700;
+	    text-align: left;
+	    padding-left: 5px;
+	    line-height: 40px;
+	}
+	
+	.signup-page button {
+		background-color: #8FD8F4;
+		border: none;
+		height: 40px;
+		color: white;
+		padding: 8px 15px;
+		font-size: 14px;
+		font-weight: bold;
+		border-radius: 5px;
+		cursor: pointer;
+		vertical-align: middle;
+		transition: background-color 0.3s;
+	}
+	
+	.signup-page button:hover {
+		background-color: #6eb5ff;
+	}
+	
+	.signup-page .signup-form-group-address .signup-address {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.signup-page .signup-form-group-address .signup-address label {
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address .signup-address input {
+		width: 370px;
+    	height: 40px;
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address .signup-detailAddress input {
+		width: 100%;
+		height: 40px;
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address label {
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address input {
+		width: 200px;
+		height: 40px;
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-address button {
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-email {
+		display: column;
+	}
+	
+	.signup-page .signup-form-group-email .email-container {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.signup-page .signup-form-group-email .email-container-left {
+		width: 70%;
+	}
+	
+	.signup-page .signup-form-group-email label {
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-email input {
+		width: 193px;
+		height; 40px;
+		margin-bottom: 10px;
+	}
+	
+	/* select 박스 스타일 */
+	.signup-page .signup-form-group-email #emailDomain {
+	    padding: 0;
+	    margin: 0;
+	    margin-bottom: 10px;
+	    text-indent: 5px;
+	    width: 150px;
+	    height: 40px;
+	    color: #333;
+	    font-size: 14px;
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    font-weight: 700;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    background-color: #fff;
+	    vertical-align: middle;
+	    cursor: pointer;
+	    background: url('dropdown-arrow.png') no-repeat right 10px center;
+   	    background-size: 16px;
+	}
+	
+	.signup-page .signup-form-group-email button {
+		margin-bottom: 10px;
+	}
+	
+	/* option 스타일 */
+	.signup-page .signup-form-group-email #emailDomain option {
+	    text-indent: 0;
+	    font-size: 16px;
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    font-weight: 700;
+	    text-align: left;
+	    padding-left: 5px;
+	    line-height: 40px;
+	}
+	
+	.signup-page .signup-form-group-auth {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10px;
+	}
+	
+	.signup-page .signup-form-group-auth label {
+		margin: 0;
+	}
+	
+	.signup-page .signup-form-group-auth .signup-auth-right {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		gap: 5px;
+	}
+	
+	.signup-page .signup-form-group-auth button {
+		width: 100px;
+	}
+	
+	/* 체크박스 컨테이너 */
+	.signup-page .checkbox-container {
+	    display: flex;
+	    justify-content: space-between;
+	    gap: 15px; /* 각 체크박스 그룹 사이 간격 */
+	    margin-top: 20px;
+	}
+	
+	.signup-page .checkbox-container label {
+		width: 100% !important;
+	}
+	
+	
+	/* 체크박스 그룹 스타일 */
+	.signup-page .signup-checkbox-group {
+	    display: flex;
+	    width: 400px;
+	    align-items: center;
+	    gap: 10px; /* 체크박스와 텍스트 사이 간격 */
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    font-size: 16px;
+	    font-weight: 500;
+	}
+	
+	/* 기본 체크박스 숨기기 */
+	.signup-page .signup-checkbox-group input[type="checkbox"] {
+	    appearance: none;
+	    width: 20px;
+	    height: 20px;
+	    border: 1px solid #8FD8F4; /* 체크박스 테두리 색상 */
+	    position: relative;
+	    cursor: pointer;
+	}
+	
+	/* 체크된 상태일 때 */
+	.signup-page .signup-checkbox-group input[type="checkbox"]:checked {
+	    background-color: #8FD8F4;
+	    border-color: #8FD8F4;
+	}
+	
+	/* 체크 표시 추가 */
+	.signup-page .signup-checkbox-group input[type="checkbox"]::before {
+	    content: "✔";
+	    position: absolute;
+	    top: 50%;
+	    left: 35%;
+	    transform: translate(-50%, -50%);
+	    font-size: 14px;
+	    color: white;
+	    opacity: 0;
+	}
+	
+	/* 체크된 상태일 때 체크 표시 표시 */
+	.signup-page .signup-checkbox-group input[type="checkbox"]:checked::before {
+	    opacity: 1;
+	}
+	
+	/* 상세 내용 보기 버튼 */
+	.signup-page .details-btn {
+	    background: none;
+	    border: none;
+	}
+	
+	/* 상세 내용 기본적으로 숨김 */
+	.signup-page .details {
+	    display: none;
+	    padding: 10px;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    background-color: #f9f9f9;
+	    font-size: 14px;
+	    color: #333;
+	    margin-top: 5px;
+	}
+	
+	/* 상세 내용이 보일 때 */
+	.signup-page .details.active {
+	    display: block;
+	}
+	
+	.signup-page .signup-btn {
+		display: block;
+		width: 65%;
+		background-color: #8FD8F4;
+		color: white;
+		border: none;
+		border-radius: 18px;
+		font-size: 14px;
+		font-weight: bold;
+		cursor: pointer;
+		transition: background-color 0.3s;
+		margin: 15px auto; /* 위쪽 여백 15px, 좌우 자동 정렬 */
+		margin-top: 35px;
+	}
+	
+	.signup-page .signup-btn:hover {
+		background-color: #6eb5ff;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 로그인 페이지 */
+	.login-page .login-container {
+		border: 2px solid #BDE3F2;
+		width: 640px;
+		margin: 100px auto;
+		background-color: #fff;
+	}
+	
+	.login-page .login-sign .loginup-high-T {
+		padding: 0 40px;
+		padding-top: 5px;
+		text-align: left;
+		margin-bottom: 40px;
+		color: rgba(118, 118, 118, 0.5);
+		font-size: 32px;
+		font-family: 'Noto Sans Rounded', sans-serif;
+		font-weight: 700;
+	}
+	
+	.login-page .login-part {
+		padding: 0 110px;
+		padding-bottom: 35px;
+	}
+	
+	.login-page .login-flex-container {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.login-page .login-fields {
+		display: flex;
+		flex-direction: column; /* 위->아래로 쌓기 */
+	}
+	
+	.login-page .login-fields input {
+		padding: 0; /* 다른 css서 먹혀있어서 */
+		text-indent: 0; /* 둘다 일단 0으로 초기화 */
+		text-indent: 5px;
+		width: 280px;
+		height: 40px;
+		font-size: 14px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+	
+	.login-page .login-fields #user_id {
+		margin-bottom: 15px;
+	}
+	
+	.login-page input::placeholder {
+		text-indent: 0;
+		color: #ccc;
+		font-size: 16px;
+		font-family: 'Zen Maru Gothic', sans-serif;
+		font-weight: 700;
+	    text-align: left;
+	    padding-left: 5px;
+	    line-height: 40px;
+	}
+	
+	.login-page .login-button {
+		width: 120px;
+		background-color: #8FD8F4;
+		border: none;
+		border-radius: 10px;
+		font-size: 17px;
+		font-family: 'Zen Maru Gothic', sans-serif;
+		font-weight: 700;
+		color: #fff;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+	
+	.login-page .login-fields .input-group:last-child {
+		margin-bottom: 0;
+	}
+	
+	.login-page .login-button:hover {
+		background-color: #7ac6e0;
+	}
+	
+	.login-page .remember-me-container {
+		margin: 20px 0px 0px 0px;
+		display: flex;
+		align-items: center;
+	}
+	
+	.login-page .checkbox {
+	    position: absolute;
+	    opacity: 0;
+	    width: 0;
+	    height: 0;
+	}
+	
+	.login-page .checkbox-label {
+	    display: flex;
+	    align-items: center;
+	    cursor: pointer;
+	    font-size: 14px;
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    color: #333;
+	}
+	
+	.login-page .checkbox-label::before {
+	    content: "";
+	    display: inline-block;
+	    width: 18px;
+	    height: 18px;
+	    border: 1px solid #8FD8F4;  /* 테두리 색상 */
+	    margin-right: 8px; /* 텍스트와 간격 */
+	    background-color: white;
+	}
+	
+	.login-page .checkbox:checked + .checkbox-label::before {
+	    background-color: #8FD8F4; /* 배경색 변경 */
+	    border-color: #8FD8F4; /* 테두리 색 변경 */
+	    content: "✔"; /* 체크 아이콘 */
+	    color: white;
+	    font-size: 14px;
+	    font-weight: bold;
+	    text-align: center;
+	    line-height: 16px;
+	}
+	
+	.login-page .login-bottom-buttons {
+		display: flex;
+    	justify-content: center;
+    	gap: 15px;
+    	margin-top: 20px;
+	}
+	
+	.login-page .login-sub-button {
+		display: flex; /* flex를 사용하여 내부 요소 정렬 */
+	    justify-content: center; /* 가로 중앙 정렬 */
+	    align-items: center; /* 세로 중앙 정렬 */
+	    width: 250px; /* 버튼 너비 */
+	    height: 40px; /* 버튼 높이 */
+	    border: none;
+	    background: #8FD8F4; /* 기본 배경색 */
+	    border-radius: 10px;
+	    color: #fff; /* 텍스트 색상 */
+	    font-size: 16px; /* 글자 크기 */
+	    font-weight: 700; /* 글씨 두께 */
+	    text-decoration: none; /* 밑줄 제거 */
+	    font-family: 'Zen Maru Gothic', sans-serif; /* 폰트 적용 */
+	    transition: background 0.3s ease-in-out, border-color 0.3s ease-in-out;
+	}
+	
+	.login-page .login-sub-button:hover {
+		background-color: #7ac6e0;
+	}
+	
+	/* 스크립트 ERROR 스타일 */
+	.signup-page .error {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #f00f00;
+	    font-size: 14px;
+	    margin-bottom: 5px;
+	    margin-left: 122px;
+	}
+	
+	.signup-page .success {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #147814;
+	    font-size: 14px;
+	    margin-bottom: 5px;
+	    margin-left: 122px;
+	}
+	
+	.signup-page .error-email, .error-code, .error-checkbox {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #f00f00;
+	    font-size: 14px;
+	    margin-bottom: 5px;
+	}
+	
+	.signup-page .error-checkbox {
+		margin-top: 10px;
+	}
