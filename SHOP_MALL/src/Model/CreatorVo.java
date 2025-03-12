@@ -9,6 +9,7 @@ public class CreatorVo {
 	private String authorimg1;// VARCHAR2(255), -- 작가 이미지 1
 	private String authorimg2;// VARCHAR2(255), -- 작가 이미지 2
 	private String authorimg3;// VARCHAR2(255) -- 작가 이미지 3
+	private String userid;
 
 	// 상품 테이블
 	private int productid;// NUMBER PRIMARY KEY, -- 상품 ID (기본 키)
@@ -28,8 +29,18 @@ public class CreatorVo {
 	//현재 CreatorVo에 상품은 있지만, 상품 만든 사람이 누구인지 정보가 없음.
 	//그래서 상품 테이블의 authorid를 따로 가져와서 담아야 비교 가능
 
+	
+	
 	public int getProductAuthorid() {
 		return productAuthorid;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public void setProductAuthorid(int productAuthorid) {

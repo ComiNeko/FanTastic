@@ -41,61 +41,63 @@ public class CreatorDao {
 		}
 		return list;
 	}// select
-	
+
 	// 특정 작가 정보 조회 (프로필 수정용)
-    public CreatorVo getAuthorProfile(String authorid) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        CreatorVo vo = null;
+	public CreatorVo getAuthorProfile(String userid) {
 
-        String sql = "SELECT * FROM NEW_AUTHOR WHERE authorid = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CreatorVo vo = null;
 
-        try {
-            conn = DBManager.getInstance().getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, authorid);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                vo = new CreatorVo();
-                vo.setAuthorid(rs.getInt("authorid"));
-                vo.setAuthorname(rs.getString("authorname"));
-                vo.setAuthorinfo(rs.getString("authorinfo"));
-                vo.setAuthorimg1(rs.getString("authorimg1"));
-                vo.setAuthorimg2(rs.getString("authorimg2"));
-                vo.setAuthorimg3(rs.getString("authorimg3"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DBManager.getInstance().close(rs, pstmt, conn);
-        }
-        return vo;
-    }
+		String sql = "SELECT * FROM NEW_AUTHOR WHERE userid = ?";
 
-    // 작가 프로필 업데이트
-    public void updateAuthor(String authorid, String authorname, String authorinfo, String img1, String img2, String img3) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+		try {
+			conn = DBManager.getInstance().getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				vo = new CreatorVo();
+				vo.setAuthorid(rs.getInt("authorid"));
+				vo.setAuthorname(rs.getString("authorname"));
+				vo.setAuthorinfo(rs.getString("authorinfo"));
+				vo.setAuthorimg1(rs.getString("authorimg1"));
+				vo.setAuthorimg2(rs.getString("authorimg2"));
+				vo.setAuthorimg3(rs.getString("authorimg3"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.getInstance().close(rs, pstmt, conn);
+		}
+		return vo;
+	}
 
-        String sql = "UPDATE NEW_AUTHOR SET authorname=?, authorinfo=?, authorimg1=?, authorimg2=?, authorimg3=? WHERE authorid=?";
+	// 작가 프로필 업데이트
+	public void updateAuthor(String authorid, String authorname, String authorinfo, String img1, String img2,
+			String img3) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 
-        try {
-            conn = DBManager.getInstance().getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, authorname);
-            pstmt.setString(2, authorinfo);
-            pstmt.setString(3, img1);
-            pstmt.setString(4, img2);
-            pstmt.setString(5, img3);
-            pstmt.setString(6, authorid);
-            pstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DBManager.getInstance().close(pstmt, conn);
-        }
-    }
+		String sql = "UPDATE NEW_AUTHOR SET authorname=?, authorinfo=?, authorimg1=?, authorimg2=?, authorimg3=? WHERE authorid=?";
+
+		try {
+			conn = DBManager.getInstance().getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, authorname);
+			pstmt.setString(2, authorinfo);
+			pstmt.setString(3, img1);
+			pstmt.setString(4, img2);
+			pstmt.setString(5, img3);
+			pstmt.setString(6, authorid);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.getInstance().close(pstmt, conn);
+		}
+	}
 
 	// 특정 작가 조회
 	public List<CreatorVo> getSearch(int authorid) {
@@ -103,16 +105,13 @@ public class CreatorDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String sql = "SELECT \r\n" + 
-				"    A.authorid, A.authorname, A.authorinfo, A.authorimg1, A.authorimg2, A.authorimg3,\r\n" + 
-				"    P.productid, P.productname, P.productprice, P.productstock, P.productinfo, \r\n" + 
-				"    P.categoryid, P.productimage, P.createdAt, P.updatedAt,\r\n" + 
-				"    P.authorid AS product_authorid -- ✅ 상품 만든 작가 ID\r\n" + 
-				"FROM NEW_AUTHOR A\r\n" + 
-				"LEFT JOIN NEW_PRODUCTS P ON A.authorid = P.authorid\r\n" + 
-				"WHERE A.authorid = ?\r\n" + 
-				"";
-				
+		String sql = "SELECT \r\n"
+				+ "    A.authorid, A.authorname, A.authorinfo, A.authorimg1, A.authorimg2, A.authorimg3,\r\n"
+				+ "    P.productid, P.productname, P.productprice, P.productstock, P.productinfo, \r\n"
+				+ "    P.categoryid, P.productimage, P.createdAt, P.updatedAt,\r\n"
+				+ "    P.authorid AS product_authorid -- ✅ 상품 만든 작가 ID\r\n" + "FROM NEW_AUTHOR A\r\n"
+				+ "LEFT JOIN NEW_PRODUCTS P ON A.authorid = P.authorid\r\n" + "WHERE A.authorid = ?\r\n" + "";
+
 		List<CreatorVo> list = new ArrayList<CreatorVo>();
 
 		try {
@@ -153,6 +152,7 @@ public class CreatorDao {
 
 	// 상품 등록 작가 ID 가져오기
 	public int getAuthorIdByProduct(int productId) {
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -193,5 +193,91 @@ public class CreatorDao {
 			DBManager.getInstance().close(null, pstmt, conn);
 		}
 	}
+	
+	// 로그인 시 userid로 authorid 찾기
+    public CreatorVo getAuthorProfileByUserId(String userid) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        CreatorVo vo = null;
+
+        //String sql = "SELECT * FROM NEW_AUTHOR WHERE userid = ?";
+        String sql = "SELECT * FROM NEW_AUTHOR WHERE LOWER(TRIM(userid)) = LOWER(TRIM(?))";
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userid);
+            rs = pstmt.executeQuery();
+            System.out.println("조회된 userid: " + userid);
+            System.out.println("authorid 조회 시도...");
+            if (rs.next()) {
+                vo = new CreatorVo();
+                vo.setAuthorid(rs.getInt("authorid"));
+                System.out.println("찾은 authorid: " + vo.getAuthorid()); //
+            }else {
+                System.out.println("작가 정보 없음 (userid로 못 찾음)"); // ⭐️⭐️⭐️⭐️⭐️
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return vo;
+    }
+
+    // authorid로 작가 정보 조회
+    public CreatorVo getAuthorProfileByAuthorId(int authorid) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        CreatorVo vo = null;
+
+        String sql = "SELECT * FROM NEW_AUTHOR WHERE authorid = ?";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, authorid);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                vo = new CreatorVo();
+                vo.setAuthorid(rs.getInt("authorid"));
+                vo.setAuthorname(rs.getString("authorname"));
+                vo.setAuthorinfo(rs.getString("authorinfo"));
+                vo.setAuthorimg1(rs.getString("authorimg1"));
+                vo.setAuthorimg2(rs.getString("authorimg2"));
+                vo.setAuthorimg3(rs.getString("authorimg3"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return vo;
+    }
+
+    // 작가 정보 업데이트
+    public void updateAuthor(int authorid, String authorname, String authorinfo, String img1, String img2, String img3) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        String sql = "UPDATE NEW_AUTHOR SET authorname = ?, authorinfo = ?, authorimg1 = ?, authorimg2 = ?, authorimg3 = ? WHERE authorid = ?";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, authorname);
+            pstmt.setString(2, authorinfo);
+            pstmt.setString(3, img1);
+            pstmt.setString(4, img2);
+            pstmt.setString(5, img3);
+            pstmt.setInt(6, authorid);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
 
 }// dao
