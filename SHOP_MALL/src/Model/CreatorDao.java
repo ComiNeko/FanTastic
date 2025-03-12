@@ -41,6 +41,61 @@ public class CreatorDao {
 		}
 		return list;
 	}// select
+	
+	// 특정 작가 정보 조회 (프로필 수정용)
+    public CreatorVo getAuthorProfile(String authorid) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        CreatorVo vo = null;
+
+        String sql = "SELECT * FROM NEW_AUTHOR WHERE authorid = ?";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, authorid);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                vo = new CreatorVo();
+                vo.setAuthorid(rs.getInt("authorid"));
+                vo.setAuthorname(rs.getString("authorname"));
+                vo.setAuthorinfo(rs.getString("authorinfo"));
+                vo.setAuthorimg1(rs.getString("authorimg1"));
+                vo.setAuthorimg2(rs.getString("authorimg2"));
+                vo.setAuthorimg3(rs.getString("authorimg3"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return vo;
+    }
+
+    // 작가 프로필 업데이트
+    public void updateAuthor(String authorid, String authorname, String authorinfo, String img1, String img2, String img3) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        String sql = "UPDATE NEW_AUTHOR SET authorname=?, authorinfo=?, authorimg1=?, authorimg2=?, authorimg3=? WHERE authorid=?";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, authorname);
+            pstmt.setString(2, authorinfo);
+            pstmt.setString(3, img1);
+            pstmt.setString(4, img2);
+            pstmt.setString(5, img3);
+            pstmt.setString(6, authorid);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
 
 	// 특정 작가 조회
 	public List<CreatorVo> getSearch(int authorid) {

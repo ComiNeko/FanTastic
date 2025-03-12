@@ -18,9 +18,10 @@
 	         <div class="profile-info">
 	                <div class="username">${sessionScope.user.name}님, 반가워요!</div>
 	                <div class="profile-buttons">
-	                    <button class="info-btn">회원정보</button>
-	                    <button class="logout-btn">비밀번호 수정</button>
-	                </div>
+    <button class="info-btn" onclick="location.href='/admin/editProfile.do'">회원정보</button> <!-- ✅ 수정 -->
+    <button class="logout-btn">비밀번호 수정</button>
+</div>
+
 	            </div>
         
         

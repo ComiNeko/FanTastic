@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Service.CreatorService;
+
 /**
  * Servlet implementation class AdminController
  */
@@ -39,6 +41,15 @@ public class AdminController extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		
 		switch (action) {
+		 case "/editProfile.do":
+             new CreatorService().getAuthorProfile(request, response); // DB에서 데이터 가져오기
+             request.getRequestDispatcher("/author/authorprofileedit.jsp").forward(request, response); // 폼 이동
+             return;
+
+         case "/updateProfile.do":
+             new CreatorService().updateAuthorProfile(request, response); // DB 업데이트
+             response.sendRedirect("/mypage.jsp"); // 마이페이지로 이동
+             return;
 		
 		}
 	}
