@@ -26,7 +26,7 @@ public class CreatorService implements Command {
         request.setAttribute("creatorList", creatorList);
 
         // 이동할 JSP 지정 (작가 리스트 화면)
-        request.getRequestDispatcher("creator.jsp").forward(request, response);
+        request.getRequestDispatcher("/posts/postcreator.jsp").forward(request, response);
 		
 
 	}

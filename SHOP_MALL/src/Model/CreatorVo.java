@@ -21,6 +21,21 @@ public class CreatorVo {
 	private String createdAt; // TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, -- 생성 시간 (기본값: 현재 시간, NOT NULL)
 	private String updatedAt; // TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL, -- 수정 시간 (기본값: 현재 시간, NULL 허용)
 
+	// 상품 테이블의 authorid (상품 소유 작가 ID)
+	private int productAuthorid;
+	//authorid는 **작가 정보(author 테이블)에서 온 값이지, 상품 테이블에서 가져온 상품의 소유 작가 ID가 아니다
+	//로그인한 사람이 내가 만든 상품인지 아닌지 비교하기 위해
+	//현재 CreatorVo에 상품은 있지만, 상품 만든 사람이 누구인지 정보가 없음.
+	//그래서 상품 테이블의 authorid를 따로 가져와서 담아야 비교 가능
+
+	public int getProductAuthorid() {
+		return productAuthorid;
+	}
+
+	public void setProductAuthorid(int productAuthorid) {
+		this.productAuthorid = productAuthorid;
+	}
+
 	public int getProductid() {
 		return productid;
 	}

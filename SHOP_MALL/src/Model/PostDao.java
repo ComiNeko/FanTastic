@@ -17,11 +17,11 @@ public class PostDao {
 		PreparedStatement pstmt = null;
 
 		String sql = "INSERT INTO NEW_PRODUCTS(productid, categoryid, authorid, productName, productPrice, productStock, productInfo, productImage, createdAt, updatedAt) "
-		           + "VALUES (NEW_PRODUCTS_SEQ.nextval, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+				+ "VALUES (NEW_PRODUCTS_SEQ.nextval, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 		try {
 			conn = DBManager.getInstance().getConnection();
 			pstmt = conn.prepareStatement(sql);
-			
+
 			System.out.println(vo.getCategoryid());
 			System.out.println(vo.getAuthorid());
 			System.out.println(vo.getProductName());
@@ -29,7 +29,7 @@ public class PostDao {
 			System.out.println(vo.getProductStock());
 			System.out.println(vo.getProductInfo());
 			System.out.println(vo.getProductImage());
-			
+
 			pstmt.setInt(1, vo.getCategoryid());
 			pstmt.setInt(2, vo.getAuthorid());
 			pstmt.setString(3, vo.getProductName());
@@ -37,7 +37,7 @@ public class PostDao {
 			pstmt.setInt(5, vo.getProductStock());
 			pstmt.setString(6, vo.getProductInfo());
 			System.out.println("이미지: " + vo.getProductImage());
-			pstmt.setString(7, vo.getProductImage()); 
+			pstmt.setString(7, vo.getProductImage());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,12 +83,12 @@ public class PostDao {
 
 	// 카테고리
 	public List<PostVo> getPostsByCategory(int categoryid) {
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM NEW_PRODUCTS WHERE categoryid = ? ORDER BY productid DESC";
-		
+
 		List<PostVo> list = new ArrayList<PostVo>();
 		try {
 			conn = DBManager.getInstance().getConnection();
@@ -115,89 +115,78 @@ public class PostDao {
 
 	// 장바구니에 상품 추가 (중복이면 수량 증가)
 	public void addToCart(String userId, int productId, int quantity) {
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 
-	    String sql = "MERGE INTO NEW_CARTS c " +
-	                 "USING (SELECT ? AS userid, ? AS productid FROM dual) temp " +
-	                 "ON (c.userid = temp.userid AND c.productid = temp.productid) " +
-	                 "WHEN MATCHED THEN " +
-	                 "    UPDATE SET c.quantity = c.quantity + ? " + // 수량 누적
-	                 "WHEN NOT MATCHED THEN " +
-	                 "    INSERT (cartid, userid, productid, quantity) " +
-	                 "    VALUES (NEW_CARTS_SEQ.NEXTVAL, ?, ?, ?)";
+		String sql = "MERGE INTO NEW_CARTS c " + "USING (SELECT ? AS userid, ? AS productid FROM dual) temp "
+				+ "ON (c.userid = temp.userid AND c.productid = temp.productid) " + "WHEN MATCHED THEN "
+				+ "    UPDATE SET c.quantity = c.quantity + ? " + // 수량 누적
+				"WHEN NOT MATCHED THEN " + "    INSERT (cartid, userid, productid, quantity) "
+				+ "    VALUES (NEW_CARTS_SEQ.NEXTVAL, ?, ?, ?)";
 
-	    try {
-	        conn = DBManager.getInstance().getConnection();
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, userId);
-	        pstmt.setInt(2, productId);
-	        pstmt.setInt(3, quantity); // 누적할 수량
-	        pstmt.setString(4, userId); 
-	        pstmt.setInt(5, productId); 
-	        pstmt.setInt(6, quantity); 
-	        pstmt.executeUpdate();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        DBManager.getInstance().close(pstmt, conn);
-	    }
+		try {
+			conn = DBManager.getInstance().getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, productId);
+			pstmt.setInt(3, quantity); // 누적할 수량
+			pstmt.setString(4, userId);
+			pstmt.setInt(5, productId);
+			pstmt.setInt(6, quantity);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.getInstance().close(pstmt, conn);
+		}
 	}
-
 
 	// 장바구니 목록 조회 (중복 상품 묶기 + 수량 합산)
 	public List<PostVo> getCartList(String userId) {
-	    List<PostVo> cartList = new ArrayList<>();
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
+		List<PostVo> cartList = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
-	    String sql = "SELECT " +
-	                 "c.productid, " +
-	                 "p.productname, " +
-	                 "p.productimage, " +
-	                 "p.productprice, " +
-	                 "SUM(c.quantity) AS quantity " + // 장바구니 수량 합산
-	                 "FROM NEW_CARTS c " +
-	                 "JOIN NEW_PRODUCTS p ON c.productid = p.productid " +
-	                 "WHERE c.userid = ? " +
-	                 "GROUP BY c.productid, p.productname, p.productimage, p.productprice";
+		String sql = "SELECT " + "c.productid, " + "p.productname, " + "p.productimage, " + "p.productprice, "
+				+ "SUM(c.quantity) AS quantity " + // 장바구니 수량 합산
+				"FROM NEW_CARTS c " + "JOIN NEW_PRODUCTS p ON c.productid = p.productid " + "WHERE c.userid = ? "
+				+ "GROUP BY c.productid, p.productname, p.productimage, p.productprice";
 
-	    try {
-	        conn = DBManager.getInstance().getConnection();
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, userId);
-	        rs = pstmt.executeQuery();
-	        while (rs.next()) {
-	            PostVo post = new PostVo();
-	            post.setProductid(rs.getInt("productid"));
-	            post.setProductName(rs.getString("productname"));
-	            post.setProductImage(rs.getString("productimage"));
-	            post.setProductPrice(rs.getInt("productprice"));
-	            post.setQuantity(rs.getInt("quantity")); // 합산된 수량
-	            cartList.add(post);
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        DBManager.getInstance().close(rs, pstmt, conn);
-	    }
-	    return cartList;
+		try {
+			conn = DBManager.getInstance().getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				PostVo post = new PostVo();
+				post.setProductid(rs.getInt("productid"));
+				post.setProductName(rs.getString("productname"));
+				post.setProductImage(rs.getString("productimage"));
+				post.setProductPrice(rs.getInt("productprice"));
+				post.setQuantity(rs.getInt("quantity")); // 합산된 수량
+				cartList.add(post);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.getInstance().close(rs, pstmt, conn);
+		}
+		return cartList;
 	}
 
-
-	// 장바구니에서 상품 삭제 (특정 상품 전체 삭제)
+	// 장바구니에서 특정 상품 전체 삭제 (productid 기준)
 	public void removeFromCart(String userId, int productId) {
 	    Connection conn = null;
 	    PreparedStatement pstmt = null;
 
-	    String sql = "DELETE FROM NEW_CARTS WHERE userid = ? AND productid = ?";
+	    String sql = "DELETE FROM NEW_CARTS WHERE productid = ? AND userid = ?";
 
 	    try {
 	        conn = DBManager.getInstance().getConnection();
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, userId);
-	        pstmt.setInt(2, productId);
+	        pstmt.setInt(1, productId); // 상품 ID
+	        pstmt.setString(2, userId); // 유저 ID
 	        pstmt.executeUpdate();
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -513,5 +502,41 @@ public class PostDao {
 
 
 
+	// 상품 클릭시, 상세정보 페이지 넘어가는 기능
+	public PostVo getPostDetail(int productid) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		PostVo vo = null;
+		// 메서드 안에서 조회한 결과를 담을 객체를 먼저 선언
+		// 조건에 따라 (결과가 있을 때만) 객체를 생성해서 반환하기 위해 필요
+		// 만약 조회된 결과가 없다면 null 그대로 반환해서 "해당 상품 없음"을 처리할 수 있음
+
+		String sql = "SELECT * FROM NEW_PRODUCTS WHERE productid = ?";
+
+		try {
+			conn = DBManager.getInstance().getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, productid);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				vo = new PostVo();
+				vo.setProductid(rs.getInt("productid"));
+				vo.setProductName(rs.getString("productName"));
+				vo.setProductPrice(rs.getInt("productPrice"));
+				vo.setProductImage(rs.getString("productImage"));
+				vo.setProductInfo(rs.getString("productInfo"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.getInstance().close(rs, pstmt, conn);
+		}
+		return vo;
+	}
 
 }// dao
