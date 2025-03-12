@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.creator-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+}
+
+.creator-card {
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	padding: 15px;
+	width: 200px;
+	text-align: center;
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.creator-card img {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.creator-card a {
+	text-decoration: none;
+	color: black;
+}
