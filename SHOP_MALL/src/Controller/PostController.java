@@ -13,8 +13,11 @@ import javax.servlet.http.HttpSession;
 import Service.CreatorDetailService;
 import Service.CreatorService;
 import Service.PostCartService;
+import Service.PostDetailService;
 import Service.PostSellingService;
 import Service.PostWriteService;
+import Service.ProductDeleteService;
+import Service.ReviewService;
 
 @WebServlet("/post/*")
 @MultipartConfig(
@@ -57,6 +60,7 @@ public class PostController extends HttpServlet {
 		}
 
 		switch (action) {
+		
 			case "/addToCart.do": // 장바구니 추가
 				new PostCartService().doCommand(request, response);
 				return;
@@ -67,7 +71,7 @@ public class PostController extends HttpServlet {
 
 			case "/postcart.do": // 장바구니 페이지 이동
 			    new PostCartService().doCommand(request, response);
-			    return; // 여기까지만 하면 끝
+			    return; 
 			    
 			case "/ptwrite.do": // 글쓰기 페이지 이동
 			    page = "/posts/postwrite.jsp"; // 글쓰기 폼
@@ -83,12 +87,28 @@ public class PostController extends HttpServlet {
 				page = "/posts/postsellinglist.jsp";
 				break;
 				
+			case "/postdetail.do": // 상품 상세 페이지 이동
+			    new PostDetailService().doCommand(request, response); // 서비스 호출
+			    page = "/posts/postdetail.jsp"; // 연결할 JSP
+			    break;
+
+				
 			case "/creatorlist.do": // 작가 리스트 페이지
 			    new CreatorService().doCommand(request, response); 
-			    return;
+			    break;
 			    
 			case "/creatordetail.do": // 작가 상세 페이지
 			    new CreatorDetailService().doCommand(request, response);
+			    return;
+			    
+			case "/productdelete.do": //상품 삭제 기능
+			    new ProductDeleteService().doCommand(request, response);
+			    return;
+			    
+			case "/review.do": // 리뷰 등록
+			    new ReviewService().doCommand(request, response);
+			    String productId = request.getParameter("productid"); // form에서 보낸 productid 받아오기
+			    response.sendRedirect("/post/postdetail.do?productid=" + productId); // 상세로 이동
 			    return;
 		}
 

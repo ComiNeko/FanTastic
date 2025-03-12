@@ -48,14 +48,14 @@
 						<div class="dropdown">
 							<button class="category-btn dropdown-toggle" type="button" data-toggle="dropdown">Shop</button>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">크리에이터</a>
-								<a class="dropdown-item" href="#">키링</a>
-								<a class="dropdown-item" href="#">아크릴</a>
-								<a class="dropdown-item" href="#">포토카드</a>
-								<a class="dropdown-item" href="#">틴케이스</a>
-								<a class="dropdown-item" href="#">키캡</a>
-								<a class="dropdown-item" href="#">거울/핀버튼</a>
-								<a class="dropdown-item" href="#">커버/클리너</a>
+								<a class="dropdown-item" href="/post/creatorlist.do">크리에이터</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=1">키링</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=2">아크릴</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=3">포토카드</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=4">틴케이스</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=5">키캡</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=6">거울/핀버튼</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=7">커버/클리너</a>
 							</div>
 						</div>
 					</div>

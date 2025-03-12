@@ -27,7 +27,7 @@ public class CreatorDetailService implements Command {
         request.setAttribute("creatorList", creatorList); // 리스트 형태로 저장 (작가 + 상품 묶인 형태)
 
         // 4. JSP 페이지로 이동
-        request.getRequestDispatcher("/posts/creatorDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("/posts/postcreatordetail.jsp").forward(request, response);
     }
 
 }
