@@ -15,13 +15,13 @@
 %>
 
 <%@ include file="../fragments/header.jsp" %>
-
+<link rel="stylesheet" href="../css/postwrite.css">
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>판매페이지</title>
-    <link rel="stylesheet" href="../css/postwrite.css">
+    
     
 </head>
 <body>
