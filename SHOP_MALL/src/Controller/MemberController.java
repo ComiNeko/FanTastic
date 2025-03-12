@@ -100,11 +100,6 @@ public class MemberController extends HttpServlet {
 			
 	//_________________________________________________________________________________________________//	
 		
-		case "/findidpw.do":
-			page = "/mem/FindIDPW.jsp";
-			break;
-		
-		
 		case "/findId.do":
 			new MainService().doCommand(request, response);
 			page = "/mem/findid.jsp"; 
@@ -117,29 +112,33 @@ public class MemberController extends HttpServlet {
 		case "/verifyEmail.do":
 			new MemberFindIdCode().doCommand(request, response);
 			return;
-    
 		
 		case "/findPw.do":
 			page = "/mem/findpw.jsp"; 
 		    break;
 		    
-		 case "/findPwId.do":
-             new MemberFindPwId().doCommand(request, response);
-             return;
-         case "/findPwEmail.do":
-             new MemberFindPwEmail().doCommand(request, response);
-             return;
-         case "/findPwCode.do":
-             new MemberFindPwCode().doCommand(request, response);
-             return;
-         case "/findPwToken.do":
-             new MemberFindPwToken().doCommand(request, response);
-             return;
-         case "/resetPw.do":
-             new MemberResetPw().doCommand(request, response);
-             return;
-         default:
-             break;
+		case "/findPwId.do":
+			new MemberFindPwId().doCommand(request, response);
+			return;
+			
+		case "/findPwEmail.do":
+			new MemberFindPwEmail().doCommand(request, response);
+			return;
+			
+		case "/findPwCode.do":
+			new MemberFindPwCode().doCommand(request, response);
+			return;
+			
+		case "/findPwToken.do":
+			new MemberFindPwToken().doCommand(request, response);
+			return;
+			
+		case "/resetPw.do":
+			new MemberResetPw().doCommand(request, response);
+			return;
+			
+		default:
+			break;
 		
 		
 	//_________________________________________________________________________________________________//		

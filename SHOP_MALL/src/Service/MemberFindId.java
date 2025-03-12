@@ -20,7 +20,7 @@ public class MemberFindId implements Command {
 
 		
 		
-		 response.setContentType("text/html; charset=UTF-8");
+		 	response.setContentType("text/html; charset=UTF-8");
 		 	request.setCharacterEncoding("utf-8");
 	        
 	        // 사용자가 입력한 이메일을 그대로 사용 (trim 등의 처리는 하지 않음)
