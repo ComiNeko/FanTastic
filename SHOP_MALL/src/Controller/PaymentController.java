@@ -1,14 +1,15 @@
 package Controller;
 
-import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import Model.PaymentVo;
-import util.PaymentUtil;
+import Service.PaymentService;
+
+import java.io.IOException;
 
 @WebServlet("/payment/*")
 public class PaymentController extends HttpServlet {
@@ -30,38 +31,31 @@ public class PaymentController extends HttpServlet {
 
     protected void doAction(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getPathInfo(); // 요청 URL에서 액션을 가져옴
+    	request.setCharacterEncoding("utf-8");
+		String action = request.getPathInfo();
+		System.out.println("payment_action = " + action);
+		String page = null;
+		HttpSession session = request.getSession(false);
 
-        if (action.equals("/processPayment")) {
-            processPayment(request, response);
-        } else {
-            // 다른 액션 처리
-            response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404 오류 처리
-        }
-    }
+		switch (action) {
+		case "/payment.do":
+			
+			String productId = request.getParameter("productId");
+	        String productName = request.getParameter("productName");
+	        String productPrice = request.getParameter("productPrice");
 
-    private void processPayment(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // 요청 파라미터 가져오기
-        String userId = request.getParameter("userId");
-        int orderId = Integer.parseInt(request.getParameter("orderId"));
-        String paymentMethod = request.getParameter("paymentMethod");
-
-        // PaymentVo 객체 생성
-        PaymentVo payment = new PaymentVo();
-        payment.setUserId(userId);
-        payment.setOrderId(orderId);
-        payment.setPaymentMethod(paymentMethod);
-
-        // Payment 처리
-        boolean success = PaymentUtil.processPayment(payment);
-
-        // 결과에 따라 다른 JSP 페이지로 포워딩
-        if (success) {
-        	response.sendRedirect(request.getContextPath() + "/index.jsp?message=Payment completed successfully.");
-        } else {
-            request.setAttribute("message", "Payment failed.");
-            request.getRequestDispatcher("/adminpage/payments.jsp").forward(request, response);
-        }
+	        // 로그 출력
+	        System.out.println("Received Product ID: " + productId);
+	        System.out.println("Received Product Name: " + productName);
+	        System.out.println("Received Product Price: " + productPrice);
+			
+			 new PaymentService().doCommand(request, response);
+			 return;
+		}
+		
+		if(page!=null) {
+			request.getRequestDispatcher(page).forward(request, response);
+		}
+        
     }
 }
