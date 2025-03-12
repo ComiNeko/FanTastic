@@ -11,10 +11,6 @@
 
 
 <div class="wrapBody">
-
-<p>authorid: ${author.authorid}</p>
-<p>authorname: ${author.authorname}</p>
-
     <h2>프로필 수정</h2>
 
   <form action="/admin/updateProfile.do" method="post" enctype="multipart/form-data">
