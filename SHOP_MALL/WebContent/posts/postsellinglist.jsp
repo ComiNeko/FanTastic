@@ -76,12 +76,14 @@
 								<div class="price">${product.productPrice}원</div>
 								<div class="productInfo">${product.productInfo}</div>
 
+
 								<!-- 장바구니 버튼 -->
 								<button class="cart-floating-btn"
 									data-productid="${product.productid}">
 									<img src="${pageContext.request.contextPath}/img/cart.png"
 										alt="장바구니" class="cart-icon">
 								</button>
+
 							</div>
 						</c:forEach>
 
