@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import Service.CreatorDetailService;
 import Service.CreatorService;
 import Service.PostCartService;
+import Service.PostFavoriteService;
 import Service.PostDetailService;
 import Service.PostSellingService;
 import Service.PostWriteService;
@@ -27,37 +27,38 @@ maxRequestSize = 1004 * 1024 *50 // 50MB
 )
 public class PostController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	public PostController() {
-		super();
-	}
+   public PostController() {
+      super();
+   }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doAction(request, response);
-	}
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      doAction(request, response);
+   }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doAction(request, response);
-	}
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      doAction(request, response);
+   }
 
-	protected void doAction(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		String action = request.getPathInfo();
-		System.out.println("action = " + action);
-		String page = null;
+   protected void doAction(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      request.setCharacterEncoding("utf-8");
+      String action = request.getPathInfo();
+      System.out.println("action = " + action);
+      String page = null;
 
-		// 로그인 체크: postsellinglist.do만 예외적으로 로그인 없이 접근 가능
-		if (!"/postsellinglist.do".equals(action) && !"/postcart.do".equals(action)) {
-			HttpSession session = request.getSession();
-			if (session.getAttribute("user") == null) {
-				response.sendRedirect("/member/login.do"); // 로그인 안 되어 있으면 로그인 페이지로 이동
-				return;
-			}
-		}
+      // 로그인 체크: postsellinglist.do만 예외적으로 로그인 없이 접근 가능
+      if (!"/postsellinglist.do".equals(action) && !"/postcart.do".equals(action)) {
+         HttpSession session = request.getSession();
+         if (session.getAttribute("user") == null) {
+            response.sendRedirect("/member/login.do"); // 로그인 안 되어 있으면 로그인 페이지로 이동
+            return;
+         }
+      }
+
 
 		switch (action) {
 		
@@ -65,9 +66,9 @@ public class PostController extends HttpServlet {
 				new PostCartService().doCommand(request, response);
 				return;
 
-			case "/removeFromCart.do": // 장바구니에서 상품 삭제
-				new PostCartService().doCommand(request, response);
-				return;
+         case "/removeFromCart.do": // 장바구니에서 상품 삭제
+            new PostCartService().doCommand(request, response);
+            return;
 
 			case "/postcart.do": // 장바구니 페이지 이동
 			    new PostCartService().doCommand(request, response);
@@ -112,10 +113,10 @@ public class PostController extends HttpServlet {
 			    return;
 		}
 
-		// 페이지 이동 처리
-		if (page != null) {
-			RequestDispatcher rd = request.getRequestDispatcher(page);
-			rd.forward(request, response);
-		}
-	}
+      // 페이지 이동 처리
+      if (page != null) {
+         RequestDispatcher rd = request.getRequestDispatcher(page);
+         rd.forward(request, response);
+      }
+   }
 }
