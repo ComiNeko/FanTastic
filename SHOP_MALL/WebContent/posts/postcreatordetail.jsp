@@ -1,12 +1,13 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../fragments/header.jsp"%>
 <link rel="stylesheet" href="/css/postcreatordetail.css">
 <!DOCTYPE html>
 <html>
 <head>
     <title>${creatorList[0].authorname} 작가 상세 페이지</title>
-    <!-- 동적으로 작가 이름을 불러오기 위해서, 예를 들어 1번 작가 클릭시 김작가 2번 작가 클릭시 박작가 -->
+    <!-- 동적으로 작가 이름을 불러오기 위해서, 예를 들어 1번 작가 클릭 시 김작가, 2번 작가 클릭 시 박작가 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -32,19 +33,22 @@
                 <c:forEach var="product" items="${creatorList}">
                     <c:if test="${product.productid != 0}">
                         <div class="product-card">
-                            <h4>${product.productName}</h4>
-                            <p class="price">${product.productPrice}원</p>
-                            <p>재고: ${product.productStock}개</p>
-                            <p>${product.productInfo}</p>
-                            <c:if test="${not empty product.productImage}">
-                                <img src="${product.productImage}" alt="${product.productName}" style="width:100%; height:150px; object-fit:cover; border-radius:10px; margin-top:10px;">
-                            </c:if>
+                            <!-- 상품 이미지 클릭 시 상세 페이지로 이동 -->
+                            <a href="/post/postdetail.do?productid=${product.productid}">
+                                <c:if test="${not empty product.productImage}">
+                                    <img src="${product.productImage}" alt="${product.productName}">
+                                </c:if>
+                                <h4>${product.productName}</h4>
+                                <p class="price">${product.productPrice}원</p>
+                                <p>재고: ${product.productStock}개</p>
+                                <p>${product.productInfo}</p>
+                            </a>
                         </div>
                     </c:if>
                 </c:forEach>
             </div>
         </div>
     </div>
-    <%@ include file="/fragments/footer.jsp"%>
+    <%@ include file="../fragments/footer.jsp"%>
 </body>
 </html>

@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장바구니</title>
@@ -30,24 +31,43 @@
             <!-- 장바구니에 상품 있을 때 -->
             <ul class="cart-items">
                 <c:forEach var="item" items="${cartList}">
-                    <li class="cart-item">
-                        <img src="${pageContext.request.contextPath}${item.productImage}" alt="${item.productName}">
-                        <div class="cart-item-info">
-                            <h3>${item.productName}</h3>
-                            <p>가격: <span class="cart-item-price">${item.productPrice}원</span></p>
-                        	<p>수량: <span class="cart-item-quantity">${item.quantity}개</span></p>
-                        </div>
-                        <form action="postcart.do?action=remove" method="post">
-                            <!-- cartid로 넘기기 -->
-                            <input type="hidden" name="cartid" value="${item.cartid}">
-                            <button type="submit" class="remove-cart-btn">삭제</button>
-                        </form>
-                    </li>
-                </c:forEach>
+    <li class="cart-item">
+        <img src="${pageContext.request.contextPath}${item.productImage}" alt="${item.productName}">
+        <div class="cart-item-info">
+            <h3>${item.productName}</h3>
+            <p>가격: <span class="cart-item-price">${item.productPrice}원</span></p>
+            <p>수량: <span class="cart-item-quantity">${item.quantity}개</span></p>
+        </div>
+        <!-- AJAX 호출할 버튼 -->
+        <button type="button" class="remove-cart-btn" onclick="removeFromCart('${item.productid}')">삭제</button>
+    </li>
+</c:forEach>
+
+
             </ul>
         </c:otherwise>
     </c:choose>
 </div>
+<script>
+function removeFromCart(productId) {
+    console.log("삭제 요청 상품 ID: " + productId); // 콘솔 확인용
+ // 삭제 요청
+    $.ajax({
+        type: "POST",
+        url: "/post/postcart.do", // action은 URL 뒤가 아닌 data 안에
+        data: { productid: productId, action: 'remove' }, // 이렇게 같이 보내기
+        success: function(response) {
+            // alert(response); // 원하면 주석
+            location.reload(); // 새로고침
+        },
+        error: function(xhr, status, error) {
+            console.error("삭제 실패:", error);
+            alert("삭제 실패: " + error);
+        }
+    });
+}
+</script>
+
 
 <%@ include file="/fragments/footer.jsp"%>
 </body>

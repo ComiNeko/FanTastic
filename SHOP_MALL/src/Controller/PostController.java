@@ -9,13 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import Service.CreatorDetailService;
 import Service.CreatorService;
 import Service.PostCartService;
 import Service.PostFavoriteService;
+import Service.PostDetailService;
 import Service.PostSellingService;
 import Service.PostWriteService;
+import Service.ProductDeleteService;
+import Service.ReviewService;
 
 @WebServlet("/post/*")
 @MultipartConfig(
@@ -57,59 +59,59 @@ public class PostController extends HttpServlet {
          }
       }
 
-      switch (action) {
-      
-      case "/heart.do":
-          page = "/posts/postfavorite.jsp";
-          break;   
-          
-      
-         case "/addToCart.do": // 장바구니 추가
-            new PostCartService().doCommand(request, response);
-            return;
+
+		switch (action) {
+		
+			case "/addToCart.do": // 장바구니 추가
+				new PostCartService().doCommand(request, response);
+				return;
 
          case "/removeFromCart.do": // 장바구니에서 상품 삭제
             new PostCartService().doCommand(request, response);
             return;
 
-         case "/postcart.do": // 장바구니(목록조회/상품추가/상품삭제)
-             new PostCartService().doCommand(request, response);
-             return; 
-             
-         case "/ptwrite.do": // 글쓰기 페이지 이동
-             page = "/posts/postwrite.jsp"; // 글쓰기 폼
-             break;
-             
-         case "/ptwritepro.do": // 글을 적고 나서 제출(등록) 할 때 호출하는 주소
-            new PostWriteService().doCommand(request, response);
-            response.sendRedirect("/post/postsellinglist.do"); // 글 등록 후 상품 목록으로 이동
-            return;
+			case "/postcart.do": // 장바구니 페이지 이동
+			    new PostCartService().doCommand(request, response);
+			    return; 
+			    
+			case "/ptwrite.do": // 글쓰기 페이지 이동
+			    page = "/posts/postwrite.jsp"; // 글쓰기 폼
+			    break;
+			    
+			case "/ptwritepro.do": // 글을 적고 나서 제출(등록) 할 때 호출하는 주소
+				new PostWriteService().doCommand(request, response);
+				response.sendRedirect("/post/postsellinglist.do"); // 글 등록 후 상품 목록으로 이동
+				return;
 
-         case "/postsellinglist.do": // 상품 목록 조회
-            new PostSellingService().doCommand(request, response);
-            page = "/posts/postsellinglist.jsp";
-            break;
-            
-         case "/creatorlist.do": // 작가 리스트 페이지
-             new CreatorService().doCommand(request, response); 
-             break;
-             
-         case "/creatordetail.do": // 작가 상세 페이지
-             new CreatorDetailService().doCommand(request, response);
-             return;
-             
-        
-         case "/list.do":
-         case "/add.do":
-         case "/remove.do":
-         case "/createFolder.do":
-         case "/renameFolder.do":
-         case "/deleteFolder.do":
-             new PostFavoriteService().doCommand(request, response);
-             return;     
-         
-         
-      }
+			case "/postsellinglist.do": // 상품 목록 조회
+				new PostSellingService().doCommand(request, response);
+				page = "/posts/postsellinglist.jsp";
+				break;
+				
+			case "/postdetail.do": // 상품 상세 페이지 이동
+			    new PostDetailService().doCommand(request, response); // 서비스 호출
+			    page = "/posts/postdetail.jsp"; // 연결할 JSP
+			    break;
+
+				
+			case "/creatorlist.do": // 작가 리스트 페이지
+			    new CreatorService().doCommand(request, response); 
+			    break;
+			    
+			case "/creatordetail.do": // 작가 상세 페이지
+			    new CreatorDetailService().doCommand(request, response);
+			    return;
+			    
+			case "/productdelete.do": //상품 삭제 기능
+			    new ProductDeleteService().doCommand(request, response);
+			    return;
+			    
+			case "/review.do": // 리뷰 등록
+			    new ReviewService().doCommand(request, response);
+			    String productId = request.getParameter("productid"); // form에서 보낸 productid 받아오기
+			    response.sendRedirect("/post/postdetail.do?productid=" + productId); // 상세로 이동
+			    return;
+		}
 
       // 페이지 이동 처리
       if (page != null) {
