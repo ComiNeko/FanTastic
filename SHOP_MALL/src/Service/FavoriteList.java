@@ -15,42 +15,39 @@ public class FavoriteList implements Command {
     @Override
     public void doCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	request.setCharacterEncoding("utf-8");
-        HttpSession session = request.getSession();
-        MemberVo mvo = (MemberVo) session.getAttribute("user");
+        request.setCharacterEncoding("utf-8");
 
-        if (mvo == null) {
+        HttpSession session = request.getSession();
+        MemberVo user = (MemberVo) session.getAttribute("user");
+
+        if (user == null) {
             response.sendRedirect("/member/login.do");
             return;
         }
 
-        String userId = mvo.getUserid();
+        String userId = user.getUserid();
+        int categoryId = 0;
         String categoryParam = request.getParameter("categoryId");
-        int categoryId = (categoryParam != null && !categoryParam.isEmpty()) ? Integer.parseInt(categoryParam) : 0;
-
-        String folderParam = request.getParameter("folderId");
-        int folderId = (folderParam != null && !folderParam.isEmpty()) ? Integer.parseInt(folderParam) : 0;
-
-        String pageParam = request.getParameter("page");
-        String pageSizeParam = request.getParameter("pageSize");
-        int page = (pageParam != null && !pageParam.isEmpty()) ? Integer.parseInt(pageParam) : 1;
-        int pageSize = (pageSizeParam != null && !pageSizeParam.isEmpty()) ? Integer.parseInt(pageSizeParam) : 10;
-
-        PostDao dao = new PostDao();
-        List<PostVo> favoriteList;
-
-        if (folderId > 0) {
-            favoriteList = dao.getFavoriteListByFolder(userId, folderId, page, pageSize);
-        } else {
-            favoriteList = dao.getFavoriteListByCategory(userId, categoryId, page, pageSize);
+        if (categoryParam != null && !categoryParam.isEmpty()) {
+            categoryId = Integer.parseInt(categoryParam);
         }
 
+        int page = 1;
+        int pageSize = 10;
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
+        } catch (Exception e) { }
+        try {
+            pageSize = Integer.parseInt(request.getParameter("pageSize"));
+        } catch (Exception e) { }
+
+        PostDao dao = new PostDao();
+        List<PostVo> favoriteList = dao.getFavoriteListByCategory(userId, categoryId, page, pageSize);
         request.setAttribute("favoriteList", favoriteList);
-
-        // 폴더 리스트도 추가 (사이드바나 모달에 필요하면)
-        List<PostVo> folderList = dao.getFolderList(userId);
-        request.setAttribute("folderList", folderList);
+        
+        // Ajax 호출 시 목록 프래그먼트만 반환 (favoriteListFragment.jsp)
+        request.getRequestDispatcher("/posts/postfavoriteFragment.jsp").forward(request, response);
     
-
+        
     }
 }

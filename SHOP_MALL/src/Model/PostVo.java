@@ -24,10 +24,7 @@ public class PostVo {
 	//찜하기
 	 private int favoriteid;
 	 
-	//찜하기_폴더
-	 private int folderid;
-	 private String foldername;
-
+	
 	public int getCartid() {
 		return cartid;
 	}
@@ -148,21 +145,7 @@ public class PostVo {
 		this.favoriteid = favoriteid;
 	}
 
-	public int getFolderid() {
-		return folderid;
-	}
 
-	public void setFolderid(int folderid) {
-		this.folderid = folderid;
-	}
-
-	public String getFoldername() {
-		return foldername;
-	}
-
-	public void setFoldername(String foldername) {
-		this.foldername = foldername;
-	}
 	
 	
 	

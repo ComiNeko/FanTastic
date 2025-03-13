@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,19 +14,11 @@ import javax.servlet.http.HttpSession;
 import Service.CreatorDetailService;
 import Service.CreatorService;
 import Service.FavoriteAdd;
-import Service.FavoriteCreateFolder;
-import Service.FavoriteDeleteFolder;
-import Service.FavoriteList;
-import Service.FavoriteMoveFolder;
-import Service.FavoriteRemove;
-import Service.FavoriteRenameFolder;
-import Service.PostCartService;
-<<<<<<< HEAD
 
-=======
-import Service.PostFavoriteService;
+import Service.FavoriteList;
+import Service.FavoriteRemove;
+import Service.PostCartService;
 import Service.PostDetailService;
->>>>>>> branch 'LTR' of https://github.com/ComiNeko/FanTastic.git
 import Service.PostSellingService;
 import Service.PostWriteService;
 import Service.ProductDeleteService;
@@ -71,55 +64,14 @@ public class PostController extends HttpServlet {
          }
       }
       
-      if (action != null && action.startsWith("/favorite/")) {
-          switch(action) {
-             case "/favorite/list.do":
-                 new FavoriteList().doCommand(request, response);
-              // ajax 여부 체크
-                 String ajax = request.getParameter("ajax");
-                 if ("true".equals(ajax)) {
-                     // jsp 조각만 응답
-                     RequestDispatcher rd = request.getRequestDispatcher("/posts/favoriteListFragment.jsp");  // ✅ 경로 확인!
-                     rd.forward(request, response);
-                     return;
-                 }
-
-                 // 기본 전체 페이지
-                 RequestDispatcher rd = request.getRequestDispatcher("/posts/postfavorite.jsp");
-                 rd.forward(request, response);
-                 return;
-
-             case "/favorite/add.do":
-                 new FavoriteAdd().doCommand(request, response);
-                 String productIdStr = request.getParameter("productId");
-                 System.out.println("[FavoriteAdd] 받은 productId : " + productIdStr);
-                 System.out.println("[FavoriteAdd] request method: " + request.getMethod());
-                 return;
-             case "/favorite/remove.do":
-                 new FavoriteRemove().doCommand(request, response);
-                 return;
-             case "/favorite/createFolder.do":
-                 new FavoriteCreateFolder().doCommand(request, response);
-                 return;
-             case "/favorite/renameFolder.do":
-                 new FavoriteRenameFolder().doCommand(request, response);
-                 return;
-             case "/favorite/deleteFolder.do":
-                 new FavoriteDeleteFolder().doCommand(request, response);
-                 return;
-             case "/favorite/moveFolder.do":
-                 new FavoriteMoveFolder().doCommand(request, response);
-                 return;
-           
-          }
-       }
+     
 
 
       switch (action) {
 
          case "/addToCart.do": // 장바구니 추가
             new PostCartService().doCommand(request, response);
-
+            return;
 
 		
 
@@ -129,14 +81,11 @@ public class PostController extends HttpServlet {
             return;
 
 
-         case "/postcart.do": // 장바구니(목록조회/상품추가/상품삭제)
+         case "/postcart.do": // 장바구니(목록조회/상품추가/상품삭제) //장바구니 이동!
              new PostCartService().doCommand(request, response);
              return; 
              
-         case "/Mycart.do": // 장바구니 이동
-             new PostCartService().doCommand(request, response);
-             page = "/posts/postcart.jsp";
-             break;      
+       
              
          case "/ptwrite.do": // 글쓰기 페이지 이동
              page = "/posts/postwrite.jsp"; // 글쓰기 폼
@@ -175,6 +124,17 @@ public class PostController extends HttpServlet {
 			    String productId = request.getParameter("productid"); // form에서 보낸 productid 받아오기
 			    response.sendRedirect("/post/postdetail.do?productid=" + productId); // 상세로 이동
 			    return;
+			    
+			    
+			case "/list.do":
+                new FavoriteList().doCommand(request, response);
+                return;
+            case "/add.do":
+                new FavoriteAdd().doCommand(request, response);
+                return;
+            case "/remove.do":
+                new FavoriteRemove().doCommand(request, response);
+                return;
 		}
 
 
