@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -22,7 +23,6 @@ import Service.FavoriteRemove;
 import Service.FavoriteRenameFolder;
 import Service.PostCartService;
 
-import Service.PostFavoriteService;
 import Service.PostDetailService;
 import Service.PostSellingService;
 import Service.PostWriteService;
