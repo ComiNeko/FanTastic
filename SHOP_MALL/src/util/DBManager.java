@@ -38,11 +38,8 @@ public class DBManager {
 	
 	public void close(PreparedStatement pstmt, Connection cnn) {
 		try {
-
 			if(pstmt != null)pstmt.close();
-			if(cnn != null)cnn.close();
-			
-		} catch(Exception e) {
+			if(cnn != null)cnn.close();		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

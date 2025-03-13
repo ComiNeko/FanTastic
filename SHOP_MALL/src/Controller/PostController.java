@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -9,16 +10,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import Service.CreatorDetailService;
+import Service.CreatorListService;
+import Service.CreatorService;
+import Service.FavoriteAdd;
+import Service.FavoriteCreateFolder;
+import Service.FavoriteDeleteFolder;
+import Service.FavoriteList;
+import Service.FavoriteMoveFolder;
+import Service.FavoriteRemove;
+import Service.FavoriteRenameFolder;
 import Service.PostCartService;
+
+import Service.PostFavoriteService;
+import Service.PostDetailService;
 import Service.PostSellingService;
 import Service.PostWriteService;
+import Service.ProductDeleteService;
+import Service.ReviewService;
 
 @WebServlet("/post/*")
-@MultipartConfig(
-fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-maxFileSize = 1024 * 1024 * 10, // 10MB
-maxRequestSize = 1004 * 1024 *50 // 50MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+		maxFileSize = 1024 * 1024 * 10, // 10MB
+		maxRequestSize = 1004 * 1024 * 50 // 50MB
 )
 public class PostController extends HttpServlet {
 
@@ -38,6 +52,7 @@ public class PostController extends HttpServlet {
 		doAction(request, response);
 	}
 
+
 	protected void doAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -55,34 +70,64 @@ public class PostController extends HttpServlet {
 		}
 
 		switch (action) {
-			case "/addToCart.do": // 장바구니 추가
-				new PostCartService().doCommand(request, response);
-				return;
 
-			case "/removeFromCart.do": // 장바구니에서 상품 삭제
-				new PostCartService().doCommand(request, response);
-				return;
+		case "/addToCart.do": // 장바구니 추가
+			new PostCartService().doCommand(request, response);
+			return;
 
-			case "/postcart.do": // 장바구니 페이지 이동
-			    new PostCartService().doCommand(request, response);
-			    return; // 여기까지만 하면 끝
+		case "/removeFromCart.do": // 장바구니에서 상품 삭제
+			new PostCartService().doCommand(request, response);
+			return;
 
+		case "/postcart.do": // 장바구니 페이지 이동
+			new PostCartService().doCommand(request, response);
+			return;
 
-			case "/ptwritepro.do": // 글쓰기 처리
-				new PostWriteService().doCommand(request, response);
-				response.sendRedirect("/post/postsellinglist.do"); // 글 등록 후 상품 목록으로 이동
-				return;
+		case "/ptwrite.do": // 글쓰기 페이지 이동
+			page = "/posts/postwrite.jsp"; // 글쓰기 폼
+			break;
 
-			case "/postsellinglist.do": // 상품 목록 조회
-				new PostSellingService().doCommand(request, response);
-				page = "/posts/postsellinglist.jsp";
-				break;
+		case "/ptwritepro.do": // 글을 적고 나서 제출(등록) 할 때 호출하는 주소
+			new PostWriteService().doCommand(request, response);
+			response.sendRedirect("/post/postsellinglist.do"); // 글 등록 후 상품 목록으로 이동
+			return;
+
+		case "/postsellinglist.do": // 상품 목록 조회
+			new PostSellingService().doCommand(request, response);
+			page = "/posts/postsellinglist.jsp";
+			break;
+
+		case "/postdetail.do": // 상품 상세 페이지 이동
+			new PostDetailService().doCommand(request, response); // 서비스 호출
+			page = "/posts/postdetail.jsp"; // 연결할 JSP
+			break;
+
+		case "/creatorlist.do": // 작가 리스트 페이지
+			new CreatorListService().doCommand(request, response);
+			page = "/posts/postcreator.jsp";
+			break;
+
+		case "/creatordetail.do": // 작가 상세 페이지
+			new CreatorDetailService().doCommand(request, response);
+			return;
+
+		case "/productdelete.do": // 상품 삭제 기능
+			new ProductDeleteService().doCommand(request, response);
+			return;
+
+		case "/review.do": // 리뷰 등록
+			new ReviewService().doCommand(request, response);
+			String productId = request.getParameter("productid"); // form에서 보낸 productid 받아오기
+			response.sendRedirect("/post/postdetail.do?productid=" + productId); // 상세로 이동
+			return;
 		}
 
-		// 페이지 이동 처리
-		if (page != null) {
-			RequestDispatcher rd = request.getRequestDispatcher(page);
-			rd.forward(request, response);
-		}
-	}
+
+      // 페이지 이동 처리
+      if (page != null) {
+         RequestDispatcher rd = request.getRequestDispatcher(page);
+         rd.forward(request, response);
+      }
+   }
+
 }

@@ -1,10 +1,12 @@
 @charset "UTF-8";
-
-	/* ---------------------------------------
-	   1) 상단 프로필 컨테이너 (가로 배치)
-	---------------------------------------- */
+	/*---------------------------------------------------------------*/
+							/* 메인화면 */
+	/*---------------------------------------------------------------*/		
+	
+	/*  1) 상단 프로필 컨테이너 (가로 배치) */
 	/* 프로필 영역을 감싸는 컨테이너 */
-	.mypage-container {
+	#mypage .mypage-container {
+>>>>>>> main
 	    width: 1200px;
 	    margin: 0 auto;
 	    padding: 20px 0;
@@ -12,7 +14,7 @@
 	}
 	
 	/* 프로필 상단 영역 (좌우로 배치) */
-	.profile-top-container {
+	#mypage .profile-top-container {
 	    display: flex;
 	    justify-content: space-between; /* 왼쪽/오른쪽 공간 분리 */
 	    align-items: center;            /* 수직 가운데 정렬 */
@@ -21,30 +23,31 @@
 	}
 	
 	/* 왼쪽: 사용자명, 버튼 */
-	.profile-left {
+	#mypage .profile-left {
+
 	    display: flex;
 	    align-items: center;
 	}
 	
-	.profile-info {
+	#mypage .profile-info {
 	    display: flex;
 	    flex-direction: column; /* 세로 정렬 */
 	    justify-content: center;
 	}
 	
-	.username {
+	#mypage .username {
 	    font-size: 1.2rem;
 	    font-weight: 600;
 	    margin-bottom: 8px;
 	}
 	
-	/* 프로필 변경/로그아웃 버튼 */
-	.profile-buttons {
+	/* 회원정보 수정 버튼 */
+	#mypage .profile-buttons {
 	    display: flex;
 	    gap: 10px;
 	}
 	
-	.profile-buttons button {
+	#mypage .profile-buttons button {
 	    padding: 8px 12px;
 	    border: none;
 	    border-radius: 4px;
@@ -53,41 +56,39 @@
 	    font-size: 0.9rem;
 	}
 	
-	.profile-buttons button:hover {
+	#mypage .profile-buttons button:hover {
 	    background-color: #e9e9e9;
 	}
 	
 	/* 오른쪽: 통계 박스 */
-	.profile-right {
+	#mypage .profile-right {
 	    display: flex;
 	    align-items: center;
 	}
 	
-	.status-box {
+	#mypage .status-box {
 	    display: flex;
 	    gap: 40px; /* 통계 아이템 간격 */
 	}
 	
-	.status-box .item {
+	#mypage .status-box .item {
 	    text-align: center;
 	}
 	
-	.status-box .count {
+	#mypage .status-box .count {
 	    font-size: 1.2rem;
 	    font-weight: 600;
 	    color: #333;
 	    margin-bottom: 5px;
 	}
 	
-	.status-box .desc {
+	#mypage .status-box .desc {
 	    font-size: 0.9rem;
 	    color: #777;
 	}
 	
-	/* ---------------------------------------
-	   2) 메인 영역 (좌측 메뉴 + 우측 콘텐츠)
-	---------------------------------------- */
-	.mypage-two-col-container {
+	/*  2) 메인 영역 (좌측 메뉴 + 우측 콘텐츠) */
+	#mypage .mypage-two-col-container {
 	    /* 2개 컬럼을 가로로 배치하기 위한 Flex 컨테이너 */
 	    display: flex;
 	    justify-content: space-between;
@@ -99,7 +100,7 @@
 	}
 	
 	/* 왼쪽 컬럼: 세로형 메뉴 */
-	.left-col {
+	#mypage .left-col {
 	    width: 250px;
 	    border-right: 1px solid #eee;
 	    padding-right: 20px;
@@ -107,7 +108,7 @@
 	}
 	
 	/* 쇼핑정보 / 고객센터 타이틀 */
-	.left-col .mypage-submenu h6 {
+	#mypage .left-col .mypage-submenu h6 {
 	    margin-top: 20px;
 	    margin-bottom: 10px;
 	    font-weight: bold;
@@ -115,52 +116,326 @@
 	}
 	
 	/* 세로형 메뉴 (ul) */
-	.left-col .mypage-submenu ul {
+	#mypage .left-col .mypage-submenu ul {
 	    list-style: none;
 	    margin: 0 0 20px 0;
 	    padding: 0;
 	}
 	
 	/* 메뉴 항목(li) */
-	.left-col .mypage-submenu li {
+	#mypage .left-col .mypage-submenu li {
 	    margin-bottom: 10px;
 	}
 	
 	/* 메뉴 링크 */
-	.left-col .mypage-submenu a {
+	#mypage .left-col .mypage-submenu a {
 	    text-decoration: none;
 	    color: #333;
 	    font-size: 0.95rem;
 	}
 	
-	.left-col .mypage-submenu a:hover {
+	#mypage .left-col .mypage-submenu a:hover {
 	    color: #007bff;
 	}
 	
 	/* 오른쪽 컬럼: 메인 콘텐츠 */
-	.right-col {
+	#mypage .right-col {
 	    flex: 1;
 	    padding-left: 30px;
 	    box-sizing: border-box;
 	}
 	
 	/* 각 섹션 구분 */
-	.content-section {
+	#mypage .content-section {
 	    margin-bottom: 50px;
 	}
 	
 	/* 테이블 예시 스타일 */
-	.order-box table {
+	#mypage .order-box table {
 	    width: 100%;
 	    border-collapse: collapse;
 	}
 	
-	.order-box th, .order-box td {
+	#mypage .order-box th, .order-box td {
 	    border: 1px solid #eee;
 	    padding: 10px;
 	    text-align: center;
 	}
 	
-	.order-box th {
+	#mypage .order-box th {
 	    background-color: #f9f9f9;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*---------------------------------------------------------------*/
+							/* FAQ */
+	/*---------------------------------------------------------------*/	
+	
+	#fap {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333;
+	}
+	
+	#fap a {
+	    text-decoration: none;
+	    color: inherit;
+	}
+	
+	#fap ul,
+	#fap li {
+	    list-style: none;
+	    margin: 0;
+	    padding: 0;
+	}
+	
+	/* 상단 GNB (마이페이지 메뉴) */
+	#fap .gnb {  
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	    padding: 0 40px;
+	    height: 60px;
+	    background-color: #fff;
+	    border-bottom: none; 
+	}
+	#fap .gnb .left-menu {
+	    font-weight: 600;
+	    font-size: 1.2rem;
+	    color: #000;
+	}
+	#fap .gnb .right-menu a {
+	    margin-right: 20px;
+	    font-size: 0.95rem;
+	    color: #666;
+	    padding-bottom: 3px;
+	    transition: color 0.2s;
+	}
+	#fap .gnb .right-menu a:last-child {
+	    margin-right: 0;
+	}
+	#fap .gnb .right-menu a:hover {
+	    color: #000;
+	}
+	
+	/* 현재 페이지(FAQ) 활성화 스타일 */
+	#fap .gnb .right-menu a.active {
+	    color: #000;
+	    font-weight: 600;
+	    border-bottom: 2px solid #000;
+	}
+	
+	/* 페이지 타이틀 영역 */
+	#fap .page-title-wrap {
+	    width: 1200px;
+	    margin: 0 auto;
+	    padding: 20px 0 10px;
+	}
+	#fap .page-title-wrap h2 {
+	    font-size: 1.5rem;
+	    font-weight: 700;
+	    margin: 0;
+	    border-bottom: 1px solid #eee;
+	    padding-bottom: 10px;
+	}
+	
+	/* FAQ 레이아웃: 좌 카테고리 + 우 질문/답변 */
+	#fap .faq-layout {
+	    width: 1200px;
+	    margin: 0 auto;
+	    padding: 20px 0 40px;
+	    display: flex;
+	    gap: 40px;
+	}
+	
+	/* 좌측 카테고리 */
+	#fap .faq-category {
+	    width: 200px;
+	    border-right: 1px solid #eee;
+	}
+	#fap .faq-category h3 {
+	    font-size: 1rem;
+	    font-weight: 600;
+	    margin-bottom: 10px;
+	}
+	#fap .faq-category ul li {
+	    margin-bottom: 10px;
+	    cursor: pointer;
+	    color: #666;
+	    font-size: 0.95rem;
+	}
+	#fap .faq-category ul li.active {
+	    font-weight: 600;
+	    color: #000;
+	}
+	
+	/* 우측 FAQ 아코디언 */
+	#fap .faq-content {
+	    flex: 1;
+	}
+	#fap .accordion-item {
+	    border-bottom: 1px solid #eee;
+	}
+	#fap .accordion-item:last-child {
+	    border-bottom: none;
+	}
+	
+	/* 질문 영역 */
+	#fap .accordion-title {
+	    position: relative;
+	    padding: 15px 0;
+	    font-size: 1rem;
+	    font-weight: 500;
+	    cursor: pointer;
+	}
+	#fap .accordion-title:hover {
+	    background-color: #fafafa;
+	}
+	/* 오른쪽 화살표 */
+	#fap .accordion-title::after {
+	    content: '▼';
+	    font-size: 0.8rem;
+	    color: #999;
+	    position: absolute;
+	    right: 0;
+	    top: 50%;
+	    transform: translateY(-50%);
+	    transition: transform 0.2s;
+	}
+	
+	/* 펼쳐졌을 때 화살표 회전 */
+	#fap .accordion-item.open .accordion-title::after {
+	    transform: translateY(-50%) rotate(-180deg);
+	}
+	
+	/* 답변 영역 */
+	#fap .accordion-content {
+	    display: none;
+	    padding: 10px 0 15px;
+	    font-size: 0.95rem;
+	    line-height: 1.4;
+	    color: #555;
+	}
+
+	#fap .accordion-item.open .accordion-content {
+	    display: block;
+	}
+	
+	
+				/*---------------------------------------------------------------*/
+											/* 찜하기 */
+				/*---------------------------------------------------------------*/		
+				
+				
+	/* 기본 컨테이너 */
+.favorite-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 카테고리 바 (회색 글씨) */
+.favorite-category-bar {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #666;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.favorite-category-bar .favorite-category-item {
+    margin-right: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.favorite-category-bar .favorite-category-item:hover,
+.favorite-category-bar .favorite-category-item.active {
+    color: #000;
+    font-weight: bold;
+}
+
+/* 폴더 바 (까만 버튼) */
+.folder-bar {
+    margin-bottom: 20px;
+}
+.folder-bar .folder-btn {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 6px 12px;
+    margin-right: 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+.folder-bar .folder-btn:hover,
+.folder-bar .folder-btn.active {
+    background-color: #555;
+}
+.folder-bar .folder-btn .edit-btn {
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 폴더 추가 버튼 */
+#addFolderBtn {
+    display: inline-block;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    width: 40px; /* 너비 설정 */
+    height: 40px; /* 높이 설정 */
+    border-radius: 50%; /* 원형 만들기 */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    float: right; /* 오른쪽으로 이동 */
+}
+
+#addFolderBtn:hover {
+    background-color: #555;
+}
+
+/* 찜한 상품 목록 (무한 스크롤 영역) */
+#favoriteList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* 찜한 상품 아이템 */
+.favorite-item {
+    width: 200px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+}
+.favorite-item:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.favorite-item img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.favorite-item .product-name {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+}
+.favorite-item .product-price {
+    font-size: 16px;
+    color: red;
+    font-weight: bold;
+}
+	

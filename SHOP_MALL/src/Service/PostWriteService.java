@@ -52,8 +52,8 @@ public class PostWriteService implements Command {
 			fileName = UUID.randomUUID().toString() + "_" + imgfile.getSubmittedFileName();
 			System.out.println("fileName = " + fileName);
 
-			// 업로드 경로 설정
-			String uploadPath = request.getServletContext().getRealPath("") + "uploads";
+			// 진짜 웹에서 접근 가능한 경로로 저장
+			String uploadPath = request.getServletContext().getRealPath("/uploads");
 			System.out.println("upload path = " + uploadPath);
 			File uploadDir = new File(uploadPath);
 			if (!uploadDir.exists()) {
@@ -73,7 +73,8 @@ public class PostWriteService implements Command {
 		vo.setProductStock(productStock);
 		vo.setProductInfo(productInfo);
 		
-		vo.setProductImage("uploads/" + fileName); // 웹에서 접근 가능한 상대경로로 저장
+		vo.setProductImage("/uploads/" + fileName); // 웹에서 접근 가능한 상대경로로 저장
+		//DB(oracle)에 저장할 때 /uploads/파일명.jpg로 저장
 
 		// DAO를 호출하여 DB에 저장
 		PostDao dao = new PostDao();
