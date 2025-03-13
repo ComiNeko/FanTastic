@@ -7,14 +7,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<link rel="stylesheet" href="../css/mypage.css">
+<link rel="stylesheet" href="../css/profileedit.css">
 
 
 <div class="wrapBody">
     <h2>프로필 수정</h2>
 
-    <form action="/admin/updateProfile.do" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="authorid" value="${sessionScope.user.userid}">
+  <form action="/admin/updateProfile.do" method="post" enctype="multipart/form-data">
+    <!-- 반드시 authorid가 form에 포함되어야 update 가능 -->
+    <input type="hidden" name="authorid" value="${author.authorid}">
 
     <div class="form-group">
         <label>작가 이름</label>
@@ -45,6 +46,10 @@
         <input type="submit" value="수정하기" class="submit-btn">
     </div>
 </form>
+
+
+
+
 
 </div>
 

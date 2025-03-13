@@ -198,111 +198,132 @@ public class PostDao {
 																		//LTR_찜하기
 											// -----------------------------------------------------------------	
 	
-	// [1] 카테고리별 찜 목록 조회 (folderId 무관, 전체 찜 목록에서 카테고리 필터 적용)
-	public List<PostVo> getFavoriteListByCategory(String userId, int categoryId, int page, int pageSize) {
-	    List<PostVo> list = new ArrayList<>();
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
+	 // [1] 카테고리별 찜 목록 조회 (페이징 적용)
+    public List<PostVo> getFavoriteListByCategory(String userId, int categoryId, int page, int pageSize) {
+        List<PostVo> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int offset = (page - 1) * pageSize;
 
-	    int offset = (page - 1) * pageSize;
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT * FROM ( ");
+        sb.append(" SELECT a.*, ROWNUM rnum FROM ( ");
+        sb.append("  SELECT f.favoriteid, p.productid, p.productname, p.productimage, p.productprice ");
+        sb.append("  FROM NEW_FAVORITES f ");
+        sb.append("  JOIN NEW_PRODUCTS p ON f.productid = p.productid ");
+        sb.append("  WHERE f.userid = ? ");
+        if (categoryId > 0) {
+            sb.append(" AND p.categoryid = ? ");
+        }
+        sb.append("  ORDER BY f.favoriteid DESC ");
+        sb.append(" ) a ");
+        sb.append(" WHERE ROWNUM <= ? ");
+        sb.append(") WHERE rnum > ?");
 
-	    StringBuilder sb = new StringBuilder();
-	    sb.append("SELECT * FROM ( ");
-	    sb.append(" SELECT a.*, ROWNUM rnum FROM ( ");
-	    sb.append(" SELECT f.favoriteid, p.productid, p.productname, p.productimage, p.productprice ");
-	    sb.append(" FROM NEW_FAVORITES f ");
-	    sb.append(" JOIN NEW_PRODUCTS p ON f.productid = p.productid ");
-	    sb.append(" WHERE f.userid = ? ");
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sb.toString());
+            int idx = 1;
+            pstmt.setString(idx++, userId);
+            if (categoryId > 0) {
+                pstmt.setInt(idx++, categoryId);
+            }
+            pstmt.setInt(idx++, offset + pageSize);
+            pstmt.setInt(idx++, offset);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                PostVo vo = new PostVo();
+                vo.setFavoriteid(rs.getInt("favoriteid"));
+                vo.setProductid(rs.getInt("productid"));
+                vo.setProductName(rs.getString("productname"));
+                vo.setProductImage(rs.getString("productimage"));
+                vo.setProductPrice(rs.getInt("productprice"));
+                list.add(vo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return list;
+    }
 
-	    // 카테고리 필터
-	    if (categoryId > 0) {
-	        sb.append(" AND p.categoryid = ? ");
-	    }
+    // [2] 찜 개수 조회 (페이징 계산용)
+    public int getFavoriteCount(String userId, int categoryId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT COUNT(*) AS cnt ");
+        sb.append("FROM NEW_FAVORITES f ");
+        sb.append("JOIN NEW_PRODUCTS p ON f.productid = p.productid ");
+        sb.append("WHERE f.userid = ? ");
+        if (categoryId > 0) {
+            sb.append(" AND p.categoryid = ? ");
+        }
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sb.toString());
+            int idx = 1;
+            pstmt.setString(idx++, userId);
+            if (categoryId > 0) {
+                pstmt.setInt(idx++, categoryId);
+            }
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("cnt");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return count;
+    }
 
-	    sb.append(" ORDER BY f.favoriteid DESC ");
-	    sb.append(" ) a ");
-	    sb.append(" WHERE ROWNUM <= ? ");
-	    sb.append(") WHERE rnum > ?");
+    // [3] 찜 추가
+    public boolean addToFavorite(String userId, int productId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        // favoriteid에 시퀀스 값 추가!
+        String sql = "INSERT INTO NEW_FAVORITES (FAVORITEID, USERID, PRODUCTID) VALUES (NEW_FAVORITES_SEQ.NEXTVAL, ?, ?)";
+        
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            pstmt.setInt(2, productId);
+            
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
 
-	    try {
-	        conn = DBManager.getInstance().getConnection();
-	        pstmt = conn.prepareStatement(sb.toString());
-
-	        int idx = 1;
-	        pstmt.setString(idx++, userId);
-
-	        if (categoryId > 0) {
-	            pstmt.setInt(idx++, categoryId);
-	        }
-
-	        pstmt.setInt(idx++, offset + pageSize);
-	        pstmt.setInt(idx++, offset);
-
-	        rs = pstmt.executeQuery();
-
-	        while (rs.next()) {
-	            PostVo vo = new PostVo();
-	            vo.setFavoriteid(rs.getInt("favoriteid"));
-	            vo.setProductid(rs.getInt("productid"));
-	            vo.setProductName(rs.getString("productname"));
-	            vo.setProductImage(rs.getString("productimage"));
-	            vo.setProductPrice(rs.getInt("productprice"));
-	            list.add(vo);
-	        }
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        DBManager.getInstance().close(rs, pstmt, conn);
-	    }
-
-	    return list;
-	}
-
-	// [2] 찜추가
-	public boolean addToFavorite(String userId, int productId) {
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-	    String sql = "INSERT INTO FAVORITES (USERID, PRODUCTID) VALUES (?, ?)";
-	    try {
-	        conn = DBManager.getInstance().getConnection();
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, userId);
-	        pstmt.setInt(2, productId);
-	        int result = pstmt.executeUpdate();
-	        return result > 0;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return false;
-	    } finally {
-	        DBManager.getInstance().close(pstmt, conn);
-	    }
-	}
-	
-	// [3] 찜삭제
-	public void removeFromFavorite(String userId, int productId) {
-	    Connection conn = null;
-	    PreparedStatement pstmt = null;
-
-	    String sql = "DELETE FROM NEW_FAVORITES WHERE userid = ? AND productid = ?";
-	    
-	    try {
-	        conn = DBManager.getInstance().getConnection();
-	        pstmt = conn.prepareStatement(sql);
-
-	        pstmt.setString(1, userId);
-	        pstmt.setInt(2, productId);
-
-	        pstmt.executeUpdate();
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-
-	    } finally {
-	        DBManager.getInstance().close(pstmt, conn);
-	    }
-	}
+    // [4] 찜 삭제 (단일 또는 다중 삭제 지원)
+    public void removeFromFavorite(String userId, int productId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "DELETE FROM NEW_FAVORITES WHERE userid = ? AND productid = ?";
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            pstmt.setInt(2, productId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
 	
 	
 

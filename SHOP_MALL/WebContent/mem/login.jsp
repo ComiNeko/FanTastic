@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../fragments/header.jsp"%>
-<link rel="stylesheet" href="../css/loginsignup.css">
+<%@ include file="../fragments/header.jsp" %>
 <script src="../js/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="../css/loginsignup.css">
 
 <div class="login-page">
 	<div class="login-container">
@@ -13,28 +13,32 @@
 			<form name="my" id="my" method="post">
 				<div class="login-flex-container">
 					<div class="login-fields">
-						<input type="text" name="userid" id="userid" placeholder="아이디" required>
+						<input type="text" name="userid" class="userid" id="userid" placeholder="아이디" required>
 						<input type="password" name="password" id="password" placeholder="비밀번호" required>
 					</div>
 					<button type="button" class="login-button" id="login-button">로그인</button>
 				</div>
 				<p id="errmsg" class="error"></p>
-	
-				<%-- <div class="remember-me-container">
+
+				<%--
+				<div class="remember-me-container">
 					<input type="checkbox" class="checkbox" name="rememberU" id="rememberU">
 					<label for="rememberU" class="checkbox-label">로그인 유지</label>
 				</div>
 				--%>
-				
+
 			</form>
 			<div class="login-bottom-buttons">
-				<a href="/member/signup.do" class="login-sub-button">회원가입</a> 
-				<a href="/member/findidpw.do" class="login-sub-button">아이디/비밀번호 찾기</a>
+				<a href="/member/signup.do" class="login-sub-button">회원가입</a>
+				<p> <a href="/member/findId.do" class="forgot-idpw">아이디</a>
+					혹은
+					<a href="/member/findPw.do" class="forgot-idpw">비밀번호</a>를 잊어버리셨나요?
+				</p>
 			</div>
 		</div>
-			<p id="errmsg" class="error"></p>
-		</div>
-</div> 
+		<p id="errmsg" class="error"></p>
+	</div>
+</div>
 <script>
 	$(function() {
 		$("#login-button").on("click", function() {
@@ -42,7 +46,7 @@
 			var password = $("#password").val();
 
 			if (userid === "" || password === "" || /\s/.test(userid)) {
-				$("#errmsg").text("아이디와 비밀번호를 모두 입력해 주세요.");
+				$("#errmsg").html("<span class='error'>아이디와 비밀번호를 모두 입력해 주세요.</span>");
 				return;
 			}
 
@@ -58,11 +62,11 @@
 					if (response.trim() === "success") {
 						window.location.href = "/";
 					} else {
-						$("#errmsg").text("아이디 혹은 비밀번호를 확인해 주세요.");
+						$("#errmsg").html("<span class='error'>아이디 혹은 비밀번호를 확인해 주세요.</span>");
 					}
 				},
 				error : function() {
-					$("#errmsg").text("통신 에러 발생.");
+					$("#errmsg").html("<span class='error'>통신 에러 발생</span>");
 				}
 			})
 		})

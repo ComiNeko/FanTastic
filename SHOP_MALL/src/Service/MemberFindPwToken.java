@@ -22,7 +22,7 @@ public class MemberFindPwToken implements Command {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		
-		 // 인증 후 세션에 저장된 userid 사용
+		// 인증 후 세션에 저장된 userid 사용
         HttpSession session = request.getSession();
         String userid = (String) session.getAttribute("resetPwUserId");
         if(userid == null){
@@ -66,13 +66,12 @@ public class MemberFindPwToken implements Command {
         // 비밀번호 재설정 링크 생성 (토큰 포함)
         String resetLink = request.getScheme() + "://" + request.getServerName() + ":" +
                request.getServerPort() + request.getContextPath() +
-               "/mem/findpwReset.jsp?token=" + token;
+               "/mem/findpwreset.jsp?token=" + token;
         boolean emailSent = sendEmail(email, resetLink);
         if (!emailSent) {
             response.getWriter().println("이메일 전송 실패");
             return;
         }
-        
         response.getWriter().println("비밀번호 재설정 이메일이 전송되었습니다.");
    }
 

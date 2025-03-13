@@ -1,0 +1,305 @@
+@charset "UTF-8";
+
+	/* ID, PW 공통 */
+	.findID-page, .findPW-page {
+		border: 2px solid #BDE3F2;
+	    width: 750px;
+	    margin: 100px auto;
+	    background-color: #fff;
+	}
+	
+	.findID-page label, .findPW-page label {
+		padding: 0;
+	    margin: 0;
+	    width: 120px;
+	    font-size: 16px;
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    font-weight: 700;
+	    color: #333;
+		margin-bottom: 7px;
+	}
+	
+	.findID-page input, .findPW-page input {
+		width: 165px;
+		height: 40px;
+		margin-bottom: 5px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		vertical-align: middle;
+	}
+	
+	.findID-page input::placeholder, .findPW-page input::placeholder {
+		text-indent: 0;
+		color: #ccc;
+		font-size: 16px;
+		font-family: 'Zen Maru Gothic', sans-serif;
+		font-weight: 700;
+	    text-align: left;
+	    padding-left: 5px;
+	    line-height: 40px;
+	}
+	
+	.findID-page button, .findPW-page button {
+		background-color: #8FD8F4;
+	    border: none;
+	    height: 40px;
+	    color: white;
+	    padding: 8px 15px;
+	    font-size: 14px;
+	    font-weight: bold;
+	    border-radius: 5px;
+	    cursor: pointer;
+	    vertical-align: middle;
+	    transition: background-color 0.3s;
+		margin-bottom: 5px;
+	}
+	
+	.findID-page button:hover, .findPW-page button:hover {
+		background-color: #6eb5ff;
+	}
+	
+	
+	
+	
+	/* ID 찾기 페이지 관련 */
+	.findID-page .findID-inform {
+		padding: 0;
+		margin: 0;
+		color: #a6a6a6;
+		font-size: 13px;
+		text-align: center;
+		font-weight: 400;
+		padding-top: 15px;
+		padding-bottom: 30px;
+	}
+	
+	.findID-page .findID-sign .findID-high-T {
+		padding: 0 40px;
+		padding-top: 5px;
+		text-align: left;
+		margin-bottom: 20px;
+		color: rgba(118, 118, 118, 0.5);
+		font-size: 32px;
+		font-family: 'Noto Sans Rounded', sans-serif;
+		font-weight: 700;
+	}
+	
+	.findID-page .findID-part {
+	    padding: 0 110px;
+	    padding-bottom: 35px;
+	}
+	
+	.findID-page .findID-form-group-email .email-container,
+	.findPW-page .findPW-form-group-email .email-container {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.findID-page .findID-form-group-email .email-container-left, 
+	.findPW-page .findPW-form-group-email .email-container-left {
+		width: 65%;
+	}
+	
+	/* select 박스 스타일 */
+	.findID-page .findID-form-group-email #emailDomain,
+	.findPW-page .findPW-form-group-email #emailDomain {
+	    padding: 0;
+	    margin: 0;
+	    margin-bottom: 5px;
+	    text-indent: 5px;
+	    width: 150px;
+	    height: 40px;
+	    color: #333;
+	    font-size: 14px;
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    font-weight: 700;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    background-color: #fff;
+	    vertical-align: middle;
+	    cursor: pointer;
+	    background: url('dropdown-arrow.png') no-repeat right 10px center;
+   	    background-size: 16px;
+	}
+	
+	.findID-page .findID-form-group-email #emailDomain option,
+	.findID-page .findID-form-group-email #emailDomain option {
+	    text-indent: 0;
+	    font-size: 16px;
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    font-weight: 700;
+	    text-align: left;
+	    padding-left: 5px;
+	    line-height: 40px;
+	}
+	
+	.findID-page .findID-form-group-auth .findID-auth-part {
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    margin-top: 12px;
+	}
+	
+	.findID-page .findID-form-group-auth .findID-auth-right {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		gap: 5px;
+	}
+	
+	.findID-page .findID-form-group-auth input {
+		width: 77%;
+		height: 40px;
+		margin-bottom: 5px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		vertical-align: middle;
+	}
+	
+	.findID-page .findID-form-group-result .findID-result-inform {
+		padding: 0;
+		margin: 0;
+		color: #a6a6a6;
+		font-size: 13px;
+		text-align: center;
+		font-weight: 400;
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+	
+	.findID-page .findID-form-group-result .findID-result-part {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		margin-top: 12px;
+	}
+	
+	.findID-page .findID-form-group-result .findID-result-right p {
+		margin-bottom: 10px;
+	}
+	
+	.findID-page .findID-form-group-result .findID-result-buttons {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 30px;
+    	gap: 13px;
+	}
+	
+	
+	
+	
+	/* PW 찾기 페이지 관련 */
+	.findPW-page .findPW-inform {
+		padding: 0;
+		margin: 0;
+		color: #a6a6a6;
+		font-size: 13px;
+		text-align: center;
+		font-weight: 400;
+		padding-top: 15px;
+		padding-bottom: 30px;
+	}
+	
+	.findPW-page .findPW-sign .findPW-high-T {
+		padding: 0 40px;
+		padding-top: 5px;
+		text-align: left;
+		margin-bottom: 20px;
+		color: rgba(118, 118, 118, 0.5);
+		font-size: 32px;
+		font-family: 'Noto Sans Rounded', sans-serif;
+		font-weight: 700;
+	}
+	
+	.findPW-page .findPW-part {
+	    padding: 0 110px;
+	    padding-bottom: 25px;
+	}
+	
+	.findPW-page .findPW-ID-entry {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 10px;
+	}
+	
+	.findPW-page .findPW-ID-entry-right {
+		width: 100%
+	}
+	
+	.findPW-page .findPW-ID-entry-right #userid {
+		width: 73%;
+	}
+	
+	.findPW-page .findPW-part #err-id {
+		margin-bottom: 30px;
+	}
+	
+	.findPW-page .findPW-form-group-email .findPW-inform,
+	.findPW-page .findPW-form-group-auth .findPW-inform, 
+	.findPW-page .findPW-form-group-reset .findPW-inform {
+		border-top: 1px solid #ccc;
+	    padding-top: 30px;
+	}
+	
+	.findPW-page .findPW-auth-part {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.findPW-page .findPW-auth-part .findPW-auth-right {
+		width: 100%;
+	}
+	
+	.findPW-page .findPW-auth-part input#authCode {
+		width: 279px;
+	}
+	
+	.findPW-page .findPW-form-group-reset .findPW-reset-part {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.findPW-page .findPW-form-group-reset button#sendResetLink {
+		border-radius: 18px;
+	}
+	
+
+	/* 스크립트 스타일 */
+	.findID-page .error, .findPW-page .error {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #f00f00;
+	    font-size: 14px;
+	    margin-bottom: 5px;
+	}
+	
+	.findID-page .error-auth, .findPW-page .error-auth {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #f00f00;
+	    font-size: 14px;
+	    margin-bottom: 5px;
+	    margin-left: 122px;
+	}
+	
+	.findPW-page .link-msg-suc {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #497d02;
+	    font-size: 14px;
+	}
+	
+	.findPW-page .link-msg-err {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #f00f00;
+	    font-size: 14px;
+	}

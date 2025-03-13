@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+	.PWReset-page {
+		border: 2px solid #BDE3F2;
+	    width: 640px;
+	    margin: 100px auto;
+	    background-color: #fff;
+	}
+	
+	.PWReset-page label {
+		padding: 0;
+	    margin: 0;
+	    width: 120px;
+	    font-size: 16px;
+	    font-family: 'Zen Maru Gothic', sans-serif;
+	    font-weight: 700;
+	    color: #333;
+		margin-bottom: 7px;
+	}
+	
+	.PWReset-page input {
+		width: 80%;
+		height: 40px;
+		margin-bottom: 5px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		vertical-align: middle;
+	}
+	
+	.PWReset-page input::placeholder {
+		text-indent: 0;
+		color: #ccc;
+		font-size: 16px;
+		font-family: 'Zen Maru Gothic', sans-serif;
+		font-weight: 700;
+	    text-align: left;
+	    padding-left: 5px;
+	    line-height: 40px;
+	}
+	
+	.PWReset-page button {
+		background-color: #8FD8F4;
+	    border: none;
+	    height: 40px;
+	    color: white;
+	    padding: 8px 15px;
+	    font-size: 14px;
+	    font-weight: bold;
+	    border-radius: 5px;
+	    cursor: pointer;
+	    vertical-align: middle;
+	    transition: background-color 0.3s;
+		margin-bottom: 5px;
+	}
+
+	.PWReset-page button:hover {
+		background-color: #6eb5ff;
+	}
+	
+	.PWReset-page .PWReset-sign .PWReset-high-T {
+		padding: 0 40px;
+		padding-top: 5px;
+		text-align: left;
+		margin-bottom: 20px;
+		color: rgba(118, 118, 118, 0.5);
+		font-size: 32px;
+		font-family: 'Noto Sans Rounded', sans-serif;
+		font-weight: 700;
+	}
+	
+	.PWReset-page .PWReset-part {
+	    padding: 0 110px;
+	    padding-bottom: 10px;
+	}
+	
+	.PWReset-page .PWReset-form-group {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
+	.PWReset-page .PWReset-form-group label {
+		width: 130px;
+		flex-shrink: 0;
+	}
+	
+	.PWReset-page .PWReset-button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 10px;
+	}
+	
+	.PWReset-page .PWReset-button button {
+		width: 150px;
+	}
+	
+	
+	
+	.PWReset-page .error {
+		display: block;
+		padding: 0;
+		margin: 0;
+	    color: #f00f00;
+	    font-size: 14px;
+	    margin-left: 130px;
+	    margin-top: 5px;
+	}

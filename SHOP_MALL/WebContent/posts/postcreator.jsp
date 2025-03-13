@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>크리에이터 목록</title>
-    <link rel="stylesheet" href="/css/creatorlist.css">
+    <link rel="stylesheet" href="/css/postcreator.css">
 </head>
 <body>
 
@@ -15,11 +15,12 @@
 
 <div class="creator-container">
     <c:forEach var="creator" items="${creatorList}">
-        <div class="creator-card" onclick="location.href='/post/creatordetail.do?authorid=${creator.authorid}'">
-            <img src="${pageContext.request.contextPath}${creator.authorimg1}" alt="${creator.authorname}" class="creator-img">
-            <h3 class="creator-name">${creator.authorname}</h3>
-        </div>
-    </c:forEach>
+    	<div class="creator-card" onclick="location.href='/post/creatordetail.do?authorid=${creator.authorid}'">
+        <p>작가 이름: ${creator.authorname}</p>
+        <p>작가 소개: ${creator.authorinfo}</p>
+        <img src="/uploads/${creator.authorimg1}" alt="작가 이미지" width="100">
+    </div>
+</c:forEach>
 </div>
 
 <%@ include file="/fragments/footer.jsp" %>
