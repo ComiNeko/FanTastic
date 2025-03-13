@@ -191,6 +191,11 @@ public class MemberController extends HttpServlet {
 		    
 		    response.sendRedirect("/member/mypage.do"); // 등록 후 마이페이지
 		    return;
+		    
+		    
+		case "/faq.do" :
+			page = "/mem/Fap.jsp";
+			break;
 
 		} // switch
 
