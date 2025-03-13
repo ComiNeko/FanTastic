@@ -54,8 +54,8 @@
 	           <h6>쇼핑정보</h6>
 	           <ul>
 	               <li><a href="#orderHistory">구매내역</a></li>
-	               <li><a href="/posts/postcart.jsp">장바구니</a></li>
-	               <li><a href="/heart.do">좋아요</a></li>
+	               <li><a href="/mycart.do">장바구니</a></li>
+	               <li><a href="/post/mylike.do?page=1&pageSize=10">좋아요</a></li>
 	               <li><a href="#recentlyViewed">최근 본</a></li>
 	           </ul>
 	           <h6>고객센터</h6>
