@@ -6,6 +6,7 @@
 	/*  1) 상단 프로필 컨테이너 (가로 배치) */
 	/* 프로필 영역을 감싸는 컨테이너 */
 	#mypage .mypage-container {
+>>>>>>> main
 	    width: 1200px;
 	    margin: 0 auto;
 	    padding: 20px 0;
@@ -23,6 +24,7 @@
 	
 	/* 왼쪽: 사용자명, 버튼 */
 	#mypage .profile-left {
+
 	    display: flex;
 	    align-items: center;
 	}
@@ -437,4 +439,3 @@
     font-weight: bold;
 }
 	
-    
