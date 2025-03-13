@@ -1,29 +1,72 @@
 @charset "UTF-8";
 
-.creator-list {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 20px;
+/* 전체 컨테이너: 가로 배치 + 반응형 */
+.creator-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* 최소 220px, 화면크기 맞춰 자동 조정 */
+    gap: 20px;
+    padding: 30px;
+    justify-items: center; /* 카드 가운데 정렬 */
+    max-width: 1200px;
+    margin: 0 auto; /* 중앙 정렬 */
 }
 
+/* 카드 스타일 */
 .creator-card {
-	border: 1px solid #ddd;
-	border-radius: 10px;
-	padding: 15px;
-	width: 200px;
-	text-align: center;
-	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+    max-width: 240px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
+/* 이미지 스타일 */
 .creator-card img {
-	width: 150px;
-	height: 150px;
-	border-radius: 50%;
-	object-fit: cover;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #eee;
 }
 
-.creator-card a {
-	text-decoration: none;
-	color: black;
+/* 텍스트 스타일 */
+.creator-card p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* 작가 이름 강조 */
+.creator-card p:first-child {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* 타이틀 스타일 */
+.creator-title {
+    text-align: center;
+    font-size: 28px;
+    margin: 40px 0 20px;
+    color: #222;
+}
+
+/* 반응형 대응 */
+@media (max-width: 600px) {
+    .creator-card {
+        padding: 15px;
+    }
+
+    .creator-card img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .creator-title {
+        font-size: 24px;
+    }
 }

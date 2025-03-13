@@ -1,43 +1,83 @@
 @charset "UTF-8";
 
-/* 상품 상세 스타일 */
+/* 기본 리셋 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333;
+}
+
+/* 메인 상품 컨테이너 */
 .product-main-container {
     display: flex;
     justify-content: center;
-    padding: 30px;
+    align-items: flex-start;
     gap: 50px;
+    padding: 50px 10%;
+    box-sizing: border-box;
 }
 
+/* 상품 이미지 */
 .product-image img {
-    width: 400px;
+    width: 480px;
+    height: auto;
     border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
+/* 상품 정보 */
 .product-info {
     max-width: 400px;
-    text-align: center;
+    width: 100%;
 }
 
+/* 상품명 */
 .product-info h2 {
-    font-size: 28px;
+    font-size: 32px;
+    margin-bottom: 15px;
 }
 
+/* 가격 */
 .product-info .price {
-    color: #e60023;
-    font-size: 24px;
-    margin: 15px 0;
+    color: #E60023;
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
+/* 버튼 스타일 */
 .btn-cart, .btn-buy {
-    padding: 10px 20px;
-    margin: 10px 5px;
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: all 0.3s;
 }
 
-.btn-cart { background: white; border: 2px solid black; }
-.btn-buy { background: black; color: white; }
+.btn-cart {
+    background: white;
+    border: 2px solid black;
+}
+
+.btn-cart:hover {
+    background: black;
+    color: white;
+}
+
+.btn-buy {
+    background: black;
+    color: white;
+}
+
+.btn-buy:hover {
+    background: #333;
+}
 
 /* 탭 메뉴 */
 .tab-menu {
@@ -45,62 +85,114 @@
     top: 0;
     display: flex;
     justify-content: center;
+    gap: 50px;
+    padding: 15px 0;
     background: white;
-    padding: 10px 0;
     border-bottom: 1px solid #ddd;
-    gap: 40px;
-    z-index: 999;
+    z-index: 1000;
 }
 
 .tab-menu a {
+    font-size: 18px;
     text-decoration: none;
     color: black;
     font-weight: bold;
+    padding-bottom: 5px;
 }
 
-/* 섹션 */
-.section {
-    padding: 50px 20px;
-    border-bottom: 1px solid #eee;
-    text-align: center;
+.tab-menu a:hover {
+    border-bottom: 3px solid black;
 }
+
+/* 섹션 스타일 (기존 + 가운데 정렬 추가) */
+.section {
+    padding: 60px 10%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eee;
+    background: #fafafa;
+    text-align: center; /* 추가: 가운데 정렬 */
+}
+
+/* 섹션 제목 (상품 상세, 구매 안내, 리뷰 제목 등) */
+.section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center; /* 추가: 제목도 가운데 정렬 */
+}
+
+/* 리뷰 작성하기 제목 */
+.section h3 {
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center; /* 추가: 가운데 정렬 */
+}
+
+/* 구매 안내 리스트도 가운데 정렬 */
+.section ul {
+    display: inline-block; /* 가로 길이 맞추기 */
+    text-align: left; /* 리스트 안 텍스트는 왼쪽 정렬 유지 */
+    margin: 0 auto; /* 중앙 배치 */
+    padding: 0;
+    list-style-position: inside;
+}
+
 
 /* 리뷰 */
 .review-form {
-    border: 1px solid #ddd;
     padding: 20px;
-    width: 60%;
-    margin: 20px auto;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    background: #f9f9f9;
-}
-
-.rating-stars {
-    font-size: 30px;
-    margin-bottom: 10px;
-    color: #ffd700;
-    cursor: pointer;
+    margin: 30px auto;
+    max-width: 700px;
+    background: white;
 }
 
 .review-form textarea {
     width: 100%;
-    height: 100px;
-    padding: 10px;
-    margin-top: 10px;
+    height: 120px;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 14px;
 }
 
 .review-form button {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 12px;
     background: black;
     color: white;
     border: none;
     border-radius: 5px;
-    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
+.review-form button:hover {
+    background: #444;
+}
+
+/* 리뷰 별점 */
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 28px;
+    color: #FFD700;
+    cursor: pointer;
+}
+
+/* 리뷰 아이템 */
 .review-item {
-    width: 60%;
-    margin: 10px auto;
-    padding: 15px;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
     border-bottom: 1px solid #ddd;
+    background: white;
+    border-radius: 10px;
+}
+
+.review-item p {
+    margin: 5px 0;
 }
