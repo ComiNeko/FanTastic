@@ -76,7 +76,6 @@
 								<div class="price">${product.productPrice}원</div>
 								<div class="productInfo">${product.productInfo}</div>
 
-
 								<!-- 장바구니 버튼 -->
 								<button class="cart-floating-btn"
 									data-productid="${product.productid}">
