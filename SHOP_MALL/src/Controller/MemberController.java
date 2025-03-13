@@ -97,8 +97,6 @@ public class MemberController extends HttpServlet {
 			response.sendRedirect("/");
 			return;
 
-		// _________________________________________________________________________________________________//
-
 		case "/findidpw.do":
 			page = "/mem/FindIDPW.jsp";
 			break;
@@ -137,8 +135,6 @@ public class MemberController extends HttpServlet {
 			return;
 		default:
 			break;
-
-		// _________________________________________________________________________________________________//
 
 		case "/mypage.do":
 			if (session == null || session.getAttribute("user") == null) {

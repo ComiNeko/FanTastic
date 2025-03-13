@@ -54,8 +54,66 @@
         </div>
     </div>
 
-    <!-- 2) 좌우 2컬럼 레이아웃 -->
-    <div class="mypage-two-col-container">
+	<!-- 2) 좌우 2컬럼 레이아웃 -->
+	<div class="mypage-two-col-container">
+	    
+	    <!-- 왼쪽 컬럼 (메뉴) -->
+	    <div class="left-col">
+	       <div class="mypage-submenu">
+	           <h6>쇼핑정보</h6>
+	           <ul>
+	               <li><a href="#orderHistory">구매내역</a></li>
+	               <li><a href="/mycart.do">장바구니</a></li>
+	               <li><a href="/post/mylike.do?page=1&pageSize=10">좋아요</a></li>
+	               <li><a href="#recentlyViewed">최근 본</a></li>
+	           </ul>
+	           <h6>고객센터</h6>
+	           <ul>
+	               <li><a href="#faq">FAQ</a></li>
+	           </ul>
+	       </div>
+	    </div>
+	    
+	    <!-- 오른쪽 컬럼 (메인 콘텐츠) -->
+	    <div class="right-col">
+	        <!-- 예시: 구매내역 섹션 -->
+	        <section id="orderHistory" class="content-section">
+	            <h5>주문 목록</h5>
+	            <div class="order-box">
+	                <table>
+	                    <thead>
+	                        <tr>
+	                            <th>주문번호</th>
+	                            <th>주문일자</th>
+	                            <th>상품정보</th>
+	                            <th>옵션</th>
+	                            <th>배송상태</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr>
+	                            <td>999503</td>
+	                            <td>2025-03-09</td>
+	                            <td>김간 2000 오리지널 티셔츠</td>
+	                            <td>XL / 블랙</td>
+	                            <td>배송중</td>
+	                        </tr>
+	                        <!-- 실제 DB 연동 시 c:forEach 등을 사용 -->
+	                    </tbody>
+	                </table>
+	            </div>
+	        </section>
+	        
+	        <!-- 다른 섹션 (장바구니, 좋아요, 최근 본, FAQ 등)은
+	             아래와 같은 형태로 이어서 작성하기
+	             <section id="cart" class="content-section">...</section> 
+	             <section id="likes" class="content-section">...</section>
+	             <section id="faq" class="content-section">...</section> 
+	        -->
+	        
+	    </div>
+	</div>
+</div>
 
         <!-- 왼쪽 컬럼 (메뉴) -->
         <div class="left-col">
