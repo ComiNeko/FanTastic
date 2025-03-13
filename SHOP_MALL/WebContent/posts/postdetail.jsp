@@ -17,13 +17,21 @@
     <div class="product-image">
         <img src="${post.productImage}" alt="${post.productName}">
     </div>
-  <div class="product-info">
-    <h2>${post.productName}</h2>
-    <p class="price">${post.productPrice}원</p>
-    <button class="btn-cart" onclick="addToCart('${post.productid}')">장바구니</button>
-    <button class="btn-buy" onclick="buyNow('${post.productid}')">바로구매</button>
-</div>
+    <div class="product-info">
+        <h2>${post.productName}</h2> <!-- 상품 이름 -->
+        <p class="price">${post.productPrice}원</p> <!-- 상품 가격 -->
+        
+        <!-- 장바구니 추가 버튼 -->
+        <button class="btn-cart" onclick="addToCart('${post.productid}')">장바구니</button>
 
+        <!-- 구매 폼 -->
+        <form action="/payment/payment.do" method="post" class="buy-form">
+            <input type="hidden" name="productId" value="${post.productid}"> <!-- 상품 ID -->
+            <input type="hidden" name="productName" value="${post.productName}"> <!-- 상품 이름 -->
+            <input type="hidden" name="productPrice" value="${post.productPrice}"> <!-- 상품 가격 -->
+            <button type="submit" class="btn-buy">바로구매</button> <!-- 구매 버튼 -->
+        </form>
+    </div>
 </div>
 
 <!-- 고정 탭 메뉴 -->
@@ -98,7 +106,23 @@
 
 <!-- 스크립트 -->
 <script>
-console.log("스크립트 로드 확인!"); // 맨 위에 이거 추가해서 F12 콘솔로 확인
+    // 장바구니 추가 함수
+    function addToCart(productid) {
+        console.log("장바구니에 담을 상품 ID: " + productid); // 콘솔 확인용
+        $.ajax({
+            type: "GET", 
+            url: "/post/addToCart.do",
+            data: { productid: productid, action: 'add' }, // Form 방식
+            success: function(response) {
+                alert(response); // 서버가 보낸 응답 메세지
+            },
+            error: function(xhr, status, error) {
+                console.error("장바구니 에러:", error); // 콘솔에 에러 확인
+                alert("장바구니 추가 실패: " + error);
+            }
+        });
+    }
+
     // 부드러운 스크롤
     document.querySelectorAll('.tab-menu a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -120,29 +144,6 @@ console.log("스크립트 로드 확인!"); // 맨 위에 이거 추가해서 F1
         document.querySelectorAll('.star').forEach(function(star, index) {
             star.innerHTML = (index < rating) ? '&#9733;' : '&#9734;';
         });
-    }
-
- // 장바구니
-    function addToCart(productid) {
-        console.log("장바구니에 담을 상품 ID: " + productid); // 콘솔 확인용
-        $.ajax({
-            type: "GET", 
-            url: "/post/addToCart.do",
-            data: { productid: productid, action: 'add' }, // Form 방식
-            success: function(response) {
-                alert(response); // 서버가 보낸 응답 메세지
-            },
-            error: function(xhr, status, error) {
-                console.error("장바구니 에러:", error); // 콘솔에 에러 확인
-                alert("장바구니 추가 실패: " + error);
-            }
-        });
-    }
-
-
-
-    function buyNow(productid) {
-        alert("구매 기능 준비 중입니다.");
     }
 </script>
 

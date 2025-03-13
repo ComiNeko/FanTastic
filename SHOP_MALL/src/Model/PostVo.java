@@ -13,20 +13,20 @@ public class PostVo {
 	private String createdAt; // TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, -- 생성 시간 (기본값: 현재 시간, NOT NULL)
 	private String updatedAt; // TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL, -- 수정 시간 (기본값: 현재 시간, NULL 허용)
 
-	private int price;
-	private int quantity;
-	
-	//장바구니
+	// 추가 필드 (가격, 수량) - 결제 관련
+	private int price; // 상품 가격
+	private int quantity; // 상품 개수
+
+	// 장바구니
 	private int cartid; // NUMBER PRIMARY KEY, -- 장바구니 ID (기본 키)
 	private String userid; // VARCHAR2(20) NOT NULL, -- 사용자 ID (외래 키, NOT NULL)
-	
-	
-	//찜하기
-	 private int favoriteid;
-	 
-	//찜하기_폴더
-	 private int folderid;
-	 private String foldername;
+
+	// 찜하기
+	private int favoriteid;
+
+	// 찜하기_폴더
+	private int folderid;
+	private String foldername;
 
 	public int getCartid() {
 		return cartid;
@@ -163,8 +163,5 @@ public class PostVo {
 	public void setFoldername(String foldername) {
 		this.foldername = foldername;
 	}
-	
-	
-	
 
 }
