@@ -20,13 +20,10 @@ public class PostVo {
 	// 장바구니
 	private int cartid; // NUMBER PRIMARY KEY, -- 장바구니 ID (기본 키)
 	private String userid; // VARCHAR2(20) NOT NULL, -- 사용자 ID (외래 키, NOT NULL)
-
-	// 찜하기
-	private int favoriteid;
-
-	// 찜하기_폴더
-	private int folderid;
-	private String foldername;
+	
+	//찜하기
+	 private int favoriteid;
+	 
 
 	public int getCartid() {
 		return cartid;
@@ -148,20 +145,5 @@ public class PostVo {
 		this.favoriteid = favoriteid;
 	}
 
-	public int getFolderid() {
-		return folderid;
-	}
-
-	public void setFolderid(int folderid) {
-		this.folderid = folderid;
-	}
-
-	public String getFoldername() {
-		return foldername;
-	}
-
-	public void setFoldername(String foldername) {
-		this.foldername = foldername;
-	}
 
 }
