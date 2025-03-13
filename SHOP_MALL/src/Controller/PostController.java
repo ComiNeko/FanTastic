@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,7 +13,15 @@ import javax.servlet.http.HttpSession;
 import Service.CreatorDetailService;
 import Service.CreatorListService;
 import Service.CreatorService;
+import Service.FavoriteAdd;
+import Service.FavoriteCreateFolder;
+import Service.FavoriteDeleteFolder;
+import Service.FavoriteList;
+import Service.FavoriteMoveFolder;
+import Service.FavoriteRemove;
+import Service.FavoriteRenameFolder;
 import Service.PostCartService;
+
 import Service.PostFavoriteService;
 import Service.PostDetailService;
 import Service.PostSellingService;
@@ -42,6 +51,7 @@ public class PostController extends HttpServlet {
 			throws ServletException, IOException {
 		doAction(request, response);
 	}
+
 
 	protected void doAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -112,10 +122,12 @@ public class PostController extends HttpServlet {
 			return;
 		}
 
-		// 페이지 이동 처리
-		if (page != null) {
-			RequestDispatcher rd = request.getRequestDispatcher(page);
-			rd.forward(request, response);
-		}
-	}
+
+      // 페이지 이동 처리
+      if (page != null) {
+         RequestDispatcher rd = request.getRequestDispatcher(page);
+         rd.forward(request, response);
+      }
+   }
+
 }
