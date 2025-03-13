@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,10 @@ import Service.MemberUserSave;
 import Service.MemberUserUpdate;
 
 @WebServlet("/member/*")
-
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+maxFileSize = 1024 * 1024 * 10, // 10MB
+maxRequestSize = 1004 * 1024 * 50 // 50MB
+)
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -182,6 +186,9 @@ public class MemberController extends HttpServlet {
 
 		case "/authorinsertpro.do": // 작가 등록 처리
 		    new AuthorInsertService().doCommand(request, response);
+		    
+		    
+		    
 		    response.sendRedirect("/member/mypage.do"); // 등록 후 마이페이지
 		    return;
 		    
