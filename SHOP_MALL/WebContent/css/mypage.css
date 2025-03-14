@@ -334,98 +334,46 @@
 				/*---------------------------------------------------------------*/		
 				
 				
-	/* 기본 컨테이너 */
+/* 기본 컨테이너 */
 .favorite-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Poppins', sans-serif;
+    margin: 20px;
 }
 
-/* 카테고리 바 (회색 글씨) */
+/* 카테고리 바 */
 .favorite-category-bar {
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: #666;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
-.favorite-category-bar .favorite-category-item {
-    margin-right: 15px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-.favorite-category-bar .favorite-category-item:hover,
-.favorite-category-bar .favorite-category-item.active {
-    color: #000;
-    font-weight: bold;
-}
-
-/* 폴더 바 (까만 버튼) */
-.folder-bar {
-    margin-bottom: 20px;
-}
-.folder-bar .folder-btn {
-    display: inline-block;
-    background-color: #333;
-    color: #fff;
-    padding: 6px 12px;
+.favorite-category-item {
     margin-right: 10px;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-.folder-bar .folder-btn:hover,
-.folder-bar .folder-btn.active {
-    background-color: #555;
-}
-.folder-bar .folder-btn .edit-btn {
-    margin-left: 5px;
     cursor: pointer;
-    font-size: 14px;
+}
+.favorite-category-item.active {
+    font-weight: bold;
+    color: #d9534f;
 }
 
-/* 폴더 추가 버튼 */
-#addFolderBtn {
-    display: inline-block;
-    background-color: #000000;
-    color: #fff;
-    border: none;
-    width: 40px; /* 너비 설정 */
-    height: 40px; /* 높이 설정 */
-    border-radius: 50%; /* 원형 만들기 */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    float: right; /* 오른쪽으로 이동 */
-}
-
-#addFolderBtn:hover {
-    background-color: #555;
-}
-
-/* 찜한 상품 목록 (무한 스크롤 영역) */
-#favoriteList {
+/* 목록 컨테이너 */
+.favorite-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
 }
 
 /* 찜한 상품 아이템 */
 .favorite-item {
-    width: 200px;
-    border: 1px solid #eee;
-    border-radius: 4px;
+    border: 1px solid #ddd;
     padding: 10px;
+    width: 120px;
     text-align: center;
-    transition: box-shadow 0.3s ease;
+    border-radius: 4px;
+    position: relative;
 }
 .favorite-item:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* old 스타일 hover 효과 추가 */
 }
 .favorite-item img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
-    margin-bottom: 10px;
 }
 .favorite-item .product-name {
     margin-bottom: 5px;
@@ -436,5 +384,37 @@
     font-size: 16px;
     color: red;
     font-weight: bold;
+}
+
+/* 삭제 버튼 (찜 목록 아이템 내부) */
+.delete-btn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* 페이징 */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+}
+.pagination a.current {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+
 }
 	

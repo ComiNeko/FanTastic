@@ -11,7 +11,8 @@
 				<h2 class="creatorlist-title">크리에이터 목록</h2>
 			</div>
 		</div>
-    </div>
+
+	</div>
 	<div class="creatorlist-content">
 		<div class="container">
 			<div class="saleslist-sidebar">
@@ -34,47 +35,47 @@
 						class="${param.category == '7' ? 'active' : ''}">커버/클리너</li>
 				</ul>
 			</div>
-			
-			<div class="creatorlist-frame">
-			    <c:forEach var="creator" items="${creatorList}">
-			    	<div class="creator-card" onclick="location.href='/post/creatordetail.do?authorid=${creator.authorid}'">
-			    		<div class="background-image" style="background-image: url('/uploads/${creator.authorimg1}');"></div>
-				        <img src="/uploads/${creator.authorimg1}" alt="작가 이미지" width="100">
-				        <!-- <img src="../img/ex_profile_03.png" alt="작가 이미지" width="100"> -->
-				        <p class="creator-name">${creator.authorname}</p>
-				        <p class="creator-info">${creator.authorinfo}</p>
 
-						<div class="like-area">
-							<span class="like-icon">♡</span>
-							<span class="like-count">1324</span>
-						</div>
+			<div class="creatorlist-frame">
+				<c:forEach var="creator" items="${creatorList}">
+					<div class="creator-card"
+						onclick="location.href='/post/creatordetail.do?authorid=${creator.authorid}'">
+						<c:choose>
+							<c:when test="${empty creator.authorimg1}">
+								<img src="/img/no_image.png" alt="작가 이미지" width="100">
+							</c:when>
+							<c:otherwise>
+								<img src="/uploads/${creator.authorimg1}" alt="작가 이미지"
+									width="100">
+							</c:otherwise>
+						</c:choose>
+						<p class="creator-name">${creator.authorname}</p>
+						<p class="creator-info">${creator.authorinfo}</p>
 					</div>
 				</c:forEach>
+
+
+
+				<!-- 페이지 번호 표시 시작 -->
+				<div class="pagination">
+					<c:if test="${startPage > 1}">
+						<a href="/post/creatorlist.do?page=${startPage - 1}">&laquo;</a>
+					</c:if>
+
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<a href="/post/creatorlist.do?page=${i}"
+							class="${i == currentPage ? 'active' : ''}">${i}</a>
+					</c:forEach>
+
+					<c:if test="${endPage < totalPage}">
+						<a href="/post/creatorlist.do?page=${endPage + 1}">&raquo;</a>
+					</c:if>
+				</div>
+				<!------------- 페이징 끝 --------------->
+
 			</div>
 		</div>
 	</div>
 </section>
 
-<script>
-	function toggleLike(element, authorId) {
-		const likeCountSpan = element.querySelector('.like-count');
-		let likeCount = parseInt(likeCountSpan.textContent, 10);
-
-		// 예시: 서버와의 통신을 통해 찜 상태를 토글합니다.
-		// 실제 구현 시 서버 API와 연동해야 합니다.
-		const isLiked = element.classList.toggle('liked');
-
-		if (isLiked) {
-			likeCount += 1;
-		} else {
-			likeCount -= 1;
-		}
-
-		likeCountSpan.textContent = likeCount;
-
-		// 서버에 찜 상태를 업데이트하는 로직을 추가하세요.
-		// 예: updateLikeStatus(authorId, isLiked);
-	}
-</script>
-
-<%@ include file="/fragments/footer.jsp" %>
+<%@ include file="/fragments/footer.jsp"%>

@@ -169,3 +169,44 @@
 		color: #fff;
 	}
 	
+   
+ /* --------------------- 페이징 스타일 추가 --------------------- */
+.creatorlist-section .creatorlist-frame {
+    display: grid;
+    grid-template-columns: repeat(3, 240px); /* 한 줄에 3개 */
+    gap: 0;
+    padding: 30px;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative; /* 자식 요소 위치 기준 */
+}
+
+/* 페이지네이션 (카드 그리드 기준 가운데) */
+.creatorlist-section .creatorlist-frame .pagination {
+    grid-column: 1 / -1; /* 전체 열 차지 */
+    display: flex;
+    justify-content: center; /* 카드 기준 가운데 */
+    margin-top: 20px;
+}
+
+/* 페이지 번호 스타일 */
+.pagination a {
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    color: #333;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.pagination a.active {
+    background-color: #252640;
+    color: white;
+    border: 1px solid #252640;
+}
+
+.pagination a:hover {
+    background-color: #eee;
+}

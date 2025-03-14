@@ -15,10 +15,8 @@
         <a href="#">장바구니</a>
         <a href="#">내가 쓴 리뷰</a>
         <a href="#">좋아요</a>
-        <a href="#">최근 본</a>
         <!-- FAQ만 활성화 표시 -->
         <a href="#" class="active">FAQ</a>
-        <a href="#">문의 내역 확인</a>
       </div>
     </div>
 

@@ -28,11 +28,11 @@ import Service.PostWriteService;
 import Service.ProductDeleteService;
 import Service.ReviewService;
 
+import Service.*;
 @WebServlet("/post/*")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-		maxFileSize = 1024 * 1024 * 10, // 10MB
-		maxRequestSize = 1004 * 1024 * 50 // 50MB
-)
+                 maxFileSize = 1024 * 1024 * 10, // 10MB
+                 maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class PostController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -102,18 +102,35 @@ public class PostController extends HttpServlet {
 			break;
 
 		case "/creatorlist.do": // 작가 리스트 페이지
-			new CreatorListService().doCommand(request, response);
+			new CreatorPagingService().doCommand(request, response);
 			page = "/posts/postcreator.jsp";
 			break;
 
 		case "/creatordetail.do": // 작가 상세 페이지
 			new CreatorDetailService().doCommand(request, response);
 			return;
+			
+		case "/mysellinglist.do": 
+		    new PostMySellingListService().doCommand(request, response);
+		    if (response.isCommitted()) { // 응답이 이미 전송된 경우, forward 방지
+		        return;
+		    }
+		    page = "/posts/postmysellinglist.jsp";
+		    break;
+
 
 		case "/productdelete.do": // 상품 삭제 기능
 			new ProductDeleteService().doCommand(request, response);
 			return;
+			
+		case "/productedit.do": // 수정 페이지로 이동
+		    new ProductEditService().doCommand(request, response);
+		    return;
 
+		case "/productupdate.do": // 실제 수정 처리
+		    new ProductUpdateService().doCommand(request, response);
+		    return;
+		    
 		case "/review.do": // 리뷰 등록
 			new ReviewService().doCommand(request, response);
 			String productId = request.getParameter("productid"); // form에서 보낸 productid 받아오기

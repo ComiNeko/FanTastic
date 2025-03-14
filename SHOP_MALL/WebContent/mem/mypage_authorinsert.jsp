@@ -9,51 +9,43 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<link rel="stylesheet" href="../css/profileedit.css">
 <%
     MemberVo user = (MemberVo) session.getAttribute("user");
     if (user == null) {
         response.sendRedirect("/member/login.do");
         return;
     }
-    String userid = user.getUserid(); // 세션에서 userid 꺼냄
 %>
 
-<link rel="stylesheet" href="../css/profileedit.css">
+<h2>작가 등록</h2>
 
-<div class="wrapBody">
-    <h2>작가 등록</h2>
+<form action="/member/authorinsertpro.do" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="userid" value="<%= user.getUserid() %>">
 
-    <form action="/member/authorinsertpro.do" method="post"
-        enctype="multipart/form-data">
-        <input type="hidden" name="userid" value="<%= userid %>"> <!-- 여기 중요!! -->
+    <div class="form-group">
+        <label>작가 이름</label>
+        <input type="text" id="authorname" name="authorname" required>
 
-        <div class="form-group">
-            <label>작가 이름</label>
-            <input type="text" name="authorname" required>
-        </div>
+    <div class="form-group">
+        <label>작가 소개</label>
+        <textarea id="authorinfo" name="authorinfo" required></textarea>
+    </div>
 
-        <div class="form-group">
-            <label>작가 소개</label>
-            <textarea name="authorinfo" required></textarea>
-        </div>
+    <div class="form-group">
+        <label>프로필 이미지1</label>
+        <input type="file" id="authorimg1" name="authorimg1">
+    </div>
 
-        <div class="form-group">
-            <label>프로필 이미지1</label>
-            <input type="file" name="authorimg1">
-        </div>
+    <div class="form-group">
+        <label>프로필 이미지2</label>
+        <input type="file" name="authorimg2">
+    </div>
 
-        <div class="form-group">
-            <label>프로필 이미지2</label>
-            <input type="file" name="authorimg2">
-        </div>
+    <div class="form-group">
+        <label>프로필 이미지3</label>
+        <input type="file" name="authorimg3">
+    </div>
 
-        <div class="form-group">
-            <label>프로필 이미지3</label>
-            <input type="file" name="authorimg3">
-        </div>
-
-        <button type="submit">등록하기</button>
-    </form>
-</div>
-
-<%@ include file="../fragments/footer.jsp"%>
+    <button type="submit">등록하기</button>
+</form>
