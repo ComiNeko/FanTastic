@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
@@ -62,11 +62,26 @@
         .back-btn:hover {
             background-color: #5a6268;
         }
+        .image-preview {
+            margin-top: 10px;
+        }
     </style>
     <script>
-        function redirectToMyPage() {
+        function redirectToMyPage(event) {
+            event.preventDefault(); // 기본 폼 제출 방지
             alert("상품 수정이 완료되었습니다.");
+            document.getElementById("editForm").submit(); // 폼 제출
             window.location.href = "/mypage.do"; // 마이페이지로 이동
+        }
+
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('imagePreview');
+                output.src = reader.result;
+                output.style.display = "block";
+            };
+            reader.readAsDataURL(event.target.files[0]);
         }
     </script>
 </head>
@@ -75,34 +90,41 @@
         <h2>상품 수정</h2>
 
         <c:choose>
-    <c:when test="${empty product}">
-        <p style="color: red; font-weight: bold;">상품을 등록하지 않았습니다.</p>
-        <button class="back-btn" onclick="location.href='/post/mysellinglist.do'">목록으로 돌아가기</button>
-    </c:when>
-    <c:otherwise>
-        <form action="/post/productupdate.do" method="post" onsubmit="redirectToMyPage()">
-            <input type="hidden" name="productid" value="${product.productid}">
+            <c:when test="${product == null}">
+                <p style="color: red; font-weight: bold;">상품을 등록하지 않았습니다.</p>
+                <button class="back-btn" onclick="location.href='/post/mysellinglist.do'">목록으로 돌아가기</button>
+            </c:when>
+            <c:otherwise>
+                <form id="editForm" action="/post/productupdate.do" method="post" enctype="multipart/form-data" onsubmit="redirectToMyPage(event)">
+                    <input type="hidden" name="productid" value="${product.productid}">
+                    <input type="hidden" name="existingProductImage" value="${product.productImage}">
 
-            <label>상품명</label>
-            <input type="text" name="productName" value="${product.productName}" required>
+                    <label>상품명</label>
+                    <input type="text" name="productName" value="${product.productName}" required>
 
-            <label>가격</label>
-            <input type="number" name="productPrice" value="${product.productPrice}" required>
+                    <label>가격</label>
+                    <input type="number" name="productPrice" value="${product.productPrice}" required>
 
-            <label>재고</label>
-            <input type="number" name="productStock" value="${product.productStock}" required>
+                    <label>재고</label>
+                    <input type="number" name="productStock" value="${product.productStock}" required>
 
-            <label>상품 설명</label>
-            <textarea name="productInfo" required>${product.productInfo}</textarea>
+                    <label>상품 설명</label>
+                    <textarea name="productInfo" required>${product.productInfo}</textarea>
 
-            <label>상품 이미지</label>
-            <input type="text" name="productImage" value="${product.productImage}" required>
+                    <div class="form-group">
+                        <label>대표 이미지</label>
+                        <input type="file" name="productImage" accept="image/*" onchange="previewImage(event)">
+                        <p class="explain">권장: 4:3 (732x549) / 최대 12MB (jpg, png, gif)</p>
+                        <c:if test="${not empty product.productImage}">
+                            <p>현재 이미지:</p>
+                            <img id="imagePreview" src="${product.productImage}" width="100">
+                        </c:if>
+                    </div>
 
-            <button type="submit">수정 완료</button>
-        </form>
-    </c:otherwise>
-</c:choose>
-
+                    <button type="submit">수정 완료</button>
+                </form>
+            </c:otherwise>
+        </c:choose>
     </div>
 </body>
 </html>

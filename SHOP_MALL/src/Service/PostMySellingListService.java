@@ -1,7 +1,6 @@
 package Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,20 +20,23 @@ public class PostMySellingListService implements Command {
         MemberVo loginUser = (MemberVo) session.getAttribute("user");
 
         if (loginUser == null) {
-            response.sendRedirect("/member/login.do");
-            return;
+            response.sendRedirect("/member/login.do"); // 로그인 안 한 경우 로그인 페이지로 이동
+            return; // sendRedirect() 이후 코드 실행 방지
         }
 
         String userId = loginUser.getUserid();
         PostDao dao = new PostDao();
+        
+        // 로그인한 사용자의 상품만 가져오기
         List<PostVo> productList = dao.getMyProductList(userId);
 
         if (productList == null || productList.isEmpty()) {
-            System.out.println("상품 없음: productList가 비어 있음.");
-            request.setAttribute("productList", new ArrayList<>()); // ✅ 올바른 문법
+            System.out.println("등록된 상품 없음.");
+            request.setAttribute("productList", null);
         } else {
-            System.out.println("상품 있음: " + productList.size() + "개");
+            System.out.println("등록된 상품 수: " + productList.size());
             request.setAttribute("productList", productList);
         }
+        
     }
 }

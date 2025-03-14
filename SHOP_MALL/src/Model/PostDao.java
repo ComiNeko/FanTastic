@@ -233,7 +233,33 @@ public class PostDao {
         return isUpdated;
     }
 
-	
+    //상품 정보 업데이트
+    public void updateProduct(PostVo vo) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        String sql = "UPDATE NEW_PRODUCTS SET productName = ?, productPrice = ?, productStock = ?, productInfo = ?, productImage = ?, updatedAt = CURRENT_TIMESTAMP WHERE productid = ?";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, vo.getProductName());
+            pstmt.setInt(2, vo.getProductPrice());
+            pstmt.setInt(3, vo.getProductStock());
+            pstmt.setString(4, vo.getProductInfo());
+            pstmt.setString(5, vo.getProductImage());
+            pstmt.setInt(6, vo.getProductid());
+
+            pstmt.executeUpdate();
+            System.out.println("상품 수정 완료: " + vo.getProductid());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
+
 	
 	
 	
