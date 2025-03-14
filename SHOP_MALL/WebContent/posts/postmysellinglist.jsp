@@ -120,6 +120,8 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <!-- 마이페이지로 돌아가기 버튼 추가 -->
+            <a href="/mypage.do" class="register-btn" style="background-color: #6c757d; margin-top: 10px;">마이페이지로 돌아가기</a>
             </c:otherwise>
         </c:choose>
     </div>

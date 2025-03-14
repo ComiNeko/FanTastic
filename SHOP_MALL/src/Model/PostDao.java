@@ -260,14 +260,107 @@ public class PostDao {
         }
     }
 
-	
-	
-	
-	
+ // PostDao.java 안에 추가
+    public void updateProductWithCategory(PostVo vo) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        String sql = "UPDATE NEW_PRODUCTS SET productName = ?, productPrice = ?, productStock = ?, "
+                   + "productInfo = ?, productImage = ?, categoryid = ?, updatedAt = CURRENT_TIMESTAMP "
+                   + "WHERE productid = ?";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, vo.getProductName());
+            pstmt.setInt(2, vo.getProductPrice());
+            pstmt.setInt(3, vo.getProductStock());
+            pstmt.setString(4, vo.getProductInfo());
+            pstmt.setString(5, vo.getProductImage());
+            pstmt.setInt(6, vo.getCategoryid());
+            pstmt.setInt(7, vo.getProductid());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
+	//-------------------------------------------//
+    //postsellinglist 페이징처리//
+    public List<PostVo> getProductListByCategory(int page, int pageSize, int categoryId) {
+        List<PostVo> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT * FROM ( "
+                   + " SELECT ROWNUM rnum, A.* FROM ( "
+                   + "     SELECT * FROM NEW_PRODUCTS "
+                   + (categoryId != -1 ? " WHERE categoryid = ? " : "")
+                   + "     ORDER BY productid DESC "
+                   + " ) A WHERE ROWNUM <= ? "
+                   + ") WHERE rnum >= ?";
+
+        int endRow = page * pageSize;
+        int startRow = (page - 1) * pageSize + 1;
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            int idx = 1;
+            if (categoryId != -1) pstmt.setInt(idx++, categoryId);
+            pstmt.setInt(idx++, endRow);
+            pstmt.setInt(idx++, startRow);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                PostVo vo = new PostVo();
+                vo.setProductid(rs.getInt("productid"));
+                vo.setProductName(rs.getString("productname"));
+                vo.setProductPrice(rs.getInt("productprice"));
+                vo.setProductImage(rs.getString("productimage"));
+                vo.setProductInfo(rs.getString("productinfo"));
+                list.add(vo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return list;
+    }
+
+    public int getProductCountByCategory(int categoryId) {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT COUNT(*) FROM NEW_PRODUCTS "
+                   + (categoryId != -1 ? " WHERE categoryid = ?" : "");
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            if (categoryId != -1) pstmt.setInt(1, categoryId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) count = rs.getInt(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return count;
+    }
 	
 //-------------------------------------------------------------//
 	
-	// 카테고리
+	// 상품을 카테고리 기준으로 조회하는 메서드
+    // 특정 카테고리에 속한 상품 목록 조회 가능
+    // 특정 카테고리에 속한 상품 목록 가져올 수는 없습니다
 	public List<PostVo> getPostsByCategory(int categoryid) {
 
 		Connection conn = null;

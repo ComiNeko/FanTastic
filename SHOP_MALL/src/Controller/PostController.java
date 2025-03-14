@@ -14,12 +14,8 @@ import Service.CreatorDetailService;
 import Service.CreatorListService;
 import Service.CreatorService;
 import Service.FavoriteAdd;
-import Service.FavoriteCreateFolder;
-import Service.FavoriteDeleteFolder;
 import Service.FavoriteList;
-import Service.FavoriteMoveFolder;
 import Service.FavoriteRemove;
-import Service.FavoriteRenameFolder;
 import Service.PostCartService;
 
 import Service.PostDetailService;
@@ -91,10 +87,10 @@ public class PostController extends HttpServlet {
 			response.sendRedirect("/post/postsellinglist.do"); // 글 등록 후 상품 목록으로 이동
 			return;
 
-		case "/postsellinglist.do": // 상품 목록 조회
-			new PostSellingService().doCommand(request, response);
-			page = "/posts/postsellinglist.jsp";
-			break;
+		case "/postsellinglist.do": // 상품 목록 조회 (페이징 포함)
+		    new PostSellingPagingService().doCommand(request, response); // ★ 이거 사용
+		    page = "/posts/postsellinglist.jsp";
+		    break;
 
 		case "/postdetail.do": // 상품 상세 페이지 이동
 			new PostDetailService().doCommand(request, response); // 서비스 호출
