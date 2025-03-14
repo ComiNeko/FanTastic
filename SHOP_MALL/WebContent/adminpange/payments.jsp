@@ -5,9 +5,7 @@
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script src="/js/payments.js" defer></script>
 
-<div class="payment_container" data-product-name="${productName}"
-    data-product-price="${productPrice}"
-    data-product-quantity="${productQuantity}">
+<div class="payment_container" data-product-id="${productId}" data-product-name="${productName}" data-product-price="${productPrice}" data-product-quantity="${productQuantity}">
     <h1>주문 / 결제하기</h1>
     <form method="post" onsubmit="return false;">
         <div class="order-summary">
@@ -22,7 +20,8 @@
         </div>
 
         <div class="user-info-container">
-            <%-- 세션에서 유저의 정보 가져오기 --%>
+            <%-- 세션에서 유저의 정보 가져오기 --%>            
+            <p id="userid">아이디: ${sessionScope.user.userid}</p>
             <p id="userName">이름: ${sessionScope.user.name}</p>
             <p id="userPhoneNumber">전화번호: ${sessionScope.user.phonenumber}</p>
             <p id="userEmail">이메일: ${sessionScope.user.email}</p>
