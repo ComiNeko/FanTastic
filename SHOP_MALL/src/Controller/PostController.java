@@ -24,9 +24,12 @@ import Service.FavoriteRenameFolder;
 import Service.PostCartService;
 
 import Service.PostDetailService;
+import Service.PostMySellingListService;
 import Service.PostSellingService;
 import Service.PostWriteService;
 import Service.ProductDeleteService;
+import Service.ProductEditService;
+import Service.ProductUpdateService;
 import Service.ReviewService;
 
 @WebServlet("/post/*")
@@ -110,11 +113,28 @@ public class PostController extends HttpServlet {
 		case "/creatordetail.do": // 작가 상세 페이지
 			new CreatorDetailService().doCommand(request, response);
 			return;
+			
+		case "/mysellinglist.do": 
+		    new PostMySellingListService().doCommand(request, response);
+		    if (response.isCommitted()) { // 응답이 이미 전송된 경우, forward 방지
+		        return;
+		    }
+		    page = "/posts/postmysellinglist.jsp";
+		    break;
+
 
 		case "/productdelete.do": // 상품 삭제 기능
 			new ProductDeleteService().doCommand(request, response);
 			return;
+			
+		case "/productedit.do": // 수정 페이지로 이동
+		    new ProductEditService().doCommand(request, response);
+		    return;
 
+		case "/productupdate.do": // 실제 수정 처리
+		    new ProductUpdateService().doCommand(request, response);
+		    return;
+		    
 		case "/review.do": // 리뷰 등록
 			new ReviewService().doCommand(request, response);
 			String productId = request.getParameter("productid"); // form에서 보낸 productid 받아오기

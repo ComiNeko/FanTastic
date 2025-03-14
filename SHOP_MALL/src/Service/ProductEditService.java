@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import Model.MemberVo;
 import Model.PostDao;
+import Model.PostVo;
 
-public class ProductDeleteService implements Command {
+public class ProductEditService implements Command {
     @Override
     public void doCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -24,7 +25,13 @@ public class ProductDeleteService implements Command {
         int productId = Integer.parseInt(request.getParameter("productid"));
         PostDao dao = new PostDao();
 
-        boolean result = dao.deleteMyProduct(productId, userId);
-        response.sendRedirect("/post/mysellinglist.do");
+        if (!dao.isUserProductOwner(productId, userId)) {
+            response.sendRedirect("/post/mysellinglist.do");
+            return;
+        }
+
+        PostVo product = dao.getPostDetail(productId);
+        request.setAttribute("product", product);
+        request.getRequestDispatcher("/posts/productedit.jsp").forward(request, response);
     }
 }
