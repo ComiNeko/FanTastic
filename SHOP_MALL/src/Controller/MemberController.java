@@ -22,7 +22,7 @@ import Service.MemberLogin;
 import Service.MemberLogout;
 import Service.MemberResetPw;
 import Service.MemberUserIdCheck;
-import Service.MemberUserPw;
+import Service.MemberUserUpdatePw;
 import Service.MemberUserSave;
 import Service.MemberUserUpdate;
 
@@ -158,17 +158,27 @@ public class MemberController extends HttpServlet {
 			page = "/mem/UpdateMyInfo.jsp";
 			break;
 
+			
+			// 현재 비밀번호 확인 요청 처리
+		case "/updatecheck.do":
+		    page = "/mem/UpdateMyCheck.jsp";
+		    break;	
+			
+		case "/updatecheckPw.do":
+		    new MemberUserIdCheck().doCommand(request, response);
+		    return;
+			
 		// 비밀번호 수정 페이지 요청: UpdateMyPw.jsp로 이동
 		case "/updateMyPw.do":
-			if (session == null || session.getAttribute("user") == null) {
-				response.sendRedirect(request.getContextPath() + "/member/login.do");
-				return;
-			}
-			page = "/mem/UpdateMyPw.jsp";
+			// 세션에 isPwdVerified 플래그가 있는지 확인하고, 없으면 다시 현재 비밀번호 페이지로 이동하도록 처리
+		    if (session == null || session.getAttribute("isPwdVerified") == null) {
+		        response.sendRedirect(request.getContextPath() + "/member/updateCurrentPassword.do");
+		        return;
+		    }
 			break;
 
 		case "/updateMyPwPro.do":
-			new MemberUserPw().doCommand(request, response);
+			new MemberUserUpdatePw().doCommand(request, response);
 			page = "/mem/UpdateMyPw.jsp";
 			break;
 

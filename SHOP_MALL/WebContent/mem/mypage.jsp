@@ -29,9 +29,10 @@
                     </button>
 
                     <!-- 비밀번호 수정 -->
-                    <button class="logout-btn" onclick="location.href='/member/updateMyPw.do'">
+                    <button class="infopw-btn" onclick="location.href='/member/updatecheck.do'">
                         비밀번호 수정
                     </button>
+                    
                 </div>
             </div>
 
