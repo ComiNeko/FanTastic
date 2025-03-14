@@ -24,6 +24,8 @@
 
 <link rel="stylesheet"
    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" 
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <!-- Swiper CSS -->
 <link rel="stylesheet"
@@ -33,40 +35,41 @@
 <link rel="stylesheet" href="../css/fragments.css">
 </head>
 <body>
-	<header class="header-container">
-		<div class="container">
-			<div class="home-bar">
-				<div class="home-left-part">
-					<!-- 로고 -->
-					<h1 class="home-name">
-						<a href="/">FanTastic</a>
-					</h1>
-					
-					<!-- 드랍다운 카테고리 -->
-					<div class="home-category">
-						<div class="dropdown">
-							<button class="category-btn dropdown-toggle" type="button" data-toggle="dropdown">Shop</button>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="/post/creatorlist.do">크리에이터</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=1">키링</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=2">아크릴</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=3">포토카드</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=4">틴케이스</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=5">키캡</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=6">거울/핀버튼</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=7">커버/클리너</a>
-							</div>
-						</div>
-					</div>
-				
-					<!-- 검색창 -->
-					<div class="home-search">
-						<input type="text" class="home-search-box" placeholder="FanTastic에서 나의 취향을 찾아보자!">
-						<button class="home-search-button">
-							<i class="fas fa-search"></i>
-						</button>
-					</div>
-				</div>
+   <header class="header-container">
+      <div class="container">
+         <div class="home-bar">
+            <div class="home-left-part">
+               <!-- 로고 -->
+               <h1 class="home-name">
+                  <a href="/">FanTastic</a>
+               </h1>
+               
+               <!-- 드랍다운 카테고리 -->
+               <div class="home-category">
+                  <div class="dropdown">
+                     <button class="category-btn dropdown-toggle" type="button" data-toggle="dropdown">Shop</button>
+                     <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/post/creatorlist.do">크리에이터</a>
+                        <a class="dropdown-item" href="/post/postsellinglist.do?category=1">키링</a>
+                        <a class="dropdown-item" href="/post/postsellinglist.do?category=2">아크릴</a>
+                        <a class="dropdown-item" href="/post/postsellinglist.do?category=3">포토카드</a>
+                        <a class="dropdown-item" href="/post/postsellinglist.do?category=4">틴케이스</a>
+                        <a class="dropdown-item" href="/post/postsellinglist.do?category=5">키캡</a>
+                        <a class="dropdown-item" href="/post/postsellinglist.do?category=6">거울/핀버튼</a>
+                        <a class="dropdown-item" href="/post/postsellinglist.do?category=7">커버/클리너</a>
+                        <a class="dropdown-item" href="/post/postsellinglist.do?category=8">기타</a>
+                     </div>
+                  </div>
+               </div>
+            
+               <!-- 검색창 -->
+               <div class="home-search">
+                  <input type="text" class="home-search-box" placeholder="FanTastic에서 나의 취향을 찾아보자!">
+                  <button class="home-search-button">
+                     <i class="fas fa-search"></i>
+                  </button>
+               </div>
+            </div>
 
             <!-- 로그인/회원가입 -->
             <ul class="home-right-part">

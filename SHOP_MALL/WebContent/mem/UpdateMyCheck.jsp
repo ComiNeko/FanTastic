@@ -56,7 +56,7 @@
     </div>
     		
     		   <!-- 우측 메인 컨텐츠 -->
-    <div id="mypage">
+    <div id="update-pw">
     <h2>현재 비밀번호 확인</h2>
     <form id="checkCurrentPwdForm" action="<%=request.getContextPath()%>/member/updatecheckPw.do" method="post">
         <div class="signup-form-group">

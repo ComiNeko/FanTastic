@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <c:forEach var="item" items="${favoriteList}">
     <div class="favorite-item" id="favitem_${item.productid}">
         <img src="${item.productimage}" alt="${item.productname}">
