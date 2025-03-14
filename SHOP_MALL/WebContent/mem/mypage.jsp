@@ -181,14 +181,14 @@
 	</section>
 
 	<!-- 다른 섹션 (장바구니, 좋아요, 최근 본, FAQ 등)은
+
                  아래와 같은 형태로 이어서 작성하기
                  <section id="cart" class="content-section">...</section> 
                  <section id="likes" class="content-section">...</section>
                  <section id="faq" class="content-section">...</section> 
             -->
-
-</div>
-</div>
+        </div>
+    </div>
 </div>
 
 <%@ include file="../fragments/footer.jsp"%>

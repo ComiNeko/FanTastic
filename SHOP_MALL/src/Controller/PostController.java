@@ -10,33 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import Service.CreatorDetailService;
-import Service.CreatorListService;
-import Service.CreatorPagingService;
-import Service.CreatorService;
-import Service.FavoriteAdd;
-import Service.FavoriteCreateFolder;
-import Service.FavoriteDeleteFolder;
-import Service.FavoriteList;
-import Service.FavoriteMoveFolder;
-import Service.FavoriteRemove;
-import Service.FavoriteRenameFolder;
-import Service.PostCartService;
 
-import Service.PostDetailService;
-import Service.PostMySellingListService;
-import Service.PostSellingService;
-import Service.PostWriteService;
-import Service.ProductDeleteService;
-import Service.ProductEditService;
-import Service.ProductUpdateService;
-import Service.ReviewService;
-
+import Service.*;
 @WebServlet("/post/*")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-		maxFileSize = 1024 * 1024 * 10, // 10MB
-		maxRequestSize = 1004 * 1024 * 50 // 50MB
-)
+                 maxFileSize = 1024 * 1024 * 10, // 10MB
+                 maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class PostController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
