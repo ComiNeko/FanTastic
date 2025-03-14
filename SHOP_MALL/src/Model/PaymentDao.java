@@ -4,59 +4,54 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import util.DBManager;
 
 public class PaymentDao {
+	public int insertOrder(Connection conn, String userId, int totalPrice, String address) throws SQLException {
+	    String sql = "INSERT INTO NEW_ORDERS (orderid, userid, totalPrice, address) VALUES (order_seq.NEXTVAL, ?, ?, ?)";
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql, new String[] {"orderid"})) {
+	        pstmt.setString(1, userId);
+	        pstmt.setInt(2, totalPrice);
+	        pstmt.setString(3, address);
+	        pstmt.executeUpdate();
 
-    // 결제 정보 저장 (트랜잭션 포함)
-    public boolean savePayment(PaymentVo vo) {
-        Connection cnn = null;
-        PreparedStatement pstmtPayment = null;
-        PreparedStatement pstmtOrder = null;
+	        // 생성된 orderid 반환
+	        try (ResultSet rs = pstmt.getGeneratedKeys()) {
+	            if (rs.next()) {
+	                return rs.getInt(1);
+	            }
+	        }
+	    }
+	    throw new SQLException("주문 정보 저장 실패");
+	}
 
-        try {
-            cnn = DBManager.getInstance().getConnection();
-            cnn.setAutoCommit(false); // 트랜잭션 시작
+	public boolean insertOrderDetail(Connection conn, int orderId, int productId, int productCount, String deliveryStatus) throws SQLException {
+	    String sql = "INSERT INTO NEW_ORDERDETAILS (orderDetail, productid, orderid, productCount, deliveryStatus) VALUES (order_detail_seq.NEXTVAL, ?, ?, ?, ?)";
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, productId);
+	        pstmt.setInt(2, orderId);
+	        pstmt.setInt(3, productCount);
+	        pstmt.setString(4, deliveryStatus);
+	        return pstmt.executeUpdate() > 0;
+	    }
+	}
 
-            // 결제 정보 저장
-            String sqlPayment = "INSERT INTO NEW_PAYMENTS (paymentid, userid, orderid, amount, paymentMethod, paymentStatus, paymentDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            pstmtPayment = cnn.prepareStatement(sqlPayment);
-            pstmtPayment.setString(1, vo.getPaymentId());
-            pstmtPayment.setString(2, vo.getUserId());
-            pstmtPayment.setInt(3, vo.getOrderId());
-            pstmtPayment.setDouble(4, vo.getAmount());
-            pstmtPayment.setString(5, vo.getPaymentMethod());
-            pstmtPayment.setString(6, vo.getPaymentStatus());
-            pstmtPayment.setTimestamp(7, vo.getPaymentDate());
-            pstmtPayment.executeUpdate();
-
-            // 주문 상태 업데이트 (예시)
-            String sqlOrder = "UPDATE NEW_ORDERS SET orderStatus = 'Paid' WHERE orderid = ?";
-            pstmtOrder = cnn.prepareStatement(sqlOrder);
-            pstmtOrder.setInt(1, vo.getOrderId());
-            pstmtOrder.executeUpdate();
-
-            cnn.commit(); // 트랜잭션 완료
-            return true;
-
-        } catch (SQLException e) {
-            if (cnn != null) {
-                try {
-                    cnn.rollback(); // 오류 발생 시 롤백
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            e.printStackTrace();
-            return false;
-        } finally {
-            DBManager.getInstance().close(pstmtPayment, cnn);
-            DBManager.getInstance().close(pstmtOrder, null);
-        }
-    }
+	public boolean insertPayment(Connection conn, String paymentid, String userId, int orderId, int amount, String paymentMethod, String paymentStatus) throws SQLException {
+	    String sql = "INSERT INTO NEW_PAYMENTS (paymentid, userid, orderid, amount, paymentMethod, paymentStatus) VALUES (?, ?, ?, ?, ?, ?)";
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setString(1, paymentid);
+	        pstmt.setString(2, userId);
+	        pstmt.setInt(3, orderId);
+	        pstmt.setInt(4, amount);
+	        pstmt.setString(5, paymentMethod);
+	        pstmt.setString(6, paymentStatus);
+	        return pstmt.executeUpdate() > 0;
+	    }
+	}
 
     // 결제 정보 조회
     public List<PaymentVo> getPaymentsByUserId(String userId) {

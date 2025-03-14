@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const termsCheckbox = document.getElementById('terms');
     const errorMessage = document.getElementById('error-message');
 
-    if(termsCheckbox){
+    if (termsCheckbox) {
         termsCheckbox.addEventListener('change', function() {
             errorMessage.style.display = this.checked ? 'none' : 'block';
         });
@@ -36,44 +36,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 결제하기 버튼 이벤트 리스너 등록
     const paymentButton = document.getElementById('paymentButton');
-    paymentButton.addEventListener('click', function() {
-        requestPayment();
-    });
+    if (paymentButton) {
+        paymentButton.addEventListener('click', function() {
+            requestPayment();
+        });
+    }
 
     // 취소 버튼 이벤트 리스너 등록
     const cancelButton = document.getElementById('cancelButton');
-    cancelButton.addEventListener('click', function() {
-        if (confirm('결제를 취소하시겠습니까?')) {
-            window.location.href = "/cart.jsp"; // 장바구니 페이지로 이동
-        }
-    });
-
-    // JSP에서 전달된 상품 정보를 JavaScript 변수로 설정
-    const paymentContainer = document.querySelector('.payment_container');
-    const productName = paymentContainer.getAttribute('data-product-name') || "기본 상품명";
-    const productPrice = parseFloat(paymentContainer.getAttribute('data-product-price')) || 0;
-    const productQuantity = parseInt(paymentContainer.getAttribute('data-product-quantity')) || 1;
-    const totalAmount = productPrice * productQuantity;
-
-    // 사용자 정보 가져오기
-    const userNameElement = document.getElementById("userName");
-    const userPhoneNumberElement = document.getElementById("userPhoneNumber");
-    const userEmailElement = document.getElementById("userEmail");
-    const userAddressElement = document.getElementById("userAddress");
-
-    // userInfo 변수 초기화
-    const userInfo = {
-        name: userNameElement ? userNameElement.textContent.split(": ")[1] : "",
-        phonenumber: userPhoneNumberElement ? userPhoneNumberElement.textContent.split(": ")[1] : "",
-        email: userEmailElement ? userEmailElement.textContent.split(": ")[1] : "",
-        address: userAddressElement ? userAddressElement.textContent.split(": ")[1] : ""
-    };
-    console.log("userInfo:", userInfo);
-
-    // 총 금액 포맷팅 (천 단위 콤마 추가)
-    const totalAmountElement = document.getElementById('totalAmount');
-    if (totalAmountElement) {
-        totalAmountElement.innerText = totalAmount.toLocaleString() + '원';
+    if (cancelButton) {
+        cancelButton.addEventListener('click', function() {
+            if (confirm('결제를 취소하시겠습니까?')) {
+                window.location.href = "/cart.jsp"; // 장바구니 페이지로 이동
+            }
+        });
     }
 });
 
@@ -90,12 +66,11 @@ function validateForm() {
     const termsCheckbox = document.getElementById('terms');
     const errorMessage = document.getElementById('error-message');
 
-    // termsCheckbox가 null인지 확인
     if (!termsCheckbox) {
         console.error("termsCheckbox 요소가 존재하지 않습니다.");
         errorMessage.style.display = 'block';
         errorMessage.innerText = "약관 동의 체크박스를 찾을 수 없습니다.";
-        return false; // 요소가 없으면 false 반환
+        return false;
     }
 
     if (!termsCheckbox.checked) {
@@ -104,7 +79,7 @@ function validateForm() {
         return false;
     }
 
-    errorMessage.style.display = 'none'; // 에러메세지 숨김
+    errorMessage.style.display = 'none';
     return true;
 }
 
@@ -129,12 +104,6 @@ function requestPayment() {
         return;
     }
 
-    // 사용자 정보 가져오기
-    const userNameElement = document.getElementById("userName");
-    const userPhoneNumberElement = document.getElementById("userPhoneNumber");
-    const userEmailElement = document.getElementById("userEmail");
-    const userAddressElement = document.getElementById("userAddress");
-
     // 결제 요청 데이터
     IMP.request_pay({
         pg: selectedPG,
@@ -142,16 +111,16 @@ function requestPayment() {
         name: document.getElementById('productName').innerText,
         merchant_uid: "ORD" + new Date().getTime(),
         amount: document.getElementById('totalAmount').innerText.replace('원', '').replace(/,/g, ''),
-        buyer_name: userNameElement ? userNameElement.textContent.split(": ")[1] : "",
-        buyer_tel: userPhoneNumberElement ? userPhoneNumberElement.textContent.split(": ")[1] : "",
-        buyer_email: userEmailElement ? userEmailElement.textContent.split(": ")[1] : "",
-		buyer_address: userAddressElement ? userAddressElement.textContent.split(": ")[1] : ""
+        buyer_name: document.getElementById("userName").textContent.split(": ")[1],
+        buyer_tel: document.getElementById("userPhoneNumber").textContent.split(": ")[1],
+        buyer_email: document.getElementById("userEmail").textContent.split(": ")[1],
+        buyer_address: document.getElementById("userAddress").textContent.split(": ")[1]
     }, function(response) {
         if (response.success) {
             alert('결제가 완료되었습니다.');
-            sendPaymentDataToServer(response); // 서버에 결제 정보 전송
+            sendPaymentDataToServer(response, selectedPG); // 서버에 결제 정보 전송
         } else {
-            alert('결제 실패: ' + response.error_msg); // 구체적인 오류 메시지 표시
+            alert('결제 실패: ' + response.error_msg);
             if (confirm('다시 시도하시겠습니까?')) {
                 requestPayment(); // 재시도
             }
@@ -160,22 +129,28 @@ function requestPayment() {
 }
 
 // 서버에 결제 정보 전송
-function sendPaymentDataToServer(response) {
-    // 사용자 정보 가져오기
-    const userNameElement = document.getElementById("userName");
-    const userPhoneNumberElement = document.getElementById("userPhoneNumber");
-    const userEmailElement = document.getElementById("userEmail");
+function sendPaymentDataToServer(response, selectedPG) {
+    const paymentContainer = document.querySelector('.payment_container');
+    const productId = paymentContainer.getAttribute('data-product-id'); // productId 추가
+    const productQuantity = parseInt(paymentContainer.getAttribute('data-product-quantity')) || 1; // productQuantity 추가
 
-    const paymentData = {
+    const paymentData = {	
         imp_uid: response.imp_uid, // 아임포트 거래 고유 ID
         merchant_uid: response.merchant_uid, // 주문 고유 ID
+        pay_method: selectedPG, // 결제 방법
+        productId: productId, // 상품 ID
+		userid: document.getElementById("userid").textContent.split(": ")[1],
+        productQuantity: productQuantity, // 상품 수량
         productName: document.getElementById('productName').innerText, // 상품명
         amount: document.getElementById('totalAmount').innerText.replace('원', '').replace(/,/g, ''), // 결제 금액
-        buyer_name: userNameElement ? userNameElement.textContent.split(": ")[1] : "",
-        buyer_tel: userPhoneNumberElement ? userPhoneNumberElement.textContent.split(": ")[1] : "",
-        buyer_email: userEmailElement ? userEmailElement.textContent.split(": ")[1] : "",
-		buyer_address: userAddressElement ? userAddressElement.textContent.split(": ")[1] : ""
+        buyer_name: document.getElementById("userName").textContent.split(": ")[1],
+        buyer_tel: document.getElementById("userPhoneNumber").textContent.split(": ")[1],
+        buyer_email: document.getElementById("userEmail").textContent.split(": ")[1],
+        buyer_address: document.getElementById("userAddress").textContent.split(": ")[1]
     };
+
+	console.log("js파일에서 콘솔찍는중: ", paymentData);
+	console.log("JSON 데이터 문자열:", JSON.stringify(paymentData, null, 2));	
 
     // AJAX 요청으로 서버에 결제 정보 전송
     $.ajax({

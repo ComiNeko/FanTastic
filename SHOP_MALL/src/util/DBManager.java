@@ -36,12 +36,19 @@ public class DBManager {
 	}
 	
 	
+	public void close(Connection cnn) {
+		try {
+			if(cnn != null)cnn.close();		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void close(PreparedStatement pstmt, Connection cnn) {
 		try {
 			if(pstmt != null)pstmt.close();
 			if(cnn != null)cnn.close();		} catch(Exception e) {
-			e.printStackTrace();
-		}
+				e.printStackTrace();
+			}
 	}
 	
 	public void close(ResultSet rs, PreparedStatement pstmt, Connection cnn) {

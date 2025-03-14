@@ -46,8 +46,7 @@
 							<!-- AJAX 호출할 버튼 -->
 							<button type="button" class="remove-cart-btn"
 								onclick="removeFromCart('${item.productid}')">삭제</button>
-							<button type="button"
-								onclick="buyNow('${item.productid}', '${item.productName}', ${item.productPrice})">바로 구매</button>
+							<button type="button" onclick="buyNow('${item.productid}', '${item.productName}', ${item.productPrice}, ${item.quantity}, '${item.productImage}')">바로 구매</button>
 						</li>
 					</c:forEach>
 				</ul>
@@ -75,10 +74,19 @@
 	    });
 	}
 	
-	// 바로 구매
-	function buyNow(productId, productName, productPrice) {
-	    const queryString = `?productId=${productId}&productName=${encodeURIComponent(productName)}&productPrice=${productPrice}`;
-	    window.location.href = `/paymentPage.jsp${queryString}`;
+	function buyNow(productId, productName, productPrice, productQuantity, productImage) {
+	    console.log("productId:", productId);
+	    console.log("productName:", productName);
+	    console.log("productPrice:", productPrice);
+	    console.log("productQuantity:", productQuantity);
+	    console.log("productImage:", productImage);
+
+	    const encodedName = encodeURIComponent(productName);
+	    const encodedImage = encodeURIComponent(productImage);
+	    const queryString = `?productId=${productId}&productName=${encodedName}&productPrice=${productPrice}&productQuantity=${productQuantity}&productImage=${encodedImage}`;
+	    
+	    console.log("QueryString:", queryString); // 쿼리 스트링 확인
+	    window.location.href = `/payment/payment.do${queryString}`;
 	}
 	</script>
 
