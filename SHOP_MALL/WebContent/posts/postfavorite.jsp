@@ -3,20 +3,6 @@
 <%@ include file="../fragments/header.jsp" %>
 <link rel="stylesheet" href="../css/mypage.css">
 
-<style>
-    .favorite-container { margin: 20px; }
-    .favorite-category-bar { margin-bottom: 10px; }
-    .favorite-category-item { margin-right: 10px; cursor: pointer; }
-    .favorite-category-item.active { font-weight: bold; color: #d9534f; }
-    .favorite-list { display: flex; flex-wrap: wrap; gap: 10px; }
-    .favorite-item { border: 1px solid #ddd; padding: 10px; width: 120px; text-align: center; border-radius: 4px; position: relative; }
-    .favorite-item img { width: 100%; height: auto; }
-    .delete-btn { position: absolute; top: 2px; right: 2px; background: #f44336; color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 12px; }
-    .pagination { margin-top: 20px; text-align: center; }
-    .pagination a { margin: 0 5px; text-decoration: none; }
-    .pagination a.current { font-weight: bold; color: #d9534f; }
-</style>
-
 <div class="favorite-container">
     <h2>찜하기 목록</h2>
 
@@ -65,7 +51,6 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     // 카테고리 이동
     $('.favorite-category-item').click(function(){
@@ -121,7 +106,7 @@
     $('.favorite-item').on('click', function(e) {
         if (!$(e.target).hasClass('delete-btn') && !$(e.target).is(':checkbox')) {
             var productId = $(this).attr('id').split('_')[1];
-            window.location.href = "/post/detail.do?productid=" + productId;
+            window.location.href = "/post/postdetail.do?productid=" + productId;
         }
     });
 

@@ -18,13 +18,49 @@
 </script>
 
 <div id="mypage">
-	<!-- 1) 상단 프로필 영역 -->
-	<div class="mypage-container">
-		<div class="profile-top-container">
-			<!-- 왼쪽: 프로필 이미지 + 사용자명 + 버튼 -->
-			<div class="profile-info">
-				<div class="username">${sessionScope.user.name}님,반가워요!</div>
-				<div class="profile-buttons">
+    <!-- 1) 상단 프로필 영역 -->
+    <div class="mypage-container">
+        <div class="profile-top-container">
+            <!-- 왼쪽: 프로필 이미지 + 사용자명 + 버튼 -->
+            <div class="profile-info">
+                <div class="username">${sessionScope.user.name}님, 반가워요!</div>
+                <div class="profile-buttons">
+                    <!-- 작가 등록 버튼 (폼 분리) -->
+                   <button class="auth-btn" onclick="location.href='/member/authorinsert.do'">작가등록</button>
+
+
+                    <!-- 회원 정보 수정 -->
+                    <button class="info-btn" onclick="location.href='/admin/editProfile.do'">
+                        회원정보
+                    </button>
+
+                    <!-- 비밀번호 수정 -->
+                    <button class="infopw-btn" onclick="location.href='/member/updatecheck.do'">
+                        비밀번호 수정
+                    </button>
+                    
+                </div>
+            </div>
+
+            <!-- 오른쪽: 통계 정보 (예시) -->
+            <div class="profile-right">
+                <div class="status-box">
+                    <div class="item">
+                        <div class="count">0</div>
+                        <div class="desc">최근 주문/배송중</div>
+                    </div>
+                    <div class="item">
+                        <div class="count">0</div>
+                        <div class="desc">작성한 리뷰</div>
+                    </div>
+                    <div class="item">
+                        <div class="count">0</div>
+                        <div class="desc">좋아요 한 상품</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 					<!-- 작가 등록 버튼 (폼 분리) -->
 					<button class="auth-btn"
