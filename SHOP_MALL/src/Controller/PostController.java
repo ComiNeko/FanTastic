@@ -2,7 +2,6 @@ package Controller;
 
 import java.io.IOException;
 
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import Service.CreatorDetailService;
 import Service.CreatorListService;
+import Service.CreatorPagingService;
 import Service.CreatorService;
 import Service.FavoriteAdd;
 import Service.FavoriteCreateFolder;
@@ -103,7 +103,7 @@ public class PostController extends HttpServlet {
 			break;
 
 		case "/creatorlist.do": // 작가 리스트 페이지
-			new CreatorListService().doCommand(request, response);
+			new CreatorPagingService().doCommand(request, response);
 			page = "/posts/postcreator.jsp";
 			break;
 

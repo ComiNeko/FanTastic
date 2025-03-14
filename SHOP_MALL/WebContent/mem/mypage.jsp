@@ -10,6 +10,13 @@
 
 <link rel="stylesheet" href="../css/mypage.css">
 
+<script>
+// JSTL을 이용한 서버 결과를 자바스크립트로
+<c:if test="${isAuthorExist == true}">
+    alert('이미 작가입니다.');
+</c:if>
+</script>
+
 <div id="mypage">
     <!-- 1) 상단 프로필 영역 -->
     <div class="mypage-container">
