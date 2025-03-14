@@ -14,12 +14,8 @@ import Service.CreatorDetailService;
 import Service.CreatorListService;
 import Service.CreatorService;
 import Service.FavoriteAdd;
-import Service.FavoriteCreateFolder;
-import Service.FavoriteDeleteFolder;
 import Service.FavoriteList;
-import Service.FavoriteMoveFolder;
 import Service.FavoriteRemove;
-import Service.FavoriteRenameFolder;
 import Service.PostCartService;
 
 import Service.PostDetailService;
@@ -136,6 +132,18 @@ public class PostController extends HttpServlet {
 			String productId = request.getParameter("productid"); // form에서 보낸 productid 받아오기
 			response.sendRedirect("/post/postdetail.do?productid=" + productId); // 상세로 이동
 			return;
+			
+		case "/list.do":
+            new FavoriteList().doCommand(request, response);
+            return;
+        
+        case "/add.do":
+            new FavoriteAdd().doCommand(request, response);
+            return;
+        
+        case "/remove.do":
+            new FavoriteRemove().doCommand(request, response);
+            return;
 		}
 
 
