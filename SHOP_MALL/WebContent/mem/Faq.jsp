@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.sql.*" %>
-<%@ page import = "java.util.*" %>
-<%@ page import = "java.text.*" %>
 <%@ include file="../fragments/header.jsp" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link rel="stylesheet" href="../css/mypage.css">
 
@@ -20,10 +15,8 @@
         <a href="#">장바구니</a>
         <a href="#">내가 쓴 리뷰</a>
         <a href="#">좋아요</a>
-        <a href="#">최근 본</a>
         <!-- FAQ만 활성화 표시 -->
         <a href="#" class="active">FAQ</a>
-        <a href="#">문의 내역 확인</a>
       </div>
     </div>
 

@@ -1,138 +1,174 @@
 @charset "UTF-8";
-   
-   /* 배경 이미지 스타일 */
-   .creatorlist-section .creatorlist-header {
-       width: 100%;
-       height: 175px; /* 배경 이미지 높이 */
-       background: #252640;
-   }
-   
-   /* 제목과 서브 타이틀 스타일 */
-   .creatorlist-section .creatorlist-banner {
-      padding-top: 100px;
-   }
-   
-   .creatorlist-section .creatorlist-semi-title {
-      position: relative;
-       font-size: 16px;
-       font-weight: 400;
-       color: #fff;
-       z-index: 1;
-       margin-bottom: 5px;
-   }
-   
-   .creatorlist-section .creatorlist-title {
-      position: relative;
-       font-size: 28px;
-       font-weight: 900;
-       z-index: 1;
-       color: #fff;
-   }
-   
-   .creatorlist-section .creatorlist-content .container {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 60px;
-   }
-   
-   .creatorlist-section .saleslist-sidebar {
-       width: 220px;
-       border-right: 1px solid #ccc;
-       background-color: #ffffff;
-       margin-top: 15px;
-       margin-bottom: 30px;
-       padding: 10px 0;
-       height: 100vh;
-       flex-shrink: 0;
-   }
-   
-   .creatorlist-section .saleslist-sidebar ul {
-       list-style: none;
-       padding: 0;
-       margin: 0;
-   }
-   
-   .creatorlist-section .saleslist-sidebar li {
-      border-bottom: 1px solid #ccc;
-       padding: 12px 0;
-       margin: 0 12px;
-       cursor: pointer;
-       font-size: 16px;
-       text-align: left;
-       color: #333;
-   }
+	
+	/* 배경 이미지 스타일 */
+	.creatorlist-section .creatorlist-header {
+	    width: 100%;
+	    height: 175px; /* 배경 이미지 높이 */
+	    background: #252640;
+	}
+	
+	/* 제목과 서브 타이틀 스타일 */
+	.creatorlist-section .creatorlist-banner {
+		padding-top: 100px;
+	}
+	
+	.creatorlist-section .creatorlist-semi-title {
+		position: relative;
+	    font-size: 16px;
+	    font-weight: 400;
+	    color: #fff;
+	    z-index: 1;
+	    margin-bottom: 5px;
+	}
+	
+	.creatorlist-section .creatorlist-title {
+		position: relative;
+	    font-size: 28px;
+	    font-weight: 900;
+	    z-index: 1;
+	    color: #fff;
+	}
+	
+	.creatorlist-section .creatorlist-content .container {
+		display: flex;
+		justify-content: space-between;
+		gap: 10px;
+		margin-top: 60px;
+	}
+	
+	.creatorlist-section .saleslist-sidebar {
+	    width: 220px;
+	    border-right: 1px solid #ccc;
+	    background-color: #ffffff;
+	    margin-top: 15px;
+	    margin-bottom: 30px;
+	    padding: 10px 0;
+	    height: 100vh;
+	    flex-shrink: 0;
+	}
+	
+	.creatorlist-section .saleslist-sidebar ul {
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	}
+	
+	.creatorlist-section .saleslist-sidebar li {
+		border-bottom: 1px solid #ccc;
+	    padding: 12px 0;
+	    margin: 0 12px;
+	    cursor: pointer;
+	    font-size: 16px;
+	    text-align: left;
+	    color: #333;
+	}
 
-   /* 카드 그리드 스타일 */
-   .creatorlist-section .creatorlist-frame {
-      display: grid;
-      grid-template-columns: repeat(3, 240px); /* 한 줄에 3개의 카드 */
-      gap: 0;
-      padding: 30px;
-      justify-content: flex-start;
-      max-width: 1200px;
-      margin: 0 auto;
-   }
-   
-   /* 기본적으로 카드 사이에 border 적용 */
-   .creatorlist-section .creator-card {
-      background: #fff;
-      padding: 20px;
-      width: 240px;
-      height: 300px;
-      text-align: center;
-      cursor: pointer;
-      position: relative;
-      border-right: 1px solid #ccc; /* 기본적으로 우측 border 적용 */
-      border-bottom: 1px solid #ccc; /* 기본적으로 아래 border 적용 */
-   }
-   
-   /* 마지막 열의 카드에서 border-right 제거 */
-   .creatorlist-section .creator-card:nth-child(3n) {
-      border-right: none;
-   }
-   
-   /* 기본적으로 마지막 행의 border-bottom 제거 */
-   .creatorlist-section .creator-card:nth-last-child(-n+3) {
-      border-bottom: none;
-   }
-   
-   /* 마지막 행이 존재하면 바로 위의 행(border-bottom이 없는 카드들)에 border-bottom 추가 */
-   .creatorlist-section .creator-card:nth-last-child(-n+3):nth-child(n+4) {
-      border-bottom: 1px solid #ccc;
-   }
-   
-   /* 이미지 스타일 */
-   .creatorlist-section .creator-card img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 15px;
-      border: 3px solid #eee;
-   }
-   
-   .creatorlist-section .creator-card .creator-name {
-      padding: 0;
-      margin: 0;
-      font-size: 18px;
-      font-family: 'Zen Maru Gothic', sans-serif;
-      font-weight: 700;
-      text-align: center;
-   }
+	/* .creatorlist-frame을 grid로 설정 */
+	.creatorlist-section .creatorlist-frame {
+	    display: grid;
+	    grid-template-columns: repeat(3, 240px); /* 한 줄에 3개의 카드 */
+	    gap: 55px; /* 카드 사이 여백 */
+	    padding: 30px;
+	    justify-content: flex-start; /* 왼쪽 정렬 */
+	    max-width: 1200px;
+	}
+	
+	/* 카드 스타일 변경 - 강조 효과 추가 */
+	.creatorlist-section .creator-card {
+		position: relative;
+	    background: #fff;
+	    padding: 20px;
+	    border-radius: 15px;
+	    padding: 20px;
+	    width: 260px;
+	    height: 320px;
+	    text-align: center;
+	    cursor: pointer;
+	    overflow: hidden;
+	    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	    transition: transform 0.3s ease, box-shadow 0.3s ease;
+	    transition: transform 0.3s ease, box-shadow 0.3s ease;
+	    background: rgba(255, 255, 255, 0.1);
+	}
 
-   .creatorlist-section .creator-card .creator-info {
-      margin: 5px 0;
-      font-size: 14px;
-      color: #333;
-      display: -webkit-box;
-      -webkit-line-clamp: 3; /* 최대 3줄 표시 */
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: normal; /* 줄바꿈 허용 */
-   }
-   
+	/* 배경 이미지 설정 */
+	.creatorlist-section .background-image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-position: center;
+		filter: blur(10px) brightness(0.5);
+		transform: scale(1.1);
+		z-index: 0;
+	}
+	
+	/* 이미지 스타일 */
+	.creatorlist-section .creator-card img {
+		position: relative;
+		z-index: 1;
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		object-fit: cover;
+		margin-bottom: 15px;
+		border: 3px solid #eee;
+	}
+	
+	.creatorlist-section .creator-card .creator-name {
+		position: relative;
+		z-index: 1;
+		padding: 0;
+		color : #fff;
+		margin: 0;
+		font-size: 18px;
+		font-family: 'Zen Maru Gothic', sans-serif;
+		font-weight: 700;
+		text-align: center;
+	}
+
+	.creatorlist-section .creator-card .creator-info {
+		position: relative;
+		z-index: 1;
+		margin: 5px 0;
+		font-size: 14px;
+		color : #fff;
+		display: -webkit-box;
+		-webkit-line-clamp: 3; /* 최대 3줄 표시 */
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: normal; /* 줄바꿈 허용 */
+	}
+
+	/* 찜하기 영역 스타일 */
+	.creator-card .like-area {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		display: flex;
+		align-items: center;
+		padding: 5px 10px;
+		border-radius: 20px;
+		cursor: pointer;
+		transition: background 0.3s;
+	}
+	
+	/* 찜하기 아이콘 스타일 */
+	.creator-card .like-area .like-icon {
+		font-size: 16px;
+		margin-right: 5px;
+		color: #fff;
+	}
+	
+	/* 찜하기 수 스타일 */
+	.creator-card .like-area .like-count {
+		font-size: 14px;
+		color: #fff;
+	}
+	
    
  /* --------------------- 페이징 스타일 추가 --------------------- */
 .creatorlist-section .creatorlist-frame {

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="UTF-8"%>
 <%@ include file="../fragments/header.jsp"%>
-<link rel="stylesheet" href="/css/postsellinglist.css">
+<link rel="stylesheet" href="../css/postsellinglist.css">
+<c:set var="isLoggedIn" value="${not empty sessionScope.user}" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -30,6 +30,7 @@
 
 	<div class="container">
 		<div class="sidebar">
+
 			<ul>
 				<li onclick="location.href='/post/creatorlist.do'"
 					class="${pageContext.request.requestURI == '/post/creatorlist.do' ? 'active' : ''}">
@@ -52,6 +53,7 @@
 			</ul>
 		</div>
 
+
 		<div class="content">
 			<h2>상품 목록</h2>
 
@@ -65,9 +67,11 @@
 
 			<!-- 상품 리스트 -->
 			<div class="product-list">
+
 				<c:choose>
 					<c:when test="${not empty productList}">
 						<c:forEach var="product" items="${productList}">
+						
 							<div class="product-item">
 								<!-- 상품 이미지 클릭 시 상세 페이지 이동 -->
 								<a href="/post/postdetail.do?productid=${product.productid}">
@@ -89,6 +93,12 @@
 									<img src="${pageContext.request.contextPath}/img/cart.png"
 										alt="장바구니" class="cart-icon">
 								</button>
+								
+								<!-- 찜하기 버튼 -->
+                                <button class="favorite-btn" data-productid="${product.productid}">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button>
+
 							</div>
 						</c:forEach>
 					</c:when>
@@ -143,6 +153,35 @@
 				});
 			});
 		});
+		
+		// 찜하기 버튼 클릭 이벤트
+        $(".favorite-btn").on("click", function() {
+            var productId = $(this).data("productid");
+            var isLoggedIn = "${isLoggedIn}" === "true";
+            if (!isLoggedIn) {
+                alert("로그인 후 이용해주세요.");
+                window.location.href = "/member/login.do";
+                return;
+            }
+            
+            $.ajax({
+                url: "/post/add.do",
+                type: "POST",
+                data: { productId: productId },
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "json",
+                success: function(response) {
+                    alert(response.message);
+                },
+                error: function(xhr, status, error) {
+                    console.error("에러 상태: " + status);
+                    console.error("에러 내용: " + error);
+                    alert("찜하기 추가에 실패했습니다.");
+                }
+            });
+        });
+ 
+		
 	</script>
 
 	<%@ include file="/fragments/footer.jsp"%>

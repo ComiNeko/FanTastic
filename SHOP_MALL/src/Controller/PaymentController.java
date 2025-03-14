@@ -7,31 +7,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Service.PaymentSaveService;
 import Service.PaymentService;
 
 import java.io.IOException;
 
 @WebServlet("/payment/*")
 public class PaymentController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public PaymentController() {
-        super();
-    }
+	public PaymentController() {
+		super();
+	}
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doAction(request, response);
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doAction(request, response);
+	}
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doAction(request, response);
-    }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doAction(request, response);
+	}
 
-    protected void doAction(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    	request.setCharacterEncoding("utf-8");
+	protected void doAction(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		String action = request.getPathInfo();
 		System.out.println("payment_action = " + action);
 		String page = null;
@@ -39,23 +40,29 @@ public class PaymentController extends HttpServlet {
 
 		switch (action) {
 		case "/payment.do":
-			
-			String productId = request.getParameter("productId");
-	        String productName = request.getParameter("productName");
-	        String productPrice = request.getParameter("productPrice");
 
-	        // 로그 출력
-	        System.out.println("Received Product ID: " + productId);
-	        System.out.println("Received Product Name: " + productName);
-	        System.out.println("Received Product Price: " + productPrice);
+			String productId = request.getParameter("productId");
+			String productName = request.getParameter("productName");
+			String productPrice = request.getParameter("productPrice");
+
+			// 로그 출력
+			System.out.println("Received Product ID: " + productId);
+			System.out.println("Received Product Name: " + productName);
+			System.out.println("Received Product Price: " + productPrice);
+
+			new PaymentService().doCommand(request, response);
+			return;
 			
-			 new PaymentService().doCommand(request, response);
-			 return;
+		case "/save.do":
+			// 결제 정보 저장 요청 처리
+            new PaymentSaveService().doCommand(request, response);
+            return;
+			
 		}
-		
-		if(page!=null) {
+
+		if (page != null) {
 			request.getRequestDispatcher(page).forward(request, response);
 		}
-        
-    }
+
+	}
 }

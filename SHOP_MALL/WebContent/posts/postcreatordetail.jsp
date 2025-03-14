@@ -1,14 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../fragments/header.jsp"%>
-<link rel="stylesheet" href="/css/postcreatordetail.css">
-<!DOCTYPE html>
-<html>
-<head>
+<link rel="stylesheet" href="../css/postcreatordetail.css">
+
 <title>${creatorList[0].authorname}작가 상세 페이지</title>
-<!-- 동적으로 작가 이름을 불러오기 위해서, 예를 들어 1번 작가 클릭 시 김작가, 2번 작가 클릭 시 박작가 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
+
 <body>
 	<div class="container">
 		<!-- 작가 프로필 -->

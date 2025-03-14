@@ -15,7 +15,19 @@ public class PaymentService implements Command {
     	String productId = request.getParameter("productId");
         String productName = request.getParameter("productName");
         String productPrice = request.getParameter("productPrice");
+        String productQuantityStr = request.getParameter("productQuantity"); // 수량을 문자열로 받음
+        
         int productQuantity = 1;
+        
+        if (productQuantityStr != null && !productQuantityStr.isEmpty()) {
+            try {
+                productQuantity = Integer.parseInt(productQuantityStr); // 변환 시도
+            } catch (NumberFormatException e) {
+                // 변환 실패 시 기본값 유지 또는 에러 처리
+                System.err.println("수량 변환 실패: " + e.getMessage());
+                // 변환 실패시 값은 1
+            }
+        }
         
         System.out.println(productId);
         System.out.println(productName);
