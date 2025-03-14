@@ -114,14 +114,10 @@ public class PostController extends HttpServlet {
 			new CreatorDetailService().doCommand(request, response);
 			return;
 			
-		case "/mysellinglist.do": 
+		case "/mysellinglist.do":
 		    new PostMySellingListService().doCommand(request, response);
-		    if (response.isCommitted()) { // 응답이 이미 전송된 경우, forward 방지
-		        return;
-		    }
-		    page = "/posts/postmysellinglist.jsp";
+		    page = "/posts/postmysellinglist.jsp"; // 이거 꼭 필요
 		    break;
-
 
 		case "/productdelete.do": // 상품 삭제 기능
 			new ProductDeleteService().doCommand(request, response);

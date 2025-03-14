@@ -10,28 +10,39 @@ import Model.PostDao;
 import Model.PostVo;
 
 public class ProductEditService implements Command {
-    @Override
-    public void doCommand(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        MemberVo loginUser = (MemberVo) session.getAttribute("user");
+	@Override
+	public void doCommand(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        if (loginUser == null) {
-            response.sendRedirect("/member/login.do");
-            return;
-        }
+		HttpSession session = request.getSession();
+		MemberVo loginUser = (MemberVo) session.getAttribute("user");
 
-        String userId = loginUser.getUserid();
-        int productId = Integer.parseInt(request.getParameter("productid"));
-        PostDao dao = new PostDao();
+		if (loginUser == null) {
+			response.sendRedirect("/member/login.do");
+			return;
+		}
 
-        if (!dao.isUserProductOwner(productId, userId)) {
-            response.sendRedirect("/post/mysellinglist.do");
-            return;
-        }
+		String userId = loginUser.getUserid();
+		String productIdParam = request.getParameter("productid");
 
-        PostVo product = dao.getPostDetail(productId);
-        request.setAttribute("product", product);
-        request.getRequestDispatcher("/posts/productedit.jsp").forward(request, response);
-    }
+		if (productIdParam == null || productIdParam.isEmpty()) {
+			response.sendRedirect("/post/mysellinglist.do");
+			return;
+		}
+
+		int productId = Integer.parseInt(productIdParam);
+		PostDao dao = new PostDao();
+
+		// 특정 상품 정보 조회
+		PostVo product = dao.getPostDetail(productId);
+
+		if (product == null) {
+			response.sendRedirect("/post/mysellinglist.do");
+			return;
+		}
+
+		request.setAttribute("product", product);
+		request.getRequestDispatcher("/posts/productedit.jsp").forward(request, response);
+
+	}
 }

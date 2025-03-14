@@ -1,6 +1,7 @@
 package Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +25,16 @@ public class PostMySellingListService implements Command {
             return;
         }
 
-        String userId = loginUser.getUserid(); // 로그인된 사용자 ID
+        String userId = loginUser.getUserid();
         PostDao dao = new PostDao();
-        List<PostVo> myProductList = dao.getMyProductList(userId); // 내가 등록한 상품 조회
+        List<PostVo> productList = dao.getMyProductList(userId);
 
-        request.setAttribute("myProductList", myProductList);
-        request.getRequestDispatcher("/posts/postmysellinglist.jsp").forward(request, response);
+        if (productList == null || productList.isEmpty()) {
+            System.out.println("상품 없음: productList가 비어 있음.");
+            request.setAttribute("productList", new ArrayList<>()); // ✅ 올바른 문법
+        } else {
+            System.out.println("상품 있음: " + productList.size() + "개");
+            request.setAttribute("productList", productList);
+        }
     }
 }

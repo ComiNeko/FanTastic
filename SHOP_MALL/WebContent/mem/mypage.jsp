@@ -41,8 +41,7 @@
 
 
 					<!-- 등록상품 수정 버튼 -->
-					<button class="product-btn"
-						onclick="location.href='/post/mysellinglist.do'">등록상품 수정</button>
+					<button class="product-btn" onclick="location.href='/post/mysellinglist.do'">등록상품 수정</button>
 
 
 					<!-- 비밀번호 수정 -->
