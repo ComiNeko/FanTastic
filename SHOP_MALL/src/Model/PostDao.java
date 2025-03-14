@@ -45,7 +45,46 @@ public class PostDao {
 			DBManager.getInstance().close(pstmt, conn);
 		}
 	}// insert
+	
+	// 본인이 등록한 상품만 조회
+	public List<PostVo> getMyProductList(String userId) {
+	    List<PostVo> list = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
 
+	    String sql = "SELECT * FROM NEW_PRODUCTS p "
+	               + "JOIN NEW_AUTHOR a ON p.authorid = a.authorid "
+	               + "WHERE a.userid = ? "
+	               + "ORDER BY p.productid DESC";
+
+	    try {
+	        conn = DBManager.getInstance().getConnection();
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, userId);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            PostVo vo = new PostVo();
+	            vo.setProductid(rs.getInt("productid"));
+	            vo.setProductName(rs.getString("productName"));
+	            vo.setProductPrice(rs.getInt("productPrice"));
+	            vo.setProductStock(rs.getInt("productStock"));
+	            vo.setProductInfo(rs.getString("productInfo"));
+	            vo.setProductImage(rs.getString("productImage"));
+	            vo.setCreatedAt(rs.getString("createdAt"));
+	            vo.setUpdatedAt(rs.getString("updatedAt"));
+	            list.add(vo);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBManager.getInstance().close(rs, pstmt, conn);
+	    }
+	    return list;
+	}
+
+	//전체상품조회
 	public List<PostVo> getSelect() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -80,7 +119,128 @@ public class PostDao {
 		}
 		return list;
 	}// select
+	
+	
+	//본인이 등록한 상품만 조회가능한 메서드
+	public boolean isUserProductOwner(int productId, String userId) {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    boolean isOwner = false;
 
+	    String sql = "SELECT COUNT(*) FROM NEW_PRODUCTS p "
+	               + "JOIN NEW_AUTHOR a ON p.authorid = a.authorid "
+	               + "WHERE p.productid = ? AND a.userid = ?";
+
+	    try {
+	        conn = DBManager.getInstance().getConnection();
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, productId);
+	        pstmt.setString(2, userId);
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            isOwner = rs.getInt(1) > 0;  // 결과값이 0보다 크면 본인 상품
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBManager.getInstance().close(rs, pstmt, conn);
+	    }
+	    return isOwner;
+	}
+
+	
+	
+	
+	 // 상품 삭제 (관련 데이터 삭제 포함)
+    public boolean deleteMyProduct(int productId, String userId) {
+        if (!isUserProductOwner(productId, userId)) {
+            return false;
+        }
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean isDeleted = false;
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            conn.setAutoCommit(false);
+
+            // 장바구니에서 삭제
+            String deleteCartSql = "DELETE FROM NEW_CARTS WHERE productid = ?";
+            pstmt = conn.prepareStatement(deleteCartSql);
+            pstmt.setInt(1, productId);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            // 찜 목록에서 삭제
+            String deleteFavoriteSql = "DELETE FROM NEW_FAVORITES WHERE productid = ?";
+            pstmt = conn.prepareStatement(deleteFavoriteSql);
+            pstmt.setInt(1, productId);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            // 최종 상품 삭제
+            String deleteSql = "DELETE FROM NEW_PRODUCTS WHERE productid = ?";
+            pstmt = conn.prepareStatement(deleteSql);
+            pstmt.setInt(1, productId);
+            int rows = pstmt.executeUpdate();
+
+            if (rows > 0) {
+                isDeleted = true;
+            }
+            conn.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+        return isDeleted;
+    }
+
+    // 상품 수정
+    public boolean updateMyProduct(PostVo vo, String userId) {
+        if (!isUserProductOwner(vo.getProductid(), userId)) {
+            return false;
+        }
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean isUpdated = false;
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+
+            String updateSql = "UPDATE NEW_PRODUCTS SET productName=?, productPrice=?, productStock=?, productInfo=?, productImage=?, updatedAt=CURRENT_TIMESTAMP WHERE productid=?";
+            pstmt = conn.prepareStatement(updateSql);
+            pstmt.setString(1, vo.getProductName());
+            pstmt.setInt(2, vo.getProductPrice());
+            pstmt.setInt(3, vo.getProductStock());
+            pstmt.setString(4, vo.getProductInfo());
+            pstmt.setString(5, vo.getProductImage());
+            pstmt.setInt(6, vo.getProductid());
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                isUpdated = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+
+        return isUpdated;
+    }
+
+	
+	
+	
+	
+	
+	
+//-------------------------------------------------------------//
+	
 	// 카테고리
 	public List<PostVo> getPostsByCategory(int categoryid) {
 
@@ -112,7 +272,10 @@ public class PostDao {
 		}
 		return list;
 	}
-
+	
+	//-------------------------------------------------//
+				//여기서부터 장바구니//
+	
 	// 장바구니에 상품 추가 (중복이면 수량 증가)
 	public void addToCart(String userId, int productId, int quantity) {
 		Connection conn = null;

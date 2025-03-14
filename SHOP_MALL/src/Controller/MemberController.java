@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Service.AuthorCheckService;
 import Service.AuthorInsertService;
 import Service.EmailService;
 import Service.MainService;
@@ -191,14 +192,11 @@ public class MemberController extends HttpServlet {
 		        response.sendRedirect(request.getContextPath() + "/member/login.do");
 		        return;
 		    }
-		    page = "/mem/mypage_authorinsert.jsp"; // 폼 이동
-		    break;
+		    new AuthorCheckService().doCommand(request, response);
+		    return; // 서비스에서 다 처리하므로 리턴
 
 		case "/authorinsertpro.do": // 작가 등록 처리
 		    new AuthorInsertService().doCommand(request, response);
-		    
-		    
-		    
 		    response.sendRedirect("/member/mypage.do"); // 등록 후 마이페이지
 		    return;
 		    

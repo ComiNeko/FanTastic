@@ -36,7 +36,8 @@ public class AuthorInsertService implements Command {
 
 	    // 파일 업로드 경로
 	    String uploadPath = request.getServletContext().getRealPath("/uploads");
-
+	    System.out.println("업로드 경로: "+uploadPath);
+	    
 	    // 이미지 파일 받기
 	    Part img1Part = request.getPart("authorimg1");
 	    Part img2Part = request.getPart("authorimg2");

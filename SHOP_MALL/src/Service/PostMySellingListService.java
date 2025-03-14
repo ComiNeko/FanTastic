@@ -1,17 +1,21 @@
 package Service;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import Model.MemberVo;
 import Model.PostDao;
+import Model.PostVo;
 
-public class ProductDeleteService implements Command {
+public class PostMySellingListService implements Command {
+
     @Override
     public void doCommand(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         MemberVo loginUser = (MemberVo) session.getAttribute("user");
 
@@ -20,11 +24,11 @@ public class ProductDeleteService implements Command {
             return;
         }
 
-        String userId = loginUser.getUserid();
-        int productId = Integer.parseInt(request.getParameter("productid"));
+        String userId = loginUser.getUserid(); // 로그인된 사용자 ID
         PostDao dao = new PostDao();
+        List<PostVo> myProductList = dao.getMyProductList(userId); // 내가 등록한 상품 조회
 
-        boolean result = dao.deleteMyProduct(productId, userId);
-        response.sendRedirect("/post/mysellinglist.do");
+        request.setAttribute("myProductList", myProductList);
+        request.getRequestDispatcher("/posts/postmysellinglist.jsp").forward(request, response);
     }
 }
