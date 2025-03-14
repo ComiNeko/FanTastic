@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="UTF-8"%>
 <%@ include file="../fragments/header.jsp"%>
-<link rel="stylesheet" href="/css/postsellinglist.css">
+<link rel="stylesheet" href="../css/postsellinglist.css">
+<c:set var="isLoggedIn" value="${not empty sessionScope.user}" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -30,6 +30,7 @@
 
 	<div class="container">
 		<div class="sidebar">
+
 			<ul>
 				<li onclick="location.href='/post/creatorlist.do'"
 					class="${pageContext.request.requestURI == '/post/creatorlist.do' ? 'active' : ''}">
@@ -52,6 +53,7 @@
 			</ul>
 		</div>
 
+
 		<div class="content">
 			<h2>상품 목록</h2>
 
@@ -65,9 +67,11 @@
 
 			<!-- 상품 리스트 -->
 			<div class="product-list">
+
 				<c:choose>
 					<c:when test="${not empty productList}">
 						<c:forEach var="product" items="${productList}">
+						
 							<div class="product-item">
 								<!-- 상품 이미지 클릭 시 상세 페이지 이동 -->
 								<a href="/post/postdetail.do?productid=${product.productid}">

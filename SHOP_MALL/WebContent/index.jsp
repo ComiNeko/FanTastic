@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ include file="/fragments/header.jsp"%>
+
 <link rel="stylesheet" href="/css/index.css">
-<script src="js/jquery-3.7.1.min.js"></script>
 
 <!-- Swiper 슬라이더 -->
 <div class="swiper-container">
@@ -99,94 +99,92 @@
 </section>
 
 <section class="popular-creators">
-    <div class="container">
-       <h4 class="section-semi-title">3월 가장 인기많은 작가 랭킹</h4>
-        <h2 class="section-title">주간 인기 크리에이터</h2>
-        <div class="creator-wrapper">
-            <!-- 1위 크리에이터 -->
-            <div class="first-place">
-                <div class="top-creator">
-                <div class="creator-card">
-                   <div class="creator-info">
-                        <h2 class="ranking">WEEKLY TOP 1</h2>
-                    </div>
-                    <div class="background-blur"></div>
-                    <div class="profile-image">
-                        <a href="#">
-                        	<img src="/img/ex_profile_01.png" alt="John 프로필 이미지">
-                       	</a>
-                    </div>
-                    <div class="creator-info">
-                        <h1 style="font-size: 32px; font-weight: 700;">John Doe</h1>
-                        <p>유튜버</p>
-                           <p>❤️ Favorite: 12,345</p>
-                    </div>
-                    
-                    <!-- 대표 상품 3개 -->
-                    <div class="creator-products">
-                        <a href="#" class="product">
-                            <img src="/img/ex_product_01.png" alt="상품 1">
-                        </a>
-                        <a href="#" class="product">
-                            <img src="/img/ex_product_02.png" alt="상품 2">
-                        </a>
-                        <a href="#" class="product">
-                            <img src="/img/ex_product_03.png" alt="상품 3">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            </div>
+	<div class="container">
+		<h4 class="section-semi-title">3월 가장 인기많은 작가 랭킹</h4>
+		<h2 class="section-title">주간 인기 크리에이터</h2>
+		<div class="creator-wrapper">
+			<!-- 1위 크리에이터 -->
+			<div class="first-place">
+				<div class="top-creator">
+					<div class="creator-card">
+						<div class="creator-info">
+							<h2 class="ranking">WEEKLY TOP 1</h2>
+						</div>
+						<div class="background-blur"></div>
+						<div class="profile-image">
+							<a href="#"> <img src="/img/ex_profile_01.png"
+								alt="John 프로필 이미지">
+							</a>
+						</div>
+						<div class="creator-info">
+							<h1 style="font-size: 32px; font-weight: 700;">John Doe</h1>
+							<p>유튜버</p>
+							<p>❤️ Favorite: 12,345</p>
+						</div>
 
-            <!-- 2~5위 크리에이터 -->
-            <div class="other-creators">
-                <div class="creator-card">
-	                <a href="#">
-	                    <div class="rank">2위</div>
-	                    <img src="/img/ex_profile_02.png" alt="Jane's Profile" class="profile-img">
-	                    <div class="creator-info">
-	                        <h3 class="creator-name">Jane</h3>
-	                        <p class="creator-job">유튜버</p>
-	                        <p class="creator-favorite">❤️ Favorite: 9,876</p>
-	                    </div>
-	                </a>
-                </div>
-                <div class="creator-card">
-                	<a href="#">
-	                    <div class="rank">3위</div>
-	                    <img src="/img/ex_profile_03.png" alt="Chris's Profile" class="profile-img">
-	                    <div class="creator-info">
-	                        <h3 class="creator-name">Chris</h3>
-	                        <p class="creator-job">만화가</p>
-	                        <p class="creator-favorite">❤️ Favorite: 8,765</p>
-	                    </div>
-                    </a>
-                </div>
-                <div class="creator-card">
-                	<a href="#">
-	                    <div class="rank">4위</div>
-	                    <img src="/img/ex_profile_04.png" alt="Kim's Profile" class="profile-img">
-	                    <div class="creator-info">
-	                        <h3 class="creator-name">Kim</h3>
-	                        <p class="creator-job">라이브2D 아티스트</p>
-	                        <p class="creator-favorite">❤️ Favorite: 7,654</p>
-	                    </div>
-                    </a>
-                </div>
-                <div class="creator-card">
-	                <a href="#">
-	                    <div class="rank">5위</div>
-	                    <img src="/img/ex_profile_05.png" alt="Lee's Profile" class="profile-img">
-	                    <div class="creator-info">
-                        	<h3 class="creator-name">Lee</h3>
-	                        <p class="creator-job">버추얼 크리에이터</p>
-	                        <p class="creator-favorite">❤️ Favorite: 6,543</p>
-	                    </div>
-	                </a>
-                </div>
-            </div>
-        </div>
-    </div>
+						<!-- 대표 상품 3개 -->
+						<div class="creator-products">
+							<a href="#" class="product"> <img
+								src="/img/ex_product_01.png" alt="상품 1">
+							</a> <a href="#" class="product"> <img
+								src="/img/ex_product_02.png" alt="상품 2">
+							</a> <a href="#" class="product"> <img
+								src="/img/ex_product_03.png" alt="상품 3">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 2~5위 크리에이터 -->
+			<div class="other-creators">
+				<div class="creator-card">
+					<a href="#">
+						<div class="rank">2위</div> <img src="/img/ex_profile_02.png"
+						alt="Jane's Profile" class="profile-img">
+						<div class="creator-info">
+							<h3 class="creator-name">Jane</h3>
+							<p class="creator-job">유튜버</p>
+							<p class="creator-favorite">❤️ Favorite: 9,876</p>
+						</div>
+					</a>
+				</div>
+				<div class="creator-card">
+					<a href="#">
+						<div class="rank">3위</div> <img src="/img/ex_profile_03.png"
+						alt="Chris's Profile" class="profile-img">
+						<div class="creator-info">
+							<h3 class="creator-name">Chris</h3>
+							<p class="creator-job">만화가</p>
+							<p class="creator-favorite">❤️ Favorite: 8,765</p>
+						</div>
+					</a>
+				</div>
+				<div class="creator-card">
+					<a href="#">
+						<div class="rank">4위</div> <img src="/img/ex_profile_04.png"
+						alt="Kim's Profile" class="profile-img">
+						<div class="creator-info">
+							<h3 class="creator-name">Kim</h3>
+							<p class="creator-job">라이브2D 아티스트</p>
+							<p class="creator-favorite">❤️ Favorite: 7,654</p>
+						</div>
+					</a>
+				</div>
+				<div class="creator-card">
+					<a href="#">
+						<div class="rank">5위</div> <img src="/img/ex_profile_05.png"
+						alt="Lee's Profile" class="profile-img">
+						<div class="creator-info">
+							<h3 class="creator-name">Lee</h3>
+							<p class="creator-job">버추얼 크리에이터</p>
+							<p class="creator-favorite">❤️ Favorite: 6,543</p>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
 <!-- 지금 인기 상품 섹션 -->
@@ -347,6 +345,48 @@
 
 		</div>
 	</div>
+</section>
+
+<!-- 공지사항 & 고객센터 섹션 -->
+<section class="notice-customer-section">
+    <div class="container">
+        <div class="notice">
+        	<div class="notice-head">
+	            <h2 class="section-title">공지사항</h2>
+	            <a href="/notice" class="more-btn">See More</a>
+            </div>
+            <ul class="notice-list">
+                <li>
+                    <a href="#">[이벤트] 신상품 런칭 기념 특별 할인 안내</a>
+                    <span class="date">2024.03.13</span>
+                </li>
+                <li>
+                    <a href="#">[업데이트] FanTastic 서비스 개편 안내</a>
+                    <span class="date">2024.03.10</span>
+                </li>
+                <li>
+                    <a href="#">[공지] 시스템 점검 일정 안내</a>
+                    <span class="date">2024.03.08</span>
+                </li>
+                <li>
+                    <a href="#">[필독] 안전거래를 위한 유의사항</a>
+                    <span class="date">2024.03.05</span>
+                </li>
+                <li>
+                    <a href="#">[필독] 오픈 이벤트 안내</a>
+                    <span class="date">2024.03.04</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="customer">
+            <h2 class="section-title">고객센터</h2>
+            <p class="customer-info">운영시간: 평일 10:00 ~ 18:00<br>점심시간: 12:00 ~ 13:00</p>
+            <div class="customer-service">
+                <p class="customer-phone">📞 1588-1234</p>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

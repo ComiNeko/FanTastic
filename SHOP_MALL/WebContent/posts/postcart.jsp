@@ -1,18 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../fragments/header.jsp"%>
 
-<link rel="stylesheet" href="/css/postcart.css">
+<link rel="stylesheet" href="../css/postcart.css">
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>장바구니</title>
-</head>
 <body>
 
 	<div class="cart-container">

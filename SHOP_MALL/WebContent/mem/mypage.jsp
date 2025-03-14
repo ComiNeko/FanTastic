@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.*"%>
 <%@ page session="true"%>
 <%@ include file="../fragments/header.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <link rel="stylesheet" href="../css/mypage.css">
 
@@ -42,25 +41,25 @@
                 </div>
             </div>
 
-            <!-- 오른쪽: 통계 정보 (예시) -->
-            <div class="profile-right">
-                <div class="status-box">
-                    <div class="item">
-                        <div class="count">0</div>
-                        <div class="desc">최근 주문/배송중</div>
-                    </div>
-                    <div class="item">
-                        <div class="count">0</div>
-                        <div class="desc">작성한 리뷰</div>
-                    </div>
-                    <div class="item">
-                        <div class="count">0</div>
-                        <div class="desc">좋아요 한 상품</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			<!-- 오른쪽: 통계 정보 (예시) -->
+			<div class="profile-right">
+				<div class="status-box">
+					<div class="item">
+						<div class="count">0</div>
+						<div class="desc">최근 주문/배송중</div>
+					</div>
+					<div class="item">
+						<div class="count">0</div>
+						<div class="desc">작성한 리뷰</div>
+					</div>
+					<div class="item">
+						<div class="count">0</div>
+						<div class="desc">좋아요 한 상품</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 					<!-- 작가 등록 버튼 (폼 분리) -->
 					<button class="auth-btn"

@@ -4,13 +4,14 @@
 <link rel="stylesheet" href="../css/postcreator.css">
 
 <section class="creatorlist-section">
-	<div class="creatorlist-header">
-		<div class="container">
-			<div class="creatorlist-banner">
+    <div class="creatorlist-header">
+       	<div class="container">
+       		<div class="creatorlist-banner">
 				<h4 class="creatorlist-semi-title">모든 크리에이터를 한 눈에!</h4>
 				<h2 class="creatorlist-title">크리에이터 목록</h2>
 			</div>
 		</div>
+
 	</div>
 	<div class="creatorlist-content">
 		<div class="container">

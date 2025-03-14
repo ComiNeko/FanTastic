@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -9,8 +9,6 @@
 <title>FanTastic</title>
 
 <script src="/js/jquery-3.7.1.min.js"></script>
-
-
 <script
    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
@@ -27,9 +25,10 @@
 <link rel="stylesheet"
    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+<!-- Swiper CSS -->
 <link rel="stylesheet"
    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<!-- Swiper CSS -->
+
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/fragments.css">
 </head>
@@ -73,14 +72,15 @@
             <ul class="home-right-part">
                <c:choose>
                   <c:when test="${empty sessionScope.user}">
-                     <li><a href="/member/login.do">로그인</a></li>
-                     <li><a href="/member/signup.do">회원가입</a></li>
+                     <li><a href="/member/login.do"><img src="/img/icon_login.png" class="header-icon" alt="로그인"></a></li>
+                     <li><a href="/member/signup.do"><img src="/img/icon_signup.png" class="header-icon" alt="회원가입"></a></li>
                   </c:when>
                   <c:otherwise>
                      <li class="logged-user"><span class="logged-user-id">${sessionScope.user.name}</span>
                         님 환영합니다!</li>
-                     <li><a href="/member/mypage.do">마이페이지</a></li>
-                     <li><a href="/member/logout.do">로그아웃</a></li>
+                     <li><a href="/post/postcart.do"><img src="/img/icon_cart.png" class="header-icon-cart" alt="장바구니"></a></li>
+                     <li><a href="/member/mypage.do"><img src="/img/icon_mypage.png" class="header-icon" alt="마이페이지"></a></li>
+                     <li><a href="/member/logout.do"><img src="/img/icon_logout.png" class="header-icon" alt="로그아웃"></a></li>
                   </c:otherwise>
                </c:choose>
             </ul>

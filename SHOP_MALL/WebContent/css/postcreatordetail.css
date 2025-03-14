@@ -1,121 +1,198 @@
 @charset "UTF-8";
 
-* {
+/* 기본 리셋 */
+body {
     margin: 0;
     padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333;
+}
+
+/* 메인 상품 컨테이너 */
+.product-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 50px 10%;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f9f9f9;
-}
-
-.container {
-    max-width: 1200px;
-    margin: auto;
-}
-
-.creator-profile {
-    text-align: center;
-    padding: 20px;
-    background: white;
+/* 상품 이미지 */
+.product-image img {
+    width: 480px;
+    height: auto;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-}
-
-.creator-profile img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 20px;
-    border: 4px solid #ddd;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.creator-profile h2 {
-    margin-bottom: 10px;
-}
-
-.creator-profile p {
-    color: #555;
-    font-size: 16px;
-}
-
-.extra-images {
-    margin-top: 20px;
-}
-
-.extra-images img {
-    width: 150px;
-    height: 150px;
-    border-radius: 10px;
-    margin: 0 10px;
-    object-fit: cover;
-}
-
-.product-list {
-    margin-top: 40px;
-}
-
-.product-list h3 {
-    margin-bottom: 20px;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 한 행에 4개의 열을 생성 */
-    gap: 20px; /* 카드 간의 간격 설정 */
-}
-
-.product-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-}
-
-.product-card h4 {
-    margin-bottom: 10px;
-}
-
-.product-card p {
-    margin: 5px 0;
-    color: #666;
-}
-
-.product-card .price {
-    color: #e74c3c;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.product-card img {
+/* 상품 정보 */
+.product-info {
+    max-width: 400px;
     width: 100%;
-    height: 150px;
-    object-fit: cover;
+}
+
+/* 상품명 */
+.product-info h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+/* 가격 */
+.product-info .price {
+    color: #E60023;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* 버튼 스타일 */
+.btn-cart, .btn-buy {
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cart {
+    background: white;
+    border: 2px solid black;
+}
+
+.btn-cart:hover {
+    background: black;
+    color: white;
+}
+
+.btn-buy {
+    background: black;
+    color: white;
+}
+
+.btn-buy:hover {
+    background: #333;
+}
+
+/* 탭 메뉴 */
+.tab-menu {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 15px 0;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    z-index: 1000;
+}
+
+.tab-menu a {
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.tab-menu a:hover {
+    border-bottom: 3px solid black;
+}
+
+/* 섹션 스타일 (기존 + 가운데 정렬 추가) */
+.section {
+    padding: 60px 10%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eee;
+    background: #fafafa;
+    text-align: center; /* 추가: 가운데 정렬 */
+}
+
+/* 섹션 제목 (상품 상세, 구매 안내, 리뷰 제목 등) */
+.section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center; /* 추가: 제목도 가운데 정렬 */
+}
+
+/* 리뷰 작성하기 제목 */
+.section h3 {
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center; /* 추가: 가운데 정렬 */
+}
+
+/* 구매 안내 리스트도 가운데 정렬 */
+.section ul {
+    display: inline-block; /* 가로 길이 맞추기 */
+    text-align: left; /* 리스트 안 텍스트는 왼쪽 정렬 유지 */
+    margin: 0 auto; /* 중앙 배치 */
+    padding: 0;
+    list-style-position: inside;
+}
+
+
+/* 리뷰 */
+.review-form {
+    padding: 20px;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    margin-top: 10px;
+    margin: 30px auto;
+    max-width: 700px;
+    background: white;
 }
 
-/* 반응형 디자인을 위한 미디어 쿼리 */
-@media (max-width: 1200px) {
-    .product-grid {
-        grid-template-columns: repeat(3, 1fr); /* 한 행에 3개의 열 */
-    }
+.review-form textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 14px;
 }
 
-@media (max-width: 900px) {
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr); /* 한 행에 2개의 열 */
-    }
+.review-form button {
+    width: 100%;
+    padding: 12px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-@media (max-width: 600px) {
-    .product-grid {
-        grid-template-columns: 1fr; /* 한 행에 1개의 열 */
-    }
+.review-form button:hover {
+    background: #444;
+}
+
+/* 리뷰 별점 */
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 28px;
+    color: #FFD700;
+    cursor: pointer;
+}
+
+/* 리뷰 아이템 */
+.review-item {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    background: white;
+    border-radius: 10px;
+}
+
+.review-item p {
+    margin: 5px 0;
 }
