@@ -121,7 +121,7 @@
     $('.favorite-item').on('click', function(e) {
         if (!$(e.target).hasClass('delete-btn') && !$(e.target).is(':checkbox')) {
             var productId = $(this).attr('id').split('_')[1];
-            window.location.href = "/post/detail.do?productid=" + productId;
+            window.location.href = "/post/postdetail.do?productid=" + productId;
         }
     });
 
