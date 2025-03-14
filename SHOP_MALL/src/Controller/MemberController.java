@@ -159,11 +159,11 @@ public class MemberController extends HttpServlet {
 			break;
 
 			
-			// 현재 비밀번호 확인 요청 처리
+			// 현재 비밀번호 확인을 위한 페이지 이동
 		case "/updatecheck.do":
 		    page = "/mem/UpdateMyCheck.jsp";
 		    break;	
-			
+		 // 현재 비밀번호 확인 요청 처리
 		case "/updatecheckPw.do":
 		    new MemberUserIdCheck().doCommand(request, response);
 		    return;
