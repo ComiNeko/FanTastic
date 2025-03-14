@@ -192,6 +192,10 @@ public class CreatorDao {
 			DBManager.getInstance().close(null, pstmt, conn);
 		}
 	}
+	
+//--------------------------------------------------------------------//
+	//회원정보변경 메서드//
+	//마이페이지->회원정보변경->작가 수정할 수 있는 페이지 이동//
 
 	// 로그인 시 userid로 authorid 찾기
 	public CreatorVo getAuthorProfileByUserId(String userid) {
@@ -279,7 +283,9 @@ public class CreatorDao {
 			DBManager.getInstance().close(pstmt, conn);
 		}
 	}
-
+//----------------------------------------------------------//
+	//마이페이지 작가 등록 및 경고창 메서드//
+	
 	// 마이페이지 작가 등록 메서드
 	public void insertAuthor(String authorname, String authorinfo, String authorimg1, String authorimg2,
 			String authorimg3, String userid) {
@@ -306,5 +312,107 @@ public class CreatorDao {
 			DBManager.getInstance().close(pstmt, conn);
 		}
 	}
+	
+	
+	// "이미 등록된 작가인지 확인" 메소드 
+	public boolean isAuthorExist(String userid) {
+	   
+		boolean result = false;
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    String sql = "SELECT COUNT(*) FROM NEW_AUTHOR WHERE userid = ?";
+	    
+	    try {
+	        conn = DBManager.getInstance().getConnection();
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, userid);
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            result = rs.getInt(1) > 0; // 1 이상이면 이미 존재
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBManager.getInstance().close(rs, pstmt, conn);
+	    }
+	    return result;
+	}
+	
+//-----------------------------------------------------------------//
+	//크리에이터 페이징 처리 //
+	
+	// 작가 목록 페이징 조회
+	public List<CreatorVo> getPagingCreatorList(int page, int pageSize) {
+	    List<CreatorVo> list = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    String sql = "SELECT * FROM ( " +
+	                 "    SELECT ROWNUM rnum, A.* FROM ( " +
+	                 "        SELECT * FROM NEW_AUTHOR ORDER BY authorid DESC " +
+	                 "    ) A WHERE ROWNUM <= ? " +
+	                 ") WHERE rnum >= ?";
+
+	    int endRow = page * pageSize;
+	    int startRow = (page - 1) * pageSize + 1;
+
+	    try {
+	        conn = DBManager.getInstance().getConnection();
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, endRow);
+	        pstmt.setInt(2, startRow);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            CreatorVo vo = new CreatorVo();
+	            vo.setAuthorid(rs.getInt("authorid"));
+	            vo.setAuthorname(rs.getString("authorname"));
+	            vo.setAuthorinfo(rs.getString("authorinfo"));
+	            vo.setAuthorimg1(rs.getString("authorimg1"));
+	            vo.setAuthorimg2(rs.getString("authorimg2"));
+	            vo.setAuthorimg3(rs.getString("authorimg3"));
+	            vo.setUserid(rs.getString("userid")); // userid도 가져오기
+	            list.add(vo);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBManager.getInstance().close(rs, pstmt, conn);
+	    }
+
+	    return list;
+	}
+
+	// 전체 작가 수 조회 
+	public int getCreatorCount() {
+	    
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    String sql = "SELECT COUNT(*) FROM NEW_AUTHOR";
+
+	    int count = 0;
+	    
+	    try {
+	        conn = DBManager.getInstance().getConnection();
+	        pstmt = conn.prepareStatement(sql);
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            count = rs.getInt(1);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBManager.getInstance().close(rs, pstmt, conn);
+	    }
+
+	    return count;
+	}
+
 
 }// dao
