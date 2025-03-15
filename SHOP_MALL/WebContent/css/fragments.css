@@ -1,220 +1,220 @@
 @charset "UTF-8";
-	
-	body {
-		font-family: Arial, sans-serif;
-		margin: 0;
-		padding: 0;
-	}
-	
-	a {
-		color: inherit;
-		text-decoration: none;
-	}
-	
-	a:hover {
-		color: inherit; /* 마우스 오버 시 색상 변경 없음 */
-		text-decoration: none; /* 마우스 오버 시 밑줄 없음 */
-	}
-	
-	/* header 관련*/
-	.header-container {
-		background-color: #000; /* 검은색 배경 */
-	}
-	
-	.header-container .home-bar {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		color: #fff;
-	}
-	
-	.header-container .home-bar .home-left-part {
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-	}
-	
-	/* 로고 스타일 */
-	.header-container .home-name a {
-		font-family: 'Sacramento', cursive;
-		font-size: 32px;
-		color: #fff;
-		font-weight: 700;
-		letter-spacing: 1px;
-		text-decoration: none;
-		padding-right: 20px;
-	}
-	
-	.header-container .home-name a:hover {
-		color: #8FD8F4;
-	}
-	
-	/* 카테고리 드롭다운 버튼 */
-	.header-container .category-btn {
-		background: none;
-		border: none;
-		color: #fff;
-		font-weight: 700;
-		font-size: 16px;
-		cursor: pointer;
-		style: none;
-		padding-right: 20px;
-	}
-	
-	.header-container .category-btn:hover {
-		color: #8FD8F4;
-	}
-	
-	.header-container .category-btn::after {
-		display: none !important;
-	}
-	
-	.header-container .dropdown-menu {
-		border: 1px solid #555;
-		border-radius: 5px;
-		background-color: #222; /* 드롭다운 배경색 */
-	}
-	
-	.header-container .dropdown-menu .dropdown-item {
-		font-size: 14px;
-		font-weight: 600;
-		color: #fff; /* 글자 색상 */
-		background-color: #222; /* 배경 색상 */
-		padding: 10px 15px; /* 여백 조정 */
-		transition: background 0.3s ease-in-out;
-		height: 40px; /* 항목 높이 고정 */
-		display: flex;
-		align-items: center; /* 수직 중앙 정렬 */
-	}
-	
-	.header-container .dropdown-menu .dropdown-item:hover {
-		background-color: #8FD8F4; /* 호버 시 배경 색상 */
-		color: #000; /* 호버 시 글자 색상 */
-	}
-	
-	/* 검색창 스타일 */
-	.header-container .home-search {
-		display: flex;
-		align-items: center;
-		border: 2px solid #555;
-		border-radius: 25px;
-		padding: 5px 10px;
-		background-color: #222;
-		width: 350px;
-	}
-	
-	.header-container .home-search-box {
-		border: none;
-		outline: none;
-		flex: 1;
-		font-size: 14px;
-		padding: 5px;
-		background: transparent;
-		color: #fff;
-	}
-	
-	.header-container .home-search-box::placeholder {
-		color: #aaa;
-	}
-	
-	.header-container .home-search-button {
-		background: none;
-		border: none;
-		cursor: pointer;
-		color: #8FD8F4;
-		font-size: 18px;
-	}
-	
-	.header-container .home-search-button:hover {
-		color: #fff;
-	}
-	
-	/* 로그인/회원가입 스타일 */
-	.header-container .home-right-part {
-		padding: 0;
-		margin: 0;
-		display: flex;
-		align-items: center;
-		list-style: none;
-	}
-	
-	.header-container .home-right-part li {
-		margin-left: 8px;
-	}
-	
-	.header-container .logged-user-id {
-		font-size: 16px;
-		font-weight: 700;
-	}
-	
-	.header-container .logged-user {
-		font-size: 12px;
-		font-weight: 400;
-	}
-	
-	.header-container .home-right-part a {
-		text-decoration: none;
-		padding: 8px 8px;
-	}
-	
-	/* .header-container .home-right-part a:hover {
-		background: #8FD8F4;
-		color: #000;
-	} */
-	
-	.header-container .header-icon {
-		width: 30px;
-		height: 30px;
-		filter: invert(100%) brightness(2);
-		transition: filter 0.3s ease-in-out;
-	}
-	
-	.header-container .header-icon-cart {
-		width: 33px;
-		height: 33px;
-		filter: invert(100%) brightness(2);
-		transition: filter 0.3s ease-in-out;
-	}
-	
-	.header-container .header-icon:hover,
-	.header-container .header-icon-cart:hover {
-		filter: invert(67%) sepia(22%) saturate(750%) hue-rotate(180deg) brightness(1.2);
-	}
-	
-	/* footer 관련 */
-	footer {
-		background-color: #f9f9f9;
-		color: #333;
-		padding: 20px 0;
-		font-family: 'Poppins', sans-serif;
-	}
-	
-	footer .footer-tab {
-		margin-bottom: 15px;
-	}
-	
-	footer .footer-tab a {
-		color: #666; /* 기존 흰색 → 중간 회색 */
-		text-decoration: none;
-		margin: 0 10px;
-		font-size: 14px;
-		font-weight: 600;
-	}
-	
-	footer .footer-tab a:hover {
-		color: #000; /* 마우스 오버 시 검은색 */
-	}
-	
-	footer .footer-desc {
-		font-size: 14px;
-		color: #555;
-		text-align: center;
-		margin-bottom: 10px;
-	}
-	
-	footer .copyright-container {
-		text-align: center;
-		font-size: 13px;
-		color: #888; /* 기존보다 연한 회색 */
-		margin-top: 10px;
-	}
+   
+   body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+   }
+   
+   a {
+      color: inherit;
+      text-decoration: none;
+   }
+   
+   a:hover {
+      color: inherit; /* 마우스 오버 시 색상 변경 없음 */
+      text-decoration: none; /* 마우스 오버 시 밑줄 없음 */
+   }
+   
+   /* header 관련*/
+   .header-container {
+      background-color: #000; /* 검은색 배경 */
+   }
+   
+   .header-container .home-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+   }
+   
+   .header-container .home-bar .home-left-part {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+   }
+   
+   /* 로고 스타일 */
+   .header-container .home-name a {
+      font-family: 'Sacramento', cursive;
+      font-size: 32px;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      padding-right: 20px;
+   }
+   
+   .header-container .home-name a:hover {
+      color: #8FD8F4;
+   }
+   
+   /* 카테고리 드롭다운 버튼 */
+   .header-container .category-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      style: none;
+      padding-right: 20px;
+   }
+   
+   .header-container .category-btn:hover {
+      color: #8FD8F4;
+   }
+   
+   .header-container .category-btn::after {
+      display: none !important;
+   }
+   
+   .header-container .dropdown-menu {
+      border: 1px solid #555;
+      border-radius: 5px;
+      background-color: #222; /* 드롭다운 배경색 */
+   }
+   
+   .header-container .dropdown-menu .dropdown-item {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff; /* 글자 색상 */
+      background-color: #222; /* 배경 색상 */
+      padding: 10px 15px; /* 여백 조정 */
+      transition: background 0.3s ease-in-out;
+      height: 40px; /* 항목 높이 고정 */
+      display: flex;
+      align-items: center; /* 수직 중앙 정렬 */
+   }
+   
+   .header-container .dropdown-menu .dropdown-item:hover {
+      background-color: #8FD8F4; /* 호버 시 배경 색상 */
+      color: #000; /* 호버 시 글자 색상 */
+   }
+   
+   /* 검색창 스타일 */
+   .header-container .home-search {
+      display: flex;
+      align-items: center;
+      border: 2px solid #555;
+      border-radius: 25px;
+      padding: 5px 10px;
+      background-color: #222;
+      width: 350px;
+   }
+   
+   .header-container .home-search-box {
+      border: none;
+      outline: none;
+      flex: 1;
+      font-size: 14px;
+      padding: 5px;
+      background: transparent;
+      color: #fff;
+   }
+   
+   .header-container .home-search-box::placeholder {
+      color: #aaa;
+   }
+   
+   .header-container .home-search-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #8FD8F4;
+      font-size: 18px;
+   }
+   
+   .header-container .home-search-button:hover {
+      color: #fff;
+   }
+   
+   /* 로그인/회원가입 스타일 */
+   .header-container .home-right-part {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      list-style: none;
+   }
+   
+   .header-container .home-right-part li {
+      margin-left: 8px;
+   }
+   
+   .header-container .logged-user-id {
+      font-size: 16px;
+      font-weight: 700;
+   }
+   
+   .header-container .logged-user {
+      font-size: 12px;
+      font-weight: 400;
+   }
+   
+   .header-container .home-right-part a {
+      text-decoration: none;
+      padding: 8px 8px;
+   }
+   
+   /* .header-container .home-right-part a:hover {
+      background: #8FD8F4;
+      color: #000;
+   } */
+   
+   .header-container .header-icon {
+      width: 30px;
+      height: 30px;
+      filter: invert(100%) brightness(2);
+      transition: filter 0.3s ease-in-out;
+   }
+   
+   .header-container .header-icon-cart {
+      width: 33px;
+      height: 33px;
+      filter: invert(100%) brightness(2);
+      transition: filter 0.3s ease-in-out;
+   }
+   
+   .header-container .header-icon:hover,
+   .header-container .header-icon-cart:hover {
+      filter: invert(67%) sepia(22%) saturate(750%) hue-rotate(180deg) brightness(1.2);
+   }
+   
+   /* footer 관련 */
+   footer {
+      background-color: #f9f9f9;
+      color: #333;
+      padding: 20px 0;
+      font-family: 'Poppins', sans-serif;
+   }
+   
+   footer .footer-tab {
+      margin-bottom: 15px;
+   }
+   
+   footer .footer-tab a {
+      color: #666; /* 기존 흰색 → 중간 회색 */
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 14px;
+      font-weight: 600;
+   }
+   
+   footer .footer-tab a:hover {
+      color: #000; /* 마우스 오버 시 검은색 */
+   }
+   
+   footer .footer-desc {
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+      margin-bottom: 10px;
+   }
+   
+   footer .copyright-container {
+      text-align: center;
+      font-size: 13px;
+      color: #888; /* 기존보다 연한 회색 */
+      margin-top: 10px;
+   }
