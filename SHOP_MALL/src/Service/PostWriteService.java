@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import Model.PostDao;
 import Model.PostVo;
+import Model.MemberDao;
 import Model.MemberVo;
 
 public class PostWriteService implements Command {
@@ -42,7 +43,9 @@ public class PostWriteService implements Command {
 		int productPrice = Integer.parseInt(request.getParameter("productPrice"));
 		int productStock = Integer.parseInt(request.getParameter("productStock"));
 		String productInfo = request.getParameter("productInfo");
-		int authorid = 1;
+		
+		MemberDao mdao = new MemberDao();
+		int authorid = mdao.getAuthorid(user.getUserid());
 
 		// 첨부파일 처리
 		javax.servlet.http.Part imgfile = request.getPart("productImage");
@@ -67,7 +70,7 @@ public class PostWriteService implements Command {
 		// PostVo 객체 생성 후 값 설정
 		PostVo vo = new PostVo();
 		vo.setCategoryid(categoryid);
-		vo.setAuthorid(authorid); // user id를 int로 변환
+		vo.setAuthorid(authorid);
 		vo.setProductName(productName);
 		vo.setProductPrice(productPrice);
 		vo.setProductStock(productStock);

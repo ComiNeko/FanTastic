@@ -89,10 +89,10 @@ public class PostController extends HttpServlet {
 			response.sendRedirect("/post/postsellinglist.do"); // 글 등록 후 상품 목록으로 이동
 			return;
 
-		case "/postsellinglist.do": // 상품 목록 조회
-			new PostSellingService().doCommand(request, response);
-			page = "/posts/postsellinglist.jsp";
-			break;
+		case "/postsellinglist.do": // 상품 목록 조회 (페이징 포함)
+		    new PostSellingPagingService().doCommand(request, response); // ★ 이거 사용
+		    page = "/posts/postsellinglist.jsp";
+		    break;
 
 		case "/postdetail.do": // 상품 상세 페이지 이동
 			new PostDetailService().doCommand(request, response); // 서비스 호출
@@ -108,14 +108,16 @@ public class PostController extends HttpServlet {
 			new CreatorDetailService().doCommand(request, response);
 			return;
 			
-		case "/mysellinglist.do": 
+		case "/mysellinglist.do":
 		    new PostMySellingListService().doCommand(request, response);
-		    if (response.isCommitted()) { // 응답이 이미 전송된 경우, forward 방지
+
+		    // 응답이 이미 커밋되었는지 확인하고 forward 방지
+		    if (response.isCommitted()) {
 		        return;
 		    }
+
 		    page = "/posts/postmysellinglist.jsp";
 		    break;
-
 
 		case "/productdelete.do": // 상품 삭제 기능
 			new ProductDeleteService().doCommand(request, response);

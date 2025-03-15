@@ -20,15 +20,23 @@ public class PostMySellingListService implements Command {
         MemberVo loginUser = (MemberVo) session.getAttribute("user");
 
         if (loginUser == null) {
-            response.sendRedirect("/member/login.do");
-            return;
+            response.sendRedirect("/member/login.do"); // 로그인 안 한 경우 로그인 페이지로 이동
+            return; // sendRedirect() 이후 코드 실행 방지
         }
 
-        String userId = loginUser.getUserid(); // 로그인된 사용자 ID
+        String userId = loginUser.getUserid();
         PostDao dao = new PostDao();
-        List<PostVo> myProductList = dao.getMyProductList(userId); // 내가 등록한 상품 조회
+        
+        // 로그인한 사용자의 상품만 가져오기
+        List<PostVo> productList = dao.getMyProductList(userId);
 
-        request.setAttribute("myProductList", myProductList);
-        request.getRequestDispatcher("/posts/postmysellinglist.jsp").forward(request, response);
+        if (productList == null || productList.isEmpty()) {
+            System.out.println("등록된 상품 없음.");
+            request.setAttribute("productList", null);
+        } else {
+            System.out.println("등록된 상품 수: " + productList.size());
+            request.setAttribute("productList", productList);
+        }
+        
     }
 }
