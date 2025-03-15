@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (cancelButton) {
         cancelButton.addEventListener('click', function() {
             if (confirm('결제를 취소하시겠습니까?')) {
-                window.location.href = "/cart.jsp"; // 장바구니 페이지로 이동
+                window.location.href = "/post/postcart.do"; // 장바구니 페이지로 이동
             }
         });
     }

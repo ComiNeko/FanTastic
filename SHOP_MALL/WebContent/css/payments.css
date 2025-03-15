@@ -203,23 +203,23 @@
 }
 
 /* 결제 버튼 */
-.payment-button-group .payment-btn {
+.payment-button-group .payment_btn {
     background-color: #8FD8F4;
     color: white;
     border: none;
 }
 
-.payment-button-group .payment-btn:hover {
+.payment-button-group .payment_btn:hover {
     background-color: #7ac6e0;
 }
 
 /* 취소 버튼 */
-.payment-button-group .cancel-btn {
+.payment-button-group .cancel_btn {
     background-color: #ff6666;
     color: white;
     border: none;
 }
 
-.payment-button-group .cancel-btn:hover {
+.payment-button-group .cancel_btn:hover {
     background-color: #ff4d4d;
 }

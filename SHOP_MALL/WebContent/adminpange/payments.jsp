@@ -3,7 +3,7 @@
 <%@ include file="../fragments/header.jsp"%>
 <link rel="stylesheet" href="../css/payments.css">
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-<script src="/js/payments.js" defer></script>
+<script src="/js/payments.js?v=999" defer></script>
 
 <section class="payment-section">
 	<div class="payment-header">
@@ -20,9 +20,9 @@
 	            </div>
 	            <div class="payment-order-info">
 		            <ul>
-						<li>상품명: <strong>${param.productName}</strong></li>
-						<li>가격: <strong>${param.productPrice}원</strong></li>
-						<li>수량: <strong>${param.productQuantity}개</strong></li>
+						<li>상품명: <strong id="productName">${productName}</strong></li>
+						<li>가격: <strong>${productPrice}원</strong></li>
+						<li>수량: <strong>${productQuantity}개</strong></li>
 						<li>총 금액: <strong id="totalAmount">${productPrice * productQuantity}원</strong></li>
 		            </ul>
 	            </div>
@@ -56,12 +56,11 @@
 	            <div id="error-message" class="error-message" style="display: none;">주문 규정을 확인해야 결제할 수 있습니다.</div>
 	            
 		        <div class="payment-button-group">
-		            <button type="button" class="payment-btn" id="paymentButton" onclick="requestPayment()">결제하기</button>
-		            <button type="button" class="cancel-btn" id="cancelButton">취소</button>
-		        </div>
+            <button type="button" class="payment_btn" id="paymentButton" onclick="requestPayment()">결제하기</button>
+            <button type="button" class="cancel_btn" id="cancelButton">취소</button>
+        </div>
 	        </div>
 	    </form>
 	</div>
 </section>
-
 <%@ include file="/fragments/footer.jsp"%>
