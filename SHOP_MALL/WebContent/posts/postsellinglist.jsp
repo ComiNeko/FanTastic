@@ -21,6 +21,7 @@
 					<li onclick="location.href='/post/creatorlist.do'"
 					class="${pageContext.request.requestURI == '/post/creatorlist.do' ? 'active' : ''}">
 					크리에이터 </li>
+					<li onclick="location.href='/post/postsellinglist.do'">전체상품</li>
 					<li onclick="location.href='/post/postsellinglist.do?category=1'"
 						class="${param.category == '1' ? 'active' : ''}">키링</li>
 					<li onclick="location.href='/post/postsellinglist.do?category=2'"
@@ -46,64 +47,51 @@
 						<button type="button" class="write-button" onclick="location.href='/post/ptwrite.do'">상품등록</button>
 					</c:if>
 				</div> <!-- write-button-container end -->
-			
+
 				<div class="saleslist-products">
 					<c:choose>
-					<c:when test="${not empty productList}">
-						<c:forEach var="product" items="${productList}">
-							<div class="product-card">
-								<div class="product-card-top">
-									<a href="/post/postdetail.do?productid=${product.productid}">
-										<img src="${pageContext.request.contextPath}${product.productImage}" alt="${product.productName}" class="product-img">
-									</a>
-								</div>
-								<div class="product-card-bottom">
-									<div class="product-card-bottom-top">
+						<c:when test="${not empty productList}">
+							<c:forEach var="product" items="${productList}">
+								<div class="product-card">
+									<div class="product-card-top">
 										<a href="/post/postdetail.do?productid=${product.productid}">
-											<span class="product-author">${product.authorName}</span>
-											<span class="product-category">${product.categoryName}</span>
+											<img
+											src="${pageContext.request.contextPath}${product.productImage}"
+											alt="${product.productName}" class="product-img">
 										</a>
 									</div>
-									<div class="product-card-bottom-bottom">
-										<a href="/post/postdetail.do?productid=${product.productid}">
-											<span class="product-name">${product.productName}</span>
-											<span class="product-price">${product.productPrice}원</span>
-											<span class="product-info">${product.productInfo}</span>
-										</a>
+									<div class="product-card-bottom">
+										<div class="product-card-bottom-top">
+											<a href="/post/postdetail.do?productid=${product.productid}">
+												<span class="product-author">${product.authorName}</span>
+												<span class="product-category">${product.categoryName}</span>
+											</a>
+										</div>
+										<div class="product-card-bottom-bottom">
+											<a href="/post/postdetail.do?productid=${product.productid}">
+												<span class="product-name">${product.productName}</span>
+												<span class="product-price">${product.productPrice}원</span>
+												<span class="product-info">${product.productInfo}</span>
+											</a>
+										</div>
+									</div>
+									<!-- 장바구니 버튼 -->
+									<div class="product-card-btnbox">
+										<button class="cart-btn" data-productid="${product.productid}">
+											<img src="${pageContext.request.contextPath}/img/cart.png"
+												alt="장바구니" class="cart-icon">
+										</button>
 									</div>
 								</div>
-								<!-- 장바구니 버튼 -->
-								<div class="product-card-btnbox">
-									<button class="cart-btn" data-productid="${product.productid}">
-										<img src="${pageContext.request.contextPath}/img/cart.png" alt="장바구니" class="cart-icon">
-									</button>
-								</div>
-							</div>
-						</c:forEach>
-						
-						<!--------------- 페이징 ------------>
-<div class="pagination">
-    <c:if test="${startPage > 1}">
-        <a href="/post/postsellinglist.do?page=${startPage - 1}&category=${param.category}">&laquo;</a>
-    </c:if>
-
-    <c:forEach var="i" begin="${startPage}" end="${endPage}">
-        <a href="/post/postsellinglist.do?page=${i}&category=${param.category}" class="${i == currentPage ? 'active' : ''}">${i}</a>
-    </c:forEach>
-
-    <c:if test="${endPage < totalPage}">
-        <a href="/post/postsellinglist.do?page=${endPage + 1}&category=${param.category}">&raquo;</a>
-    </c:if>
-</div>
-					</c:when>
-					<c:otherwise>
-						<p>해당 카테고리에 등록된 상품이 없습니다.</p>
-					</c:otherwise>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<p>해당 카테고리에 등록된 상품이 없습니다.</p>
+						</c:otherwise>
 					</c:choose>
 				</div> 				<!-- saleslist-products end -->
 				
-				<!-- 페이지 번호 표시 시작 -->
-				<div class="pagination">
+				<div class="saleslist-pagination">
 					<c:if test="${startPage > 1}">
 						<a href="/post/postsellinglist.do?page=${startPage - 1}&category=${param.category}">&laquo;</a>
 					</c:if>

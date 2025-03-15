@@ -52,6 +52,7 @@
 								onclick="location.href='/post/postsellinglist.do'" data-toggle="dropdown">Shop</button>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="/post/creatorlist.do">크리에이터</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do">전체상품</a>
 								<a class="dropdown-item" href="/post/postsellinglist.do?category=1">키링</a>
 								<a class="dropdown-item" href="/post/postsellinglist.do?category=2">아크릴</a>
 								<a class="dropdown-item" href="/post/postsellinglist.do?category=3">포토카드</a>

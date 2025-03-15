@@ -46,14 +46,14 @@
 					<label for="address">주소</label>
 					<div class="signup-address">
 						<input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
-						<p id="err-address"></p>
 						<button type="button" id="findAddressBtn">주소 찾기</button>
 					</div>
 					<div class="signup-detailAddress">
 						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세 주소(동/호 등)를 입력하세요.">
-						<p id="err-detailAddress"></p>
 					</div>
 				</div>
+				<p id="err-address"></p>
+				<p id="err-detailAddress"></p>
 
 				<div class="signup-form-group-email">
 					<label for="email">이메일</label>
@@ -212,6 +212,32 @@
 			return true;
 		}
 	}
+	
+	// 주소 필드 검사
+	function chkAddress() {
+    	var address = $("#address").val().trim();
+    	
+	    if (!address) {
+	        $("#err-address").html("<span class='error-address'>주소가 등록되지 않았습니다.</span>")
+	        return false;
+	    } else {
+	        $("#err-address").html("");
+	        return true;
+	    }
+	}
+	
+	// 상세 주소 필드 검사
+	function chkDetailAddress() {
+    	var detailAddress = $("#detailAddress").val().trim();
+    	
+	    if (!detailAddress) {
+	        $("#err-detailAddress").html("<span class='error-detailaddress'>상세주소가 입력되지 않았습니다.</span>")
+	        return false;
+	    } else {
+	        $("#err-detailAddress").html("");
+	        return true;
+	    }
+	}
 
 	// 주소 찾기 버튼 클릭 시 동작
 	document.getElementById("findAddressBtn").addEventListener("click", function() {
@@ -356,7 +382,8 @@
 		$("#password").on("blur", chkPwd);
 		$("#passwordConfirm").on("blur", chkPwdC);
 		$("#phonenumber").on("blur", chkPhone);
-		$("#address").on("blur", chkAddr);
+		$("#address").on("blur", chkAddress);
+		$("#detailAddress").on("blur", chkDetailAddress);
 		$("#email").on("blur", chkEmail);
  	
 		$("#signupForm").submit(function(e) {
@@ -373,7 +400,9 @@
 				valid = false;
 			if (!chkPhone())
 				valid = false;
-			if (!chkAddr())
+			if (!chkAddress())
+				valid = false;
+			if (!chkDetailAddress())
 				valid = false;
 			if (!chkEmail())
 				valid = false;

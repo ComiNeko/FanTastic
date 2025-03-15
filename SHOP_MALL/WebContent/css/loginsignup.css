@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+	
 	/* 회원가입 페이지 */
 	.signup-page .signup-container {
 		border: 2px solid #BDE3F2;
@@ -467,6 +467,11 @@
 	}
 	
 	/* 스크립트 ERROR 스타일 */
+	.signup-page p {
+		margin: 0;
+		padding: 0;
+	}
+	
 	.signup-page .error {
 		display: block;
 		padding: 0;
@@ -496,7 +501,8 @@
 	    margin-left: 122px;
 	}
 	
-	.signup-page .error-email, .error-code, .error-checkbox {
+	.signup-page .error-address, .error-detailaddress, 
+	.error-email, .error-code, .error-checkbox {
 		display: block;
 		padding: 0;
 		margin: 0;

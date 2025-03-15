@@ -229,7 +229,7 @@
 	    background-color: #2980b9;
 	}
 	
-	/* 장바구니 추가 버튼 (기본 숨김, 필요 시 사용 가능)
+	/* 장바구니 추가 버튼 (기본 숨김, 필요 시 사용 가능) */
 	.saleslist-section .add-to-cart {
 	    background-color: #ff8c00;
 	    color: white;
@@ -245,7 +245,7 @@
 	    background-color: #e67e22;
 	    transform: scale(1.05);
 	}
-	*/
+	
 	
 	.saleslist-section .add-to-cart i {
 	    font-size: 18px;
@@ -254,15 +254,14 @@
 	}
 	
 	/* 페이지네이션 (카드 그리드 기준 가운데) */
-	.saleslist-section .creatorlist-frame .pagination {
-	    grid-column: 1 / -1; /* 전체 열 차지 */
+	.saleslist-section .saleslist-pagination {
 	    display: flex;
-	    justify-content: center; /* 카드 기준 가운데 */
-	    margin-top: 20px;
+	    justify-content: center;
+	    margin: 20px 0;
 	}
 	
 	/* 페이지 번호 스타일 */
-	.saleslist-section .pagination a {
+	.saleslist-section .saleslist-pagination a {
 	    margin: 0 5px;
 	    padding: 8px 12px;
 	    text-decoration: none;
@@ -272,13 +271,13 @@
 	    font-size: 14px;
 	}
 	
-	.saleslist-section .pagination a.active {
-	    background-color: #252640;
+	.saleslist-section .saleslist-pagination a.active {
+	    background-color: #8FD8F4;
 	    color: white;
-	    border: 1px solid #252640;
+	    border: 1px solid #8FD8F4;
 	}
 	
-	.saleslist-section .pagination a:hover {
+	.saleslist-section .saleslist-pagination a:hover {
 	    background-color: #eee;
 	}
 	

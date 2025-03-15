@@ -20,6 +20,7 @@
 					<li onclick="location.href='/post/creatorlist.do'"
 					class="${pageContext.request.requestURI == '/post/creatorlist.do' ? 'active' : ''}">
 					크리에이터 </li>
+					<li onclick="location.href='/post/postsellinglist.do'">전체상품</li>
 					<li onclick="location.href='/post/postsellinglist.do?category=1'"
 						class="${param.category == '1' ? 'active' : ''}">키링</li>
 					<li onclick="location.href='/post/postsellinglist.do?category=2'"
