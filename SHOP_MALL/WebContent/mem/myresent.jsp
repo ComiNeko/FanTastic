@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page session="true"%>
 <%@ include file="../fragments/header.jsp"%>
+<input type="hidden" name="recentViewId" value="${rv.recentViewId}">
 
 <link rel="stylesheet" href="../css/mypage.css">
 
@@ -79,6 +80,46 @@
     cursor: not-allowed;
 }
 
+
+
+
+
+.recent-views-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 20px;
+}
+.recent-view-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+}
+.recent-view-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+.recent-view-card .product-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.recent-view-card .product-price {
+    color: #f00;
+    margin-bottom: 8px;
+}
+.recent-view-card .remove-btn {
+    background-color: #ccc;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.recent-view-card .remove-btn:hover {
+    background-color: #aaa;
+}
 </style>
 
 
@@ -114,93 +155,29 @@
 				    </c:if>
 				    
 				</div> <!-- "profile-buttons" -->
-            </div> <!-- "profile-info" -->
+            </div> <!-- "profile-info" -->>
 
-			<!-- 오른쪽: 통계 정보 (예시) -->
-			<div class="profile-right">
-				<div class="status-box">
-					<div class="item">
-						<div class="count">0</div>
-						<div class="desc">최근 주문/배송중</div>
-					</div>
-					<div class="item">
-						<div class="count">0</div>
-						<div class="desc">작성한 리뷰</div>
-					</div>
-					<div class="item">
 
-						<div class="count">${sessionScope.favoriteCount}</div>
+<!-- 최근 본 상품 목록 -->
+<h2>최근 본 상품</h2>
 
-						<div class="desc">좋아요 한 상품</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="recent-views-container">
+    <c:forEach var="rv" items="${recentViews}">
+        <div class="recent-view-card">
+            <img src="${rv.productImage}" alt="상품 이미지" />
+            <div class="product-name">${rv.productName}</div>
+            <div class="product-author">${rv.authorName}</div>
+            <div class="product-price">${rv.productPrice}원</div>
 
-	<!-- 2) 좌우 2컬럼 레이아웃 -->
-	<div class="mypage-two-col-container">
-
-		<!-- 왼쪽 컬럼 (메뉴) -->
-		<div class="left-col">
-			<div class="mypage-submenu">
-				<h6>쇼핑정보</h6>
-				<ul>
-					<li><a href="#">구매내역</a></li>
-					<li><a href="/post/postcart.do">장바구니</a></li>
-					<li><a href="/post//list.do">좋아요</a></li>
-					<li><a href="/member/recentViewPage.do">최근 본</a></li>
-				</ul>
-				<h6>고객센터</h6>
-				<ul>
-					<li><a href="/member/faq.do">FAQ</a></li>
-				</ul>
-			</div>
-		</div>
-
-<!-- 오른쪽 컬럼 (메인 콘텐츠) -->
-<div class="right-col">
-    <section id="orderHistory" class="content-section">
-        <h5>주문 목록</h5>
-        <div class="order-box">
-            <table>
-                <thead>
-                    <tr>
-                        <th>주문번호</th>
-                        <th>주문일자</th>
-                        <th>상품정보</th>
-                        <th>수량</th>
-                        <th>배송상태</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <c:choose>
-                        <c:when test="${not empty recentOrder}">
-                            <tr>
-                                <td>${recentOrder.orderid}</td> <!-- 주문번호 -->
-                                <td>${recentOrder.createdAt}</td> <!-- 주문일자 -->
-                                <td>
-                                    <img src="${recentOrder.productImage}" alt="상품 이미지" width="100px" height="100px"><br>
-                                    ${recentOrder.productName}
-                                </td>
-                                <td>${recentOrder.quantity}</td> <!-- 수량 -->
-                                <td>${recentOrder.deliveryStatus}</td> <!-- 배송상태 -->
-                            </tr>
-                        </c:when>
-
-                        <c:otherwise>
-                            <tr>
-                                <td colspan="5">최근 3개월 내 구매내역이 없습니다.</td>
-                            </tr>
-                        </c:otherwise>
-                    </c:choose>
-                </tbody>
-
-            </table>
+            <form action="${pageContext.request.contextPath}/recentView/remove.do" method="post" style="margin:0;">
+                
+                <input type="hidden" name="recent_view_id" value="${rv.recent_view_id}">
+                <button type="submit" class="remove-btn">삭제</button>
+            </form>
         </div>
-    </section>
+    </c:forEach>
 </div>
+
     </div> <!-- mypage-two-col-container(left-col + right-col) -->
 </div>    
 

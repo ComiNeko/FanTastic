@@ -137,54 +137,60 @@ public class PaymentDao {
     //LTR-마이페이지 결제 VIEW 관련
 //-----------------
     
-	 // 최근 3개월 이내 주문 내역 1건 조회
-	    public PostVo getRecentOrderByUserId(String userId) {
-	        Connection conn = null;
-	        PreparedStatement pstmt = null;
-	        ResultSet rs = null;
-	
-	        PostVo vo = null;
-	
-	        String sql = "SELECT " +
-	                     "o.orderid AS order_id, " +
-	                     "p.productName AS product_name, " +
-	                     "od.productCount AS product_count, " +
-	                     "od.deliveryStatus AS delivery_status, " +
-	                     "pay.paymentDate AS payment_date, " +
-	                     "p.productImage AS product_image " +
-	                     "FROM NEW_ORDERS o " +
-	                     "JOIN NEW_ORDERDETAILS od ON o.orderid = od.orderid " +
-	                     "JOIN NEW_PRODUCTS p ON od.productid = p.productid " +
-	                     "JOIN NEW_PAYMENTS pay ON o.orderid = pay.orderid " +
-	                     "WHERE o.userid = ? " +
-	                     "AND pay.paymentDate >= ADD_MONTHS(SYSDATE, -3) " +
-	                     "ORDER BY pay.paymentDate DESC " +
-	                     "FETCH FIRST 1 ROWS ONLY";
-	
-	        try {
-	            conn = DBManager.getInstance().getConnection();
-	            pstmt = conn.prepareStatement(sql);
-	            pstmt.setString(1, userId);
-	
-	            rs = pstmt.executeQuery();
-	
-	            if (rs.next()) {
-	                vo = new PostVo();
-	                vo.setProductid(rs.getInt("order_id"));
-	                vo.setProductName(rs.getString("product_name"));
-	                vo.setQuantity(rs.getInt("product_count"));
-	                vo.setProductImage(rs.getString("product_image"));
-	                vo.setCreatedAt(rs.getTimestamp("payment_date").toString());
-	            }
-	
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        } finally {
-	            DBManager.getInstance().close(rs, pstmt, conn);
-	        }
-	
-	        return vo;
-	    }
+ // 최근 3개월 이내 주문 내역 1건 조회 (수정본)
+    public PostVo getRecentOrderByUserId(String userId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        PostVo vo = null;
+
+        String sql = 
+            "SELECT * FROM ( " +
+            "    SELECT " +
+            "        o.orderid AS order_id, " +
+            "        p.productid AS product_id, " +
+            "        p.productName AS product_name, " +
+            "        od.productCount AS product_count, " +
+            "        od.deliveryStatus AS delivery_status, " +
+            "        pay.paymentDate AS payment_date, " +
+            "        p.productImage AS product_image " +
+            "    FROM NEW_ORDERS o " +
+            "    JOIN NEW_ORDERDETAILS od ON o.orderid = od.orderid " +
+            "    JOIN NEW_PRODUCTS p ON od.productid = p.productid " +
+            "    JOIN NEW_PAYMENTS pay ON o.orderid = pay.orderid " +
+            "    WHERE o.userid = ? " +
+            "    AND pay.paymentDate >= ADD_MONTHS(SYSDATE, -3) " +
+            "    ORDER BY pay.paymentDate DESC " +
+            ") WHERE ROWNUM = 1";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                vo = new PostVo();
+                vo.setOrderid(rs.getInt("order_id"));
+                vo.setProductid(rs.getInt("product_id"));
+                vo.setProductName(rs.getString("product_name"));
+                vo.setQuantity(rs.getInt("product_count"));
+                vo.setDeliveryStatus(rs.getString("delivery_status"));
+                vo.setProductImage(rs.getString("product_image"));
+                vo.setCreatedAt(rs.getTimestamp("payment_date").toString());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+
+        return vo;
+    }
+
 
     
 	    

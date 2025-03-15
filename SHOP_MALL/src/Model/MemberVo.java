@@ -28,6 +28,7 @@ public class MemberVo {
 	    
 	    // 내부 클래스: 최근 본 상품 정보
 	    public static class RecentView {
+	    	private int recent_view_id; 
 	        private int productId;      // 상품 ID
 	        private String viewDate;    // 조회 시각 (String 형식)
 	        
@@ -36,6 +37,25 @@ public class MemberVo {
 	        private int productPrice;   // 상품 가격
 	        private String productImage; // 상품 이미지 URL
 
+	       
+			private String authorName; // 작가명 추가
+
+	        public String getAuthorName() {
+	            return authorName;
+	        }
+
+	        public void setAuthorName(String authorName) {
+	            this.authorName = authorName;
+	        }
+	        
+	        
+	        public int getRecent_view_id() {
+				return recent_view_id;
+			}
+
+			public void setRecent_view_id(int recent_view_id) {
+				this.recent_view_id = recent_view_id;
+			}
 	        public int getProductId() {
 	            return productId;
 	        }

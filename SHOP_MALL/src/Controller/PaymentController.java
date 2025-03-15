@@ -60,14 +60,7 @@ public class PaymentController extends HttpServlet {
             return;
             
             
-         // 마이페이지: 메인화면에 최근 주문 내역 1건 띄우기
-		case "/mypayment.do":
-		    if (session == null || session.getAttribute("user") == null) {
-		        response.sendRedirect(request.getContextPath() + "/member/login.do");
-		        return;
-		    }
-		    new MemberPaymentView().doCommand(request, response);
-		    return;
+         
     
 			
 		}

@@ -27,6 +27,12 @@ public class PostVo {
 	
 	// 찜하기
 	private int favoriteid;
+	
+	
+	//주문 관련 필드 (추가)
+		private int orderid;         // 주문 번호
+		private String deliveryStatus; // 배송 상태
+		private String paymentDate;    // 결제 일자 (옵션)
 
 	public int getProductid() {
 		return productid;
@@ -164,5 +170,35 @@ public class PostVo {
 		this.favoriteid = favoriteid;
 	}
 
+	
+	
+	//주문 필드 Getter / Setter 추가
+	public int getOrderid() {
+		return orderid;
+	}
+
+	public void setOrderid(int orderid) {
+		this.orderid = orderid;
+	}
+
+	public String getDeliveryStatus() {
+		return deliveryStatus;
+	}
+
+	public void setDeliveryStatus(String deliveryStatus) {
+		this.deliveryStatus = deliveryStatus;
+	}
+
+	public String getPaymentDate() {
+		return paymentDate;
+	}
+
+	public void setPaymentDate(String paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+
+	
+	
+	
 	 
 }

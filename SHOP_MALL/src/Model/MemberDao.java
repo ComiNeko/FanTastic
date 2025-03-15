@@ -140,111 +140,140 @@ public class MemberDao {
 		 
 		
 		// 최근 본 상품 추가
-		 public void addRecentView(String userId, int productId) {
-		     Connection conn = null;
-		     PreparedStatement pstmt = null;
-		     ResultSet rs = null;
-		     try {
-		         conn = DBManager.getInstance().getConnection();
-		         conn.setAutoCommit(false);
-		         
-		         // 1. 동일한 상품이 이미 등록되어 있으면 삭제 (중복 제거)
-		         String deleteSql = "DELETE FROM NEW_RECENT_VIEWS WHERE userid = ? AND productid = ?";
-		         pstmt = conn.prepareStatement(deleteSql);
-		         pstmt.setString(1, userId);
-		         pstmt.setInt(2, productId);
-		         pstmt.executeUpdate();
-		         pstmt.close();
-		         
-		         // 2. 새 기록 삽입
-		         String insertSql = "INSERT INTO NEW_RECENT_VIEWS (recent_view_id, userid, productid, view_date) VALUES (NEW_RECENT_VIEWS_SEQ.nextval, ?, ?, CURRENT_TIMESTAMP)";
-		         pstmt = conn.prepareStatement(insertSql);
-		         pstmt.setString(1, userId);
-		         pstmt.setInt(2, productId);
-		         pstmt.executeUpdate();
-		         pstmt.close();
-		         
-		         // 3. 사용자의 최근 본 상품 개수가 10개를 초과하면 오래된 항목 삭제
-		         String selectSql = "SELECT recent_view_id FROM (SELECT recent_view_id FROM NEW_RECENT_VIEWS WHERE userid = ? ORDER BY view_date DESC) WHERE ROWNUM > 10";
-		         pstmt = conn.prepareStatement(selectSql);
-		         pstmt.setString(1, userId);
-		         rs = pstmt.executeQuery();
-		         List<Integer> idsToDelete = new ArrayList<>();
-		         while(rs.next()){
-		             idsToDelete.add(rs.getInt("recent_view_id"));
-		         }
-		         rs.close();
-		         pstmt.close();
-		         
-		         if(!idsToDelete.isEmpty()){
-		             StringBuilder sb = new StringBuilder("DELETE FROM NEW_RECENT_VIEWS WHERE recent_view_id IN (");
-		             for(int i = 0; i < idsToDelete.size(); i++){
-		                 sb.append("?");
-		                 if(i < idsToDelete.size() - 1) sb.append(",");
-		             }
-		             sb.append(")");
-		             pstmt = conn.prepareStatement(sb.toString());
-		             for(int i = 0; i < idsToDelete.size(); i++){
-		                 pstmt.setInt(i+1, idsToDelete.get(i));
-		             }
-		             pstmt.executeUpdate();
-		             pstmt.close();
-		         }
-		         
-		         conn.commit();
-		     } catch(Exception e) {
-		         e.printStackTrace();
-		         try { if(conn != null) conn.rollback(); } catch(Exception ex) {}
-		     } finally {
-		         DBManager.getInstance().close(rs, pstmt, conn);
-		     }
-		 }
+	public void addRecentView(String userid, int productid) {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        conn = DBManager.getInstance().getConnection();
+	        conn.setAutoCommit(false);
+
+	        // 1. 동일한 상품이 이미 등록되어 있으면 삭제 (중복 제거)
+	        String deleteSql = "DELETE FROM NEW_RECENT_VIEWS WHERE userid = ? AND productid = ?";
+	        pstmt = conn.prepareStatement(deleteSql);
+	        pstmt.setString(1, userid);
+	        pstmt.setInt(2, productid);
+	        pstmt.executeUpdate();
+	        pstmt.close();
+
+	        // 2. 새 기록 삽입
+	        String insertSql = "INSERT INTO NEW_RECENT_VIEWS (recent_view_id, userid, productid, view_date) "
+	                         + "VALUES (NEW_RECENT_VIEWS_SEQ.nextval, ?, ?, CURRENT_TIMESTAMP)";
+	        pstmt = conn.prepareStatement(insertSql);
+	        pstmt.setString(1, userid);
+	        pstmt.setInt(2, productid);
+	        pstmt.executeUpdate();
+	        pstmt.close();
+
+	        // 3. 최근 본 상품 개수가 10개 초과하면 오래된 항목 삭제
+	        String selectSql = "SELECT recent_view_id "
+	                         + "FROM (SELECT recent_view_id FROM NEW_RECENT_VIEWS WHERE userid = ? ORDER BY view_date DESC) "
+	                         + "WHERE ROWNUM > 10";
+	        pstmt = conn.prepareStatement(selectSql);
+	        pstmt.setString(1, userid);
+	        rs = pstmt.executeQuery();
+
+	        List<Integer> idsToDelete = new ArrayList<>();
+	        while (rs.next()) {
+	            idsToDelete.add(rs.getInt("recent_view_id"));
+	        }
+	        rs.close();
+	        pstmt.close();
+
+	        if (!idsToDelete.isEmpty()) {
+	            StringBuilder sb = new StringBuilder("DELETE FROM NEW_RECENT_VIEWS WHERE recent_view_id IN (");
+	            for (int i = 0; i < idsToDelete.size(); i++) {
+	                sb.append("?");
+	                if (i < idsToDelete.size() - 1) sb.append(",");
+	            }
+	            sb.append(")");
+
+	            pstmt = conn.prepareStatement(sb.toString());
+	            for (int i = 0; i < idsToDelete.size(); i++) {
+	                pstmt.setInt(i + 1, idsToDelete.get(i));
+	            }
+	            pstmt.executeUpdate();
+	            pstmt.close();
+	        }
+
+	        conn.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        try { if (conn != null) conn.rollback(); } catch (Exception ex) {}
+	    } finally {
+	        DBManager.getInstance().close(rs, pstmt, conn);
+	    }
+	}
 
 		 // 최근 본 상품 조회 (view_date를 String으로 변환)
-		 public List<MemberVo.RecentView> getRecentViews(String userId) {
-		     List<MemberVo.RecentView> list = new ArrayList<>();
-		     Connection conn = null;
-		     PreparedStatement pstmt = null;
-		     ResultSet rs = null;
-		     String sql = "SELECT recent_view_id, productid, view_date FROM NEW_RECENT_VIEWS WHERE userid = ? ORDER BY view_date DESC";
-		     try {
-		         conn = DBManager.getInstance().getConnection();
-		         pstmt = conn.prepareStatement(sql);
-		         pstmt.setString(1, userId);
-		         rs = pstmt.executeQuery();
-		         while(rs.next()){
-		             MemberVo.RecentView rv = new MemberVo.RecentView();
-		             rv.setProductId(rs.getInt("productid"));
-		             // TIMESTAMP를 String으로 변환 (기본 toString() 또는 원하는 포맷 적용)
-		             java.sql.Timestamp ts = rs.getTimestamp("view_date");
-		             rv.setViewDate(ts.toString());
-		             list.add(rv);
-		         }
-		     } catch(Exception e) {
-		         e.printStackTrace();
-		     } finally {
-		         DBManager.getInstance().close(rs, pstmt, conn);
-		     }
-		     return list;
-		 }
+	public List<MemberVo.RecentView> getRecentViews(String userid) {
+	    List<MemberVo.RecentView> list = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    String sql = "SELECT rv.recent_view_id, rv.productid, rv.view_date, "
+	               + "p.productName, p.productPrice, p.productImage, "
+	               + "a.authorName "
+	               + "FROM NEW_RECENT_VIEWS rv "
+	               + "JOIN NEW_PRODUCTS p ON rv.productid = p.productid "
+	               + "JOIN NEW_AUTHOR a ON p.authorid = a.authorid "
+	               + "WHERE rv.userid = ? "
+	               + "ORDER BY rv.view_date DESC";
+
+	    try {
+	        conn = DBManager.getInstance().getConnection();
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, userid);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            MemberVo.RecentView rv = new MemberVo.RecentView();
+
+	            
+	            rv.setRecent_view_id(rs.getInt("recent_view_id"));
+
+	            // 기존 상품 정보 세팅
+	            rv.setProductId(rs.getInt("productid"));
+	            rv.setViewDate(rs.getTimestamp("view_date").toString());
+	            rv.setProductName(rs.getString("productName"));
+	            rv.setProductPrice(rs.getInt("productPrice"));
+	            rv.setProductImage(rs.getString("productImage"));
+	            rv.setAuthorName(rs.getString("authorName"));
+
+	            // 리스트에 추가
+	            list.add(rv);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBManager.getInstance().close(rs, pstmt, conn);
+	    }
+
+	    return list;
+	}
+
 
 		 // 최근 본 상품 삭제
-		 public void removeRecentView(String userId, int productId) {
-		     Connection conn = null;
-		     PreparedStatement pstmt = null;
-		     String sql = "DELETE FROM NEW_RECENT_VIEWS WHERE userid = ? AND productid = ?";
-		     try {
-		         conn = DBManager.getInstance().getConnection();
-		         pstmt = conn.prepareStatement(sql);
-		         pstmt.setString(1, userId);
-		         pstmt.setInt(2, productId);
-		         pstmt.executeUpdate();
-		     } catch(Exception e) {
-		         e.printStackTrace();
-		     } finally {
-		         DBManager.getInstance().close(pstmt, conn);
-		     }
-		 }	 
+	public void removeRecentView(String userid, int recent_view_id) {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+
+	    String sql = "DELETE FROM NEW_RECENT_VIEWS WHERE userid = ? AND recent_view_id = ?";
+
+	    try {
+	        conn = DBManager.getInstance().getConnection();
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, userid);
+	        pstmt.setInt(2, recent_view_id);
+	        pstmt.executeUpdate();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBManager.getInstance().close(pstmt, conn);
+	    }
+	}
 
 	// ________________________________________________________________________________//
 

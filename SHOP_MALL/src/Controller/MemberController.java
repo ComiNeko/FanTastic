@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,7 @@ import Service.MemberFindPwId;
 import Service.MemberFindPwToken;
 import Service.MemberLogin;
 import Service.MemberLogout;
+import Service.MemberPaymentView;
 import Service.MemberRecentView;
 import Service.MemberResetPw;
 import Service.MemberUserAddress;
@@ -152,8 +154,12 @@ public class MemberController extends HttpServlet {
 				return;
 			}
 			new MyPageCountView().doCommand(request, response);
-			page = "/mem/mypage.jsp";
+			new MemberPaymentView().doCommand(request, response);
+			request.getRequestDispatcher("/mem/mypage.jsp").forward(request, response);
 			break;
+			
+		
+				
 
 		// 회원정보 수정 페이지 요청: 수정 폼을 보여줌
 		case "/updateMyInfo.do":
@@ -210,8 +216,15 @@ public class MemberController extends HttpServlet {
 		    response.sendRedirect("/member/mypage.do"); // 등록 후 마이페이지
 		    return;
 		    
+		    
+		    
+		    
 		case "/recentViewPage.do":
 		    new MemberRecentView().doCommand(request, response);
+		    return;
+
+		case "/recentView/remove.do":
+		    new MemberRecentView().removeRecentViewCommand(request, response);
 		    return;
 		    
 		case "/faq.do" :
