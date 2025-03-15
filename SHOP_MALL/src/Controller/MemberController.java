@@ -23,6 +23,7 @@ import Service.MemberFindPwId;
 import Service.MemberFindPwToken;
 import Service.MemberLogin;
 import Service.MemberLogout;
+import Service.MemberRecentView;
 import Service.MemberResetPw;
 import Service.MemberUserAddress;
 import Service.MemberUserIdCheck;
@@ -209,6 +210,9 @@ public class MemberController extends HttpServlet {
 		    response.sendRedirect("/member/mypage.do"); // 등록 후 마이페이지
 		    return;
 		    
+		case "/recentViewPage.do":
+		    new MemberRecentView().doCommand(request, response);
+		    return;
 		    
 		case "/faq.do" :
 			page = "/mem/Faq.jsp";

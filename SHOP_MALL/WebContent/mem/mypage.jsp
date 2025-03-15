@@ -150,7 +150,7 @@
 				<ul>
 					<li><a href="#">구매내역</a></li>
 					<li><a href="/post/postcart.do">장바구니</a></li>
-					<li><a href="/post/mylike.do">좋아요</a></li>
+					<li><a href="/post//list.do">좋아요</a></li>
 					<li><a href="#recentlyViewed">최근 본</a></li>
 				</ul>
 				<h6>고객센터</h6>
@@ -163,7 +163,7 @@
 
 <!-- 오른쪽 컬럼 (메인 콘텐츠) -->
 <div class="right-col">
-	<!-- 예시: 구매내역 섹션 -->
+	
 	<section id="orderHistory" class="content-section">
 		<h5>주문 목록</h5>
 		<div class="order-box">
