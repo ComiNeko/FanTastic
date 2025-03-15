@@ -29,10 +29,10 @@ public class PaymentService implements Command {
             }
         }
         
-        System.out.println(productId);
-        System.out.println(productName);
-        System.out.println(productPrice);
-        System.out.println(productQuantity);
+        System.out.println("Received Product ID: " + productId);
+        System.out.println("Received Product Name: " + productName);
+        System.out.println("Received Product Price: " + productPrice);
+        System.out.println("Received Product Quantity: " + productQuantity);
 
         // 상품 정보를 request에 저장
         request.setAttribute("productId", productId);

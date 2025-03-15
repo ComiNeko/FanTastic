@@ -67,18 +67,40 @@
 	}
 	
 	function buyNow(productId, productName, productPrice, productQuantity, productImage) {
-	    console.log("productId:", productId);
-	    console.log("productName:", productName);
-	    console.log("productPrice:", productPrice);
-	    console.log("productQuantity:", productQuantity);
-	    console.log("productImage:", productImage);
-	
-	    const encodedName = encodeURIComponent(productName);
-	    const encodedImage = encodeURIComponent(productImage);
-	    const queryString = `?productId=${productId}&productName=${encodedName}&productPrice=${productPrice}&productQuantity=${productQuantity}&productImage=${encodedImage}`;
-	    
-	    console.log("QueryString:", queryString); // 쿼리 스트링 확인
-	    window.location.href = `/payment/payment.do${queryString}`;
+		//console.log("buyNow() 호출됨!");
+	    //console.log("전달될 값:", productId, productName, productPrice, productQuantity, productImage);
+		//
+	    //const encodedName = encodeURIComponent(productName);
+		//const encodedImage = encodeURIComponent(productImage);
+	    //const queryString = `?productId=${productId}&productName=${encodedName}&productPrice=${productPrice}&productQuantity=${productQuantity}&productImage=${encodedImage}`;
+	    //
+		// console.log("생성된 URL:", `/payment/payment.do${queryString}`); // 생성된 URL 확인
+	    //window.location.href = `/payment/payment.do${queryString}`;
+
+	    // 폼 요소 생성
+	    const form = document.createElement("form");
+	    form.method = "POST";
+	    form.action = "/payment/payment.do";
+
+	    // 필드 추가 (🚨 기존의 innerHTML 대신 `createElement()` 사용)
+	    const fields = {
+	        productId: productId,
+	        productName: productName,
+	        productPrice: productPrice,
+	        productQuantity: productQuantity,
+	        productImage: productImage
+	    };
+
+	    for (let key in fields) {
+	        const input = document.createElement("input");
+	        input.type = "hidden";
+	        input.name = key;
+	        input.value = fields[key];
+	        form.appendChild(input);
+	    }
+
+	    document.body.appendChild(form);
+	    form.submit();
 	}
 </script>
 

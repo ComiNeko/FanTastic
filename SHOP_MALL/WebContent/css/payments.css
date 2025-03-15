@@ -1,163 +1,225 @@
 @charset "UTF-8";
 
-body {
-    font-family: Arial, sans-serif;
+/* 전체 섹션 스타일 */
+.payment-section {
     background-color: #f8f9fa;
-    margin: 0;
-    padding: 20px;
+    padding: 20px 0;
 }
 
-.payment_container {
-    margin: 20px auto; /* 위쪽 마진 추가 */
-    max-width: 1200px;
+/* 컨테이너 스타일 */
+.payment-container {
+    max-width: 900px;
+    background: #fff;
     padding: 20px;
-    background-color: white;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    margin: auto;
 }
 
-h1 {
+/* 헤더 스타일 */
+.payment-header {
+    padding: 15px 0;
+}
+
+.payment-title {
+	text-align: center;
+	padding: 15px 0;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+/* 주문 정보 섹션 */
+.payment-order-summary {
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.payment-order-title {
+    font-size: 18px;
+    font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-group {
     margin-bottom: 15px;
+    color: #333;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
+.payment-order-info ul {
+    list-style: none;
+    padding: 0;
 }
 
-.form-group input, .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
+.payment-order-info li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.payment-order-info li:last-child {
+    border-bottom: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 사용자 정보 */
+.payment-userinfo {
+    padding: 20px;
+    margin-top: 20px;
     border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
 }
 
-.order-summary {
-    border-top: 1px solid #ccc;
-    padding-top: 20px;
+.payment-userinfo p {
+    margin: 0;
+    padding: 8px 0;
+    font-size: 16px;
+    color: #444;
+    border-bottom: 1px solid #ddd;
+}
+
+.payment-userinfo p:last-child {
+    border-bottom: none;
+}
+
+/* 결제 옵션 선택 */
+.payment-form-group {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     margin-top: 20px;
 }
 
-.order-summary h2 {
-    margin-bottom: 15px;
-}
-
-.order-summary-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.total {
+.payment-form-group label {
+    display: block;
+    font-size: 16px;
     font-weight: bold;
-    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 .payment-options {
     display: flex;
-    margin-bottom: 20px;
-    gap: 15px; /* 버튼 간격을 넓히기 위한 속성 */
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
 }
 
 .payment-btn {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 15px 30px; /* 버튼 크기를 키우기 위해 패딩을 늘림 */
-    margin: 0; /* 기본 마진 제거 */
+    background: #e0e0e0;
+    border: 1px solid #bbb;
+    border-radius: 12px;
+    padding: 12px 24px;
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s; /* 그림자 효과에 대한 전환 추가 */
-    font-size: 16px; /* 글씨 크기를 키워서 버튼을 더 크게 보이게 함 */
-}
-
-.payment-btn.selected {
-    background-color: #007bff; /* 선택된 버튼의 배경색 */
-    color: white; /* 선택된 버튼의 글씨 색상 */
-    border: none; /* 선택된 버튼의 테두리 제거 */
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4); /* 선택된 버튼에 그림자 추가 */
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .payment-btn:hover {
-    background-color: #e0e0e0; /* 기본 버튼의 호버 색상 */
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
 }
 
-.checkbox-group {
-    display: flex; /* 체크박스와 레이블을 가로 방향으로 배치 */
-    align-items: center; /* 체크박스와 레이블 중앙 정렬 */
-    margin-bottom: 10px; /* 체크박스와 에러 메시지 간의 간격 */
+/* 체크박스 컨테이너 */
+.payment-checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 500;
+    margin-bottom: 12px;
 }
 
-.checkbox-group input {
-    margin-right: 10px; /* 체크박스와 레이블 간의 간격 */
-    transform: scale(2); /* 체크박스 크기를 2배로 확대 */
-    margin-top: -10px;
+.payment-checkbox-group label {
+	margin: 0;
+	vertical-align: middle;	
+}
+
+/* 기본 체크박스 숨기기 */
+.payment-checkbox-group input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #8FD8F4; /* 체크박스 테두리 색상 */
+    position: relative;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: white;
+}
+
+/* 체크된 상태일 때 */
+.payment-checkbox-group input[type="checkbox"]:checked {
+    background-color: #8FD8F4;
+    border-color: #8FD8F4;
+}
+
+/* 체크된 상태에서 ✔ 표시 추가 */
+.payment-checkbox-group input[type="checkbox"]::before {
+    content: "✔";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: white;
+    opacity: 0;
+}
+
+/* 체크된 상태일 때 ✔ 표시 보이게 */
+.payment-checkbox-group input[type="checkbox"]:checked::before {
+    opacity: 1;
 }
 
 .error-message {
-    color: red; /* 에러 메시지 색상 */
-    font-size: 0.9rem; /* 에러 메시지 글씨 크기 */
-    text-align: center; /* 중앙 정렬 */
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
-.footer {
+/* 결제 & 취소 버튼 */
+.payment-footer {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.payment-button-group {
     display: flex;
-    flex-direction: column; /* 세로 방향으로 정렬 */
-    align-items: center; /* 중앙 정렬 */
-    margin-top: 20px; /* 위쪽 여백 */
-    font-weight: bold; /* 글꼴을 굵게 설정 */
-    font-size: 1.2rem;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-.button-group {
-    display: flex;
-    justify-content: center; /* 버튼 중앙 정렬 */
-    gap: 15px; /* 버튼 간격 조정 */
-    margin-top: 20px; /* 버튼 위쪽 여백 */
-}
-
-.button-group button {
-    flex: 1; /* 버튼이 동일한 크기로 늘어나도록 설정 */
-    padding: 15px; /* 버튼 패딩 */
-    font-size: 16px; /* 버튼 글씨 크기 */
-}
-
-.payment_btn {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 15px 30px; /* 버튼 크기를 키우기 위해 패딩을 늘림 */
-    margin: 0; /* 기본 마진 제거 */
+.payment-button-group button {
+    flex: 1;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s; /* 그림자 효과에 대한 전환 추가 */
-    font-size: 16px; /* 글씨 크기를 키워서 버튼을 더 크게 보이게 함 */
-    font-weight: bold; /* 글씨 굵기 설정 */
+    transition: all 0.3s ease-in-out;
 }
 
-.cancel_btn {
-    background-color: #FFB3B3; /* 파스텔 톤 레드 색상 */
-    color: #A00000; /* 진한 빨간색 글씨 */
-    border: 1px solid #ccc; /* 짙은 회색 테두리 */
-    border-radius: 20px; /* 모서리를 둥글게 */
-    padding: 15px 30px; /* 버튼 크기 조정 */
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s; /* 배경색과 크기 변화에 대한 전환 추가 */
-    font-size: 16px; /* 글씨 크기 */
-    font-weight: bold; /* 글씨 굵기 설정 */
+/* 결제 버튼 */
+.payment-button-group .payment-btn {
+    background-color: #8FD8F4;
+    color: white;
+    border: none;
 }
 
-.payment_btn:hover, .cancel_btn:hover {
-    transform: scale(1.05); /* 호버 시 버튼 크기 증가 */
+.payment-button-group .payment-btn:hover {
+    background-color: #7ac6e0;
 }
 
-.payment_btn:hover {
-    background-color: #7BC7E0; /* 결제 버튼 호버 색상 */
+/* 취소 버튼 */
+.payment-button-group .cancel-btn {
+    background-color: #ff6666;
+    color: white;
+    border: none;
 }
 
-.cancel_btn:hover {
-    background-color: #FF9999; /* 취소 버튼 호버 색상 (더 밝은 레드) */
+.payment-button-group .cancel-btn:hover {
+    background-color: #ff4d4d;
 }

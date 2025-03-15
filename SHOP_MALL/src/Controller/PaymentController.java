@@ -35,21 +35,19 @@ public class PaymentController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String action = request.getPathInfo();
-		System.out.println("payment_action = " + action);
-		String page = null;
 		HttpSession session = request.getSession(false);
-
+		
+		System.out.println("payment_action = " + action);
+	    System.out.println("QueryString: " + request.getQueryString()); // 쿼리스트링 확인
+	    System.out.println("Full URL: " + request.getRequestURL().toString()); // 전체 URL 확인
+	    
 		switch (action) {
 		case "/payment.do":
-
-			String productId = request.getParameter("productId");
-			String productName = request.getParameter("productName");
-			String productPrice = request.getParameter("productPrice");
-
-			// 로그 출력
-			System.out.println("Received Product ID: " + productId);
-			System.out.println("Received Product Name: " + productName);
-			System.out.println("Received Product Price: " + productPrice);
+			System.out.println("상품 정보 파라미터 확인:");
+            System.out.println("productId = " + request.getParameter("productId"));
+            System.out.println("productName = " + request.getParameter("productName"));
+            System.out.println("productPrice = " + request.getParameter("productPrice"));
+            System.out.println("productQuantity = " + request.getParameter("productQuantity"));
 
 			new PaymentService().doCommand(request, response);
 			return;
@@ -59,7 +57,6 @@ public class PaymentController extends HttpServlet {
             new PaymentSaveService().doCommand(request, response);
             return;
             
-            
          // 마이페이지: 메인화면에 최근 주문 내역 1건 띄우기
 		case "/mypayment.do":
 		    if (session == null || session.getAttribute("user") == null) {
@@ -68,14 +65,6 @@ public class PaymentController extends HttpServlet {
 		    }
 		    new MemberPaymentView().doCommand(request, response);
 		    return;
-    
-			
 		}
-		
-
-		if (page != null) {
-			request.getRequestDispatcher(page).forward(request, response);
-		}
-
 	}
 }
