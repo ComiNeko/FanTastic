@@ -17,29 +17,32 @@
 		<div class="container">
 			<div class="saleslist-sidebar">
 				<ul>
+					<li onclick="location.href='/post/creatorlist.do'"
+					class="${pageContext.request.requestURI == '/post/creatorlist.do' ? 'active' : ''}">
+					크리에이터 </li>
 					<li onclick="location.href='/post/postsellinglist.do?category=1'"
-						class="${param.category == '1' ? 'active' : ''}">크리에이터</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=2'"
 						class="${param.category == '1' ? 'active' : ''}">키링</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=3'"
+					<li onclick="location.href='/post/postsellinglist.do?category=2'"
 						class="${param.category == '2' ? 'active' : ''}">아크릴굿즈</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=4'"
+					<li onclick="location.href='/post/postsellinglist.do?category=3'"
 						class="${param.category == '3' ? 'active' : ''}">포토카드</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=5'"
+					<li onclick="location.href='/post/postsellinglist.do?category=4'"
 						class="${param.category == '4' ? 'active' : ''}">틴케이스</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=6'"
+					<li onclick="location.href='/post/postsellinglist.do?category=5'"
 						class="${param.category == '5' ? 'active' : ''}">키캡</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=7'"
+					<li onclick="location.href='/post/postsellinglist.do?category=6'"
 						class="${param.category == '6' ? 'active' : ''}">거울/핀버튼</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=8'"
+					<li onclick="location.href='/post/postsellinglist.do?category=7'"
 						class="${param.category == '7' ? 'active' : ''}">커버/클리너</li>
+					<li onclick="location.href='/post/postsellinglist.do?category=8'"
+						class="${param.category == '8' ? 'active' : ''}">기타</li>
 				</ul>
 			</div>
-
+			
 			<div class="creatorlist-frame">
 				<c:forEach var="creator" items="${creatorList}">
-					<div class="creator-card"
-						onclick="location.href='/post/creatordetail.do?authorid=${creator.authorid}'">
+					<div class="creator-card" onclick="location.href='/post/creatordetail.do?authorid=${creator.authorid}'">
+						<div class="background-image" style="background-image: url('/uploads/${creator.authorimg1}');"></div>
 						<c:choose>
 							<c:when test="${empty creator.authorimg1}">
 								<img src="/img/no_image.png" alt="작가 이미지" width="100">
@@ -53,8 +56,6 @@
 						<p class="creator-info">${creator.authorinfo}</p>
 					</div>
 				</c:forEach>
-
-
 
 				<!-- 페이지 번호 표시 시작 -->
 				<div class="pagination">
@@ -72,7 +73,6 @@
 					</c:if>
 				</div>
 				<!------------- 페이징 끝 --------------->
-
 			</div>
 		</div>
 	</div>

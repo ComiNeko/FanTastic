@@ -63,35 +63,35 @@
     <div class="quick-menu">
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #f7c52c;">
-                <a href="/posts/popcreator.do"><img src="/img/qm_creator.png" alt="인기 크리에이터"></a>
+                <a href="/post/creatorlist.do"><img src="/img/qm_creator.png" alt="크리에이터"></a>
             </div>
             <p>FanTastic 크리에이터</p>
         </div>
 
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #f56a6a;">
-                <a href="/posts/popproduct.do"><img src="/img/qm_product.png" alt="인기 상품"></a>
+                <a href="/post/postsellinglist.do"><img src="/img/qm_product.png" alt="상품"></a>
             </div>
             <p>FanTastic 굿즈</p>
         </div>
 
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #3c91e6;">
-                <a href="/posts/openevent.do"><img src="/img/qm_openevent.png" alt="깜짝 오픈이벤트"></a>
+                <a href="/post/openevent.do"><img src="/img/qm_openevent.png" alt="깜짝 오픈이벤트"></a>
             </div>
             <p>깜짝! 오픈이벤트</p>
         </div>
 
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #4caf50;">
-                <a href="/posts/review.do"><img src="/img/qm_review.png" alt="FanTastic 포토리뷰"></a>
+                <a href="/post/review.do"><img src="/img/qm_review.png" alt="FanTastic 포토리뷰"></a>
             </div>
             <p>FanTastic 포토리뷰</p>
         </div>
 
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #ff9800;">
-                <a href="/posts/request.do"><img src="/img/qm_request.png" alt="상품 등록요청"></a>
+                <a href="/post/request.do"><img src="/img/qm_request.png" alt="상품 등록요청"></a>
             </div>
             <p>상품 등록요청</p>
         </div>

@@ -16,54 +16,17 @@ public class PostVo {
 	// 추가 필드 (가격, 수량) - 결제 관련
 	private int price; // 상품 가격
 	private int quantity; // 상품 개수
+	
+	// postsellinglist.jsp의 product-card에 보여질 작가명
+	private String authorName;
+	private String categoryName;
 
 	// 장바구니
 	private int cartid; // NUMBER PRIMARY KEY, -- 장바구니 ID (기본 키)
 	private String userid; // VARCHAR2(20) NOT NULL, -- 사용자 ID (외래 키, NOT NULL)
 	
-	//찜하기
-	 private int favoriteid;
-	 
-
-	public int getCartid() {
-		return cartid;
-	}
-
-	public void setCartid(int cartid) {
-		this.cartid = cartid;
-	}
-
-	public String getUserid() {
-		return userid;
-	}
-
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public String getProductImage() {
-		return productImage;
-	}
-
-	public void setProductImage(String productImage) {
-		this.productImage = productImage;
-	}
+	// 찜하기
+	private int favoriteid;
 
 	public int getProductid() {
 		return productid;
@@ -79,6 +42,14 @@ public class PostVo {
 
 	public void setCategoryid(int categoryid) {
 		this.categoryid = categoryid;
+	}
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public int getAuthorid() {
@@ -121,6 +92,14 @@ public class PostVo {
 		this.productInfo = productInfo;
 	}
 
+	public String getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
+	}
+
 	public String getCreatedAt() {
 		return createdAt;
 	}
@@ -137,6 +116,46 @@ public class PostVo {
 		this.updatedAt = updatedAt;
 	}
 
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+
+	public int getCartid() {
+		return cartid;
+	}
+
+	public void setCartid(int cartid) {
+		this.cartid = cartid;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
 	public int getFavoriteid() {
 		return favoriteid;
 	}
@@ -145,5 +164,5 @@ public class PostVo {
 		this.favoriteid = favoriteid;
 	}
 
-
+	 
 }

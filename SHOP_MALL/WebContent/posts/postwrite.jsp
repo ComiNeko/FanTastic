@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="../fragments/header.jsp" %>
 <%@ page import="Model.MemberVo" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
@@ -12,7 +14,6 @@
         return;
     }
 %>
-<%@ include file="../fragments/header.jsp" %>
 <link rel="stylesheet" href="../css/postwrite.css">
 
 <div class="wrapBody">
@@ -24,7 +25,7 @@
         <form name="productForm" method="post" enctype="multipart/form-data" action="/post/ptwritepro.do">
 
             <!-- 로그인한 사용자 ID 숨겨서 전송 -->
-            <input type="hidden" name="authorid" value="<%= user.getUserid() %>">
+            <input type="hidden" name="authorid" value="${sessionScope.user.userid}">
 
             <div class="form-group">
                 <label>카테고리</label>

@@ -1,89 +1,92 @@
 @charset "UTF-8";
-
-/* 전체 영역 정리 */
-.wrapBody {
-	max-width: 700px;
-	margin: 40px auto;
-	padding: 30px;
-	background: #fff;
-	border: 1px solid #ddd;
-	border-radius: 12px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* 제목 스타일 */
-.wrapBody h2 {
-	text-align: center;
-	margin-bottom: 30px;
-	font-size: 26px;
-	color: #333;
-}
-
-/* 각 항목 그룹 스타일 */
-.form-group {
-	margin-bottom: 20px;
-}
-
-/* 라벨 */
-.form-group label {
-	display: block;
-	margin-bottom: 8px;
-	font-weight: bold;
-	color: #444;
-	font-size: 15px;
-}
-
-/* 인풋 필드 */
-.form-group input[type="text"], .form-group textarea, .form-group input[type="file"]
-	{
-	width: 100%;
-	padding: 12px;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	box-sizing: border-box;
-	font-size: 14px;
-	background: #f9f9f9;
-}
-
-/* 텍스트 영역 높이 조정 */
-.form-group textarea {
-	height: 120px;
-	resize: vertical;
-}
-
-/* 파일 업로드 필드 마진 */
-.form-group input[type="file"] {
-	padding: 8px;
-	background: #fff;
-}
-
-/* 버튼 스타일 */
-.submit-btn {
-	width: 100%;
-	padding: 14px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 8px;
-	font-size: 16px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-
-/* 버튼 호버 효과 */
-.submit-btn:hover {
-	background-color: #0056b3;
-}
-
-/* 반응형 */
-@media ( max-width : 768px) {
-	.wrapBody {
-		padding: 20px;
-		margin: 20px;
+	
+	/* 전체 영역 정리 */
+	.author-profile-edit-page {
+		max-width: 700px;
+		margin: 40px auto;
+		padding: 30px;
+		background: #fff;
+		border: 1px solid #ddd;
+		border-radius: 12px;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	}
-	.form-group input[type="text"], .form-group textarea, .form-group input[type="file"],
-		.submit-btn {
+	
+	/* 제목 스타일 */
+	.author-profile-edit-page h2 {
+		text-align: center;
+		margin-bottom: 30px;
+		font-size: 26px;
+		color: #333;
+	}
+	
+	/* 각 항목 그룹 스타일 */
+	.author-profile-edit-page .form-group {
+		margin-bottom: 20px;
+	}
+	
+	/* 라벨 */
+	.author-profile-edit-page .form-group label {
+		display: block;
+		margin-bottom: 8px;
+		font-weight: bold;
+		color: #444;
+		font-size: 15px;
+	}
+	
+	/* 인풋 필드 */
+	.author-profile-edit-page .form-group input[type="text"],
+		.author-profile-edit-page .form-group textarea,
+		.author-profile-edit-page .form-group input[type="file"] {
+		width: 100%;
+		padding: 12px;
+		border: 1px solid #ccc;
+		border-radius: 8px;
+		box-sizing: border-box;
 		font-size: 14px;
+		background: #f9f9f9;
 	}
-}
+	
+	/* 텍스트 영역 높이 조정 */
+	.author-profile-edit-page .form-group textarea {
+		height: 120px;
+		resize: vertical;
+	}
+	
+	/* 파일 업로드 필드 마진 */
+	.author-profile-edit-page .form-group input[type="file"] {
+		padding: 8px;
+		background: #fff;
+	}
+	
+	/* 버튼 스타일 */
+	.author-profile-edit-page .submit-btn {
+		width: 100%;
+		padding: 14px;
+		background-color: #007bff;
+		color: white;
+		border: none;
+		border-radius: 8px;
+		font-size: 16px;
+		font-weight: bold;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+	
+	/* 버튼 호버 효과 */
+	.author-profile-edit-page .submit-btn:hover {
+		background-color: #0056b3;
+	}
+	
+	/* 반응형 */
+	@media ( max-width : 768px) {
+		.author-profile-edit-page {
+			padding: 20px;
+			margin: 20px;
+		}
+		.author-profile-edit-page .form-group input[type="text"],
+			.author-profile-edit-page .form-group textarea,
+			.author-profile-edit-page .form-group input[type="file"],
+			.author-profile-edit-page .submit-btn {
+			font-size: 14px;
+		}
+	}
