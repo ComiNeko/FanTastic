@@ -4,19 +4,20 @@
 	.creatorlist-section .creatorlist-header {
 	    width: 100%;
 	    height: 175px; /* 배경 이미지 높이 */
-	    background: #252640;
+	    background: #fff;
 	}
 	
 	/* 제목과 서브 타이틀 스타일 */
 	.creatorlist-section .creatorlist-banner {
 		padding-top: 100px;
+		border-bottom: 1px solid #ccc;
 	}
 	
 	.creatorlist-section .creatorlist-semi-title {
 		position: relative;
 	    font-size: 16px;
 	    font-weight: 400;
-	    color: #fff;
+	    color: #000;
 	    z-index: 1;
 	    margin-bottom: 5px;
 	}
@@ -26,14 +27,14 @@
 	    font-size: 28px;
 	    font-weight: 900;
 	    z-index: 1;
-	    color: #fff;
+	    color: #000;
 	}
 	
 	.creatorlist-section .creatorlist-content .container {
 		display: flex;
 		justify-content: space-between;
 		gap: 10px;
-		margin-top: 60px;
+		margin-top: 20px;
 	}
 	
 	.creatorlist-section .saleslist-sidebar {
