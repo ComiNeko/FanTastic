@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -23,10 +24,13 @@ import Service.MemberFindPwToken;
 import Service.MemberLogin;
 import Service.MemberLogout;
 import Service.MemberResetPw;
+import Service.MemberUserAddress;
 import Service.MemberUserIdCheck;
 import Service.MemberUserUpdatePw;
+import Service.MyPageCountView;
 import Service.MemberUserSave;
 import Service.MemberUserUpdate;
+import Service.MemberUserUpdateCheck;
 
 @WebServlet("/member/*")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -146,6 +150,7 @@ public class MemberController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/member/login.do");
 				return;
 			}
+			new MyPageCountView().doCommand(request, response);
 			page = "/mem/mypage.jsp";
 			break;
 
@@ -155,23 +160,27 @@ public class MemberController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/member/login.do");
 				return;
 			}
+			new MemberUserAddress().doCommand(request, response);
 			page = "/mem/UpdateMyInfo.jsp";
 			break;
 
 		case "/updateMyInfopro.do":
 			new MemberUserUpdate().doCommand(request, response);
-			page = "/mem/UpdateMyInfo.jsp";
-			break;
+	        return;
 
-			
+	//비밀번호 수정:현재 비밀번호 확인 -> 비밀번호 수정	
 			// 현재 비밀번호 확인을 위한 페이지 이동
 		case "/updatecheck.do":
 		    page = "/mem/UpdateMyCheck.jsp";
 		    break;	
 		 // 현재 비밀번호 확인 요청 처리
 		case "/updatecheckPw.do":
-		    new MemberUserIdCheck().doCommand(request, response);
-		    return;
+			 if (session == null || session.getAttribute("isPwdVerified") == null) {
+			        response.sendRedirect(request.getContextPath() + "/member/updatecheck.do");
+			        return;
+			    }
+			 page = "/mem/UpdateMyPw.jsp";  // 새 비밀번호 입력 페이지 경로 할당
+			 break;
 			
 		// 비밀번호 수정 페이지 요청: UpdateMyPw.jsp로 이동
 		case "/updateMyPw.do":
@@ -202,7 +211,7 @@ public class MemberController extends HttpServlet {
 		    
 		    
 		case "/faq.do" :
-			page = "/mem/Fap.jsp";
+			page = "/mem/Faq.jsp";
 			break;
 
 		} // switch

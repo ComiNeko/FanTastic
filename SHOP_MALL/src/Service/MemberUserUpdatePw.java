@@ -22,7 +22,7 @@ public class MemberUserUpdatePw implements Command {
 	        Boolean isVerified = (Boolean) request.getSession().getAttribute("isPwdVerified");
 	        if(isVerified == null || !isVerified){
 	            request.setAttribute("errorMsg", "비정상적인 접근입니다.");
-	            response.sendRedirect(request.getContextPath() + "/member/updateCurrentPassword.do");
+	            response.sendRedirect(request.getContextPath() + "/member/updateMyPw.do");
 	            return;
 	        }
 	        
@@ -38,7 +38,7 @@ public class MemberUserUpdatePw implements Command {
 	        String newPwdParam = request.getParameter("newPassword");
 	        if(newPwdParam == null || newPwdParam.trim().isEmpty()){
 	            request.setAttribute("errorMsg", "새 비밀번호를 입력해 주세요.");
-	            request.getRequestDispatcher("/mem/UpdateNewPassword.jsp").forward(request, response);
+	            request.getRequestDispatcher("/mem/UpdateMyPw.jsp").forward(request, response);
 	            return;
 	        }
 	        String newPwd = newPwdParam.trim();
@@ -46,21 +46,21 @@ public class MemberUserUpdatePw implements Command {
 	        String confirmPwdParam = request.getParameter("passwordConfirm");
 	        if(confirmPwdParam == null || confirmPwdParam.trim().isEmpty()){
 	            request.setAttribute("errorMsg", "비밀번호 확인을 입력해 주세요.");
-	            request.getRequestDispatcher("/mem/UpdateNewPassword.jsp").forward(request, response);
+	            request.getRequestDispatcher("/mem/UpdateMyPw.jsp").forward(request, response);
 	            return;
 	        }
 	        String confirmPwd = confirmPwdParam.trim();
 	        
 	        if(!newPwd.equals(confirmPwd)){
 	            request.setAttribute("errorMsg", "비밀번호와 확인이 일치하지 않습니다.");
-	            request.getRequestDispatcher("/mem/UpdateNewPassword.jsp").forward(request, response);
+	            request.getRequestDispatcher("/mem/UpdateMyPw.jsp").forward(request, response);
 	            return;
 	        }
 	        
 	        // 선택: 새 비밀번호가 현재 비밀번호와 동일하면 업데이트하지 않도록 처리
 	        if (PasswordUtil.checkPassword(newPwd, sessionUser.getPassword())) {
 	            request.setAttribute("errorMsg", "새 비밀번호는 현재 비밀번호와 달라야 합니다.");
-	            request.getRequestDispatcher("/mem/UpdateNewPassword.jsp").forward(request, response);
+	            request.getRequestDispatcher("/mem/UpdateMyPw.jsp").forward(request, response);
 	            return;
 	        }
 	        
@@ -75,7 +75,7 @@ public class MemberUserUpdatePw implements Command {
 	            response.sendRedirect(request.getContextPath() + "/member/mypage.do");
 	        } else {
 	            request.setAttribute("errorMsg", "비밀번호 수정에 실패했습니다.");
-	            request.getRequestDispatcher("/mem/UpdateNewPassword.jsp").forward(request, response);
+	            request.getRequestDispatcher("/mem/UpdateMyPw.jsp").forward(request, response);
 	        }
 
 	}

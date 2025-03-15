@@ -80,6 +80,21 @@
 								</div>
 							</div>
 						</c:forEach>
+						
+						<!--------------- 페이징 ------------>
+<div class="pagination">
+    <c:if test="${startPage > 1}">
+        <a href="/post/postsellinglist.do?page=${startPage - 1}&category=${param.category}">&laquo;</a>
+    </c:if>
+
+    <c:forEach var="i" begin="${startPage}" end="${endPage}">
+        <a href="/post/postsellinglist.do?page=${i}&category=${param.category}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+    </c:forEach>
+
+    <c:if test="${endPage < totalPage}">
+        <a href="/post/postsellinglist.do?page=${endPage + 1}&category=${param.category}">&raquo;</a>
+    </c:if>
+</div>
 					</c:when>
 					<c:otherwise>
 						<p>해당 카테고리에 등록된 상품이 없습니다.</p>

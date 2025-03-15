@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Service.MemberPaymentView;
 import Service.PaymentSaveService;
 import Service.PaymentService;
 
@@ -57,8 +58,20 @@ public class PaymentController extends HttpServlet {
 			// 결제 정보 저장 요청 처리
             new PaymentSaveService().doCommand(request, response);
             return;
+            
+            
+         // 마이페이지: 메인화면에 최근 주문 내역 1건 띄우기
+		case "/mypayment.do":
+		    if (session == null || session.getAttribute("user") == null) {
+		        response.sendRedirect(request.getContextPath() + "/member/login.do");
+		        return;
+		    }
+		    new MemberPaymentView().doCommand(request, response);
+		    return;
+    
 			
 		}
+		
 
 		if (page != null) {
 			request.getRequestDispatcher(page).forward(request, response);

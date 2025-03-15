@@ -352,11 +352,218 @@ public class PostDao {
 		return count;
 	}
 
-//-------------------------------------------------------------//
+	
+	
+	
+	 // 상품 삭제 (관련 데이터 삭제 포함)
+    public boolean deleteMyProduct(int productId, String userId) {
+        if (!isUserProductOwner(productId, userId)) {
+            return false;
+        }
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean isDeleted = false;
 
+        try {
+            conn = DBManager.getInstance().getConnection();
+            conn.setAutoCommit(false);
+
+            // 장바구니에서 삭제
+            String deleteCartSql = "DELETE FROM NEW_CARTS WHERE productid = ?";
+            pstmt = conn.prepareStatement(deleteCartSql);
+            pstmt.setInt(1, productId);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            // 찜 목록에서 삭제
+            String deleteFavoriteSql = "DELETE FROM NEW_FAVORITES WHERE productid = ?";
+            pstmt = conn.prepareStatement(deleteFavoriteSql);
+            pstmt.setInt(1, productId);
+            pstmt.executeUpdate();
+            pstmt.close();
+
+            // 최종 상품 삭제
+            String deleteSql = "DELETE FROM NEW_PRODUCTS WHERE productid = ?";
+            pstmt = conn.prepareStatement(deleteSql);
+            pstmt.setInt(1, productId);
+            int rows = pstmt.executeUpdate();
+
+            if (rows > 0) {
+                isDeleted = true;
+            }
+            conn.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+        return isDeleted;
+    }
+
+    // 상품 수정
+    public boolean updateMyProduct(PostVo vo, String userId) {
+        if (!isUserProductOwner(vo.getProductid(), userId)) {
+            return false;
+        }
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean isUpdated = false;
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+
+            String updateSql = "UPDATE NEW_PRODUCTS SET productName=?, productPrice=?, productStock=?, productInfo=?, productImage=?, updatedAt=CURRENT_TIMESTAMP WHERE productid=?";
+            pstmt = conn.prepareStatement(updateSql);
+            pstmt.setString(1, vo.getProductName());
+            pstmt.setInt(2, vo.getProductPrice());
+            pstmt.setInt(3, vo.getProductStock());
+            pstmt.setString(4, vo.getProductInfo());
+            pstmt.setString(5, vo.getProductImage());
+            pstmt.setInt(6, vo.getProductid());
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                isUpdated = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+
+        return isUpdated;
+    }
+
+    //상품 정보 업데이트
+    public void updateProduct(PostVo vo) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        String sql = "UPDATE NEW_PRODUCTS SET productName = ?, productPrice = ?, productStock = ?, productInfo = ?, productImage = ?, updatedAt = CURRENT_TIMESTAMP WHERE productid = ?";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, vo.getProductName());
+            pstmt.setInt(2, vo.getProductPrice());
+            pstmt.setInt(3, vo.getProductStock());
+            pstmt.setString(4, vo.getProductInfo());
+            pstmt.setString(5, vo.getProductImage());
+            pstmt.setInt(6, vo.getProductid());
+
+            pstmt.executeUpdate();
+            System.out.println("상품 수정 완료: " + vo.getProductid());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
+
+ // PostDao.java 안에 추가
+    public void updateProductWithCategory(PostVo vo) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        String sql = "UPDATE NEW_PRODUCTS SET productName = ?, productPrice = ?, productStock = ?, "
+                   + "productInfo = ?, productImage = ?, categoryid = ?, updatedAt = CURRENT_TIMESTAMP "
+                   + "WHERE productid = ?";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, vo.getProductName());
+            pstmt.setInt(2, vo.getProductPrice());
+            pstmt.setInt(3, vo.getProductStock());
+            pstmt.setString(4, vo.getProductInfo());
+            pstmt.setString(5, vo.getProductImage());
+            pstmt.setInt(6, vo.getCategoryid());
+            pstmt.setInt(7, vo.getProductid());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
+	//-------------------------------------------//
+    //postsellinglist 페이징처리//
+    public List<PostVo> getProductListByCategory(int page, int pageSize, int categoryId) {
+        List<PostVo> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT * FROM ( "
+                   + " SELECT ROWNUM rnum, A.* FROM ( "
+                   + "     SELECT * FROM NEW_PRODUCTS "
+                   + (categoryId != -1 ? " WHERE categoryid = ? " : "")
+                   + "     ORDER BY productid DESC "
+                   + " ) A WHERE ROWNUM <= ? "
+                   + ") WHERE rnum >= ?";
+
+        int endRow = page * pageSize;
+        int startRow = (page - 1) * pageSize + 1;
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+
+            int idx = 1;
+            if (categoryId != -1) pstmt.setInt(idx++, categoryId);
+            pstmt.setInt(idx++, endRow);
+            pstmt.setInt(idx++, startRow);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                PostVo vo = new PostVo();
+                vo.setProductid(rs.getInt("productid"));
+                vo.setProductName(rs.getString("productname"));
+                vo.setProductPrice(rs.getInt("productprice"));
+                vo.setProductImage(rs.getString("productimage"));
+                vo.setProductInfo(rs.getString("productinfo"));
+                list.add(vo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return list;
+    }
+
+    public int getProductCountByCategory(int categoryId) {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT COUNT(*) FROM NEW_PRODUCTS "
+                   + (categoryId != -1 ? " WHERE categoryid = ?" : "");
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            if (categoryId != -1) pstmt.setInt(1, categoryId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) count = rs.getInt(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return count;
+    }
+	
+//-------------------------------------------------------------//
+	
 	// 상품을 카테고리 기준으로 조회하는 메서드
-	// 특정 카테고리에 속한 상품 목록 조회 가능
-	// 특정 카테고리에 속한 상품 목록 가져올 수는 없습니다
+    // 특정 카테고리에 속한 상품 목록 조회 가능
+    // 특정 카테고리에 속한 상품 목록 가져올 수는 없습니다
 	public List<PostVo> getPostsByCategory(int categoryid) {
 
 		Connection conn = null;
@@ -560,6 +767,169 @@ public class PostDao {
 		}
 		return count;
 	}
+// -----------------------------------------------------------------
+					//LTR_찜하기
+// -----------------------------------------------------------------	
+	
+	 // [1] 카테고리별 찜 목록 조회 (페이징 적용)
+    public List<PostVo> getFavoriteListByCategory(String userId, int categoryId, int page, int pageSize) {
+        List<PostVo> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int offset = (page - 1) * pageSize;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT * FROM ( ");
+        sb.append(" SELECT a.*, ROWNUM rnum FROM ( ");
+        sb.append("  SELECT f.favoriteid, p.productid, p.productname, p.productimage, p.productprice ");
+        sb.append("  FROM NEW_FAVORITES f ");
+        sb.append("  JOIN NEW_PRODUCTS p ON f.productid = p.productid ");
+        sb.append("  WHERE f.userid = ? ");
+        if (categoryId > 0) {
+            sb.append(" AND p.categoryid = ? ");
+        }
+        sb.append("  ORDER BY f.favoriteid DESC ");
+        sb.append(" ) a ");
+        sb.append(" WHERE ROWNUM <= ? ");
+        sb.append(") WHERE rnum > ?");
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sb.toString());
+            int idx = 1;
+            pstmt.setString(idx++, userId);
+            if (categoryId > 0) {
+                pstmt.setInt(idx++, categoryId);
+            }
+            pstmt.setInt(idx++, offset + pageSize);
+            pstmt.setInt(idx++, offset);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                PostVo vo = new PostVo();
+                vo.setFavoriteid(rs.getInt("favoriteid"));
+                vo.setProductid(rs.getInt("productid"));
+                vo.setProductName(rs.getString("productname"));
+                vo.setProductImage(rs.getString("productimage"));
+                vo.setProductPrice(rs.getInt("productprice"));
+                list.add(vo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return list;
+    }
+
+    // [2] 찜 개수 조회 (페이징 계산용)
+    public int getFavoriteCount(String userId, int categoryId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT COUNT(*) AS cnt ");
+        sb.append("FROM NEW_FAVORITES f ");
+        sb.append("JOIN NEW_PRODUCTS p ON f.productid = p.productid ");
+        sb.append("WHERE f.userid = ? ");
+        if (categoryId > 0) {
+            sb.append(" AND p.categoryid = ? ");
+        }
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sb.toString());
+            int idx = 1;
+            pstmt.setString(idx++, userId);
+            if (categoryId > 0) {
+                pstmt.setInt(idx++, categoryId);
+            }
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("cnt");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+        return count;
+    }
+
+    // [3] 찜 추가
+    public boolean addToFavorite(String userId, int productId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        // favoriteid에 시퀀스 값 추가!
+        String sql = "INSERT INTO NEW_FAVORITES (FAVORITEID, USERID, PRODUCTID) VALUES (NEW_FAVORITES_SEQ.NEXTVAL, ?, ?)";
+        
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            pstmt.setInt(2, productId);
+            
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
+
+    // [4] 찜 삭제 (단일 또는 다중 삭제 지원)
+    public void removeFromFavorite(String userId, int productId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "DELETE FROM NEW_FAVORITES WHERE userid = ? AND productid = ?";
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            pstmt.setInt(2, productId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(pstmt, conn);
+        }
+    }
+    
+    
+    // [4] 찜 개수 조회
+    public int countFavoritesByUser(String userid) {
+
+        int count = 0;
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT COUNT(*) AS cnt FROM NEW_FAVORITES WHERE USERID = ?";
+        
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userid);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+
+        return count;
+    }
+	
+
 
 	// [3] 찜 추가
 	public boolean addToFavorite(String userId, int productId) {

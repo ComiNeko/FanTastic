@@ -22,11 +22,7 @@
             <div class="profile-info">
                 <div class="username">${sessionScope.user.name}님, 반가워요!</div>
                 <div class="profile-buttons">
-                    <!-- 작가 등록 버튼 (폼 분리) -->
-                    <form action="/member/authorinsert.do" method="get" style="display:inline;">
-                        <button type="submit" class="auth-btn">작가등록</button>
-                    </form>
-
+                    
                     <!-- 회원 정보 수정 -->
                     <button class="info-btn" onclick="location.href='/admin/editProfile.do'">
                         회원정보

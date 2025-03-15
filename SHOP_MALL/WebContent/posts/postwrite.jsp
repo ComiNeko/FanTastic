@@ -14,7 +14,6 @@
         return;
     }
 %>
-
 <link rel="stylesheet" href="../css/postwrite.css">
 
 <div class="wrapBody">
