@@ -15,10 +15,6 @@ import Service.CreatorDetailService;
 import Service.CreatorListService;
 import Service.CreatorService;
 import Service.FavoriteAdd;
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'main' of https://github.com/ComiNeko/FanTastic.git
 import Service.FavoriteList;
 import Service.FavoriteRemove;
 import Service.PostCartService;
