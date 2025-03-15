@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="../css/postcart.css">
 
 <body>
-
 	<div class="cart-container">
 		<h2 class="cart-title">장바구니</h2>
 
@@ -19,8 +18,7 @@
 					<p>
 						다양한 상품을 구경하고<br> 나에게 맞는 상품을 담아보세요!
 					</p>
-					<a href="/post/postsellinglist.do?category=1"
-						class="browse-products-btn">상품 구경하러 가기</a>
+					<a href="/post/postsellinglist.do" class="browse-products-btn">상품 구경하러 가기</a>
 				</div>
 			</c:when>
 			<c:otherwise>

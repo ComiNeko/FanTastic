@@ -24,6 +24,8 @@
 
 <link rel="stylesheet"
    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" 
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <!-- Swiper CSS -->
 <link rel="stylesheet"
@@ -45,7 +47,8 @@
 					<!-- 드랍다운 카테고리 -->
 					<div class="home-category">
 						<div class="dropdown">
-							<button class="category-btn dropdown-toggle" type="button" data-toggle="dropdown">Shop</button>
+							<button class="category-btn dropdown-toggle" type="button" 
+								onclick="location.href='/post/postsellinglist.do'" data-toggle="dropdown">Shop</button>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="/post/creatorlist.do">크리에이터</a>
 								<a class="dropdown-item" href="/post/postsellinglist.do?category=1">키링</a>
@@ -55,6 +58,7 @@
 								<a class="dropdown-item" href="/post/postsellinglist.do?category=5">키캡</a>
 								<a class="dropdown-item" href="/post/postsellinglist.do?category=6">거울/핀버튼</a>
 								<a class="dropdown-item" href="/post/postsellinglist.do?category=7">커버/클리너</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=8">기타</a>
 							</div>
 						</div>
 					</div>
