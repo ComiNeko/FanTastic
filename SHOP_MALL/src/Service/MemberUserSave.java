@@ -28,6 +28,8 @@ public class MemberUserSave implements Command {
         
         String address = request.getParameter("address"); 
         String detailAddress = request.getParameter("detailAddress");
+     // 특수 구분자(||)로 합침
+        String fullAddress = address + "||" + detailAddress;
         
         String emailPrefix = request.getParameter("emailPrefix");
         String emailDomain = request.getParameter("emailDomain");
@@ -53,7 +55,7 @@ public class MemberUserSave implements Command {
         vo.setPassword(hashedPassword);
         vo.setPhonenumber(phonenumber);
         vo.setEmail(email);
-        vo.setAddress(address + " " + detailAddress);
+        vo.setAddress(fullAddress);
         
         //DB에 저장
         new MemberDao().saveUser(vo);

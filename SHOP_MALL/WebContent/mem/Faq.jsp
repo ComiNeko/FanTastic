@@ -9,14 +9,14 @@
   <div id="fap">
     <!-- 상단 GNB -->
     <div class="gnb">
-      <div class="left-menu">마이페이지</div>
+      
       <div class="right-menu">
         <a href="#">구매내역</a>
         <a href="#">장바구니</a>
         <a href="#">내가 쓴 리뷰</a>
-        <a href="#">좋아요</a>
+        <a href="/post/mylike.do">좋아요</a>
         <!-- FAQ만 활성화 표시 -->
-        <a href="#" class="active">FAQ</a>
+        <a href="/member/faq.do" class="active">FAQ</a>
       </div>
     </div>
 

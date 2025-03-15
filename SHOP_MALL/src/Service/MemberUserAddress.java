@@ -20,17 +20,21 @@ public class MemberUserAddress implements Command {
         
         String address = "";
         String detailAddress = "";
-        if(fullAddress != null && fullAddress.contains(" ")) {
-            int idx = fullAddress.indexOf(" ");
-            address = fullAddress.substring(0, idx);
-            detailAddress = fullAddress.substring(idx + 1);
-        } else {
-            address = fullAddress;  // 구분자 없으면 전체를 address로 처리
-        }
+        if(fullAddress != null) {
+            String[] splitted = fullAddress.split("\\|\\|");
+            if(splitted.length == 2) {
+                // 제대로 구분자가 있는 경우
+                address = splitted[0];         
+                detailAddress = splitted[1];  
+            } else {
+                // 구분자가 없거나 이상한 경우 전체를 address로 처리
+                address = fullAddress;
+                detailAddress = "";
+            }
+        }  
         request.setAttribute("address", address);
         request.setAttribute("detailAddress", detailAddress);
-        
-        request.getRequestDispatcher("/member/updateMyInfo.jsp").forward(request, response);
+       
 
 	}
 

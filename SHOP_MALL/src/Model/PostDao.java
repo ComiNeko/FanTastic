@@ -476,9 +476,9 @@ public class PostDao {
 	        DBManager.getInstance().close(pstmt, conn);
 	    }
 	}
-											// -----------------------------------------------------------------
-																		//LTR_찜하기
-											// -----------------------------------------------------------------	
+// -----------------------------------------------------------------
+					//LTR_찜하기
+// -----------------------------------------------------------------	
 	
 	 // [1] 카테고리별 찜 목록 조회 (페이징 적용)
     public List<PostVo> getFavoriteListByCategory(String userId, int categoryId, int page, int pageSize) {
@@ -605,6 +605,37 @@ public class PostDao {
         } finally {
             DBManager.getInstance().close(pstmt, conn);
         }
+    }
+    
+    
+    // [4] 찜 개수 조회
+    public int countFavoritesByUser(String userid) {
+
+        int count = 0;
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT COUNT(*) AS cnt FROM NEW_FAVORITES WHERE USERID = ?";
+        
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userid);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+
+        return count;
     }
 	
 	

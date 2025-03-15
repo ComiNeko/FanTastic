@@ -55,26 +55,17 @@
         </div>
     </div>
     		
-    		   <!-- 우측 메인 컨텐츠 -->
-    <div id="mypage-content">
+    <!-- 우측 메인 컨텐츠: 새 비밀번호 입력 -->
+    <div id="mypage-pw">
         <form id="UpdatePwForm" action="/member/updateMyPwPro.do" method="post" novalidate>
             <div id="myInfo-page">
-                <!-- 현재 비밀번호 입력 필드 추가 -->
-                <div class="signup-form-group">
-                    <label for="currentPassword">현재 비밀번호</label>
-                    <input type="password"
-                           id="currentPassword"
-                           name="currentPassword"
-                           placeholder="현재 비밀번호 입력"
-                           maxlength="25" required>
-                    <span class="error-message" id="err-currentPwd"></span>
-                </div>
+                <!-- 새 비밀번호 입력 필드 -->
                 <div class="signup-form-group">
                     <label for="newPassword">새 비밀번호</label>
                     <input type="password"
                            id="newPassword"
                            name="newPassword"
-                           placeholder="변경 시 새 비밀번호 입력"
+                           placeholder="새 비밀번호 입력"
                            maxlength="25" required>
                     <span class="error-message" id="err-newPwd"></span>
                 </div>
@@ -83,7 +74,7 @@
                     <input type="password"
                            id="passwordConfirm"
                            name="passwordConfirm"
-                           placeholder="비밀번호를 확인해주세요."
+                           placeholder="비밀번호 확인"
                            maxlength="25" required>
                     <span class="error-message" id="err-pwdc"></span>
                 </div>
@@ -101,29 +92,19 @@
 
 <script>
     $(document).ready(function(){
-        var $currentPwd = $("#currentPassword"),
-            $newPwd = $("#newPassword"),
+        var $newPwd = $("#newPassword"),
             $pwdConfirm = $("#passwordConfirm"),
-            $errCurrentPwd = $("#err-currentPwd"),
             $errNewPwd = $("#err-newPwd"),
             $errPwdc = $("#err-pwdc"),
             $updatePwForm = $("#UpdatePwForm");
 
-        // 300ms 지연 후 입력값 유효성 검사 (비동기식 처리)
+        // 300ms 지연 후 입력값 유효성 검사
         var validateTimeout;
         function asyncValidatePasswords() {
             clearTimeout(validateTimeout);
             validateTimeout = setTimeout(function(){
-                var currentPwd = $currentPwd.val().trim();
                 var newPwd = $newPwd.val().trim();
                 var cpwd = $pwdConfirm.val().trim();
-                
-                // 현재 비밀번호: 단순 공백 체크 (실제 일치 여부는 서버에서 확인)
-                if(currentPwd === "") {
-                    $errCurrentPwd.html("현재 비밀번호를 입력해 주세요!");
-                } else {
-                    $errCurrentPwd.html("");
-                }
                 
                 // 새 비밀번호: 공백 체크
                 if(newPwd === "") {
@@ -132,7 +113,7 @@
                     $errNewPwd.html("");
                 }
                 
-                // 비밀번호 확인: 새 비밀번호와 일치하는지 확인
+                // 비밀번호 확인: 새 비밀번호와 일치 여부 확인
                 if(cpwd !== "" && newPwd !== cpwd){
                     $errPwdc.html("비밀번호가 일치하지 않습니다.");
                 } else {
@@ -141,17 +122,15 @@
             }, 300);
         }
         
-        $currentPwd.on("keyup blur", asyncValidatePasswords);
         $newPwd.on("keyup blur", asyncValidatePasswords);
         $pwdConfirm.on("keyup blur", asyncValidatePasswords);
         
         // 폼 제출 시 최종 유효성 검사
         $updatePwForm.on("submit", function(e){
-            var currentPwd = $currentPwd.val().trim();
             var newPwd = $newPwd.val().trim();
             var cpwd = $pwdConfirm.val().trim();
             
-            if(currentPwd === "" || newPwd === "" || cpwd === ""){
+            if(newPwd === "" || cpwd === ""){
                 e.preventDefault();
                 alert("모든 필드를 입력해 주세요.");
                 return;
@@ -161,7 +140,6 @@
                 alert("새 비밀번호와 확인이 일치하지 않습니다.");
                 return;
             }
-            // 실제 현재 비밀번호 일치 여부는 서버(예: MemberUserUpdatePw 클래스)에서 확인
         });
         
         // 서버에서 전달된 결과 메시지 (페이지 리로딩 후)
