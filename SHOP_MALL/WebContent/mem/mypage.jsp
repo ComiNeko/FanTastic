@@ -94,6 +94,7 @@
 </script>
 
 <div id="mypage">
+
     <!-- 1) 상단 프로필 영역 -->
     <div class="mypage-container">
         <div class="profile-top-container">
@@ -131,14 +132,15 @@
 						<div class="desc">작성한 리뷰</div>
 					</div>
 					<div class="item">
+
 						<div class="count">${sessionScope.favoriteCount}</div>
+
 						<div class="desc">좋아요 한 상품</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
 
 	<!-- 2) 좌우 2컬럼 레이아웃 -->
 	<div class="mypage-two-col-container">
@@ -159,7 +161,6 @@
 				</ul>
 			</div>
 		</div>
-		
 
 <!-- 오른쪽 컬럼 (메인 콘텐츠) -->
 <div class="right-col">
@@ -194,7 +195,6 @@
 			</table>
 		</div>
 	</section>
-
 
         </div>
     </div> <!-- mypage-two-col-container(left-col + right-col) -->

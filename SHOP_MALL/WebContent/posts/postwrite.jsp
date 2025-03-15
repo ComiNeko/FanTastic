@@ -12,17 +12,8 @@
         return;
     }
 %>
-
 <%@ include file="../fragments/header.jsp" %>
 <link rel="stylesheet" href="../css/postwrite.css">
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>판매페이지</title>
-</head>
-<body>
 
 <div class="wrapBody">
     <div class="subContent" id="gwrite">
@@ -46,6 +37,7 @@
                     <option value="5">키캡</option>
                     <option value="6">거울/핀버튼</option>
                     <option value="7">커버/클리너</option>
+                    <option value="8">기타</option>
                 </select>
             </div>
 
@@ -84,8 +76,5 @@
 
     </div>
 </div><!-- wrapBody 끝 -->
-
-</body>
-</html>
 
 <%@ include file="../fragments/footer.jsp" %>
