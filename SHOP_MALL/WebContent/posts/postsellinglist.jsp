@@ -55,9 +55,7 @@
 								<div class="product-card">
 									<div class="product-card-top">
 										<a href="/post/postdetail.do?productid=${product.productid}">
-											<img
-											src="${pageContext.request.contextPath}${product.productImage}"
-											alt="${product.productName}" class="product-img">
+											<img src="${pageContext.request.contextPath}${product.productImage}" alt="${product.productName}" class="product-img">
 										</a>
 									</div>
 									<div class="product-card-bottom">
@@ -179,8 +177,6 @@
                }
            });
        });
-
-	
 </script>
 
 <%@ include file="/fragments/footer.jsp"%>
