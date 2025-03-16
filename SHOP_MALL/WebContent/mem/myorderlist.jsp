@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page session="true"%>
 <%@ include file="../fragments/header.jsp"%>
+<input type="hidden" name="recentViewId" value="${rv.recentViewId}">
 
 <link rel="stylesheet" href="../css/mypage.css">
 
@@ -79,6 +80,110 @@
     cursor: not-allowed;
 }
 
+
+
+
+.recent-views-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3개씩 배치 */
+    gap: 20px;
+    padding: 20px;
+}
+
+.recent-view-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    background-color: #fafafa;
+    transition: transform 0.2s;
+}
+
+.recent-view-card:hover {
+    transform: translateY(-5px);
+}
+
+.recent-view-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.recent-view-card .product-name {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.recent-view-card .product-author {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.recent-view-card .product-price {
+    color: #e60023;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.remove-btn {
+    margin-top: 10px;
+    background-color: #ff6666;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: #cc0000;
+}
+
+.orderright-col {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.order-box {
+    width: 100%;
+    padding: 20px 0;       /* 위아래 여백 */
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+}
+
+.order-box table {
+    width: 90%;             /* 테이블 넓이 늘리기 */
+    max-width: 1200px;      /* 최대 넓이 제한, 필요시 조정 가능 */
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fff; /* 테이블 배경 흰색 */
+}
+
+.order-box table th,
+.order-box table td {
+    padding: 15px 10px;    /* 셀 패딩 더 주기 */
+    text-align: center;    /* 가운데 정렬 */
+    border: 1px solid #ddd;
+    font-size: 0.95rem;    /* 글자 크기 조정 가능 */
+}
+
+.order-box table th {
+    background-color: #f8f8f8; /* 헤더 배경색 */
+    font-weight: bold;
+}
+
+.order-box table img {
+    display: block;
+    margin: 0 auto;
+    max-width: 80px;
+    height: auto;
+}
 </style>
 
 
@@ -115,30 +220,9 @@
 				    
 				</div> <!-- "profile-buttons" -->
             </div> <!-- "profile-info" -->
-
-			<!-- 오른쪽: 통계 정보 (예시) -->
-			<div class="profile-right">
-				<div class="status-box">
-					<div class="item">
-						<div class="count">0</div>
-						<div class="desc">최근 주문/배송중</div>
-					</div>
-					<div class="item">
-						<div class="count">0</div>
-						<div class="desc">작성한 리뷰</div>
-					</div>
-					<div class="item">
-
-						<div class="count">${sessionScope.favoriteCount}</div>
-
-						<div class="desc">좋아요 한 상품</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
-
-	<!-- 2) 좌우 2컬럼 레이아웃 -->
+<!-- 2) 좌우 2컬럼 레이아웃 -->
 	<div class="mypage-two-col-container">
 
 		<!-- 왼쪽 컬럼 (메뉴) -->
@@ -156,53 +240,50 @@
 					<li><a href="/member/faq.do">FAQ</a></li>
 				</ul>
 			</div>
-		</div>
+		</div>		
+				<!-- 최근 본 상품 목록 -->
+				<!-- 오른쪽 컬럼 (메인 콘텐츠) -->
+				<div class="orderright-col">
+				<div class="mypage-submenu">
+					<h6>구매 이력</h6>
+				</div>
 
-<!-- 오른쪽 컬럼 (메인 콘텐츠) -->
-<div class="right-col">
-    <section id="orderHistory" class="content-section">
-        <h5>주문 목록</h5>
-        <div class="order-box">
-            <table>
-                <thead>
+		<div class="recent-views-container">
+	   		<table>
+            <thead>
+                <tr>
+                    <th>주문번호</th>
+                    <th>주문일자</th>
+                    <th>상품정보</th>
+                    <th>수량</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:if test="${empty orderList}">
                     <tr>
-                        <th>주문번호</th>
-                        <th>주문일자</th>
-                        <th>상품정보</th>
-                        <th>수량</th>
-                        <th>배송상태</th>
+                        <td colspan="4">구매 내역이 없습니다.</td>
                     </tr>
-                </thead>
+                </c:if>
 
-                <tbody>
-                    <c:choose>
-                        <c:when test="${not empty recentOrder}">
-                            <tr>
-                                <td>${recentOrder.orderid}</td> <!-- 주문번호 -->
-                                <td>${recentOrder.createdAt}</td> <!-- 주문일자 -->
-                                <td>
-                                    <img src="${recentOrder.productImage}" alt="상품 이미지" width="100px" height="100px"><br>
-                                    ${recentOrder.productName}
-                                </td>
-                                <td>${recentOrder.quantity}</td> <!-- 수량 -->
-                                <td>${recentOrder.deliveryStatus}</td> <!-- 배송상태 -->
-                            </tr>
-                        </c:when>
-
-                        <c:otherwise>
-                            <tr>
-                                <td colspan="5">최근 3개월 내 구매내역이 없습니다.</td>
-                            </tr>
-                        </c:otherwise>
-                    </c:choose>
-                </tbody>
-
-            </table>
-        </div>
-    </section>
+                <c:forEach var="order" items="${orderList}">
+                    <tr>
+                        <td>${order.productid}</td>
+                        <td>${order.createdAt}</td>
+                        <td>
+                            ${order.productName}<br/>
+                            <img src="${order.productImage}" alt="상품 이미지" width="100px" height="100px">
+                        </td>
+                        <td>${order.quantity}개</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
-    </div> <!-- mypage-two-col-container(left-col + right-col) -->
-</div>    
 
+	</div>
+</div> <!-- mypage-two-col-container(left-col + right-col) -->
+
+</div>
 
 <%@ include file="../fragments/footer.jsp"%>

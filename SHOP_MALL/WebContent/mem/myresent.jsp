@@ -179,7 +179,7 @@
 				    </c:if>
 				    
 				</div> <!-- "profile-buttons" -->
-            </div> <!-- "profile-info" -->>
+            </div> <!-- "profile-info" -->
 		</div>
 	</div>
 <!-- 2) 좌우 2컬럼 레이아웃 -->

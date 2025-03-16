@@ -24,6 +24,7 @@ import Service.MemberFindPwId;
 import Service.MemberFindPwToken;
 import Service.MemberLogin;
 import Service.MemberLogout;
+import Service.MemberOrderList;
 import Service.MemberPaymentView;
 import Service.MemberRecentView;
 import Service.MemberResetPw;
@@ -218,7 +219,7 @@ public class MemberController extends HttpServlet {
 		    
 		    
 		    
-		    
+		//최근 본 상품    
 		case "/recentViewPage.do":
 		    new MemberRecentView().doCommand(request, response);
 		    return;
@@ -226,6 +227,16 @@ public class MemberController extends HttpServlet {
 		case "/recentView/remove.do":
 		    new MemberRecentView().removeRecentViewCommand(request, response);
 		    return;
+		    
+		    
+		//전체 구매이력 조회
+		case "/orderlist.do":  
+            if (session == null || session.getAttribute("user") == null) {
+                response.sendRedirect(request.getContextPath() + "/member/login.do");
+                return;
+            }
+            new MemberOrderList().doCommand(request, response);
+            return;
 		    
 		case "/faq.do" :
 			page = "/mem/Faq.jsp";

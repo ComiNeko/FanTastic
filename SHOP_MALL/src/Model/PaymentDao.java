@@ -191,8 +191,58 @@ public class PaymentDao {
         return vo;
     }
 
+   //구매이력조회
+    public List<PostVo> getOrderListByUserId(String userId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-    
+        List<PostVo> list = new ArrayList<>();
+
+        String sql = "SELECT o.orderid, p.productName, od.productCount, od.deliveryStatus, pay.paymentDate, p.productImage "
+                   + "FROM NEW_ORDERS o "
+                   + "JOIN NEW_ORDERDETAILS od ON o.orderid = od.orderid "
+                   + "JOIN NEW_PRODUCTS p ON od.productid = p.productid "
+                   + "JOIN NEW_PAYMENTS pay ON o.orderid = pay.orderid "
+                   + "WHERE o.userid = ? "
+                   + "ORDER BY pay.paymentDate DESC";
+
+        try {
+            conn = DBManager.getInstance().getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userId);
+
+            rs = pstmt.executeQuery();
+
+            // 날짜 포맷터 생성
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+            while (rs.next()) {
+                PostVo vo = new PostVo();
+
+                vo.setProductid(rs.getInt("orderid"));
+                vo.setProductName(rs.getString("productName"));
+                vo.setQuantity(rs.getInt("productCount"));
+                vo.setProductImage(rs.getString("productImage"));
+
+                // Timestamp -> 원하는 포맷으로 String 변환
+                java.sql.Timestamp paymentDate = rs.getTimestamp("paymentDate");
+                String formattedDate = sdf.format(paymentDate);
+
+                vo.setCreatedAt(formattedDate);  // 포맷한 값 저장!
+
+                list.add(vo);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(rs, pstmt, conn);
+        }
+
+        return list;
+    }
+
 	    
 	    
     
