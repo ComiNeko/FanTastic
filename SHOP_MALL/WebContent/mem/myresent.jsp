@@ -83,43 +83,67 @@
 
 
 
-
 .recent-views-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 16px;
-    margin: 20px;
+    grid-template-columns: repeat(3, 1fr); /* 3개씩 배치 */
+    gap: 20px;
+    padding: 20px;
 }
+
 .recent-view-card {
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px;
+    border-radius: 10px;
+    padding: 16px;
     text-align: center;
+    background-color: #fafafa;
+    transition: transform 0.2s;
 }
+
+.recent-view-card:hover {
+    transform: translateY(-5px);
+}
+
 .recent-view-card img {
     width: 100%;
-    height: auto;
-    border-radius: 4px;
-    margin-bottom: 8px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
+
 .recent-view-card .product-name {
+    font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 }
-.recent-view-card .product-price {
-    color: #f00;
+
+.recent-view-card .product-author {
+    font-size: 0.9rem;
+    color: #555;
     margin-bottom: 8px;
 }
-.recent-view-card .remove-btn {
-    background-color: #ccc;
+
+.recent-view-card .product-price {
+    color: #e60023;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.remove-btn {
+    margin-top: 10px;
+    background-color: #ff6666;
     border: none;
-    padding: 6px 10px;
-    cursor: pointer;
+    color: white;
+    padding: 8px 12px;
     border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
-.recent-view-card .remove-btn:hover {
-    background-color: #aaa;
+
+.remove-btn:hover {
+    background-color: #cc0000;
 }
+
 </style>
 
 
@@ -156,30 +180,56 @@
 				    
 				</div> <!-- "profile-buttons" -->
             </div> <!-- "profile-info" -->>
+		</div>
+	</div>
+<!-- 2) 좌우 2컬럼 레이아웃 -->
+	<div class="mypage-two-col-container">
 
+		<!-- 왼쪽 컬럼 (메뉴) -->
+		<div class="left-col">
+			<div class="mypage-submenu">
+				<h6>쇼핑정보</h6>
+				<ul>
+					<li><a href="#">구매내역</a></li>
+					<li><a href="/post/postcart.do">장바구니</a></li>
+					<li><a href="/post//list.do">좋아요</a></li>
+					<li><a href="/member/recentViewPage.do">최근 본</a></li>
+				</ul>
+				<h6>고객센터</h6>
+				<ul>
+					<li><a href="/member/faq.do">FAQ</a></li>
+				</ul>
+			</div>
+		</div>		
+				<!-- 최근 본 상품 목록 -->
+				<!-- 오른쪽 컬럼 (메인 콘텐츠) -->
+				<div class="right-col">
+				<div class="mypage-submenu">
+					<h6>최근 본</h6>
+				</div>
 
-<!-- 최근 본 상품 목록 -->
-<h2>최근 본 상품</h2>
+		<div class="recent-views-container">
+	   		<c:forEach var="rv" items="${recentViews}">
+	        	<div class="recent-view-card">
+		            <!-- 카드 전체에 링크 -->
+		            <a href="/post/postdetail.do?productid=${rv.productId}" class="recent-view-link">
+		                <img src="${rv.productImage}" alt="${rv.productName}" />
+		                <div class="product-name">${rv.productName}</div>
+		                <div class="product-author">${rv.authorName}</div>
+		                <div class="product-price">${rv.productPrice}원</div>
+		            </a>
+	
+		            <!-- 삭제 버튼은 링크 밖에 위치 -->
+		            <form action="${pageContext.request.contextPath}/recentView/remove.do" method="post" style="margin-top:10px;">
+		                <input type="hidden" name="recent_view_id" value="${rv.recent_view_id}">
+		                <button type="submit" class="remove-btn">삭제</button>
+		            </form>
+		        </div>
+	    	</c:forEach>
+		</div>
+	</div>
+</div> <!-- mypage-two-col-container(left-col + right-col) -->
 
-<div class="recent-views-container">
-    <c:forEach var="rv" items="${recentViews}">
-        <div class="recent-view-card">
-            <img src="${rv.productImage}" alt="상품 이미지" />
-            <div class="product-name">${rv.productName}</div>
-            <div class="product-author">${rv.authorName}</div>
-            <div class="product-price">${rv.productPrice}원</div>
-
-            <form action="${pageContext.request.contextPath}/recentView/remove.do" method="post" style="margin:0;">
-                
-                <input type="hidden" name="recent_view_id" value="${rv.recent_view_id}">
-                <button type="submit" class="remove-btn">삭제</button>
-            </form>
-        </div>
-    </c:forEach>
 </div>
-
-    </div> <!-- mypage-two-col-container(left-col + right-col) -->
-</div>    
-
 
 <%@ include file="../fragments/footer.jsp"%>

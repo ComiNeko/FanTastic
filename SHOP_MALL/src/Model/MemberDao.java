@@ -169,7 +169,7 @@ public class MemberDao {
 	        // 3. 최근 본 상품 개수가 10개 초과하면 오래된 항목 삭제
 	        String selectSql = "SELECT recent_view_id "
 	                         + "FROM (SELECT recent_view_id FROM NEW_RECENT_VIEWS WHERE userid = ? ORDER BY view_date DESC) "
-	                         + "WHERE ROWNUM > 10";
+	                         + "WHERE ROWNUM > 13";
 	        pstmt = conn.prepareStatement(selectSql);
 	        pstmt.setString(1, userid);
 	        rs = pstmt.executeQuery();

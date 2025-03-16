@@ -146,22 +146,22 @@ public class PaymentDao {
         PostVo vo = null;
 
         String sql = 
-            "SELECT * FROM ( " +
-            "    SELECT " +
-            "        o.orderid AS order_id, " +
-            "        p.productid AS product_id, " +
-            "        p.productName AS product_name, " +
-            "        od.productCount AS product_count, " +
-            "        od.deliveryStatus AS delivery_status, " +
-            "        pay.paymentDate AS payment_date, " +
-            "        p.productImage AS product_image " +
-            "    FROM NEW_ORDERS o " +
-            "    JOIN NEW_ORDERDETAILS od ON o.orderid = od.orderid " +
-            "    JOIN NEW_PRODUCTS p ON od.productid = p.productid " +
-            "    JOIN NEW_PAYMENTS pay ON o.orderid = pay.orderid " +
-            "    WHERE o.userid = ? " +
-            "    AND pay.paymentDate >= ADD_MONTHS(SYSDATE, -3) " +
-            "    ORDER BY pay.paymentDate DESC " +
+            "SELECT * FROM ( \n" + 
+            "    SELECT \n" + 
+            "        o.orderid AS order_id, \n" + 
+            "        p.productid AS product_id, \n" + 
+            "        p.productName AS product_name, \n" + 
+            "        od.productCount AS product_count, \n" + 
+            "        od.deliveryStatus AS delivery_status, \n" + 
+            "        TO_CHAR(pay.paymentDate, 'YYYY-MM-DD') AS payment_date, \n" + //-- 날짜만 가져오기
+            "        p.productImage AS product_image \n" + 
+            "    FROM NEW_ORDERS o \n" + 
+            "    JOIN NEW_ORDERDETAILS od ON o.orderid = od.orderid \n" + 
+            "    JOIN NEW_PRODUCTS p ON od.productid = p.productid \n" + 
+            "    JOIN NEW_PAYMENTS pay ON o.orderid = pay.orderid \n" + 
+            "    WHERE o.userid = ? \n" + 
+            "    AND pay.paymentDate >= ADD_MONTHS(SYSDATE, -3) \n" + 
+            "    ORDER BY pay.paymentDate DESC \n" + 
             ") WHERE ROWNUM = 1";
 
         try {
@@ -179,7 +179,7 @@ public class PaymentDao {
                 vo.setQuantity(rs.getInt("product_count"));
                 vo.setDeliveryStatus(rs.getString("delivery_status"));
                 vo.setProductImage(rs.getString("product_image"));
-                vo.setCreatedAt(rs.getTimestamp("payment_date").toString());
+                vo.setCreatedAt(rs.getString("payment_date"));
             }
 
         } catch (SQLException e) {

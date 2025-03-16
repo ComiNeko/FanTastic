@@ -6,7 +6,9 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import Model.MemberVo;
 import Model.PostDao;
 import Model.PostVo;
 import Model.ReviewDao;
@@ -33,6 +35,17 @@ public class PostDetailService implements Command {
         request.setAttribute("post", vo); // 상품 정보
         request.setAttribute("reviewList", reviewList); // 리뷰 목록
 
+        
+        //최근 본 상품 등록
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("user") != null) {
+
+            MemberVo user = (MemberVo) session.getAttribute("user");
+            String userid = user.getUserid();
+
+            MemberRecentView recentViewService = new MemberRecentView();
+            recentViewService.addRecentView(userid, productid); 
+        }
 
 	}
 
