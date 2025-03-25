@@ -28,7 +28,7 @@ public class MemberFindIdCode implements Command {
 		Long expiryTime = (Long) session.getAttribute("authCodeExpiry");
 
 		if (savedCode == null || expiryTime == null || System.currentTimeMillis() > expiryTime) {
-			response.getWriter().println("인증 코드가 만료되었습니다.");
+			response.getWriter().println("認証コードの有効期限が切れました。");
 			session.removeAttribute("findIdAuthCode");
 			session.removeAttribute("findIdUserId");
 			session.removeAttribute("authCodeExpiry");
@@ -43,7 +43,7 @@ public class MemberFindIdCode implements Command {
 			session.removeAttribute("authCodeExpiry");
 			response.getWriter().println("success:" + maskedUserId);
 		} else {
-			response.getWriter().println("인증 코드가 일치하지 않습니다.");
+			response.getWriter().println(" 認証コードが一致しません。");
 		}
 	}
 

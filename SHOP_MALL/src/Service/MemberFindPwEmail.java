@@ -24,20 +24,20 @@ public class MemberFindPwEmail implements Command {
         String userid = request.getParameter("userid");
         String email = request.getParameter("email"); 
         if(userid == null || userid.isEmpty() || email == null || email.isEmpty()){
-            response.getWriter().println("아이디와 이메일을 모두 입력해주세요.");
+            response.getWriter().println("IDとメールアドレスを両方入力してください。");
             return;
         }
 
         MemberDao dao = new MemberDao();
         MemberVo vo = dao.getMemberById(userid);
         if(vo == null){
-            response.getWriter().println("존재하지 않는 아이디입니다.");
+            response.getWriter().println("存在しないユーザーIDです。");
             return;
         }
 
         String registeredEmail = vo.getEmail();
         if(!registeredEmail.equals(email)){
-            response.getWriter().println("입력하신 이메일이 등록된 이메일과 일치하지 않습니다.");
+            response.getWriter().println("入力したメールアドレスが登録されたメールアドレスと一致しません。");
             return;
         }
 
@@ -47,7 +47,7 @@ public class MemberFindPwEmail implements Command {
         // 이메일 전송
         boolean emailSent = sendEmail(email, authCode);
         if(!emailSent){
-            response.getWriter().println("이메일 전송 실패");
+            response.getWriter().println("メール送信に失敗しました。");
             return;
         }
 
@@ -72,14 +72,14 @@ public class MemberFindPwEmail implements Command {
 	             Message message = new MimeMessage(mailSession);
 	             message.setFrom(new InternetAddress("dptmf3290@gmail.com"));
 	             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-	             message.setSubject("[FanTastic] 비밀번호 재설정 이메일 인증");
+	             message.setSubject("[FanTastic]パスワードリセットメール認証");
 	             
-	             String content = "안녕하세요. FanTastic 운영팀입니다.\n\n" +
-		                    "비밀번호 재설정을 위해 인증 코드를 보내드립니다.\n\n" +
-		                    "인증 코드: " + authCode + "\n\n" +
-		                    "인증 코드는 2분 후 만료됩니다. 빠른 확인 부탁드립니다.\n\n" +
-		                    "감사합니다.\n\n" +
-		                    "[FanTastic] 드림";
+	             String content = "こんにちは。FanTastic運営チームです。\n\n" +
+			                      "パスワードをリセットするための認証コードをお送りします。\n\n" +
+			                      "認証コード: " + authCode + "\n\n" +
+			                      "認証コードは2分後に無効になります。早めにご確認ください。\n\n" +
+			                      "ありがとうございます。\n\n" +
+			                      "[FanTastic] 運営チームより";
 	             
 	             message.setText(content);
 	             Transport.send(message);

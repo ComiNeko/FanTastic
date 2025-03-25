@@ -8,54 +8,54 @@
 <div class="swiper-container">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <img src="/img/banner1.png" class="main-banner-img" alt="배너 이미지 1">
+            <img src="/img/banner1.png" class="main-banner-img" alt="バナー画像1">
             <div class="swiper-caption">
-                <h3>FanTastic에서 크리에이터의 굿즈를 만나보세요!</h3>
-                <p>일러스트, 캐릭터 굿즈, 버추얼 아이템까지 다양한 상품을 제공합니다.</p>
+                <h3>FanTasticでクリエイターのグッズを見つけよう！</h3>
+                <p>イラスト、キャラクターグッズ、バーチャルアイテムまで、多様な商品を提供します。</p>
             </div>
         </div>
         <div class="swiper-slide">
-            <img src="/img/banner2.png" class="main-banner-img" alt="배너 이미지 2">
+            <img src="/img/banner2.png" class="main-banner-img" alt="バナー画像2">
             <div class="swiper-caption">
-                <h3>핫한 신상품 업데이트!</h3>
-                <p>최신 크리에이터 아이템을 지금 확인해보세요.</p>
+                <h3>最新の新商品アップデート！</h3>
+                <p>最新のクリエイターアイテムを今すぐチェック！</p>
             </div>
         </div>
         <div class="swiper-slide">
-            <img src="/img/banner3.png" class="main-banner-img" alt="배너 이미지 3">
+            <img src="/img/banner3.png" class="main-banner-img" alt="バナー画像3">
             <div class="swiper-caption">
-                <h3>FanTastic 오픈 이벤트</h3>
-                <p>특별한 혜택을 누려보세요!</p>
+                <h3>FanTasticオープンイベント</h3>
+                <p>特別な特典をお楽しみください！</p>
             </div>
         </div>
         <div class="swiper-slide">
-            <img src="/img/banner4.png" class="main-banner-img" alt="배너 이미지 4">
+            <img src="/img/banner4.png" class="main-banner-img" alt="バナー画像4">
             <div class="swiper-caption">
-                <h3>특별 할인 이벤트!</h3>
-                <p>지금 한정 수량으로 특별 할인된 상품을 만나보세요.</p>
+                <h3>特別割引イベント！</h3>
+                <p>今だけの限定数量で特別割引商品をチェック！</p>
             </div>
         </div>
         <div class="swiper-slide">
-            <img src="/img/banner5.png" class="main-banner-img" alt="배너 이미지 5">
+            <img src="/img/banner5.png" class="main-banner-img" alt="バナー画像5">
             <div class="swiper-caption">
-                <h3>크리에이터와의 협업 상품</h3>
-                <p>유명 크리에이터와의 콜라보 상품을 소개합니다.</p>
+                <h3>クリエイターとのコラボ商品</h3>
+                <p>有名クリエイターとのコラボ商品をご紹介します。</p>
             </div>
         </div>
         <div class="swiper-slide">
-            <img src="/img/banner6.png" class="main-banner-img" alt="배너 이미지 6">
+            <img src="/img/banner6.png" class="main-banner-img" alt="バナー画像6">
             <div class="swiper-caption">
-                <h3>한정판 굿즈를 지금 만나보세요!</h3>
-                <p>한정판으로 제작된 특별한 상품을 FanTastic에서 만나보세요.</p>
+                <h3>限定版グッズを今すぐチェック！</h3>
+                <p>限定版で制作された特別な商品をFanTasticでお楽しみください。</p>
             </div>
         </div>
     </div>
 
-    <!-- 이전/다음 버튼 -->
+    <!-- 次へ / 前へ ボタン -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
 
-    <!-- 페이지네이션 (하단 점) -->
+    <!-- ページネーション（下のドット） -->
     <div class="swiper-pagination"></div>
 </div>
 
@@ -63,45 +63,45 @@
     <div class="quick-menu">
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #f7c52c;">
-                <a href="/post/creatorlist.do"><img src="/img/qm_creator.png" alt="크리에이터"></a>
+                <a href="/post/creatorlist.do"><img src="/img/qm_creator.png" alt="クリエイター"></a>
             </div>
-            <p>FanTastic 크리에이터</p>
+            <p>FanTasticクリエイター</p>
         </div>
 
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #f56a6a;">
-                <a href="/post/postsellinglist.do"><img src="/img/qm_product.png" alt="상품"></a>
+                <a href="/post/postsellinglist.do"><img src="/img/qm_product.png" alt="商品"></a>
             </div>
-            <p>FanTastic 굿즈</p>
+            <p>FanTasticグッズ</p>
         </div>
 
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #3c91e6;">
-                <a href="/post/openevent.do"><img src="/img/qm_openevent.png" alt="깜짝 오픈이벤트"></a>
+                <a href="/post/openevent.do"><img src="/img/qm_openevent.png" alt="サプライズオープンイベント"></a>
             </div>
-            <p>깜짝! 오픈이벤트</p>
+            <p>サプライズ！オープンイベント</p>
         </div>
 
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #4caf50;">
-                <a href="/post/review.do"><img src="/img/qm_review.png" alt="FanTastic 포토리뷰"></a>
+                <a href="/post/review.do"><img src="/img/qm_review.png" alt="FanTasticフォトレビュー"></a>
             </div>
-            <p>FanTastic 포토리뷰</p>
+            <p>FanTasticフォトレビュー</p>
         </div>
 
         <div class="quick-menu-item">
             <div class="quick-menu-icon" style="background-color: #ff9800;">
-                <a href="/post/request.do"><img src="/img/qm_request.png" alt="상품 등록요청"></a>
+                <a href="/post/request.do"><img src="/img/qm_request.png" alt="商品登録リクエスト"></a>
             </div>
-            <p>상품 등록요청</p>
+            <p>商品登録リクエスト</p>
         </div>
     </div>
 </section>
 
 <section class="popular-creators">
 	<div class="container">
-		<h4 class="section-semi-title">3월 가장 인기많은 작가 랭킹</h4>
-		<h2 class="section-title">주간 인기 크리에이터</h2>
+		<h4 class="section-semi-title">3月の最も人気のある作家ランキング</h4>
+		<h2 class="section-title">週間人気クリエイター</h2>
 		<div class="creator-wrapper">
 			<!-- 1위 크리에이터 -->
 			<div class="first-place">
@@ -118,8 +118,8 @@
 						</div>
 						<div class="creator-info">
 							<h1 style="font-size: 32px; font-weight: 700;">John Doe</h1>
-							<p>유튜버</p>
-							<p>❤️ Favorite: 12,345</p>
+							<p>ユーチューバー</p>
+							<p>❤️ お気に入り: 12,345</p>
 						</div>
 
 						<!-- 대표 상품 3개 -->
@@ -140,45 +140,45 @@
 			<div class="other-creators">
 				<div class="creator-card">
 					<a href="#">
-						<div class="rank">2위</div> <img src="/img/ex_profile_02.png"
+						<div class="rank">2位</div> <img src="/img/ex_profile_02.png"
 						alt="Jane's Profile" class="profile-img">
 						<div class="creator-info">
 							<h3 class="creator-name">Jane</h3>
-							<p class="creator-job">유튜버</p>
-							<p class="creator-favorite">❤️ Favorite: 9,876</p>
+							<p class="creator-job">ユーチューバー</p>
+							<p class="creator-favorite">❤️ お気に入り: 9,876</p>
 						</div>
 					</a>
 				</div>
 				<div class="creator-card">
 					<a href="#">
-						<div class="rank">3위</div> <img src="/img/ex_profile_03.png"
+						<div class="rank">3位</div> <img src="/img/ex_profile_03.png"
 						alt="Chris's Profile" class="profile-img">
 						<div class="creator-info">
 							<h3 class="creator-name">Chris</h3>
-							<p class="creator-job">만화가</p>
-							<p class="creator-favorite">❤️ Favorite: 8,765</p>
+							<p class="creator-job">漫画家</p>
+							<p class="creator-favorite">❤️ お気に入り: 8,765</p>
 						</div>
 					</a>
 				</div>
 				<div class="creator-card">
 					<a href="#">
-						<div class="rank">4위</div> <img src="/img/ex_profile_04.png"
+						<div class="rank">4位</div> <img src="/img/ex_profile_04.png"
 						alt="Kim's Profile" class="profile-img">
 						<div class="creator-info">
 							<h3 class="creator-name">Kim</h3>
-							<p class="creator-job">라이브2D 아티스트</p>
-							<p class="creator-favorite">❤️ Favorite: 7,654</p>
+							<p class="creator-job">Live2Dアーティスト</p>
+							<p class="creator-favorite">❤️ お気に入り: 7,654</p>
 						</div>
 					</a>
 				</div>
 				<div class="creator-card">
 					<a href="#">
-						<div class="rank">5위</div> <img src="/img/ex_profile_05.png"
+						<div class="rank">5位</div> <img src="/img/ex_profile_05.png"
 						alt="Lee's Profile" class="profile-img">
 						<div class="creator-info">
 							<h3 class="creator-name">Lee</h3>
-							<p class="creator-job">버추얼 크리에이터</p>
-							<p class="creator-favorite">❤️ Favorite: 6,543</p>
+							<p class="creator-job">バーチャルクリエイター</p>
+							<p class="creator-favorite">❤️ お気に入り: 6,543</p>
 						</div>
 					</a>
 				</div>
@@ -190,8 +190,8 @@
 <!-- 지금 인기 상품 섹션 -->
 <section class="popular-products">
     <div class="container">
-        <h4 class="section-semi-title">가장 인기있는 상품을 만나보세요!</h4>
-        <h2 class="section-title">TODAY'S HOT 인기 상품</h2>
+        <h4 class="section-semi-title">最も人気のある商品をチェック！</h4>
+        <h2 class="section-title">TODAY'S HOT 人気商品</h2>
         
         <!-- Swiper 컨테이너 -->
         <div class="swiper popular-products-slider">
@@ -200,8 +200,8 @@
                     <img src="/img/ex_product_01.png" alt="John의 키링">
                     <div class="product-info">
                     	<h4>John</h4>
-                        <h3>대롱대롱 아크릴 스탠드</h3>
-                        <p class="product-costs">20,000원</p>
+                        <h3>ゆらゆらアクリルスタンド</h3>
+                        <p class="product-costs">2,000円</p>
                     </div>
                 </div>
 
@@ -209,8 +209,8 @@
                     <img src="/img/ex_product_02.png" alt="Jane의 포토카드">
                     <div class="product-info">
                     	<h4>Jane</h4>
-                        <h3>생기발랄 아크릴 스탠드</h3>
-                        <p class="product-costs">15,000원</p>
+                        <h3>元気いっぱいアクリルスタンド</h3>
+                        <p class="product-costs">1,500円</p>
                     </div>
                 </div>
 
@@ -218,8 +218,8 @@
                     <img src="/img/ex_product_03.png" alt="Chris의 아크릴 스탠드">
                     <div class="product-info">
                     	<h4>Chris</h4>
-                        <h3>푸근해보이는 키링</h3>
-                        <p class="product-costs">2,500원</p>
+                        <h3>ほのぼのキーホルダー</h3>
+                        <p class="product-costs">250円</p>
                     </div>
                 </div>
 
@@ -227,8 +227,8 @@
                     <img src="/img/ex_product_04.png" alt="Kim의 마우스패드">
                     <div class="product-info">
                     	<h4>Kim</h4>
-                        <h3>정말로 귀여운 키캡</h3>
-                        <p class="product-costs">3,000원</p>
+                        <h3>本当にかわいいキーキャップ</h3>
+                        <p class="product-costs">300円</p>
                     </div>
                 </div>
 
@@ -236,8 +236,8 @@
                     <img src="/img/ex_product_05.png" alt="Lee의 틴케이스">
                     <div class="product-info">
                     	<h4>Lee</h4>
-                        <h3>[품절임박]귀욤귀욤 sd스티커셋</h3>
-                        <p class="product-costs">2,000원</p>
+                        <h3>[売り切れ間近] かわいいSDステッカーセット</h3>
+                        <p class="product-costs">200円</p>
                     </div>
                 </div>
             </div>
@@ -254,8 +254,8 @@
 	<div class="container">
 		<div class="review-header">
 			<div class="review-header-left">
-				<h4 class="section-semi-title">판타스틱한 내돈내산 리뷰!</h4>
-				<h2 class="section-title">FanTastic 포토 리뷰</h2>
+				<h4 class="section-semi-title">FanTasticな自腹レビュー！</h4>
+				<h2 class="section-title">FanTasticフォトレビュー</h2>
 			</div>
 			<div class="review-header-right">
 				<a href="/posts/postreview.do" class="see-more">See More</a>
@@ -270,13 +270,13 @@
 					<a href="/posts/postreview?reviewid=01.do" class="product-link">
 						<div class="review-meta">
 							<div class="stars">★★★★★</div>
-							<span class="review-time">25분 전</span>
+							<span class="review-time">25分前</span>
 						</div>
 						<div class="review-meta-info">
 							<img src="/img/ex_product_01.png" alt="상품 이미지">
 							<div class="product-info">
-								<h3>선물세트 느낌나는 이쁘디 이쁜 상자</h3>
-								<p>3,500원</p>
+								<h3>ギフトセット風のかわいい箱</h3>
+								<p>350円</p>
 							</div>
 						</div>
 					</a>
@@ -290,13 +290,13 @@
 					<a href="/posts/postreview?reviewid=02.do" class="product-link">
 						<div class="review-meta">
 							<div class="stars">★★★★★</div>
-							<span class="review-time">2시간 전</span>
+							<span class="review-time">2時間前</span>
 						</div>
 						<div class="review-meta-info">
 							<img src="/img/ex_product_02.png" alt="상품 이미지">
 							<div class="product-info">
-								<h3>OOO의 인형 키링</h3>
-								<p>3,500원</p>
+								<h3>ぬいぐるみキーホルダー</h3>
+								<p>350円</p>
 							</div>
 						</div>
 					</a>
@@ -310,13 +310,13 @@
 					<a href="/posts/postreview?reviewid=03.do" class="product-link">
 						<div class="review-meta">
 							<div class="stars">★★★★★</div>
-							<span class="review-time">11시간 전</span>
+							<span class="review-time">11時間前</span>
 						</div>
 						<div class="review-meta-info">
 							<img src="/img/ex_product_03.png" alt="상품 이미지">
 							<div class="product-info">
-								<h3>멋진 쿠키런 뱃지</h3>
-								<p>3,500원</p>
+								<h3>素敵なクッキーランバッジ</h3>
+								<p>350円</p>
 							</div>
 						</div>
 					</a>
@@ -330,13 +330,13 @@
 					<a href="/posts/postreview?reviewid=04.do" class="product-link">
 						<div class="review-meta">
 							<div class="stars">★★★★★</div>
-							<span class="review-time">23시간 전</span>
+							<span class="review-time">23時間前</span>
 						</div>
 						<div class="review-meta-info">
 							<img src="/img/ex_product_04.png" alt="상품 이미지">
 							<div class="product-info">
-								<h3>OOO의 멋진 포토카드</h3>
-								<p>3,500원</p>
+								<h3>素敵なフォトカード</h3>
+								<p>350円</p>
 							</div>
 						</div>
 					</a>
@@ -352,36 +352,36 @@
     <div class="container">
         <div class="notice">
         	<div class="notice-head">
-	            <h2 class="section-title">공지사항</h2>
+	            <h2 class="section-title">お知らせ</h2>
 	            <a href="/notice" class="more-btn">See More</a>
             </div>
             <ul class="notice-list">
                 <li>
-                    <a href="#">[이벤트] 신상품 런칭 기념 특별 할인 안내</a>
+                    <a href="#">[イベント] 新商品ローンチ記念特別割引のお知らせ</a>
                     <span class="date">2024.03.13</span>
                 </li>
                 <li>
-                    <a href="#">[업데이트] FanTastic 서비스 개편 안내</a>
+                    <a href="#">[アップデート] FanTasticサービス改編のお知らせ</a>
                     <span class="date">2024.03.10</span>
                 </li>
                 <li>
-                    <a href="#">[공지] 시스템 점검 일정 안내</a>
+                    <a href="#">[お知らせ] システムメンテナンススケジュールのお知らせ</a>
                     <span class="date">2024.03.08</span>
                 </li>
                 <li>
-                    <a href="#">[필독] 안전거래를 위한 유의사항</a>
+                    <a href="#">[必読] 安全取引のための注意事項</a>
                     <span class="date">2024.03.05</span>
                 </li>
                 <li>
-                    <a href="#">[필독] 오픈 이벤트 안내</a>
+                    <a href="#">[必読] オープンイベントのお知らせ</a>
                     <span class="date">2024.03.04</span>
                 </li>
             </ul>
         </div>
 
         <div class="customer">
-            <h2 class="section-title">고객센터</h2>
-            <p class="customer-info">운영시간: 평일 10:00 ~ 18:00<br>점심시간: 12:00 ~ 13:00</p>
+            <h2 class="section-title">カスタマーセンター</h2>
+            <p class="customer-info">営業時間: 平日 10:00 ~ 18:00<br>ランチタイム: 12:00 ~ 13:00</p>
             <div class="customer-service">
                 <p class="customer-phone">📞 1588-1234</p>
             </div>

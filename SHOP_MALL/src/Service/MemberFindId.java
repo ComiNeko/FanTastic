@@ -26,7 +26,7 @@ public class MemberFindId implements Command {
 	        // 사용자가 입력한 이메일을 그대로 사용 (trim 등의 처리는 하지 않음)
 	        String email = request.getParameter("email");
 	        if (email == null || email.isEmpty()) {
-	            response.getWriter().println("이메일을 입력해주세요.");
+	            response.getWriter().println("メールを入力してください。");
 	            return;
 	        }
 	        
@@ -35,7 +35,7 @@ public class MemberFindId implements Command {
 	        String userId = dao.findUserId(email);
 	        System.out.println("findUserId - email: " + email + ", result: " + userId);
 	        if (userId == null) {
-	            response.getWriter().println("존재하지 않는 이메일입니다.");
+	            response.getWriter().println("存在しないメールアドレスです。");
 	            return;
 	        }
 	        
@@ -45,7 +45,7 @@ public class MemberFindId implements Command {
 	        // 이메일 전송
 	        boolean emailSent = sendEmail(email, authCode);
 	        if (!emailSent) {
-	            response.getWriter().println("이메일 전송 실패");
+	            response.getWriter().println("メール送信に失敗しました。");
 	            return;
 	        }
 	        
@@ -56,7 +56,7 @@ public class MemberFindId implements Command {
 	        long expiryTime = System.currentTimeMillis() + 2 * 60 * 1000;
 	        session.setAttribute("authCodeExpiry", expiryTime);
 	        
-	        response.getWriter().println("인증 코드가 이메일로 전송되었습니다.");
+	        response.getWriter().println("認証コードがメールに送信されました。");
 	    }
 	    
 	    // 6자리 랜덤 인증 코드 생성 메서드
@@ -73,15 +73,15 @@ public class MemberFindId implements Command {
 	            Message message = new MimeMessage(mailSession);
 	            message.setFrom(new InternetAddress("dptmf3290@gmail.com"));
 	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-	            message.setSubject("[FanTastic] 아이디 찾기 이메일 인증");
+	            message.setSubject("[FanTastic]ID検索のためのメール認証");
 	            
 	            String emailContent = 
-	                    "안녕하세요. FanTastic 운영팀입니다.\n\n" +
-	                    "아이디 찾기를 위한 인증 코드를 보내드립니다.\n\n" +
-	                    "인증 코드: " + authCode + "\n\n" +
-	                    "인증 코드는 2분 후 만료됩니다. 빠른 확인 부탁드립니다.\n\n" +
-	                    "감사합니다.\n\n" +
-	                    "[FanTastic] 드림";
+	            		"こんにちは、FanTastic運営チームです。\n\n" +
+                        "ID検索のための認証コードをお送りします。\n\n" +
+                        "認証コード: " + authCode + "\n\n" +
+                        "認証コードは2分後に無効になります。お早めにご確認ください。\n\n" +
+                        "ありがとうございます。\n\n" +
+                        "[FanTastic] 運営チームより";
 	            
 	            message.setText(emailContent);
 	            Transport.send(message);

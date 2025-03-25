@@ -25,11 +25,11 @@ public class MemberResetPw implements Command {
         if(token == null || token.isEmpty() ||
            newPassword == null || newPassword.isEmpty() ||
            confirmPassword == null || confirmPassword.isEmpty()){
-            response.getWriter().println("비밀번호 재설정을 위해 모두 입력해주세요.");
+            response.getWriter().println("パスワードをリセットするためにすべて入力してください。");
             return;
         }
         if(!newPassword.equals(confirmPassword)){
-            response.getWriter().println("비밀번호가 일치하지 않습니다.");
+            response.getWriter().println("パスワードが一致しません。");
             return;
         }
 
@@ -37,7 +37,7 @@ public class MemberResetPw implements Command {
         MemberDao memberDao = new MemberDao();
         String userid = memberDao.getUserIdByToken(token);
         if(userid == null){
-            response.getWriter().println("유효하지 않은 토큰입니다.");
+            response.getWriter().println("無効なトークンです。");
             return;
         }
 
@@ -46,9 +46,9 @@ public class MemberResetPw implements Command {
         int result = memberDao.updatePassword(userid, hashedPassword); // 해싱된 비밀번호 저장
         if(result > 0){
             memberDao.deleteToken(token);
-            response.getWriter().println("비밀번호가 성공적으로 변경되었습니다.");
+            response.getWriter().println("正常に変更されました");
         } else {
-            response.getWriter().println("비밀번호 변경에 실패했습니다.");
+            response.getWriter().println("パスワードの変更に失敗しました。");
         }
 		
 	}

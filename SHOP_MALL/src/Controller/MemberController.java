@@ -78,7 +78,7 @@ public class MemberController extends HttpServlet {
 			if (authCode != null) {
 				response.getWriter().println(authCode); // 인증 코드 반환 (세션 저장 X)
 			} else {
-				response.getWriter().println("이메일 전송 실패");
+				response.getWriter().println("メール送信失敗");
 			}
 			return;
 

@@ -11,122 +11,122 @@
 			<h2 class="signup-high-T">Sign-Up</h2>
 		</div>
 		<div class="signup-part">
-			<form id="signupForm" action="/member/signuppro.do" method="post" novalidate>
-				<div class="signup-form-group">
-				    <label for="name">이름</label>
-				    <input type="text" id="name" name="name" placeholder="이름(실명)을 입력하세요." required>
-				</div>
-				<p id="err-name"></p>
-				
-				<div class="signup-form-group">
-				    <label for="userid">아이디</label>
-				    <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요." maxlength="20" required>
-				</div>
-				<p id="err-id"></p>
-				
-				<div class="signup-form-group">
-					<label for="password">비밀번호</label>
-					<input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요." maxlength="25" required>
-				</div>
-				<p id="err-pwd"></p>
-				
-				<div class="signup-form-group">
-					<label for="passwordConfirm">비밀번호 확인</label>
-					<input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 확인해주세요." maxlength="25" required>
-				</div>
-				<p id="err-pwdc"></p>
-				
-				<div class="signup-form-group">
-					<label for="phonenumber">전화번호</label>
-					<input type="text" id="phonenumber" name="phonenumber" placeholder="전화번호를 입력해주세요." required>
-				</div>
-				<p id="err-phonenumber"></p>
-
-				<div class="signup-form-group-address">
-					<label for="address">주소</label>
-					<div class="signup-address">
-						<input type="text" id="address" name="address" placeholder="주소를 입력하세요." required>
-						<button type="button" id="findAddressBtn">주소 찾기</button>
-					</div>
-					<div class="signup-detailAddress">
-						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세 주소(동/호 등)를 입력하세요.">
-					</div>
-				</div>
-				<p id="err-address"></p>
-				<p id="err-detailAddress"></p>
-
-				<div class="signup-form-group-email">
-					<label for="email">이메일</label>
-					<div class="email-container">
-						<div class="email-container-left">
-							<input type="text" id="emailPrefix" name="emailPrefix" placeholder="이메일 아이디" required>
-							<span>@</span>
-							<select id="emailDomain" name="emailDomain">
-								<option value="" selected>선택해주세요</option>
-								<option value="naver.com">naver.com</option>
-								<option value="gmail.com">gmail.com</option>
-								<option value="daum.net">daum.net</option>
-								<option value="icloud.com">icloud.com</option>
-								<option value="custom">직접입력</option>
-							</select>
-							<input type="text" id="customEmailDomain" name="customEmailDomain" placeholder="도메인 입력" style="display: none;">
-							<p id="err-email"></p>
-						</div>
-						<div class="email-container-right">
-							<button type="button" id="sendEmailBtn">이메일 인증</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="signup-form-group-auth">
-					<div class="signup-auth-left">
-						<label class="authCode" for="authCode">인증 코드</label>
-					</div>
-					<div class="signup-auth-right">
-						<input type="text" id="authCode" name="authCode" placeholder="인증 코드를 입력하세요." required>
-						<button type="button" id="verifyCodeBtn">인증 확인</button>
-					</div>
-				</div>
-				<p id="err-code"></p>
-
-				<!-- 약관 동의 -->
-				<div class="checkbox-container">
-					<div class="signup-checkbox-group">
-						<input type="checkbox" id="terms" name="terms">
-						<label for="terms">이용약관에 동의합니다.</label>
-					</div>
-					<div class="signup-checkbox-button">
-						<button type="button" onclick="toggleDetails('termsDetails')">내용보기 ▼</button>
-					</div>
-				</div>
-				<div id="termsDetails" class="details">
-					이용약관의 상세 내용이 여기에 표시됩니다.
-				</div>
-
-				<div class="checkbox-container">
-					<div class="signup-checkbox-group">
-						<input type="checkbox" id="privacy" name="privacy">
-						<label for="privacy">개인정보 수집, 이용에 동의합니다.</label>
-					</div>
-					<div class="signup-checkbox-button">
-						<button type="button" onclick="toggleDetails('privacyDetails')">내용보기 ▼</button>
-					</div>
-				</div>
-				<div id="privacyDetails" class="details">
-					개인정보 수집 및 이용에 대한 상세 내용이 여기에 표시됩니다.
-				</div>
-				
-				<div class="checkbox-container checkbox-minor">
-					<div class="signup-checkbox-group">
-						<input type="checkbox" id="minor" name="minor"> 
-						<label class="minor" for="minor">미성년자는 법정대리인의 동의를 받은 후 이용이 가능합니다.</label>
-					</div>
-				</div>
-
-				<!-- 체크박스 오류 메시지 -->
-				<div class="error-message" id="err-checkbox"></div>
-				<button type="submit" class="signup-btn">회원가입</button>
-			</form>
+		    <form id="signupForm" action="/member/signuppro.do" method="post" novalidate>
+		        <div class="signup-form-group">
+		            <label for="name">名前</label>
+		            <input type="text" id="name" name="name" placeholder="名前（本名）を入力してください。" required>
+		        </div>
+		        <p id="err-name"></p>
+		        
+		        <div class="signup-form-group">
+		            <label for="userid">ID</label>
+		            <input type="text" id="userid" name="userid" placeholder="IDを入力してください。" maxlength="20" required>
+		        </div>
+		        <p id="err-id"></p>
+		        
+		        <div class="signup-form-group">
+		            <label for="password">パスワード</label>
+		            <input type="password" id="password" name="password" placeholder="パスワードを入力してください。" maxlength="25" required>
+		        </div>
+		        <p id="err-pwd"></p>
+		        
+		        <div class="signup-form-group">
+		            <label for="passwordConfirm">パスワード確認</label>
+		            <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="パスワードを確認してください。" maxlength="25" required>
+		        </div>
+		        <p id="err-pwdc"></p>
+		        
+		        <div class="signup-form-group">
+		            <label for="phonenumber">電話番号</label>
+		            <input type="text" id="phonenumber" name="phonenumber" placeholder="電話番号を入力してください。" required>
+		        </div>
+		        <p id="err-phonenumber"></p>
+		
+		        <div class="signup-form-group-address">
+		            <label for="address">住所</label>
+		            <div class="signup-address">
+		                <input type="text" id="address" name="address" placeholder="住所を入力してください。" required>
+		                <button type="button" id="findAddressBtn">住所検索</button>
+		            </div>
+		            <div class="signup-detailAddress">
+		                <input type="text" id="detailAddress" name="detailAddress" placeholder="詳細住所（番地・建物名など）を入力してください。">
+		            </div>
+		        </div>
+		        <p id="err-address"></p>
+		        <p id="err-detailAddress"></p>
+		
+		        <div class="signup-form-group-email">
+		            <label for="email">メールアドレス</label>
+		            <div class="email-container">
+		                <div class="email-container-left">
+		                    <input type="text" id="emailPrefix" name="emailPrefix" placeholder="メールID" required>
+		                    <span>@</span>
+		                    <select id="emailDomain" name="emailDomain">
+		                        <option value="" selected>選択してください</option>
+		                        <option value="naver.com">naver.com</option>
+		                        <option value="gmail.com">gmail.com</option>
+		                        <option value="daum.net">daum.net</option>
+		                        <option value="icloud.com">icloud.com</option>
+		                        <option value="custom">直接入力</option>
+		                    </select>
+		                    <input type="text" id="customEmailDomain" name="customEmailDomain" placeholder="ドメインを入力" style="display: none;">
+		                    <p id="err-email"></p>
+		                </div>
+		                <div class="email-container-right">
+		                    <button type="button" id="sendEmailBtn">メール認証</button>
+		                </div>
+		            </div>
+		        </div>
+		
+		        <div class="signup-form-group-auth">
+		            <div class="signup-auth-left">
+		                <label class="authCode" for="authCode">認証コード</label>
+		            </div>
+		            <div class="signup-auth-right">
+		                <input type="text" id="authCode" name="authCode" placeholder="認証コードを入力してください。" required>
+		                <button type="button" id="verifyCodeBtn">認証確認</button>
+		            </div>
+		        </div>
+		        <p id="err-code"></p>
+		
+		        <!-- 利用規約の同意 -->
+		        <div class="checkbox-container">
+		            <div class="signup-checkbox-group">
+		                <input type="checkbox" id="terms" name="terms">
+		                <label for="terms">利用規約に同意します。</label>
+		            </div>
+		            <div class="signup-checkbox-button">
+		                <button type="button" onclick="toggleDetails('termsDetails')">内容を見る</button>
+		            </div>
+		        </div>
+		        <div id="termsDetails" class="details">
+		            利用規約の詳細内容がここに表示されます。
+		        </div>
+		
+		        <div class="checkbox-container">
+		            <div class="signup-checkbox-group">
+		                <input type="checkbox" id="privacy" name="privacy">
+		                <label for="privacy">個人情報の収集・利用に同意します。</label>
+		            </div>
+		            <div class="signup-checkbox-button">
+		                <button type="button" onclick="toggleDetails('privacyDetails')">内容を見る</button>
+		            </div>
+		        </div>
+		        <div id="privacyDetails" class="details">
+		            個人情報の収集・利用に関する詳細内容がここに表示されます。
+		        </div>
+		        
+		        <div class="checkbox-container checkbox-minor">
+		            <div class="signup-checkbox-group">
+		                <input type="checkbox" id="minor" name="minor"> 
+		                <label class="minor" for="minor">未成年者は法定代理人の同意を得た上で利用可能です。</label>
+		            </div>
+		        </div>
+		
+		        <!-- チェックボックスのエラーメッセージ -->
+		        <div class="error-message" id="err-checkbox"></div>
+		        <button type="submit" class="signup-btn">会員登録</button>
+		    </form>
 		</div>
 	</div>
 </div>
@@ -137,7 +137,7 @@
     	var name = $("#name").val().trim();
     	
 	    if (!name) {
-	        $("#err-name").html("<span class='error'>이름이 입력되지 않았습니다.</span>")
+	        $("#err-name").html("<span class='error'>名前が入力されていません。</span>")
 	        return false;
 	    } else {
 	        $("#err-name").html("");
@@ -149,8 +149,7 @@
 		var userid = $("#userid").val().trim();
 		
 		if (!userid) {
-			$("#err-id").html("<span class='error'>아이디가 입력되지 않았습니다.</span>");
-			$("#userid").focus();
+			$("#err-id").html("<span class='error'>IDが入力されていません。</span>");
 			return false;
 		}
 		
@@ -161,23 +160,23 @@
 			success : function(response) {
 				var result = parseInt(response.trim());
 				if (result === -1) {
-					$("#err-id").html("<span class='success'>사용 가능한 아이디입니다.</span>");
+					$("#err-id").html("<span class='success'>使用可能なIDです。</span>");
 				} else {
-					$("#err-id").html("<span class='error'>사용할 수 없는 아이디입니다.</span>");
+					$("#err-id").html("<span class='error'>使用できないIDです。</span>");
 					$("#userid").val("");
 				}
 			}, error : function() {
-				alert("통신 에러");
+				alert("通信エラー");
 			}
 		});
-		return ($("#err-id").text().indexOf("사용 가능한") !== -1);
+		return ($("#err-id").text().indexOf("使用可能な") !== -1);
 	}
 
 	function chkPwd() {
 		var pwd = $("#password").val().trim();
 		
 		if (!pwd) {
-			$("#err-pwd").html("<span class='error'>비밀번호가 입력되지 않았습니다.</span>");
+			$("#err-pwd").html("<span class='error'>パスワードが入力されていません。</span>");
 			return false;
 		} else {
 			$("#err-pwd").html("");
@@ -190,10 +189,10 @@
 		var pwdC = $("#passwordConfirm").val().trim();
 		
 		if (!pwdC) {
-			$("#err-pwdc").html("<span class='error'>비밀번호 확인이 입력되지 않았습니다.</span>");
+			$("#err-pwdc").html("<span class='error'>パスワード確認が入力されていません。</span>");
 			return false;
 		} else if (pwd !== pwdC) {
-			$("#err-pwdc").html("<span class='error'>비밀번호가 일치하지 않습니다.</span>");
+			$("#err-pwdc").html("<span class='error'>パスワードが一致しません。</span>");
 			return false;
 		} else {
 			$("#err-pwdc").html("");
@@ -205,38 +204,12 @@
 		var phonenumber = $("#phonenumber").val().trim();
 		
 		if (!phonenumber) {
-			$("#err-phonenumber").html("<span class='error'>전화번호는 필수 정보입니다.</span>");
+			$("#err-phonenumber").html("<span class='error'>電話番号が入力されていません。</span>");
 			return false;
 		} else {
 			$("#err-phonenumber").html("");
 			return true;
 		}
-	}
-	
-	// 주소 필드 검사
-	function chkAddress() {
-    	var address = $("#address").val().trim();
-    	
-	    if (!address) {
-	        $("#err-address").html("<span class='error-address'>주소가 등록되지 않았습니다.</span>")
-	        return false;
-	    } else {
-	        $("#err-address").html("");
-	        return true;
-	    }
-	}
-	
-	// 상세 주소 필드 검사
-	function chkDetailAddress() {
-    	var detailAddress = $("#detailAddress").val().trim();
-    	
-	    if (!detailAddress) {
-	        $("#err-detailAddress").html("<span class='error-detailaddress'>상세주소가 입력되지 않았습니다.</span>")
-	        return false;
-	    } else {
-	        $("#err-detailAddress").html("");
-	        return true;
-	    }
 	}
 
 	// 주소 찾기 버튼 클릭 시 동작
@@ -248,16 +221,17 @@
 			}).open();
 		});
 	
-	function chkAddr() {
-		var addr = $("#address").val().trim();
-		
-		if (!addr) {
-			$("#err-addr").html("<span class='error'>주소는 필수 정보입니다.</span>");
-			return false;
-		} else {
-			$("#err-addr").html("");
-			return true;
-		}
+	// 상세 주소 필드 검사
+	function chkDetailAddress() {
+    	var detailAddress = $("#detailAddress").val().trim();
+    	
+	    if (!detailAddress) {
+	        $("#err-detailAddress").html("<span class='error-detailaddress'>詳細住所が入力されていません。</span>")
+	        return false;
+	    } else {
+	        $("#err-detailAddress").html("");
+	        return true;
+	    }
 	}
 
 	function getFullEmail() {
@@ -266,20 +240,20 @@
 		var customEmailDomain = $("#customEmailDomain").val().trim();
 
 		if (!emailPrefix) {
-			$("#err-email").html("<span class='error-email'>이메일 아이디를 입력해주세요.</span>");
+			$("#err-email").html("<span class='error-email'>メールIDを入力してください。</span>");
 			return null;
 		}
 
 		if (emailDomain === "custom") {
 			if (!customEmailDomain) {
-				$("#err-email").html("<span class='error-email'>이메일 도메인을 입력해주세요.</span>");
+				$("#err-email").html("<span class='error-email'>メールドメインを入力してください。</span>");
 				return null;
 			}
 		return emailPrefix + "@" + customEmailDomain;
 		
 		} else {
 			if (!emailDomain) {
-				$("#err-email").html("<span class='error-email'>이메일 도메인을 선택해주세요.</span>");
+				$("#err-email").html("<span class='error-email'>メールドメインを選択してください。</span>");
 				return null;
 			}
 			
@@ -314,15 +288,15 @@
 			url : "/member/sendEmail.do",
 			data : { email : email },
 			success : function(response) {
-				if (response.trim() !== "이메일 전송 실패") {
+				if (response.trim() !== "メール送信失敗") {
 					receivedAuthCode = response.trim(); // 서버에서 받은 인증 코드 저장
-					alert("인증 코드가 이메일로 전송되었습니다.");
+					alert("認証コードがメールに送信されました。");
 				} else {
-					alert("이메일 전송에 실패했습니다.");
+					alert("メールの送信に失敗しました。");
 				}
 			},
 			error : function() {
-				alert("서버와 통신 중 오류가 발생했습니다.");
+				alert("サーバーとの通信中にエラーが発生しました。");
 			}
 		});
 	});
@@ -333,15 +307,16 @@
 		var inputCode = $("#authCode").val().trim();
 		
 		if (!inputCode) {
-			$("#err-code").html("<span class='error-code'>인증 코드를 입력해주세요.</span>");
+			$("#err-code").html("<span class='error-code'>認証コードを入力してください。</span>");
 			return;
 		}
 
 		if (inputCode === receivedAuthCode) {
-			alert("이메일 인증이 완료되었습니다!");
+			alert("メール認証が完了しました！");
+			$("#err-code").html("");
 			$("#authCode").prop("disabled", true); // 인증 성공 시 입력 필드 비활성화
 		} else {
-			alert("인증 코드가 일치하지 않습니다.");
+			alert("認証コードが一致しません。");
 		}
 	});
 
@@ -358,7 +333,7 @@
 
 	function chkCheckboxes() {
 		if (!$("#terms").prop("checked") || !$("#privacy").prop("checked") || !$("#minor").prop("checked")) {
-			$("#err-checkbox").html("<span class='error-checkbox'>모든 약관에 동의해야 합니다.</span>");
+			$("#err-checkbox").html("<span class='error-checkbox'>すべての利用規約に同意する必要があります。</span>");
 			return false;
 		} else {
 			$("#err-checkbox").html("");
@@ -382,7 +357,6 @@
 		$("#password").on("blur", chkPwd);
 		$("#passwordConfirm").on("blur", chkPwdC);
 		$("#phonenumber").on("blur", chkPhone);
-		$("#address").on("blur", chkAddress);
 		$("#detailAddress").on("blur", chkDetailAddress);
 		$("#email").on("blur", chkEmail);
  	
@@ -399,8 +373,6 @@
 			if (!chkPwdC())
 				valid = false;
 			if (!chkPhone())
-				valid = false;
-			if (!chkAddress())
 				valid = false;
 			if (!chkDetailAddress())
 				valid = false;

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="Model.MemberVo" %> <!-- MemberVo import 추가 -->
+<%@ page import="Model.MemberVo" %>
 <%@ page session="true" %>
 <%@ include file="../fragments/header.jsp"%>
 
-<link rel="stylesheet" href="../css/profileedit.css">
+<link rel="stylesheet" href="../css/insertauthor.css">
+
 <%
     MemberVo user = (MemberVo) session.getAttribute("user");
     if (user == null) {
@@ -13,34 +14,46 @@
     }
 %>
 
-<h2>작가 등록</h2>
-
-<form action="/member/authorinsertpro.do" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="userid" value="<%= user.getUserid() %>">
-
-    <div class="form-group">
-        <label>작가 이름</label>
-        <input type="text" id="authorname" name="authorname" required>
-
-    <div class="form-group">
-        <label>작가 소개</label>
-        <textarea id="authorinfo" name="authorinfo" required></textarea>
+<section class="profileedit-section">
+    <div class="profileedit-header">
+        <div class="container">
+            <h2 class="profileedit-title">クリエイター登録</h2>
+        </div>
     </div>
+    <div class="profileedit-content">
+        <div class="container">
+            <form action="/member/authorinsertpro.do" method="post" enctype="multipart/form-data" class="profileedit-form">
+                <input type="hidden" name="userid" value="<%= user.getUserid() %>">
 
-    <div class="form-group">
-        <label>프로필 이미지1</label>
-        <input type="file" id="authorimg1" name="authorimg1">
+                <div class="form-group">
+                    <label>クリエイター名</label>
+                    <input type="text" id="authorname" name="authorname" required>
+                </div>
+
+                <div class="form-group">
+                    <label>クリエイター紹介</label>
+                    <textarea id="authorinfo" name="authorinfo" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>プロフィール画像1</label>
+                    <input type="file" id="authorimg1" name="authorimg1">
+                </div>
+
+                <div class="form-group">
+                    <label>プロフィール画像2</label>
+                    <input type="file" name="authorimg2">
+                </div>
+
+                <div class="form-group">
+                    <label>プロフィール画像3</label>
+                    <input type="file" name="authorimg3">
+                </div>
+
+                <button type="submit">クリエーター登録</button>
+            </form>
+        </div>
     </div>
+</section>
 
-    <div class="form-group">
-        <label>프로필 이미지2</label>
-        <input type="file" name="authorimg2">
-    </div>
-
-    <div class="form-group">
-        <label>프로필 이미지3</label>
-        <input type="file" name="authorimg3">
-    </div>
-
-    <button type="submit">등록하기</button>
-</form>
+<%@ include file="../fragments/footer.jsp"%>

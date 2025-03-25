@@ -18,20 +18,20 @@ public class MemberFindPwCode implements Command {
 		
 		String inputCode = request.getParameter("authCode");
         if(inputCode == null || inputCode.isEmpty()){
-            response.getWriter().println("인증 코드를 입력해주세요.");
+            response.getWriter().println("認証コードを入力してください。");
             return;
         }
         HttpSession session = request.getSession();
         String savedCode = (String) session.getAttribute("resetPwAuthCode");
         Long expiryTime = (Long) session.getAttribute("authCodeExpiry");
         if(savedCode == null || expiryTime == null || System.currentTimeMillis() > expiryTime){
-            response.getWriter().println("인증 코드가 만료되었습니다.");
+            response.getWriter().println("認証コードの有効期限が切れました。");
             return;
         }
         if(savedCode.equals(inputCode)){
             response.getWriter().println("success");
         } else {
-            response.getWriter().println("인증 코드가 일치하지 않습니다.");
+            response.getWriter().println("認証コードが一致しません。");
         }
 
 	}

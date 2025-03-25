@@ -7,36 +7,36 @@
     <div class="creatorlist-header">
        	<div class="container">
        		<div class="creatorlist-banner">
-				<h4 class="creatorlist-semi-title">모든 크리에이터를 한 눈에!</h4>
-				<h2 class="creatorlist-title">크리에이터 목록</h2>
+				<h4 class="creatorlist-semi-title">すべてのクリエイターが一目で！</h4>
+				<h2 class="creatorlist-title">クリエイター</h2>
 			</div>
 		</div>
-
 	</div>
+	
 	<div class="creatorlist-content">
 		<div class="container">
 			<div class="saleslist-sidebar">
 				<ul>
 					<li onclick="location.href='/post/creatorlist.do'"
 					class="${pageContext.request.requestURI == '/post/creatorlist.do' ? 'active' : ''}">
-					크리에이터 </li>
-					<li onclick="location.href='/post/postsellinglist.do'">전체상품</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=1'"
-						class="${param.category == '1' ? 'active' : ''}">키링</li>
+					クリエイター </li>
+					<li onclick="location.href='/post/postsellinglist.do'">全商品</li>
 					<li onclick="location.href='/post/postsellinglist.do?category=2'"
-						class="${param.category == '2' ? 'active' : ''}">아크릴굿즈</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=3'"
-						class="${param.category == '3' ? 'active' : ''}">포토카드</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=4'"
-						class="${param.category == '4' ? 'active' : ''}">틴케이스</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=5'"
-						class="${param.category == '5' ? 'active' : ''}">키캡</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=6'"
-						class="${param.category == '6' ? 'active' : ''}">거울/핀버튼</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=7'"
-						class="${param.category == '7' ? 'active' : ''}">커버/클리너</li>
+	                  class="${param.category == '1' ? 'active' : ''}">キーリング</li>
+	                <li onclick="location.href='/post/postsellinglist.do?category=3'"
+	                  class="${param.category == '2' ? 'active' : ''}">アクリルグッズ</li>
+	                <li onclick="location.href='/post/postsellinglist.do?category=4'"
+	                  class="${param.category == '3' ? 'active' : ''}">フォトカード</li>
+	                <li onclick="location.href='/post/postsellinglist.do?category=5'"
+	                  class="${param.category == '4' ? 'active' : ''}">ティンケース</li>
+	                <li onclick="location.href='/post/postsellinglist.do?category=6'"
+	                  class="${param.category == '5' ? 'active' : ''}">キーキャップ</li>
+	                <li onclick="location.href='/post/postsellinglist.do?category=7'"
+	                  class="${param.category == '6' ? 'active' : ''}">ミラー/ピンボタン</li>
+	                <li onclick="location.href='/post/postsellinglist.do?category=8'"
+	                  class="${param.category == '7' ? 'active' : ''}">カバー/クリーナー</li>
 					<li onclick="location.href='/post/postsellinglist.do?category=8'"
-						class="${param.category == '8' ? 'active' : ''}">기타</li>
+					  class="${param.category == '8' ? 'active' : ''}">その他</li>
 				</ul>
 			</div>
 			
@@ -46,10 +46,10 @@
 						<div class="background-image" style="background-image: url('/uploads/${creator.authorimg1}');"></div>
 						<c:choose>
 							<c:when test="${empty creator.authorimg1}">
-								<img src="/img/no_image.png" alt="작가 이미지" width="100">
+								<img src="/img/no_image.png" alt="作家のイメージ" width="100">
 							</c:when>
 							<c:otherwise>
-								<img src="/uploads/${creator.authorimg1}" alt="작가 이미지"
+								<img src="/uploads/${creator.authorimg1}" alt="作家のイメージ"
 									width="100">
 							</c:otherwise>
 						</c:choose>

@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelButton = document.getElementById('cancelButton');
     if (cancelButton) {
         cancelButton.addEventListener('click', function() {
-            if (confirm('결제를 취소하시겠습니까?')) {
+            if (confirm('決済をキャンセルしますか？')) {
                 window.location.href = "/post/postcart.do"; // 장바구니 페이지로 이동
             }
         });
@@ -75,7 +75,7 @@ function validateForm() {
 
     if (!termsCheckbox.checked) {
         errorMessage.style.display = 'block';
-        errorMessage.innerText = "주문 규정을 확인해야 결제할 수 있습니다.";
+        errorMessage.innerText = "注文規約を確認しないとお会計できません。";
         return false;
     }
 
@@ -100,7 +100,7 @@ function requestPayment() {
 
     // 선택된 PG사가 유효한지 확인
     if (!paymentMethods[selectedPG]) {
-        alert("유효하지 않은 결제 방법입니다.");
+        alert("無効なお会計の方法です。");
         return;
     }
 
@@ -117,11 +117,11 @@ function requestPayment() {
         buyer_address: document.getElementById("userAddress").textContent.split(": ")[1]
     }, function(response) {
         if (response.success) {
-            alert('결제가 완료되었습니다.');
+            alert('お会計が完了しました。');
             sendPaymentDataToServer(response, selectedPG); // 서버에 결제 정보 전송
         } else {
             alert('결제 실패: ' + response.error_msg);
-            if (confirm('다시 시도하시겠습니까?')) {
+            if (confirm('お会計を再試行しますか？')) {
                 requestPayment(); // 재시도
             }
         }
@@ -160,15 +160,15 @@ function sendPaymentDataToServer(response, selectedPG) {
         data: JSON.stringify(paymentData),
         success: function(response) {
             if (response.success) {
-                alert('결제 정보가 저장되었습니다.');
+                alert('お会計の情報が保存されました。');
                 window.location.href = "/"; // 성공 페이지로 이동
             } else {
-                alert('결제 정보 저장 실패: ' + response.message);
+                alert('お会計の情報の保存に失敗しました: ' + response.message);
             }
         },
         error: function(error) {
-            console.error("결제 정보 저장 실패:", error);
-            alert("서버 오류가 발생했습니다. 다시 시도해 주세요.");
+            console.error("お会計の情報の保存に失敗しました:", error);
+            alert("サーバーエラーが発生しました。もう一度試してください。");
         }
     });
 }

@@ -26,7 +26,7 @@ public class MemberFindPwToken implements Command {
         HttpSession session = request.getSession();
         String userid = (String) session.getAttribute("resetPwUserId");
         if(userid == null){
-            response.getWriter().println("세션이 만료되었습니다.");
+            response.getWriter().println("セッションの有効期限が切れました。");
             return;
         }
 
@@ -34,12 +34,12 @@ public class MemberFindPwToken implements Command {
         MemberDao dao = new MemberDao();
         MemberVo vo = dao.getMemberById(userid);
         if(vo == null){
-            response.getWriter().println("사용자 정보가 존재하지 않습니다.");
+            response.getWriter().println("ユーザー情報が存在しません。");
             return;
         }
         String email = vo.getEmail();
         if(email == null || email.isEmpty()){
-            response.getWriter().println("등록된 이메일 정보가 없습니다.");
+            response.getWriter().println("登録されたメール情報がありません。");
             return;
         }
         
@@ -47,7 +47,7 @@ public class MemberFindPwToken implements Command {
         String existingToken = dao.getTokenByUserId(userid);
         if(existingToken != null) {
             // 기존 토큰이 있다면, 새로 보내지 않고 재전송 불가 메시지 전달
-            response.getWriter().println("비밀번호 재설정 링크가 이미 발송되었습니다. 링크의 유효 기간 내에는 다시 요청할 수 없습니다.");
+            response.getWriter().println("パスワードリセットリンクは既に送信されました。有効期間内は再度リクエストできません。");
             return;
         }
 
@@ -59,7 +59,7 @@ public class MemberFindPwToken implements Command {
         MemberDao tokenDao = new MemberDao();
         int tokenResult = tokenDao.createResetToken(userid, token, expiryTime);
         if (tokenResult <= 0) {
-            response.getWriter().println("토큰 생성에 실패했습니다.");
+            response.getWriter().println("トークンの生成に失敗しました。");
             return;
         }
 
@@ -69,10 +69,10 @@ public class MemberFindPwToken implements Command {
                "/mem/findpwreset.jsp?token=" + token;
         boolean emailSent = sendEmail(email, resetLink);
         if (!emailSent) {
-            response.getWriter().println("이메일 전송 실패");
+            response.getWriter().println("メール送信に失敗しました。");
             return;
         }
-        response.getWriter().println("비밀번호 재설정 이메일이 전송되었습니다.");
+        response.getWriter().println("パスワードリセット用のメールが送信されました。");
    }
 
    // 이메일 전송 (토큰 링크 포함)
@@ -82,15 +82,15 @@ public class MemberFindPwToken implements Command {
            Message message = new MimeMessage(mailSession);
            message.setFrom(new InternetAddress("dptmf3290@gmail.com"));
            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-           message.setSubject("[FanTastic] 비밀번호 재설정 링크");
+           message.setSubject("[FanTastic]パスワードリセットリンク");
            
            String emailContent = 
-               "안녕하세요.\n\n" +
-               "아래 링크를 클릭하여 비밀번호를 재설정해주세요.\n" +
-               resetLink + "\n\n" +
-               "이 링크는 5분 동안 유효합니다.\n\n" +
-               "감사합니다.\n" +
-               "[FanTastic] 드림";
+        		   "こんにちは。\n\n" +
+		           "以下のリンクをクリックして、パスワードをリセットしてください。\n" +
+		           resetLink + "\n\n" +
+		           "このリンクは5分間有効です。\n\n" +
+		           "ありがとうございます。\n" +
+		           "[FanTastic] 運営チーム";
            
            message.setText(emailContent);
            Transport.send(message);

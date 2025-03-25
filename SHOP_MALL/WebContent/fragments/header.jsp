@@ -41,33 +41,31 @@
 			<div class="home-bar">
 				<div class="home-left-part">
 					<!-- 로고 -->
-					<h1 class="home-name">
-						<a href="/">FanTastic</a>
-					</h1>
+					<a href="/"><img src="/img/logo.png" class="logo" alt="FanTastic"></a>
 					
 					<!-- 드랍다운 카테고리 -->
 					<div class="home-category">
 						<div class="dropdown">
 							<button class="category-btn dropdown-toggle" type="button" 
-								onclick="location.href='/post/postsellinglist.do'" data-toggle="dropdown">Shop</button>
+								onclick="location.href='/post/postsellinglist.do'" data-toggle="dropdown">カテゴリー</button>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="/post/creatorlist.do">크리에이터</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do">전체상품</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=1">키링</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=2">아크릴</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=3">포토카드</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=4">틴케이스</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=5">키캡</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=6">거울/핀버튼</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=7">커버/클리너</a>
-								<a class="dropdown-item" href="/post/postsellinglist.do?category=8">기타</a>
+								<a class="dropdown-item" href="/post/creatorlist.do">クリエイター</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do">全商品</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=1">キーホルダー</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=2">アクリル</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=3">フォトカード</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=4">ティンケース</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=5">キーキャップ</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=6">ミラー / ピンバッジ</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=7">カバー / クリーナー</a>
+								<a class="dropdown-item" href="/post/postsellinglist.do?category=8">その他</a>
 							</div>
 						</div>
 					</div>
 				
 					<!-- 검색창 -->
 					<div class="home-search">
-						<input type="text" class="home-search-box" placeholder="FanTastic에서 나의 취향을 찾아보자!">
+						<input type="text" class="home-search-box" placeholder="FanTasticで自分の好みを見つけよう！">
 						<button class="home-search-button">
 							<i class="fas fa-search"></i>
 						</button>
@@ -83,7 +81,7 @@
                   </c:when>
                   <c:otherwise>
                      <li class="logged-user"><span class="logged-user-id">${sessionScope.user.name}</span>
-                        님 환영합니다!</li>
+                       様、ようこそ！</li>
                      <li><a href="/post/postcart.do"><img src="/img/icon_cart.png" class="header-icon-cart" alt="장바구니"></a></li>
                      <li><a href="/member/mypage.do"><img src="/img/icon_mypage.png" class="header-icon" alt="마이페이지"></a></li>
                      <li><a href="/member/logout.do"><img src="/img/icon_logout.png" class="header-icon" alt="로그아웃"></a></li>

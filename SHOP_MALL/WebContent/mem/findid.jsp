@@ -12,61 +12,61 @@
 		   
 		<div class="findID-part">
 		    <div class="findID-form-group-email" id="email-form">
-		    	<p class="findID-inform">계정과 연결된 이메일 주소를 입력해주세요. 이메일 주소를 입력하시면, 인증코드를 해당 이메일 주소로 보내드립니다.</p>
-		        <label for="email">이메일</label>
+		        <p class="findID-inform">アカウントに登録されたメールアドレスを入力してください。入力されたメールアドレスに認証コードを送信します。</p>
+		        <label for="email">メールアドレス</label>
 		        <div class="email-container">
-		        	<div class="email-container-left">
-			            <input type="text" id="emailPrefix" name="emailPrefix" placeholder="이메일 아이디" required>
-			            <span>@</span>
-			            <select id="emailDomain" name="emailDomain">
-			                <option value="" selected>선택해주세요</option>
-			                <option value="naver.com">naver.com</option>
-			                <option value="gmail.com">gmail.com</option>
-			                <option value="daum.net">daum.net</option>
-			                <option value="icloud.com">icloud.com</option>
-			                <option value="custom">직접입력</option>
-			            </select>
-			            <input type="text" id="customEmailDomain" name="customEmailDomain" placeholder="도메인 입력" style="display: none;">
+		            <div class="email-container-left">
+		                <input type="text" id="emailPrefix" name="emailPrefix" placeholder="メールID" required>
+		                <span>@</span>
+		                <select id="emailDomain" name="emailDomain">
+		                    <option value="" selected>選択してください</option>
+		                    <option value="naver.com">naver.com</option>
+		                    <option value="gmail.com">gmail.com</option>
+		                    <option value="daum.net">daum.net</option>
+		                    <option value="icloud.com">icloud.com</option>
+		                    <option value="custom">直接入力</option>
+		                </select>
+		                <input type="text" id="customEmailDomain" name="customEmailDomain" placeholder="ドメインを入力" style="display: none;">
 		            </div>
-		        	<div class="email-container-right">
-		        		<button type="button" id="requestAuthCode">인증코드 받기</button>
-		        	</div>
+		            <div class="email-container-right">
+		                <button type="button" id="requestAuthCode">認証コードを受け取る</button>
+		            </div>
 		        </div>
 		    </div>
 		    <p id="err-email"></p>
 		
-		    <!-- 인증 코드 입력 -->
+		    <!-- 認証コード入力 -->
 		    <div class="findID-form-group-auth" id="auth-form" style="display: none;">
-		    	<p class="findID-inform">메일함을 확인하신 후, 발송된 인증코드를 입력해 주세요. 인증코드는 2분 뒤에 만료됩니다.</p>
-		    	<div class="findID-auth-part">
-			    	<div class="findID-auth-left">
-			        	<label>인증 코드</label>
-			        </div>
-			        <div class="findID-auth-right">
-				        <input type="text" id="authCode" required>
-				        <button type="button" id="verifyCode">인증하기</button>
-			        </div>
+		        <p class="findID-inform">メールボックスを確認し、送信された認証コードを入力してください。認証コードは2分後に無効になります。</p>
+		        <div class="findID-auth-part">
+		            <div class="findID-auth-left">
+		                <label>認証コード</label>
+		            </div>
+		            <div class="findID-auth-right">
+		                <input type="text" id="authCode" required>
+		                <button type="button" id="verifyCode">認証する</button>
+		            </div>
 		        </div>
 		        <p id="err-auth"></p>
 		    </div>
 		
-		    <!-- 아이디 결과 -->
+		    <!-- ID検索結果 -->
 		    <div class="findID-form-group-result" id="id-result" style="display: none;">
-		    	<p class="findID-result-inform">귀하의 아이디 정보입니다.</p>
-		    	<div class="findID-result-part">
-			    	<div class="findID-result-left">
-			        	<label>아이디</label>
-			        </div>
-			        <div class="findID-result-right">
-			        	<p id="maskedUserId"></p>
-			        </div>
+		        <p class="findID-result-inform">ID情報です。</p>
+		        <div class="findID-result-part">
+		            <div class="findID-result-left">
+		                <label>ID</label>
+		            </div>
+		            <div class="findID-result-right">
+		                <p id="maskedUserId"></p>
+		            </div>
 		        </div>
 		        <div class="findID-result-buttons">
-			        <button type="button" onclick="location.href='/member/findPw.do'">비밀번호 찾기</button>
-				    <button type="button" onclick="location.href='/member/login.do'">로그인</button>
-			    </div>
+		            <button type="button" onclick="location.href='/member/findPw.do'">パスワードを探す</button>
+		            <button type="button" onclick="location.href='/member/login.do'">ログイン</button>
+		        </div>
 		    </div>
-	    </div>
+		</div>
     </div>
 </div>
 
@@ -79,7 +79,7 @@ $(document).ready(function () {
         var customEmailDomain = $("#customEmailDomain").val().trim();
 
         if (!emailPrefix) {
-            $("#err-email").html("<span class='error'>이메일 아이디를 입력해주세요.</span>");
+            $("#err-email").html("<span class='error'>メールIDを入力してください。</span>");
             return null;
         } else {
         	$("#err-email").html("");
@@ -87,7 +87,7 @@ $(document).ready(function () {
 
         if (emailDomain === "custom") {
             if (!customEmailDomain) {
-                $("#err-email").html("<span class='error'>이메일 도메인을 입력해주세요.</span>");
+                $("#err-email").html("<span class='error'>メールドメインを入力してください。</span>");
                 return null;
             } else {
             	$("#err-email").html("");
@@ -95,7 +95,7 @@ $(document).ready(function () {
             }
         } else {
             if (!emailDomain) {
-                $("#err-email").html("<span class='error'>이메일 도메인을 선택해주세요.</span>");
+                $("#err-email").html("<span class='error'>メールドメインを選択してください。</span>");
                 return null;
             } else {
             	$("#err-email").html("");
@@ -124,8 +124,8 @@ $(document).ready(function () {
         $.post("/member/findIdProcess.do", { email: email }, function (response) {
             var trimmedResponse = response.trim();
             // 성공 메시지인 경우에만 인증 단계로 넘어감
-            if (trimmedResponse === "인증 코드가 이메일로 전송되었습니다.") {
-                alert("인증 코드가 이메일로 전송되었습니다.");
+            if (trimmedResponse === "認証コードがメールに送信されました。") {
+                alert("認証コードがメールに送信されました。");
                 $("#email-form").hide();
                 $("#auth-form").show();
             } else {
@@ -140,7 +140,7 @@ $(document).ready(function () {
         $("#err-auth").text("");
         var authCode = $("#authCode").val().trim();
         if (!authCode) {
-            $("#err-auth").html("<span class='error-auth'>인증 코드를 입력해주세요.</span>");
+            $("#err-auth").html("<span class='error-auth'>認証コードを入力してください。</span>");
             return;
         }
 

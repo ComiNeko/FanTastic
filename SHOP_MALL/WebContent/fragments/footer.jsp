@@ -4,20 +4,19 @@
 <footer>
     <div class="footer-container container text-center">
         <div class="footer-tab">
-            <a href="/">홈</a> | 
-            <a href="/faq">자주하는 질문</a> | 
-            <a href="/contact">문의게시판</a> | 
-            <a href="/terms">이용약관</a> | 
-            <a href="/cust">고객센터</a> | 
-            <a href="/privacy">개인정보취급방침</a>
+            <a href="/">ホーム</a> | 
+            <a href="/faq">よくある質問</a> | 
+            <a href="/contact">お問い合わせ掲示板</a> | 
+            <a href="/terms">利用規約</a> | 
+            <a href="/cust">カスタマーセンター </a> | 
+            <a href="/privacy">個人情報取扱方針</a>
         </div>
         <div class="footer-desc">
-            <p><strong>FanTastic 프로젝트</strong></p>
-            <p>대전 중구 계룡로 825 | 팀 대표: 김창서</p>
-            <p>팀원: 정진교, 이태래, 황인준, 백재욱</p>
+            <p><strong>FanTasticプロジェクト</strong></p>
+            <p>大田広域市 中区 鶏龍路 825 | チーム代表: キム・チャンソ</p>
+            <p>チームメンバー: チョン・ジンギョ, イ・テレ, ファン・インジュン, ペク・ジェウク</p>
             <p style="max-width: 800px; margin: auto;">
-                FanTastic 사이트의 상품/판매회원/중개 서비스/거래 정보, 콘텐츠, UI 등에 대한 무단복제, 
-                전송, 배포, 스크래핑 등의 행위는 저작권법, 콘텐츠산업 진흥법 등 관련 법령에 의해 금지됩니다.
+                FanTasticサイトの商品・販売会員・仲介サービス・取引情報・コンテンツ・UIなどの無断複製、転送、配布、スクレイピング等の行為は、著作権法、コンテンツ産業振興法などの関連法令により禁止されています。
             </p>
         </div>
     </div>

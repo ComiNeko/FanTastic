@@ -13,10 +13,10 @@
 			<form name="my" id="my" method="post">
 				<div class="login-flex-container">
 					<div class="login-fields">
-						<input type="text" name="userid" class="userid" id="userid" placeholder="아이디" required>
-						<input type="password" name="password" id="password" placeholder="비밀번호" required>
+						<input type="text" name="userid" class="userid" id="userid" placeholder="ID" required>
+						<input type="password" name="password" id="password" placeholder="パスワード" required>
 					</div>
-					<button type="button" class="login-button" id="login-button">로그인</button>
+					<button type="button" class="login-button" id="login-button">ログイン</button>
 				</div>
 				<p id="errmsg" class="error"></p>
 
@@ -29,10 +29,10 @@
 
 			</form>
 			<div class="login-bottom-buttons">
-				<a href="/member/signup.do" class="login-sub-button">회원가입</a>
-				<p> <a href="/member/findId.do" class="forgot-idpw">아이디</a>
-					혹은
-					<a href="/member/findPw.do" class="forgot-idpw">비밀번호</a>를 잊어버리셨나요?
+				<a href="/member/signup.do" class="login-sub-button">会員登録</a>
+				<p> <a href="/member/findId.do" class="forgot-idpw">ID</a>
+					または
+					<a href="/member/findPw.do" class="forgot-idpw">パスワード</a>をお忘れですか？
 				</p>
 			</div>
 		</div>

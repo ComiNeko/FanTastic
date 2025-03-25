@@ -304,7 +304,6 @@ public class CreatorDao {
 			pstmt.setString(4, authorimg2);
 			pstmt.setString(5, authorimg3);
 			pstmt.setString(6, userid);
-
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

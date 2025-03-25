@@ -6,7 +6,7 @@
 <section class="cart-section">
 	<div class="cart-header">
 		<div class="container">
-			<h2 class="cart-title">장바구니</h2>
+			<h2 class="cart-title">ショッピングカート</h2>
 		</div>
 	</div>
 	<div class="cart-content">
@@ -17,10 +17,10 @@
 					<div class="empty-cart">
 						<img src="${pageContext.request.contextPath}/img/cart.png"
 							alt="장바구니 비었음">
-						<p>장바구니가 비어있어요!</p>
-						<p>다양한 상품을 구경하고</p>
-						<p>나에게 맞는 상품을 담아보세요!</p>
-						<a href="/post/postsellinglist.do" class="browse-products-btn">상품 구경하러 가기</a>
+						<p>カートに商品がありません！</p>
+                        <p>さまざまな商品をチェックして</p>
+                        <p>お気に入りの商品を追加しましょう！</p>
+						<a href="/post/postsellinglist.do" class="browse-products-btn">商品を見に行く</a>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -31,12 +31,12 @@
 								<img src="${pageContext.request.contextPath}${item.productImage}" alt="${item.productName}">
 								<div class="cart-item-info">
 									<h3>${item.productName}</h3>
-									<p>가격: <span class="cart-item-price">${item.productPrice}원</span></p>
-									<p>수량: <span class="cart-item-quantity">${item.quantity}개</span></p>
+									<p>価格: <span class="cart-item-price"><fmt:formatNumber value="${item.productPrice * 0.1}" type="number" pattern="#,##0" />円</span></p>
+									<p>数量: <span class="cart-item-quantity">${item.quantity}個</span></p>
 								</div>
 								<!-- AJAX 호출할 버튼 -->
-								<button type="button" class="remove-cart-btn" onclick="removeFromCart('${item.productid}')">삭제</button>
-								<button type="button" class="buy-now-btn" onclick="buyNow('${item.productid}', '${item.productName}', ${item.productPrice}, ${item.quantity}, '${item.productImage}')">바로 구매</button>
+								<button type="button" class="remove-cart-btn" onclick="removeFromCart('${item.productid}')">削除</button>
+								<button type="button" class="buy-now-btn" onclick="buyNow('${item.productid}', '${item.productName}', ${item.productPrice}, ${item.quantity}, '${item.productImage}')">今すぐ購入</button>
 							</li>
 						</c:forEach>
 					</ul>

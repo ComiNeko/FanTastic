@@ -8,8 +8,8 @@
 	<div class="saleslist-header">
        	<div class="container">
        		<div class="saleslist-banner">
-				<h4 class="saleslist-semi-title">FanTastic한 상품들만 보여드려요!</h4>
-				<h2 class="saleslist-title">상품 목록</h2>
+				<h4 class="saleslist-semi-title">FanTasticな商品だけをご紹介！</h4>
+				<h2 class="saleslist-title">商品一覧</h2>
 			</div>
 		</div>
 	</div>
@@ -19,32 +19,32 @@
 			<div class="saleslist-sidebar">
 				<ul>
 					<li onclick="location.href='/post/creatorlist.do'"
-					class="${pageContext.request.requestURI == '/post/creatorlist.do' ? 'active' : ''}">
-					크리에이터 </li>
-					<li onclick="location.href='/post/postsellinglist.do'">전체상품</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=1'"
-						class="${param.category == '1' ? 'active' : ''}">키링</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=2'"
-						class="${param.category == '2' ? 'active' : ''}">아크릴굿즈</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=3'"
-						class="${param.category == '3' ? 'active' : ''}">포토카드</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=4'"
-						class="${param.category == '4' ? 'active' : ''}">틴케이스</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=5'"
-						class="${param.category == '5' ? 'active' : ''}">키캡</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=6'"
-						class="${param.category == '6' ? 'active' : ''}">거울/핀버튼</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=7'"
-						class="${param.category == '7' ? 'active' : ''}">커버/클리너</li>
-					<li onclick="location.href='/post/postsellinglist.do?category=8'"
-						class="${param.category == '8' ? 'active' : ''}">기타</li>
+	               class="${pageContext.request.requestURI == '/post/creatorlist.do' ? 'active' : ''}">
+	              	クリエイター </li>
+	               <li onclick="location.href='/post/postsellinglist.do'">全商品</li>
+	               <li onclick="location.href='/post/postsellinglist.do?category=1'"
+	                  class="${param.category == '1' ? 'active' : ''}">キーリング</li>
+	               <li onclick="location.href='/post/postsellinglist.do?category=2'"
+	                  class="${param.category == '2' ? 'active' : ''}">アクリルグッズ</li>
+	               <li onclick="location.href='/post/postsellinglist.do?category=3'"
+	                  class="${param.category == '3' ? 'active' : ''}">フォトカード</li>
+	               <li onclick="location.href='/post/postsellinglist.do?category=4'"
+	                  class="${param.category == '4' ? 'active' : ''}">ティンケース</li>
+	               <li onclick="location.href='/post/postsellinglist.do?category=5'"
+	                  class="${param.category == '5' ? 'active' : ''}">キーキャップ</li>
+	               <li onclick="location.href='/post/postsellinglist.do?category=6'"
+	                  class="${param.category == '6' ? 'active' : ''}">ミラー/ピンボタン</li>
+	               <li onclick="location.href='/post/postsellinglist.do?category=7'"
+	                  class="${param.category == '7' ? 'active' : ''}">カバー/クリーナー</li>
+	               <li onclick="location.href='/post/postsellinglist.do?category=8'"
+	                  class="${param.category == '8' ? 'active' : ''}">その他</li>
 				</ul>
 			</div>
 			
 			<div class="saleslist-frame">
 				<div class="write-button-container">
 					<c:if test="${sessionScope.user.role == 'Admin'}">
-						<button type="button" class="write-button" onclick="location.href='/post/ptwrite.do'">상품등록</button>
+						<button type="button" class="write-button" onclick="location.href='/post/ptwrite.do'">商品登録</button>
 					</c:if>
 				</div> <!-- write-button-container end -->
 
@@ -68,7 +68,7 @@
 										<div class="product-card-bottom-bottom">
 											<a href="/post/postdetail.do?productid=${product.productid}">
 												<span class="product-name">${product.productName}</span>
-												<span class="product-price">${product.productPrice}원</span>
+												<span class="product-price"><fmt:formatNumber value="${product.productPrice * 0.1}" type="number" pattern="#,##0" />円</span>
 												<span class="product-info">${product.productInfo}</span>
 											</a>
 										</div>
@@ -77,14 +77,14 @@
 									<div class="product-card-btnbox">
 										<button class="cart-btn" data-productid="${product.productid}">
 											<img src="${pageContext.request.contextPath}/img/cart.png"
-												alt="장바구니" class="cart-icon">
+												alt="カート" class="cart-icon">
 										</button>
 									</div>
 								</div>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-							<p>해당 카테고리에 등록된 상품이 없습니다.</p>
+							<p>現在、このカテゴリには商品が登録されていません。</p>
 						</c:otherwise>
 					</c:choose>
 				</div> 				<!-- saleslist-products end -->
@@ -117,7 +117,7 @@
 			var productId = $(this).data("productid");
 			
 			if (!isLoggedIn) {
-				alert("로그인 후 이용해주세요.");
+				alert("ログインしてください。");
 				window.location.href = "/member/login.do"; // 로그인 페이지로 이동
 				return;
 			}
@@ -130,12 +130,12 @@
 					action: 'add'
 				},
 				success: function(response) {
-					alert("상품이 장바구니에 추가되었습니다!");
+					alert("商品がカートに追加されました！");
 				},
 				error: function(xhr, status, error) {
-					console.log("에러 상태: " + status);
-					console.log("에러 내용: " + error);
-					alert("장바구니 추가에 실패했습니다.");
+					console.log("エラーステータス: " + status);
+					console.log("エラー内容: " + error);
+					alert("カート追加に失敗しました。");
 				}
 			});
 		});

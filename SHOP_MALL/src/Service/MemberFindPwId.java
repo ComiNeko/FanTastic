@@ -19,14 +19,14 @@ public class MemberFindPwId implements Command {
 
 		 String userid = request.getParameter("userid");
          if(userid == null || userid.isEmpty()){
-             response.getWriter().println("아이디를 입력해주세요.");
+             response.getWriter().println("ユーザーIDを入力してください。");
              return;
          }
 
          MemberDao dao = new MemberDao();
          MemberVo vo = dao.getMemberById(userid);
          if(vo == null){
-             response.getWriter().println("존재하지 않는 아이디입니다.");
+             response.getWriter().println("存在しないユーザーIDです。");
          } else {
              response.getWriter().println("success");
          }

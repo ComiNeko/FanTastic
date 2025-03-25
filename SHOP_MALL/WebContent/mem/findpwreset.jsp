@@ -14,7 +14,7 @@
   토큰이 없을 경우 메시지 출력 -->
  <%
      if (token == null || token.isEmpty()) {
-         out.println("<h2 style='color:red;'>토큰이 없습니다. 올바른 링크를 사용해주세요.</h2>");
+         out.println("<h2 style='color:red;'>トークンがありません。有効なリンクを使用してください。</h2>");
          return;
      }
  %>
@@ -29,16 +29,16 @@
  		    <form id="resetForm">
  		        <input type="hidden" id="token" name="token" value="<%= token %>">
  		        <div class="PWReset-form-group" style="margin-top: 40px; margin-bottom: 10px">
- 				    <label for="newPassword">새 비밀번호</label>
- 				    <input type="password" id="newPassword" name="newPassword" placeholder="새 비밀번호" required>
+ 				    <label for="newPassword">新しいパスワード</label>
+ 				    <input type="password" id="newPassword" name="newPassword" placeholder="新しいパスワードを入力" required>
  				</div>
  		        <div class="PWReset-form-group">
- 		        	<label for="confirmPassword">새 비밀번호 확인</label>
- 		        	<input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호 확인" required>
+ 		        	<label for="confirmPassword">パスワード確認</label>
+ 		        	<input type="password" id="confirmPassword" name="confirmPassword" placeholder="パスワードを確認" required>
  	        	</div>
  	        	<p id="err-reset"></p>
  	        	<div class="PWReset-button">
- 		        	<button type="button" id="resetPassword">비밀번호 재설정</button>
+ 		        	<button type="button" id="resetPassword">パスワード変更</button>
  	        	</div>
  		    </form>
  	    </div>
@@ -54,10 +54,10 @@
          var confirmPassword = $("#confirmPassword").val();
  
          // 🚨 디버깅: AJAX 요청 전에 token 값을 콘솔에서 확인
-         console.log("전송할 데이터:", { token, newPassword, confirmPassword });
+         console.log("送信するデータ:", { token, newPassword, confirmPassword });
  
          if(!newPassword || !confirmPassword){
-             $("#err-reset").html("<span class='error'>모두 입력해주세요.</span>");
+             $("#err-reset").html("<span class='error'>すべて入力してください。</span>");
              return;
          }
  
@@ -67,7 +67,7 @@
                  var trimmed = response.trim();
                  console.log("서버 응답:", trimmed); // 서버 응답 디버깅
                  
-                 if(trimmed.indexOf("성공적으로 변경되었습니다") !== -1){
+                 if(trimmed.indexOf("正常に変更されました") !== -1){
                      alert(trimmed);
                      window.location.href = "/member/login.do";
                  } else {
